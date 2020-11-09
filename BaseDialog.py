@@ -56,10 +56,14 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         a=self.mMapLayerComboBox.currentLayer().name()
         self.label.setText(a)
 
-    def DemSearch(self):
+    def SearchDem(self):
         self.filename, _= QFileDialog.getOpenFileName(self,"Search Dem",self.lastOpenedFile,"*.map")
         DemName= self.lineEdit.setText(self.filename) 
         DemPathConfig = self.lineEdit.text()
+        self.fileInfo=QFileInfo(self.filename)
+        self.baseName=self.fileInfo.baseName()
+        self.Demlayer=QgsRasterLayer(self.filename,self.baseName)
+        QgsProject.instance().addMapLayer(self.Demlayer)
         
         with open('C:/Users/omary/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/PluginBase/Config.txt', 'a') as f:
             f.write(DemPathConfig)
