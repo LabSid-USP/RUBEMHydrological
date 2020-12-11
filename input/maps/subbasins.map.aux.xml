@@ -1,0 +1,14 @@
+<PAMDataset>
+  <Metadata>
+    <MDI key="PCRASTER_VALUESCALE">VS_NOMINAL</MDI>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Metadata>
+      <MDI key="STATISTICS_MAXIMUM">216</MDI>
+      <MDI key="STATISTICS_MEAN">151.22286268801</MDI>
+      <MDI key="STATISTICS_MINIMUM">1</MDI>
+      <MDI key="STATISTICS_STDDEV">44.144743479387</MDI>
+      <MDI key="STATISTICS_VALID_PERCENT">99.78</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>
