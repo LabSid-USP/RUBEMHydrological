@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab_3">
     <attribute name="title">
@@ -644,7 +644,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>30</y>
+       <y>120</y>
        <width>301</width>
        <height>31</height>
       </rect>
@@ -654,13 +654,108 @@
      <property name="geometry">
       <rect>
        <x>320</x>
-       <y>30</y>
+       <y>120</y>
        <width>93</width>
        <height>28</height>
       </rect>
      </property>
      <property name="text">
       <string>Dem</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_2">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_3">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>170</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_8">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>70</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Output</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_9">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>170</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>kc_min_table</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_10">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>250</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>DLL Generate</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_11">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>20</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Input</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_12">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>250</y>
+       <width>93</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Novo Projeto</string>
      </property>
     </widget>
    </widget>
@@ -714,17 +809,103 @@
    <slot>SearchDem()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>382</x>
-     <y>79</y>
+     <x>386</x>
+     <y>179</y>
     </hint>
     <hint type="destinationlabel">
-     <x>8</x>
-     <y>298</y>
+     <x>519</x>
+     <y>98</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_9</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>SearchKc_min()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>363</x>
+     <y>229</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>520</x>
+     <y>204</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_10</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>DLL_Create()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>283</x>
+     <y>309</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>517</x>
+     <y>337</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_8</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>SetOutput()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>386</x>
+     <y>129</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>517</x>
+     <y>60</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_11</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>SetInput()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>352</x>
+     <y>66</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>522</x>
+     <y>21</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_12</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>NewProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>133</x>
+     <y>307</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>360</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
   <slot>SearchDem()</slot>
+  <slot>SearchPrec()</slot>
+  <slot>SearchKc_min()</slot>
+  <slot>DLL_Create()</slot>
+  <slot>SetOutput()</slot>
+  <slot>SetInput()</slot>
+  <slot>NewProject()</slot>
  </slots>
 </ui>
