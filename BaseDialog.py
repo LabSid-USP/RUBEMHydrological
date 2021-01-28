@@ -123,16 +123,16 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         a_file.close()
 
     def DLL_Create(self):
-        #import Teste_adp.py
-        #subprocess.call("C:/Users/omary/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/PluginBase\Teste_adp.exe")
-        os.chdir("D:/ADP/input/")
-        os.system("D:/ADP/input/Teste_adp.exe")
-        #subprocess.call(["D:/ADP/input/Teste_adp.exe"])
-        #subprocess.call(["C:/Users/omary/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/PluginBase/Teste_adp.exe"],stdout=subprocess.PIPE,stderr=subprocess.PIPE,shell=True).comunicate()
-        #os.system("python Teste_adp.py")
-        #subprocess.call("D:/SSD Petrobras/HydrologicalModel/RainfallRunoff_Calib.exe")
-        #exePath = "D:/SSD Petrobras/HydrologicalModel/RainfallRunoff.exe"
-        #subprocess.Popen(exePath)
+        
+        command ="D:/SSD Petrobras/HydrologicalModel/RainfallRunoff.exe"
+        os.chdir("D:/SSD Petrobras/HydrologicalModel")
+        subprocess.run(command, shell=True, check=True)
+        test_File= "D:/SSD Petrobras/HydrologicalModel/REPLAN/CenarioBase/output/Vazao00001.tif"
+        self.fileInfo=QFileInfo(test_File)
+        self.baseName=self.fileInfo.baseName()
+        self.testlayer=QgsRasterLayer(test_File,self.baseName)
+        QgsProject.instance().addMapLayer(self.testlayer)
+
 
 
    
