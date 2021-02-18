@@ -26,7 +26,7 @@ import shutil
 import os.path
 from qgis.PyQt.QtCore import Qt
 from qgis.gui import *
-import os
+import os, random
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -47,7 +47,7 @@ except:
     None
  
 
-Path_config= str('C:/Users/omary/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/PluginBase/config.ini')
+Path_config= str('C:/Users/camil/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/PluginBase/config.ini')
 Path_config2= str('D:/ADP/')
 
 class BaseDialog(QDialog, Ui_BaseDialog):
@@ -163,3 +163,7 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         qgsProject = QgsProject.instance()
         qgsProject.setFileName(qgsProjectFileName)
         qgsProject.write()
+        
+    def generateNewNumber(self): 
+        r = random.randint(1,100)
+        self.lineEdit_7.setText("The number is: " + str(r))
