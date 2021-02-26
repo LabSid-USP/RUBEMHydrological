@@ -22,7 +22,7 @@
 import os.path
 from qgis.core import *
 from qgis.gui import *
-import shutil
+# import shutil
 import os.path
 from qgis.PyQt.QtCore import Qt
 from qgis.gui import *
@@ -47,9 +47,55 @@ except:
     None
  
 
-Path_config= str('C:/Users/camil/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins/PluginBase/config.ini')
-Path_config2= str('D:/ADP/')
+Path_config= " "
+Path_config1= ("D:/")
 
+# x = configParams()
+# dir(x)
+# x.inputDir = 'D:/testeRubem'
+# x.outputDir = 'D:/testeRubem/outPut'
+# configParams.genConfigFile(x)
+
+
+class configParams(object):
+    
+    __slots__ = ['inputDir','outputDir', 'startDt', 'endDt', 'dem', 'clone', 'samplePts',
+                 'etpSeries','ndviSeries','ndviMax','ndviMin','precSeries', 'kpSeries','lcSeries',
+                 'soilFile','kcMax','kcMin','rainyDays','nManning', 'aiSoil','aiSoil','aiSoil','aiSoil',
+                 'gdSoil','krSoil','capCampoSoil', 'TporSoil', 'TsatSoil','TwSoil','rootZoneSoil',
+                 'cellArea', 'initSoilMoisture', 'initEbSoil', 'initTuSoil', 'EbLimSoil','fparMax',
+                 'fparMax','fparMin','laiMax','impInter','paramAlfa','paramB','paramW1','paramW2',
+                 'paramW3','paramRCD','paramF','paramAlfagw','expInt','expEb','expEsd','expEvp',
+                 'expLf','expRec','expTur','expRunoff']
+    
+    def __init__(self, **attrs):
+        if attrs:
+            for key, value in attrs.iteritems():
+                setattr(self, key, value)
+                
+    def genConfigFile(self):  
+        
+        getKeys = self.__slots__
+        getVals = []
+        
+        for i in range(len(getKeys)):
+            try:
+                print(getattr(self,getKeys[i]))                
+                getVals.append(str(str(getKeys[i])+' = '+str(getattr(self,getKeys[i]))+'\n'))
+            except:
+                AttributeError
+                     
+        # mkDir
+        isOutputFolder = os.path.isdir(str(self.inputDir))
+        if isOutputFolder == False:
+            os.mkdir(str(self.inputDir))        
+    
+        cfFile = open(self.inputDir+'/config.ini', 'a')
+        cfFile = open(self.inputDir+'/config.ini', 'w')
+        cfFile.writelines(getVals)       
+        cfFile.close()
+        
+        
 class BaseDialog(QDialog, Ui_BaseDialog):
     def __init__(self, iface):
         QDialog.__init__(self)
@@ -131,11 +177,7 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         self.fileInfo=QFileInfo(test_File)
         self.baseName=self.fileInfo.baseName()
         self.testlayer=QgsRasterLayer(test_File,self.baseName)
-        QgsProject.instance().addMapLayer(self.testlayer)
-
-
-
-   
+        QgsProject.instance().addMapLayer(self.testlayer)   
 
     def NewProject(self):
         # check for current project and ask to save
@@ -163,7 +205,61 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         qgsProject = QgsProject.instance()
         qgsProject.setFileName(qgsProjectFileName)
         qgsProject.write()
+
+    def SetStartDate(self):
+ 
+        year=str(self.dateEdit.date().year())
+        month=str(self.dateEdit.date().month())
+        day=str(self.dateEdit.date().day())
+               
+
+        a_file = open(Path_config, "r+")
+        list_of_lines = a_file.readlines()
+        list_of_lines[13] = str('start = '+day+"/"+month+"/"+year+'\n')
+        a_file = open(Path_config, "w")
+        a_file.writelines(list_of_lines)
+        a_file.close()
+
+    def SetEndDate(self):
+     
+        year=str(self.dateEdit_2.date().year())
+        month=str(self.dateEdit_2.date().month())
+        day=str(self.dateEdit_2.date().day())
+               
+
+        a_file = open(Path_config, "r+")
+        list_of_lines = a_file.readlines()
+        list_of_lines[14] = str('end = '+day+"/"+month+"/"+year+'\n')
+        a_file = open(Path_config, "w")
+        a_file.writelines(list_of_lines)
+        a_file.close()
         
     def generateNewNumber(self): 
         r = random.randint(1,100)
         self.lineEdit_7.setText("The number is: " + str(r))
+
+
+    def NewProject(self,ptype=False):
+        template=os.path.join(self.plugin_dir, "config/config.ini")
+        if ptype:
+            tempname = QFileDialog.getSaveFileName(self, "Save "+ptype+" project as",Path_config1, "*.ini")
+        else:
+            tempname = QFileDialog.getSaveFileName(self, "Save .ini as", Path_config1, "*.ini")
+     
+        out=str(tempname).partition("('")[2].partition("',")[0]
+        newPath = shutil.copy(template, out)
+        # clear project canvas
+        qgsProject = QgsProject.instance()
+        qgsProject.clear()
+        global Path_config
+        Path_config=newPath
+        self.lineEdit_4.setText(" ") 
+        self.lineEdit_2.setText(" ") 
+        self.lineEdit_3.setText(" ") 
+        self.lineEdit.setText(" ") 
+        Default_start_date = "01/01/2000";
+        Data = QDate.fromString(Default_start_date,"dd/MM/yyyy");
+        self.dateEdit.setDate(Data)
+        Default_End_date = "31/12/2000";
+        Data2 = QDate.fromString(Default_start_date,"dd/MM/yyyy");
+        self.dateEdit_2.setDate(Data2)
