@@ -139,8 +139,7 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         self.x.outputDir = selected_dir        
 
     def BtnSave_Click(self):
-        configParams.genConfigFile(self.x)   
-                
+        configParams.genConfigFile(self.x)                
 
     def SearchDem(self):
         Dem_File, _= QFileDialog.getOpenFileName(self,"Search Dem",self.lastOpenedFile,"*.map")
