@@ -47,7 +47,7 @@ except:
     None
  
 
-Path_config= " "
+Path_config= "D:/testeRubem/config.ini"
 Path_config1= ("D:/")
 
 # x = configParams()
@@ -88,10 +88,12 @@ class configParams(object):
         # mkDir
         isOutputFolder = os.path.isdir(str(self.inputDir))
         if isOutputFolder == False:
-            os.mkdir(str(self.inputDir))        
-    
-        cfFile = open(self.inputDir+'/config.ini', 'a')
-        cfFile = open(self.inputDir+'/config.ini', 'w')
+            os.mkdir(str(self.inputDir))
+        
+        #config folder = project folder
+        cfFolder = self.inputDir[:-6] 
+        cfFile = open(cfFolder+'/config.ini', 'a')
+        cfFile = open(cfFolder+'/config.ini', 'w')
         cfFile.writelines(getVals)       
         cfFile.close()
         
@@ -109,35 +111,35 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         a=self.mMapLayerComboBox.currentLayer().name()
         self.label.setText(a)
 
-    def SetInput(self):
-    
+    def SetInput(self):    
         selected_dir = QFileDialog.getExistingDirectory(self, caption='Choose Directory', directory=os.getcwd())
-        self.lineEdit_4.setText(selected_dir) 
-        OutputPathConfig = self.lineEdit_4.text()
+        self.txtEdt_InputFolder.setText(selected_dir)
+        ProjectPathConfig = self.txtEdt_InputFolder.text()
         
-
-        a_file = open(Path_config, "r")
-        list_of_lines = a_file.readlines()
-        list_of_lines[3] = str('input = '+OutputPathConfig+'\n')
-        a_file = open(Path_config, "w")
-        a_file.writelines(list_of_lines)
-        a_file.close()
+        inputDir = ProjectPathConfig + "/input"
+        outputDir = ProjectPathConfig + "/output"
+        
+        self.txtEdt_InputFolder.setText(inputDir)
+        self.txtEdt_OutputFolder.setText(outputDir)
+        
+        if os.path.isdir(str(inputDir)) == False:
+            os.mkdir(str(inputDir)) 
+        if os.path.isdir(str(outputDir)) == False:
+            os.mkdir(str(outputDir))
+            
+        self.x = configParams()
+        dir(self.x)
+        self.x.inputDir = inputDir
+        self.x.outputDir = outputDir
 
     def SetOutput(self):
-
         selected_dir = QFileDialog.getExistingDirectory(self, caption='Choose Directory',  directory=os.getcwd())
-        self.lineEdit_2.setText(selected_dir) 
-        OutputPathConfig = self.lineEdit_2.text()
-        
+        self.txtEdt_OutputFolder.setText(selected_dir)
+        OutputPathConfig = self.selected_dir.text()
+        self.x.outputDir = selected_dir        
 
-        a_file = open(Path_config, "r")
-        list_of_lines = a_file.readlines()
-        list_of_lines[6] = str('output = '+OutputPathConfig+'\n')
-        a_file = open(Path_config, "w")
-        a_file.writelines(list_of_lines)
-        a_file.close()
-
-        shutil.copy(Path_config, OutputPathConfig)
+    def BtnSave_Click(self):
+        configParams.genConfigFile(self.x)                
 
     def SearchDem(self):
         Dem_File, _= QFileDialog.getOpenFileName(self,"Search Dem",self.lastOpenedFile,"*.map")
@@ -234,9 +236,9 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         a_file.writelines(list_of_lines)
         a_file.close()
         
-    def generateNewNumber(self): 
-        r = random.randint(1,100)
-        self.lineEdit_7.setText("The number is: " + str(r))
+    # def generateNewNumber(self): 
+    #     r = random.randint(1,100)
+    #     self.lineEdit_7.setText("The number is: " + str(r))
 
 
     def NewProject(self,ptype=False):
@@ -263,3 +265,6 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         Default_End_date = "31/12/2000";
         Data2 = QDate.fromString(Default_start_date,"dd/MM/yyyy");
         self.dateEdit_2.setDate(Data2)
+        
+
+        
