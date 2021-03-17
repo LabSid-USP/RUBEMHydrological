@@ -1130,6 +1130,22 @@ contact information
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ini_moist</sender>
+   <signal>editingFinished()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>Initial_Soil_Moisture()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>295</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>12</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>SearchDem()</slot>
@@ -1143,5 +1159,6 @@ contact information
   <slot>SetStartDate()</slot>
   <slot>SetEndDate()</slot>
   <slot>BtnSave_Click()</slot>
+  <slot>Initial_Soil_Moisture()</slot>
  </slots>
 </ui>

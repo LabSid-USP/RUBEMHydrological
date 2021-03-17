@@ -305,6 +305,7 @@ class Ui_BaseDialog(object):
         self.buttonBox_2.clicked['QAbstractButton*'].connect(BaseDialog.close)
         self.Btn_Save.clicked.connect(BaseDialog.BtnSave_Click)
         self.dem.clicked.connect(BaseDialog.SearchDem)
+        self.ini_moist.editingFinished.connect(BaseDialog.Initial_Soil_Moisture)
         QtCore.QMetaObject.connectSlotsByName(BaseDialog)
 
     def retranslateUi(self, BaseDialog):
