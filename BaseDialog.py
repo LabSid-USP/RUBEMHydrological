@@ -60,7 +60,7 @@ Path_config1= ("D:/")
 class configParams(object):
     
     __slots__ = ['inputDir','outputDir', 'startDt', 'endDt', 'dem', 'clone', 'samplePts',
-                 'etpSeries','ndviSeries','ndviMax','ndviMin','precSeries', 'kpSeries','lcSeries',
+                 'etpSeries','etpfileprefix','ndviSeries','ndviMax','ndviMin','precSeries','precfileprefix', 'kpSeries','kpfileprefix','lcSeries',
                  'soilFile','kcMax','kcMin','rainyDays','nManning', 'aiSoil','aiSoil','aiSoil','aiSoil',
                  'gdSoil','krSoil','capCampoSoil', 'TporSoil', 'TsatSoil','TwSoil','rootZoneSoil',
                  'cellArea', 'initSoilMoisture', 'initEbSoil', 'initTuSoil', 'EbLimSoil','fparMax',
@@ -159,7 +159,39 @@ class BaseDialog(QDialog, Ui_BaseDialog):
                 
         self.x.initSoilMoisture = Initial_Soil_Moisture_value
 
+    def SearchPrec(self):
+        Prec_Files, _= QFileDialog.getOpenFileName(self,"Search Precipitation Series",self.lastOpenedFile,"*.001")
+        self.prep_box.setText(Prec_Files[:-12]) 
+        PrecPath = self.prep_box.text()
+        PrecPrefix=Prec_Files[-12:].replace('.001', '').replace('0', '')
         
+              
+        self.x.precSeries = PrecPath
+        self.x.precfileprefix=PrecPrefix
+
+
+    def Search_ETP(self):
+        Evapo_Files, _= QFileDialog.getOpenFileName(self,"Search Evapotranspiration Series",self.lastOpenedFile,"*.001")
+        self.evapo_box.setText(Evapo_Files[:-12]) 
+        EvapoPath = self.evapo_box.text()
+        EvapoPrefix=Evapo_Files[-12:].replace('.001', '').replace('0', '')
+        
+              
+        self.x.etpSeries = EvapoPath
+        self.x.etpfileprefix=EvapoPrefix
+    
+
+    
+    def Search_Kp(self):
+        Kp_Files, _= QFileDialog.getOpenFileName(self,"Search Kp Series",self.lastOpenedFile,"*.001")
+        self.Kp_box.setText(Kp_Files[:-12]) 
+        KpPath = self.Kp_box.text()
+        KpPrefix=Kp_Files[-12:].replace('.001', '').replace('0', '')
+        
+              
+        self.x.kpSeries = KpPath
+        self.x.kpfileprefix=KpPrefix
+
 
     def SearchKc_min(self):
         Kc_min_File, _= QFileDialog.getOpenFileName(self,"SearchKc_min",self.lastOpenedFile,"*.txt")
