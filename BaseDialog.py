@@ -131,6 +131,7 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         dir(self.x)
         self.x.inputDir = inputDir
         self.x.outputDir = outputDir
+        
 
     def SetOutput(self):
         selected_dir = QFileDialog.getExistingDirectory(self, caption='Choose Directory',  directory=os.getcwd())
@@ -143,20 +144,22 @@ class BaseDialog(QDialog, Ui_BaseDialog):
 
     def SearchDem(self):
         Dem_File, _= QFileDialog.getOpenFileName(self,"Search Dem",self.lastOpenedFile,"*.map")
-        self.lineEdit.setText(Dem_File) 
-        DemPathConfig = self.lineEdit.text()
+        self.dem_box.setText(Dem_File) 
+        Dem = self.dem_box.text()
         self.fileInfo=QFileInfo(Dem_File)
         self.baseName=self.fileInfo.baseName()
         self.Demlayer=QgsRasterLayer(Dem_File,self.baseName)
         QgsProject.instance().addMapLayer(self.Demlayer)
         
+        self.x.dem = Dem
+        
+    def Initial_Soil_Moisture(self):
+        Initial_Soil_Moisture_value= self.ini_moist.text()
+            
+                
+        self.x.initSoilMoisture = Initial_Soil_Moisture_value
 
-        a_file = open(Path_config, "r")
-        list_of_lines = a_file.readlines()
-        list_of_lines[9] = str('dem = ' +DemPathConfig+'\n')
-        a_file = open(Path_config, "w")
-        a_file.writelines(list_of_lines)
-        a_file.close()
+        
 
     def SearchKc_min(self):
         Kc_min_File, _= QFileDialog.getOpenFileName(self,"SearchKc_min",self.lastOpenedFile,"*.txt")
