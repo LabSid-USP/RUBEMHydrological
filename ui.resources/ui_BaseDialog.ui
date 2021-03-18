@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>4</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
@@ -865,6 +865,32 @@
       <string>Select the evapotranspiraton file</string>
      </property>
     </widget>
+    <widget class="QLineEdit" name="Kp_box">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>301</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Select class A pan coefficient</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Kp">
+     <property name="geometry">
+      <rect>
+       <x>320</x>
+       <y>140</y>
+       <width>111</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Pan coefficient (Kp)</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="tab_5">
     <attribute name="title">
@@ -1146,6 +1172,54 @@ contact information
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>prep</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>SearchPrec()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>360</x>
+     <y>75</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>623</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>evapo</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>Search_ETP()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>331</x>
+     <y>133</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>621</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Kp</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>Search_Kp()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>407</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>478</x>
+     <y>621</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>SearchDem()</slot>
@@ -1160,5 +1234,7 @@ contact information
   <slot>SetEndDate()</slot>
   <slot>BtnSave_Click()</slot>
   <slot>Initial_Soil_Moisture()</slot>
+  <slot>Search_ETP()</slot>
+  <slot>Search_Kp()</slot>
  </slots>
 </ui>
