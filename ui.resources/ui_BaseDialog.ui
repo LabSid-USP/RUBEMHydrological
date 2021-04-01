@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
@@ -46,7 +46,7 @@
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>250</y>
+       <y>300</y>
        <width>131</width>
        <height>21</height>
       </rect>
@@ -59,7 +59,7 @@
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>190</y>
+       <y>240</y>
        <width>131</width>
        <height>21</height>
       </rect>
@@ -72,7 +72,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>190</y>
+       <y>240</y>
        <width>111</width>
        <height>25</height>
       </rect>
@@ -91,7 +91,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>250</y>
+       <y>300</y>
        <width>110</width>
        <height>22</height>
       </rect>
@@ -101,7 +101,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>220</y>
+       <y>270</y>
        <width>110</width>
        <height>22</height>
       </rect>
@@ -111,7 +111,7 @@
      <property name="geometry">
       <rect>
        <x>140</x>
-       <y>220</y>
+       <y>270</y>
        <width>131</width>
        <height>21</height>
       </rect>
@@ -245,6 +245,44 @@
      </property>
      <property name="text">
       <string>Save</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="Clone_2">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>210</y>
+       <width>93</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Clone</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="txtEdt_Clone">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>210</y>
+       <width>250</width>
+       <height>25</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="minimumSize">
+      <size>
+       <width>250</width>
+       <height>25</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>chose clone file</string>
      </property>
     </widget>
    </widget>
@@ -1220,6 +1258,22 @@ contact information
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>Clone_2</sender>
+   <signal>clicked()</signal>
+   <receiver>BaseDialog</receiver>
+   <slot>SearchClone()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>301</x>
+     <y>246</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>504</x>
+     <y>450</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>SearchDem()</slot>
@@ -1236,5 +1290,6 @@ contact information
   <slot>Initial_Soil_Moisture()</slot>
   <slot>Search_ETP()</slot>
   <slot>Search_Kp()</slot>
+  <slot>SearchClone()</slot>
  </slots>
 </ui>

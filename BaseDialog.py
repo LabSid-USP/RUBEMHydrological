@@ -152,6 +152,18 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         QgsProject.instance().addMapLayer(self.Demlayer)
         
         self.x.dem = Dem
+
+
+    def SearchClone(self):
+        Clone_File, _= QFileDialog.getOpenFileName(self,"Search Clone",self.lastOpenedFile,"*.map")
+        self.txtEdt_Clone.setText(Clone_File) 
+        Clone = self.txtEdt_Clone.text()
+        self.fileInfo=QFileInfo(Clone_File)
+        self.baseName=self.fileInfo.baseName()
+        self.Clonelayer=QgsRasterLayer(Clone_File,self.baseName)
+        QgsProject.instance().addMapLayer(self.Clonelayer)
+        
+        self.x.clone = Clone
         
     def Initial_Soil_Moisture(self):
         Initial_Soil_Moisture_value= self.ini_moist.text()
