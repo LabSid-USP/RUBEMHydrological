@@ -77,7 +77,6 @@ class configParams(object):
         
         getKeys = self.__slots__
         getVals = []
-        
         for i in range(len(getKeys)):
             try:
                 print(getattr(self,getKeys[i]))                
@@ -144,7 +143,7 @@ class BaseDialog(QDialog, Ui_BaseDialog):
 
     def SearchDem(self):
         Dem_File, _= QFileDialog.getOpenFileName(self,"Search Dem",self.lastOpenedFile,"*.map")
-        self.dem_box.setText(Dem_File) 
+        self.dem_box.setText(Dem_File)
         Dem = self.dem_box.text()
         self.fileInfo=QFileInfo(Dem_File)
         self.baseName=self.fileInfo.baseName()
@@ -152,11 +151,21 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         QgsProject.instance().addMapLayer(self.Demlayer)
         
         self.x.dem = Dem
+
+    def SearchLandUse(self):
+        LU_File, _ = QFileDialog.getOpenFileName(self, "Search Dem", self.lastOpenedFile, "*.map")
+        self.land_box.setText(LU_File)
+        LandUse = self.land_box.text()
+        self.fileInfo = QFileInfo(LU_File)
+        self.baseName = self.fileInfo.baseName()
+        self.LUlayer = QgsRasterLayer(LU_File, self.baseName)
+        QgsProject.instance().addMapLayer(self.LUlayer)
+
+        self.x.soilFile = LandUse
         
     def Initial_Soil_Moisture(self):
         Initial_Soil_Moisture_value= self.ini_moist.text()
-            
-                
+
         self.x.initSoilMoisture = Initial_Soil_Moisture_value
 
     def SearchPrec(self):
@@ -164,8 +173,7 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         self.prep_box.setText(Prec_Files[:-12]) 
         PrecPath = self.prep_box.text()
         PrecPrefix=Prec_Files[-12:].replace('.001', '').replace('0', '')
-        
-              
+
         self.x.precSeries = PrecPath
         self.x.precfileprefix=PrecPrefix
 
@@ -175,7 +183,6 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         self.evapo_box.setText(Evapo_Files[:-12]) 
         EvapoPath = self.evapo_box.text()
         EvapoPrefix=Evapo_Files[-12:].replace('.001', '').replace('0', '')
-        
               
         self.x.etpSeries = EvapoPath
         self.x.etpfileprefix=EvapoPrefix
@@ -282,7 +289,7 @@ class BaseDialog(QDialog, Ui_BaseDialog):
             tempname = QFileDialog.getSaveFileName(self, "Save "+ptype+" project as",Path_config1, "*.ini")
         else:
             tempname = QFileDialog.getSaveFileName(self, "Save .ini as", Path_config1, "*.ini")
-     
+
         out=str(tempname).partition("('")[2].partition("',")[0]
         newPath = shutil.copy(template, out)
         # clear project canvas
@@ -300,6 +307,3 @@ class BaseDialog(QDialog, Ui_BaseDialog):
         Default_End_date = "31/12/2000";
         Data2 = QDate.fromString(Default_start_date,"dd/MM/yyyy");
         self.dateEdit_2.setDate(Data2)
-        
-
-        
