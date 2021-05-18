@@ -8,7 +8,7 @@
   <h3 align="center">RUBEM Hydrological</h3>
 
   <p align="center">
-    project_description
+    QGIS plugin that uses Rainfall rUnoff Balance Enhanced Model (a distributed hydrological model) to calculate monthly flows with changes in land use over time
     <br />
     <a href="https://github.com/LabSid-USP/Plugin_QGIS_RUBEM"><strong>Explore the docs »</strong></a>
     <br />
@@ -56,7 +56,11 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Rainfall Runoff Balance Enhanced Model (RUBEM) Hydrological...
+RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the Rainfall rUnoff Balance Enhanced Model algorithm, which is an improved model of balance between rain and runoff.
+
+The distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017).
+
+The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.
 
 ### Built With
 
