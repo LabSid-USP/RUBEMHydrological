@@ -163,7 +163,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :rtype: String        
         """        
         filePath, _ = QFileDialog.getOpenFileName(self, caption=caption, directory=self.lastOpenedDirectory, initialFilter=filter)
-        return filePath
+        return filePath 
 
     # Project Folder
     def setInputDirectoryPath(self):
@@ -397,26 +397,30 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Land Use tab
     ### Land Use Series
     def setLandUseSeriesFilePath(self):
-        """Defines the project's Land Use Series file and change the lineEdt_LandUseSeries 
-            field with the selected file path.
+        """Defines the project's Land Use Series file folder, change the lineEdt_LandUseSeries 
+            field with the selected file path and set land use file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_LandUseSeries        
         """    
-        filePath = self.getFilePath(caption="Select Land Use Series File", filter="CSV files (*.csv);;Text files (*.txt)")
-        self.config['FILES']['landuse'] = filePath         
+        filePath = self.getFilePath(caption="Select Land Use Series File", filter="*.001")
+        directoryPath, fileName = os.path.split(filePath)
+        self.config['FILES']['landuse'] = directoryPath   
+        self.config['FILES']['landuseFilePrefix'] = ''.join(filter(str.isalpha, fileName))              
         self.lineEdt_LandUseSeries.setText(filePath) 
 
     ### NDVI
     def setNDVISeriesFilePath(self):
-        """Defines the project's NDVISeries file and change the lineEdt_NDVISeries 
-            field with the selected file path.
+        """Defines the project's NDVISeries file folder, change the lineEdt_NDVISeries 
+            field with the selected file path and define the ndvi file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_NDVISeries        
         """             
-        filePath = self.getFilePath(caption="Select NDVI Series File", filter="CSV files (*.csv);;Text files (*.txt)")
-        self.config['FILES']['ndvi'] = filePath  
+        filePath = self.getFilePath(caption="Select NDVI Series File", filter="*.001")
+        directoryPath, fileName = os.path.split(filePath)
+        self.config['FILES']['ndvi'] = directoryPath
+        self.config['FILES']['ndviFilePrefix'] = ''.join(filter(str.isalpha, fileName))          
         self.lineEdt_NDVISeries.setText(filePath)     
 
     def setNDVIMaximumSeriesFilePath(self):
@@ -428,7 +432,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """               
         filePath = self.getFilePath(caption="Select Maximum NDVI Series File", filter="CSV files (*.csv);;Text files (*.txt)")
         self.config['FILES']['ndvimaxPrefix'] = filePath 
-        self.lineEdt_NDVIMax.setText(filePath)          
+        self.lineEdt_NDVIMax.setText(filePath)         
 
     def setNDVIMinimumSeriesFilePath(self):
         """Defines the project's NDVIMin file and change the lineEdt_NDVIMin 
@@ -438,7 +442,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_NDVIMin        
         """           
         filePath = self.getFilePath(caption="Select Minimum NDVI Series File", filter="CSV files (*.csv);;Text files (*.txt)")
-        self.config['FILES']['ndviminPrefix'] = filePath 
+        self.config['FILES']['ndviminPrefix'] = filePath
         self.lineEdt_NDVIMin.setText(filePath)    
 
     ### a
@@ -559,36 +563,42 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # Climate tab
     def setPrecipitationSeriesFilePath(self):
-        """Defines the project's Precipitation file and change the lineEdt_Precipitation 
-            field with the selected file path.
+        """Defines the project's Precipitation folder file, change the lineEdt_Precipitation 
+            field with the selected file path and define the prec file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_Precipitation        
         """          
-        filePath = self.getFilePath(caption="Select Precipitation Series File", filter="CSV files (*.csv);;Text files (*.txt)")
-        self.config['FILES']['prec'] = filePath     
+        filePath = self.getFilePath(caption="Select Precipitation Series File", filter="*.001")
+        directoryPath, fileName = os.path.split(filePath)
+        self.config['FILES']['prec'] = directoryPath 
+        self.config['FILES']['precFilePrefix'] = ''.join(filter(str.isalpha, fileName))    
         self.lineEdt_Precipitation.setText(filePath)     
 
     def setEvapotranspirationSeriesFilePath(self):
-        """Defines the project's Evapotranspiration file and change the lineEdt_EvapoTranspiration 
-            field with the selected file path.
+        """Defines the project's Evapotranspiration folder file, change the lineEdt_EvapoTranspiration 
+            field with the selected file path and define the etp file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_EvapoTranspiration        
         """              
-        filePath = self.getFilePath(caption="Select Evapotranspiration Series File", filter="CSV files (*.csv);;Text files (*.txt)")
-        self.config['FILES']['etp'] = filePath 
+        filePath = self.getFilePath(caption="Select Evapotranspiration Series File", filter="*.001")
+        directoryPath, fileName = os.path.split(filePath)
+        self.config['FILES']['etp'] = directoryPath 
+        self.config['FILES']['etpFilePrefix'] = ''.join(filter(str.isalpha, fileName))
         self.lineEdt_EvapoTranspiration.setText(filePath)     
 
     def setKpSeriesFilePath(self):
-        """Defines the project's Pan Coefficient (Kp) file and change the lineEdt_PanCoefficientKp 
-            field with the selected file path.
+        """Defines the project's Pan Coefficient (Kp) folder file, change the lineEdt_PanCoefficientKp 
+            field with the selected file path and define the Kp file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_PanCoefficientKp        
         """           
-        filePath = self.getFilePath(caption="Select Kp Series File", filter="CSV files (*.csv);;Text files (*.txt)")
-        self.config['FILES']['kp'] = filePath
+        filePath = self.getFilePath(caption="Select Kp Series File", filter="*.001")
+        directoryPath, fileName = os.path.split(filePath)
+        self.config['FILES']['kp'] = directoryPath
+        self.config['FILES']['kpFilePrefix'] = ''.join(filter(str.isalpha, fileName))         
         self.lineEdt_PanCoefficientKp.setText(filePath) 
 
     def setRainyDaysSeriesFilePath(self):
@@ -817,8 +827,10 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         ## Land Use tab
         ### Land Use Series
-        self.config['FILES']['landuse'] = self.lineEdt_LandUseSeries.text() 
-        self.config['FILES']['ndvi'] = self.lineEdt_NDVISeries.text()     
+        self.config['FILES']['landuse'] = self.lineEdt_LandUseSeries.text()
+        self.config['FILES']['landuseFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['landuse'])))
+        self.config['FILES']['ndvi'] = self.lineEdt_NDVISeries.text()
+        self.config['FILES']['ndviFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['ndvi'])))     
         self.config['FILES']['ndvimaxPrefix'] = self.lineEdt_NDVIMax.text()          
         self.config['FILES']['ndviminPrefix'] = self.lineEdt_NDVIMin.text()    
 
@@ -847,9 +859,12 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config['CONSTANT']['lai_max'] = str(self.doubleSpinBox_LeafAreaIndexMax.value())  
 
         ## Climate tab
-        self.config['FILES']['prec'] = self.lineEdt_Precipitation.text()     
-        self.config['FILES']['etp'] = self.lineEdt_EvapoTranspiration.text() 
-        self.config['FILES']['kp'] = self.lineEdt_PanCoefficientKp.text() 
+        self.config['FILES']['prec'] = self.lineEdt_Precipitation.text()
+        self.config['FILES']['precFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['prec'])))          
+        self.config['FILES']['etp'] = self.lineEdt_EvapoTranspiration.text()
+        self.config['FILES']['etpFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['etp'])))      
+        self.config['FILES']['kp'] = self.lineEdt_PanCoefficientKp.text()
+        self.config['FILES']['kpFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['kp'])))      
         self.config['PARAMETERS']['rainydays'] = self.lineEdt_RainyDays.text()
 
         ## Parameters tab
@@ -1029,7 +1044,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         self.updateConfigFromGUI()
         self.saveConfigToFile(self.configFilePath)
-        #self.showConfig()
+        self.showConfig()
 
         self.textBrowser_log.append("\n# RUBEM execution started...")
 
