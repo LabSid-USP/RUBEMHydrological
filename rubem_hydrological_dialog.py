@@ -77,8 +77,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 'etpFilePrefix' : '',
                 'precFilePrefix' : '',
                 'ndviFilePrefix' : '',  
-                'ndvimaxPrefix' : '', 
-                'ndviminPrefix' : '', 
+                'ndvimax' : '', 
+                'ndvimin' : '', 
                 'kpFilePrefix' : '',
                 'landuseFilePrefix' : ''
         }
@@ -431,7 +431,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_NDVIMax        
         """               
         filePath = self.getFilePath(caption="Select Maximum NDVI Series File", filter="CSV files (*.csv);;Text files (*.txt)")
-        self.config['FILES']['ndvimaxPrefix'] = filePath 
+        self.config['FILES']['ndvimax'] = filePath 
         self.lineEdt_NDVIMax.setText(filePath)         
 
     def setNDVIMinimumSeriesFilePath(self):
@@ -442,7 +442,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_NDVIMin        
         """           
         filePath = self.getFilePath(caption="Select Minimum NDVI Series File", filter="CSV files (*.csv);;Text files (*.txt)")
-        self.config['FILES']['ndviminPrefix'] = filePath
+        self.config['FILES']['ndvimin'] = filePath
         self.lineEdt_NDVIMin.setText(filePath)    
 
     ### a
@@ -831,8 +831,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config['FILES']['landuseFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['landuse'])))
         self.config['FILES']['ndvi'] = self.lineEdt_NDVISeries.text()
         self.config['FILES']['ndviFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['ndvi'])))     
-        self.config['FILES']['ndvimaxPrefix'] = self.lineEdt_NDVIMax.text()          
-        self.config['FILES']['ndviminPrefix'] = self.lineEdt_NDVIMin.text()    
+        self.config['FILES']['ndvimax'] = self.lineEdt_NDVIMax.text()          
+        self.config['FILES']['ndvimin'] = self.lineEdt_NDVIMin.text()    
 
         ### a
         self.config['PARAMETERS']['a_i'] = self.lineEdt_a_i.text()        
@@ -950,8 +950,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         ### NDVI
         self.lineEdt_NDVISeries.setText(self.config['FILES']['ndvi'])     
-        self.lineEdt_NDVIMax.setText(self.config['FILES']['ndvimaxPrefix'])          
-        self.lineEdt_NDVIMin.setText(self.config['FILES']['ndviminPrefix'])    
+        self.lineEdt_NDVIMax.setText(self.config['FILES']['ndvimax'])          
+        self.lineEdt_NDVIMin.setText(self.config['FILES']['ndvimin'])    
 
         ### a
         self.lineEdt_a_i.setText(self.config['PARAMETERS']['a_i'])     
