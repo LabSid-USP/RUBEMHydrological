@@ -1055,7 +1055,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     def reportExecutionLog(self, outputLog):
         """Update textBrowser_log with output captured from execution"""
-        self.textBrowser_log.append(outputLog)
+        self.textBrowser_log.append(outputLog.strip())
 
     def reportProgress(self, n):
         """Update progressBar with int representing overall progress of exec thread
@@ -1079,7 +1079,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.worker.finished.connect(self.worker.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
         self.worker.progress.connect(self.reportProgress)
-        #self.worker.finished.connect(self.reportExecutionLog)
+        self.worker.finished.connect(self.reportExecutionLog)
         # Start the thread
         self.thread.start()
 
@@ -1095,12 +1095,12 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 # Create a worker class
 class Worker(QObject):
     """Constructor"""
-    finished = pyqtSignal()
+    finished = pyqtSignal(str)
     progress = pyqtSignal(int)
 
     def run(self):
         """RUBEM Long-running task"""
-        #proc = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        proc = subprocess.Popen(command)
+        proc = subprocess.Popen(command, shell=True, encoding='latin-1', stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        proc.wait()
         self.progress.emit(100)
-        self.finished.emit()
+        self.finished.emit(proc.communicate()[0])
