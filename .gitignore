@@ -1,10 +1,6 @@
 # Qt for Python
 .qt_for_python
 
-# Compiled Ui and resource files
-rubem_hydrological_dialog_base_ui.py
-resources_rc.py
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
