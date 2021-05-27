@@ -29,9 +29,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -62,12 +59,6 @@ The distributed hydrological model for transforming precipitation into total flo
 
 The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.
 
-### Built With
-
-* []()
-* []()
-* []()
-
 
 
 <!-- GETTING STARTED -->
@@ -77,23 +68,29 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  ...
-  ```
+* QGIS 3.16.7 'Hannover' long-term release or newer
 
 ### Installation
+
+1. Download the repo branch as zip;
+2. Open QGIS `Plugins`->`Install plugin from zip file`;
+
+  Or 
 
 1. Clone the repo
    ```sh
    git clone https://github.com/LabSid-USP/Plugin_QGIS_RUBEM.git
    ```
-2. Install 
-   ```sh
-   ...
+2. Copy the repo folder to QGIS plugin directory 
+   
+   Windows:
+   ```powershell
+   Xcopy /E /I C:\Plugin_QGIS_RUBEM %APPDATA%\QGIS\QGIS3\profiles\default\python\plugins\Plugin_QGIS_RUBEM
    ```
-
+   GNU/Linux:
+   ```sh
+   cp -R /Plugin_QGIS_RUBEM /home/USER/.local/share/QGIS/QGIS3/profiles/default/python/plugins/Plugin_QGIS_RUBEM 
+   ```
 
 
 <!-- USAGE EXAMPLES -->
