@@ -8,7 +8,7 @@
   <h3 align="center">RUBEM Hydrological</h3>
 
   <p align="center">
-    QGIS plugin that uses Rainfall rUnoff Balance Enhanced Model (a distributed hydrological model) to calculate monthly flows with changes in land use over time
+    QGIS plugin that uses <b>R</b>ainfall r<b>U</b>noff <b>B</b>alance <b>E</b>nhanced <b>M</b>odel (a distributed hydrological model) to calculate monthly flows with changes in land use over time
     <br />
     <a href="https://github.com/LabSid-USP/Plugin_QGIS_RUBEM"><strong>Explore the docs »</strong></a>
     <br />
@@ -29,9 +29,6 @@
   <ol>
     <li>
       <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
     </li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -56,17 +53,11 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the Rainfall rUnoff Balance Enhanced Model algorithm, which is an improved model of balance between rain and runoff.
+RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the **Rainfall rUnoff Balance Enhanced Model** algorithm, which is an improved model of balance between rain and runoff.
 
 The distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017).
 
-The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.
-
-### Built With
-
-* []()
-* []()
-* []()
+The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the [Department of Hydraulic and Environmental Engineering](http://www.pha.poli.usp.br/), of the [Escola Politécnica of the University of São Paulo](https://www.poli.usp.br/), who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.
 
 
 
@@ -77,23 +68,29 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  ...
-  ```
+* QGIS 3.16.7 'Hannover' long-term release or newer
 
 ### Installation
+
+1. Download the repo branch as zip;
+2. Open QGIS `Plugins`->`Install plugin from zip file`;
+
+  Or 
 
 1. Clone the repo
    ```sh
    git clone https://github.com/LabSid-USP/Plugin_QGIS_RUBEM.git
    ```
-2. Install 
-   ```sh
-   ...
+2. Copy the repo folder to QGIS plugin directory 
+   
+   Windows:
+   ```powershell
+   Xcopy /E /I C:\Plugin_QGIS_RUBEM %APPDATA%\QGIS\QGIS3\profiles\default\python\plugins\Plugin_QGIS_RUBEM
    ```
-
+   GNU/Linux:
+   ```sh
+   cp -R /Plugin_QGIS_RUBEM /home/USER/.local/share/QGIS/QGIS3/profiles/default/python/plugins/Plugin_QGIS_RUBEM 
+   ```
 
 
 <!-- USAGE EXAMPLES -->
