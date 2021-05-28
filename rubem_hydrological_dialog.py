@@ -827,10 +827,10 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         ## Land Use tab
         ### Land Use Series
-        self.config['FILES']['landuse'] = self.lineEdt_LandUseSeries.text()
-        self.config['FILES']['landuseFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['landuse'])))
-        self.config['FILES']['ndvi'] = self.lineEdt_NDVISeries.text()
-        self.config['FILES']['ndviFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['ndvi'])))     
+        self.config['FILES']['landuse'] = os.path.dirname(self.lineEdt_LandUseSeries.text())
+        self.config['FILES']['landuseFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_LandUseSeries.text())))
+        self.config['FILES']['ndvi'] = os.path.dirname(self.lineEdt_NDVISeries.text())
+        self.config['FILES']['ndviFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_LandUseSeries.text())))     
         self.config['FILES']['ndvimax'] = self.lineEdt_NDVIMax.text()          
         self.config['FILES']['ndvimin'] = self.lineEdt_NDVIMin.text()    
 
@@ -859,12 +859,12 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config['CONSTANT']['lai_max'] = str(self.doubleSpinBox_LeafAreaIndexMax.value())  
 
         ## Climate tab
-        self.config['FILES']['prec'] = self.lineEdt_Precipitation.text()
-        self.config['FILES']['precFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['prec'])))          
-        self.config['FILES']['etp'] = self.lineEdt_EvapoTranspiration.text()
-        self.config['FILES']['etpFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['etp'])))      
-        self.config['FILES']['kp'] = self.lineEdt_PanCoefficientKp.text()
-        self.config['FILES']['kpFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.config['FILES']['kp'])))      
+        self.config['FILES']['prec'] = os.path.dirname(self.lineEdt_Precipitation.text())
+        self.config['FILES']['precFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_Precipitation.text())))          
+        self.config['FILES']['etp'] = os.path.dirname(self.lineEdt_EvapoTranspiration.text())
+        self.config['FILES']['etpFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_EvapoTranspiration.text())))      
+        self.config['FILES']['kp'] = os.path.dirname(self.lineEdt_PanCoefficientKp.text())
+        self.config['FILES']['kpFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_PanCoefficientKp.text())))      
         self.config['PARAMETERS']['rainydays'] = self.lineEdt_RainyDays.text()
 
         ## Parameters tab
