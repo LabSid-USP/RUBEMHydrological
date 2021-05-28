@@ -129,6 +129,12 @@
       </item>
       <item row="3" column="0">
        <widget class="QLineEdit" name="lineEdt_OutputFolder">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string/>
         </property>
@@ -529,7 +535,7 @@
        <x>0</x>
        <y>0</y>
        <width>468</width>
-       <height>401</height>
+       <height>392</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -554,7 +560,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-97</y>
+        <y>0</y>
         <width>452</width>
         <height>498</height>
        </rect>
@@ -1026,7 +1032,7 @@
        <x>0</x>
        <y>0</y>
        <width>468</width>
-       <height>401</height>
+       <height>392</height>
       </rect>
      </property>
      <property name="sizePolicy">
@@ -1048,7 +1054,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>-344</y>
+        <y>0</y>
         <width>452</width>
         <height>745</height>
        </rect>
@@ -2389,8 +2395,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>471</width>
-       <height>401</height>
+       <width>468</width>
+       <height>392</height>
       </rect>
      </property>
      <property name="frameShape">
