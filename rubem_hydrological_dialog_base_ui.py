@@ -265,7 +265,7 @@ class Ui_RUBEMHydrological(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 452, 498))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 451, 494))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
@@ -512,7 +512,7 @@ class Ui_RUBEMHydrological(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 452, 745))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 451, 734))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout.setObjectName("verticalLayout")
@@ -1527,8 +1527,8 @@ class Ui_RUBEMHydrological(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><title>Info</title><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\":/imgBase/images/icon.png\" width=\"92\" height=\"96\" /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial\'; font-size:14pt; font-weight:600; color:#000000; background-color:transparent;\">RUBEM Hydrological</span></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\":/imgBase/images/icon.png\" width=\"134\" height=\"134\" /></p>\n"
+"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial\'; font-size:18pt; font-weight:600; color:#000000; background-color:transparent;\">RUBEM Hydrological</span></p>\n"
 "<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Arial\'; font-size:10pt; color:#000000;\"><br /></p>\n"
 "<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'Arial\'; font-size:9pt; color:#000000; background-color:transparent;\">    Este plugin do QGIS auxilia na configuração e execução do algoritmo do </span><span style=\" font-family:\'Arial\'; font-size:9pt; font-weight:600; color:#000000; background-color:transparent;\">Rainfall rUnoff Balance Enhanced Model</span><span style=\" font-family:\'Arial\'; font-size:9pt; color:#000000; background-color:transparent;\">, que é um modelo aprimorado de balanço entre chuva e escoamento.</span></p>\n"
 "<p align=\"justify\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'Arial\'; font-size:9pt; color:#000000;\"><br /></p>\n"
