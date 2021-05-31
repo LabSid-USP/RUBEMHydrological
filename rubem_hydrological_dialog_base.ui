@@ -200,7 +200,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_Dem">
             <property name="text">
-             <string>Select DEM File</string>
+             <string>Select DEM map File</string>
             </property>
            </widget>
           </item>
@@ -250,7 +250,7 @@
           </item>
          </layout>
         </item>
-        <item row="1" column="0">
+        <item row="2" column="0">
          <layout class="QGridLayout" name="gridLayout_13">
           <item row="0" column="0">
            <widget class="QLabel" name="label_Clone">
@@ -281,7 +281,7 @@
           </item>
          </layout>
         </item>
-        <item row="2" column="0">
+        <item row="3" column="0">
          <layout class="QGridLayout" name="gridLayout_15">
           <item row="0" column="0">
            <widget class="QCheckBox" name="checkBox_Sample">
@@ -348,7 +348,7 @@
           </item>
          </layout>
         </item>
-        <item row="3" column="0">
+        <item row="4" column="0">
          <layout class="QGridLayout" name="gridLayout_14">
           <item row="0" column="0">
            <widget class="QLabel" name="label_SelectSample">
@@ -380,6 +380,61 @@
            <widget class="QToolButton" name="btn_Sample">
             <property name="enabled">
              <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="gridLayout_39">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_DemTif">
+            <property name="text">
+             <string>Select DEM tif File</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLineEdit" name="lineEdt_DemTif">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="toolTipDuration">
+             <number>2</number>
+            </property>
+            <property name="statusTip">
+             <string/>
+            </property>
+            <property name="whatsThis">
+             <string/>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="dragEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="placeholderText">
+             <string>Select the Digital Elevation Model File</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QToolButton" name="btn_DemTif">
+            <property name="toolTip">
+             <string>Open file dialog to select a DEM file</string>
+            </property>
+            <property name="toolTipDuration">
+             <number>-1</number>
             </property>
             <property name="text">
              <string>...</string>
@@ -561,8 +616,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>451</width>
-        <height>494</height>
+        <width>452</width>
+        <height>498</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1055,8 +1110,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>451</width>
-        <height>734</height>
+        <width>452</width>
+        <height>745</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -2640,7 +2695,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>457</x>
-     <y>269</y>
+     <y>316</y>
     </hint>
     <hint type="destinationlabel">
      <x>476</x>
@@ -2656,7 +2711,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>457</x>
-     <y>344</y>
+     <y>391</y>
     </hint>
     <hint type="destinationlabel">
      <x>477</x>
@@ -2672,7 +2727,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>411</x>
-     <y>298</y>
+     <y>345</y>
     </hint>
     <hint type="destinationlabel">
      <x>479</x>
@@ -2687,8 +2742,8 @@ p, li { white-space: pre-wrap; }
    <slot>setExportSampleLocations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>297</y>
+     <x>146</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -2704,7 +2759,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>428</x>
-     <y>409</y>
+     <y>456</y>
     </hint>
     <hint type="destinationlabel">
      <x>475</x>
@@ -2720,7 +2775,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>184</x>
-     <y>409</y>
+     <y>456</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -2928,7 +2983,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>-141</y>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -2944,7 +2999,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>-59</y>
+     <y>267</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -2960,7 +3015,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>-14</y>
+     <y>312</y>
     </hint>
     <hint type="destinationlabel">
      <x>482</x>
@@ -2976,7 +3031,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>31</y>
+     <y>357</y>
     </hint>
     <hint type="destinationlabel">
      <x>489</x>
@@ -2992,7 +3047,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>113</y>
+     <y>439</y>
     </hint>
     <hint type="destinationlabel">
      <x>490</x>
@@ -3008,7 +3063,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>158</y>
+     <y>484</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -3024,7 +3079,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>203</y>
+     <y>529</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3040,7 +3095,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>248</y>
+     <y>574</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3056,7 +3111,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>311</y>
+     <y>637</y>
     </hint>
     <hint type="destinationlabel">
      <x>495</x>
@@ -3072,7 +3127,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>393</y>
+     <y>719</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -3088,7 +3143,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>442</x>
-     <y>438</y>
+     <y>764</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -3103,8 +3158,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFparMaximum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>503</y>
+     <x>90</x>
+     <y>828</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -3120,7 +3175,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>90</x>
-     <y>529</y>
+     <y>854</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3135,8 +3190,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterception()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>340</x>
-     <y>501</y>
+     <x>341</x>
+     <y>826</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3151,8 +3206,8 @@ p, li { white-space: pre-wrap; }
    <slot>setLeafAreaIndexMaximum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>329</x>
-     <y>527</y>
+     <x>330</x>
+     <y>852</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -3512,6 +3567,22 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btn_DemTif</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setDEMTifFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>446</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>532</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>setInputDirectoryPath()</slot>
@@ -3572,5 +3643,6 @@ p, li { white-space: pre-wrap; }
   <slot>setInterceptionGenerateFile()</slot>
   <slot>setRunState()</slot>
   <slot>setInterceptionCalibration()</slot>
+  <slot>setDEMTifFilePath()</slot>
  </slots>
 </ui>

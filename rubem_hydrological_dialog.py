@@ -198,15 +198,26 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Settings tab
     ### Model General Settings
     def setDEMFilePath(self):
-        """Defines the project's DEM file and change the lineEdt_Dem 
+        """Defines the project's DEM map file and change the lineEdt_Dem 
             field with the selected file path.
         
         :Slot signal: clicked
         :Signal sender: btn_Dem        
         """            
-        filePath = self.getFilePath(caption="Select DEM File", filter="*.map")
+        filePath = self.getFilePath(caption="Select DEM map File", filter="*.map")
         self.config['FILES']['dem'] = filePath
         self.lineEdt_Dem.setText(filePath)
+
+    def setDEMTifFilePath(self):
+        """Defines the project's DEM tif file and change the lineEdt_Dem 
+            field with the selected file path.
+        
+        :Slot signal: clicked
+        :Signal sender: btn_Dem        
+        """            
+        filePath = self.getFilePath(caption="Select DEM Tif File", filter="*.tif")
+        self.config['FILES']['demtif'] = filePath
+        self.lineEdt_DemTif.setText(filePath)
 
     def setCloneFilePath(self):
         """Defines the project's Clone file and change the lineEdt_Clone 
@@ -795,6 +806,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         ## Settings tab
         ### Model General Settings
         self.config['FILES']['dem'] = self.lineEdt_Dem.text()
+        self.config['FILES']['demtif'] = self.lineEdt_DemTif.text()
         self.config['FILES']['clone'] = self.lineEdt_Clone.text()     
 
         if self.checkBox_Sample.isChecked(): 
@@ -917,6 +929,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         ## Settings tab
         ### Model General Settings
         self.lineEdt_Dem.setText(self.config['FILES']['dem'])
+        self.lineEdt_DemTif.setText(self.config['FILES']['demtif'])
         self.lineEdt_Clone.setText(self.config['FILES']['clone'])     
        
         if self.config['FILES']['samples']:
