@@ -165,6 +165,23 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         filePath, _ = QFileDialog.getOpenFileName(self, caption=caption, directory=self.lastOpenedDirectory, initialFilter=filter)
         return filePath 
 
+    def splitDirFilePrefix(self, filePath):
+        """Split directory path and file prefix from file path.
+
+        Adds trailing separator to directory path (OS-agnostic).
+
+        :param filePath: File path.
+        :filePath type: String
+
+        :returns: Directory path with trailing separator and file prefix
+        :rtype: str, str
+        """
+        # Split directory path from file name with extension
+        directoryPath, fileName = os.path.split(filePath)
+        # Split extension from file name
+        filePrefix, _ = os.path.splitext(fileName)         
+        return f'{directoryPath}/', ''.join(filter(str.isalpha, filePrefix))
+
     # Project Folder
     def setInputDirectoryPath(self):
         """Defines the directory containing the project's input data.
@@ -198,13 +215,13 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Settings tab
     ### Model General Settings
     def setDEMFilePath(self):
-        """Defines the project's DEM file and change the lineEdt_Dem 
+        """Defines the project's DEM map file and change the lineEdt_Dem 
             field with the selected file path.
         
         :Slot signal: clicked
         :Signal sender: btn_Dem        
         """            
-        filePath = self.getFilePath(caption="Select DEM File", filter="*.map")
+        filePath = self.getFilePath(caption="Select DEM map File", filter="*.map")
         self.config['FILES']['dem'] = filePath
         self.lineEdt_Dem.setText(filePath)
 
@@ -404,9 +421,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_LandUseSeries        
         """    
         filePath = self.getFilePath(caption="Select Land Use Series File", filter="*.001")
-        directoryPath, fileName = os.path.split(filePath)
-        self.config['FILES']['landuse'] = directoryPath   
-        self.config['FILES']['landuseFilePrefix'] = ''.join(filter(str.isalpha, fileName))              
+        self.config['FILES']['landuse'], self.config['FILES']['landuseFilePrefix'] = self.splitDirFilePrefix(filePath)              
         self.lineEdt_LandUseSeries.setText(filePath) 
 
     ### NDVI
@@ -418,9 +433,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_NDVISeries        
         """             
         filePath = self.getFilePath(caption="Select NDVI Series File", filter="*.001")
-        directoryPath, fileName = os.path.split(filePath)
-        self.config['FILES']['ndvi'] = directoryPath
-        self.config['FILES']['ndviFilePrefix'] = ''.join(filter(str.isalpha, fileName))          
+        self.config['FILES']['ndvi'], self.config['FILES']['ndviFilePrefix'] = self.splitDirFilePrefix(filePath)          
         self.lineEdt_NDVISeries.setText(filePath)     
 
     def setNDVIMaximumSeriesFilePath(self):
@@ -570,9 +583,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_Precipitation        
         """          
         filePath = self.getFilePath(caption="Select Precipitation Series File", filter="*.001")
-        directoryPath, fileName = os.path.split(filePath)
-        self.config['FILES']['prec'] = directoryPath 
-        self.config['FILES']['precFilePrefix'] = ''.join(filter(str.isalpha, fileName))    
+        self.config['FILES']['prec'], self.config['FILES']['precFilePrefix'] = self.splitDirFilePrefix(filePath) 
         self.lineEdt_Precipitation.setText(filePath)     
 
     def setEvapotranspirationSeriesFilePath(self):
@@ -583,9 +594,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_EvapoTranspiration        
         """              
         filePath = self.getFilePath(caption="Select Evapotranspiration Series File", filter="*.001")
-        directoryPath, fileName = os.path.split(filePath)
-        self.config['FILES']['etp'] = directoryPath 
-        self.config['FILES']['etpFilePrefix'] = ''.join(filter(str.isalpha, fileName))
+        self.config['FILES']['etp'], self.config['FILES']['etpFilePrefix'] = self.splitDirFilePrefix(filePath)
         self.lineEdt_EvapoTranspiration.setText(filePath)     
 
     def setKpSeriesFilePath(self):
@@ -597,8 +606,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """           
         filePath = self.getFilePath(caption="Select Kp Series File", filter="*.001")
         directoryPath, fileName = os.path.split(filePath)
-        self.config['FILES']['kp'] = directoryPath
-        self.config['FILES']['kpFilePrefix'] = ''.join(filter(str.isalpha, fileName))         
+        self.config['FILES']['kp'], self.config['FILES']['kpFilePrefix'] = self.splitDirFilePrefix(filePath)        
         self.lineEdt_PanCoefficientKp.setText(filePath) 
 
     def setRainyDaysSeriesFilePath(self):
@@ -795,6 +803,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         ## Settings tab
         ### Model General Settings
         self.config['FILES']['dem'] = self.lineEdt_Dem.text()
+        self.config['FILES']['demtif'] = self.lineEdt_DemTif.text()
         self.config['FILES']['clone'] = self.lineEdt_Clone.text()     
 
         if self.checkBox_Sample.isChecked(): 
@@ -827,10 +836,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         ## Land Use tab
         ### Land Use Series
-        self.config['FILES']['landuse'] = os.path.dirname(self.lineEdt_LandUseSeries.text())
-        self.config['FILES']['landuseFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_LandUseSeries.text())))
-        self.config['FILES']['ndvi'] = os.path.dirname(self.lineEdt_NDVISeries.text())
-        self.config['FILES']['ndviFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_LandUseSeries.text())))     
+        self.config['FILES']['landuse'], self.config['FILES']['landuseFilePrefix'] = self.splitDirFilePrefix(self.lineEdt_LandUseSeries.text())
+        self.config['FILES']['ndvi'], self.config['FILES']['ndviFilePrefix'] = self.splitDirFilePrefix(self.lineEdt_NDVISeries.text())     
         self.config['FILES']['ndvimax'] = self.lineEdt_NDVIMax.text()          
         self.config['FILES']['ndvimin'] = self.lineEdt_NDVIMin.text()    
 
@@ -859,12 +866,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config['CONSTANT']['lai_max'] = str(self.doubleSpinBox_LeafAreaIndexMax.value())  
 
         ## Climate tab
-        self.config['FILES']['prec'] = os.path.dirname(self.lineEdt_Precipitation.text())
-        self.config['FILES']['precFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_Precipitation.text())))          
-        self.config['FILES']['etp'] = os.path.dirname(self.lineEdt_EvapoTranspiration.text())
-        self.config['FILES']['etpFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_EvapoTranspiration.text())))      
-        self.config['FILES']['kp'] = os.path.dirname(self.lineEdt_PanCoefficientKp.text())
-        self.config['FILES']['kpFilePrefix'] = ''.join(filter(str.isalpha, os.path.basename(self.lineEdt_PanCoefficientKp.text())))      
+        self.config['FILES']['prec'], self.config['FILES']['precFilePrefix'] = self.splitDirFilePrefix(self.lineEdt_Precipitation.text())          
+        self.config['FILES']['etp'], self.config['FILES']['etpFilePrefix'] = self.splitDirFilePrefix(self.lineEdt_EvapoTranspiration.text())      
+        self.config['FILES']['kp'], self.config['FILES']['kpFilePrefix'] = self.splitDirFilePrefix(self.lineEdt_PanCoefficientKp.text())     
         self.config['PARAMETERS']['rainydays'] = self.lineEdt_RainyDays.text()
 
         ## Parameters tab
@@ -917,6 +921,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         ## Settings tab
         ### Model General Settings
         self.lineEdt_Dem.setText(self.config['FILES']['dem'])
+        self.lineEdt_DemTif.setText(self.config['FILES']['demtif'])
         self.lineEdt_Clone.setText(self.config['FILES']['clone'])     
        
         if self.config['FILES']['samples']:
