@@ -51,7 +51,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<p align="center">
+  <img width="373" height="456" src="https://user-images.githubusercontent.com/70075435/120209930-9a0b7800-c205-11eb-8289-8148d0b62db1.png">
+</p>
 
 RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the **Rainfall rUnoff Balance Enhanced Model** algorithm, which is an improved model of balance between rain and runoff.
 
