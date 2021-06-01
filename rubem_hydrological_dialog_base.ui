@@ -1,0 +1,3576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RUBEMHydrological</class>
+ <widget class="QDialog" name="RUBEMHydrological">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>489</width>
+    <height>580</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>480</width>
+    <height>580</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>490</width>
+    <height>580</height>
+   </size>
+  </property>
+  <property name="baseSize">
+   <size>
+    <width>500</width>
+    <height>580</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>RUBEM Hydrological</string>
+  </property>
+  <property name="windowIcon">
+   <iconset theme=":/imgBase/images/icon.png">
+    <normaloff>.</normaloff>.</iconset>
+  </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
+  <property name="locale">
+   <locale language="English" country="UnitedStates"/>
+  </property>
+  <widget class="Line" name="line">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>550</y>
+     <width>491</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox_ProjectFolder">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>471</width>
+     <height>121</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="toolTip">
+    <string/>
+   </property>
+   <property name="title">
+    <string>Project Folder</string>
+   </property>
+   <property name="flat">
+    <bool>false</bool>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_10">
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayout_9">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_InputFolder">
+        <property name="text">
+         <string>Select Input Folder</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLineEdit" name="lineEdt_InputFolder">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Choose folder with input files</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QToolButton" name="toolButton_InputFolder">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_OutputFolder">
+        <property name="text">
+         <string>Select Output Folder</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLineEdit" name="lineEdt_OutputFolder">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Choose folder to write the output results</string>
+        </property>
+        <property name="clearButtonEnabled">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QToolButton" name="toolButton_OutputFolder">
+        <property name="text">
+         <string>...</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QTabWidget" name="tabWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>130</y>
+     <width>471</width>
+     <height>421</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <property name="documentMode">
+    <bool>false</bool>
+   </property>
+   <widget class="QWidget" name="tab_Settings">
+    <attribute name="title">
+     <string>Settings</string>
+    </attribute>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <widget class="QGroupBox" name="groupBox_ModelGeneralConf">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Model General Settings</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_17">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_12">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_Dem">
+            <property name="text">
+             <string>Select DEM File</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLineEdit" name="lineEdt_Dem">
+            <property name="toolTip">
+             <string/>
+            </property>
+            <property name="toolTipDuration">
+             <number>2</number>
+            </property>
+            <property name="statusTip">
+             <string/>
+            </property>
+            <property name="whatsThis">
+             <string/>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="dragEnabled">
+             <bool>false</bool>
+            </property>
+            <property name="placeholderText">
+             <string>Select the Digital Elevation Model File</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QToolButton" name="btn_Dem">
+            <property name="toolTip">
+             <string>Open file dialog to select a DEM file</string>
+            </property>
+            <property name="toolTipDuration">
+             <number>-1</number>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0">
+         <layout class="QGridLayout" name="gridLayout_13">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_Clone">
+            <property name="text">
+             <string>Select Clone File</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLineEdit" name="lineEdt_Clone">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>Select the clone file</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QToolButton" name="btn_Clone">
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <layout class="QGridLayout" name="gridLayout_15">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="checkBox_Sample">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="text">
+             <string>Export results to sample locations</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QDoubleSpinBox" name="doubleSpinBox_GridSize">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="wrapping">
+             <bool>false</bool>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+            </property>
+            <property name="specialValueText">
+             <string/>
+            </property>
+            <property name="suffix">
+             <string> m</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
+            </property>
+            <property name="maximum">
+             <double>999.990000000000009</double>
+            </property>
+            <property name="singleStep">
+             <double>1.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label_GridSize">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Grid size</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="3" column="0">
+         <layout class="QGridLayout" name="gridLayout_14">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_SelectSample">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>Select Sample Locations File</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLineEdit" name="lineEdt_Sample">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>Select Sample Locations File</string>
+            </property>
+            <property name="clearButtonEnabled">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QToolButton" name="btn_Sample">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>...</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QGroupBox" name="groupBox_SimulationPeriod">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="title">
+        <string>Simulation Period</string>
+       </property>
+       <layout class="QGridLayout" name="gridLayout_35">
+        <item row="0" column="0">
+         <layout class="QGridLayout" name="gridLayout_34">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_11">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_Start">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="text">
+               <string>Start</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QDateEdit" name="dtEdt_StartSim">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="displayFormat">
+               <string>MM/yyyy</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="2">
+           <layout class="QGridLayout" name="gridLayout_16">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_End">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="text">
+               <string>End</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QDateEdit" name="dtEdt_EndSim">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="layoutDirection">
+               <enum>Qt::LeftToRight</enum>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+              <property name="displayFormat">
+               <string>MM/yyyy</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="1">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>55</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="tab_Soil">
+    <attribute name="title">
+     <string>Soil</string>
+    </attribute>
+    <widget class="QScrollArea" name="scrollArea_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>468</width>
+       <height>392</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOn</enum>
+     </property>
+     <property name="sizeAdjustPolicy">
+      <enum>QAbstractScrollArea::AdjustIgnored</enum>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>451</width>
+        <height>494</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QGroupBox" name="groupBox_SoilParam">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Soil Parameters</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_21">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_18">
+            <item row="7" column="1">
+             <widget class="QToolButton" name="btn_FieldCapacityCC">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="0">
+             <widget class="QLineEdit" name="lineEdt_Saturation">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Saturation file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_DensityDg">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Density File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLineEdit" name="lineEdt_Porosity">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Porosity file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QToolButton" name="btn_Porosity">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_FieldCapacityCC">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Field Capacity File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="0">
+             <widget class="QLineEdit" name="lineEdt_RootZoneThicknessZr">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Root Zone Thickness file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_SoilMap">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Soil Map File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="1">
+             <widget class="QToolButton" name="btn_RootZoneThickNessZr">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_HydraulicConductivityKr">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Hydraulic Conductivity File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="QToolButton" name="btn_WiltingPointWP">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLineEdit" name="lineEdt_HydraulicConductivityKr">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Hydraulic Conductivity file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="13" column="1">
+             <widget class="QToolButton" name="btn_Saturation">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0">
+             <widget class="QLabel" name="label_WiltingPointWP">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Wilting Point File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="lineEdt_SoilMap">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Soil Map file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLineEdit" name="lineEdt_DensityDg">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Density file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLineEdit" name="lineEdt_FieldCapacityCC">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Field Capacity file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="12" column="0">
+             <widget class="QLabel" name="label_Saturation">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Saturation File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QToolButton" name="btn_SoilMap">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="QLabel" name="label_Porosity">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Porosity File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QToolButton" name="btn_HydraulicConductivityKr">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0">
+             <widget class="QLabel" name="label_RootZoneThickNessZr">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Root Zone Thickness File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QToolButton" name="btn_DensityDg">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="QLineEdit" name="lineEdt_WiltingPointWP">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Wilting Point file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_InitialSoilCond">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Initial Soil Conditions</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_20">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_19">
+            <item row="1" column="4">
+             <widget class="QLabel" name="label_BaseFlowLimit">
+              <property name="text">
+               <string>Base Flow Limit</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="4">
+             <widget class="QLabel" name="label_TusInitial">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Initial Tus</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QDoubleSpinBox" name="doubleSpinBox_BaseFlowInitial">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="suffix">
+               <string> mm</string>
+              </property>
+              <property name="decimals">
+               <number>3</number>
+              </property>
+              <property name="maximum">
+               <double>1.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.001000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="label_InitialSoilMoisture">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Initial Soil Moisture</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="label_BaseFlowInitial">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Initial Base Flow</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QDoubleSpinBox" name="doubleSpinBox_BaseFlowLimit">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="suffix">
+               <string> mm</string>
+              </property>
+              <property name="decimals">
+               <number>3</number>
+              </property>
+              <property name="maximum">
+               <double>1.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.001000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QDoubleSpinBox" name="doubleSpinBox_InitialSoilMoisture">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="suffix">
+               <string> mm</string>
+              </property>
+              <property name="decimals">
+               <number>3</number>
+              </property>
+              <property name="maximum">
+               <double>1.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.001000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="3">
+             <widget class="QDoubleSpinBox" name="doubleSpinBox_TusInitial">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="suffix">
+               <string> mm</string>
+              </property>
+              <property name="decimals">
+               <number>3</number>
+              </property>
+              <property name="maximum">
+               <double>1.000000000000000</double>
+              </property>
+              <property name="singleStep">
+               <double>0.001000000000000</double>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <spacer name="horizontalSpacer_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Fixed</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_LandUse">
+    <attribute name="title">
+     <string>Land Use</string>
+    </attribute>
+    <widget class="QScrollArea" name="scrollArea">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>468</width>
+       <height>392</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOn</enum>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>451</width>
+        <height>734</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QGroupBox" name="groupBox_6">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Select Land Use Series File</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lineEdt_LandUseSeries">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Land Use Series file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QToolButton" name="btn_LandUseSeries">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>NDVI</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_8">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_NDVISeries">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select NDVI Series File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="lineEdt_NDVISeries">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the NDVI Series file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QToolButton" name="btn_NDVISeries">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_NDVIMax">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select  NDVI Maximum File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLineEdit" name="lineEdt_NDVIMax">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Maximum NDVI file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QToolButton" name="btn_NDVIMax">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_NDVIMin">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Minimum NDVI File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLineEdit" name="lineEdt_NDVIMin">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the NDVI Minimum file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QToolButton" name="btn_NDVIMin">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>a</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_25">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_2">
+            <item row="5" column="0">
+             <widget class="QLineEdit" name="lineEdt_a_s">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the a_s file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_a_s">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select a_s File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_a_i">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select a_i File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QToolButton" name="btn_a_s">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="QLabel" name="label_a_v">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select a_v File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="lineEdt_a_i">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the a_i file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLineEdit" name="lineEdt_a_o">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the a_o file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QToolButton" name="btn_a_v">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="QLineEdit" name="lineEdt_a_v">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the a_v file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QToolButton" name="btn_a_i">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_a_o">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select a_o File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QToolButton" name="btn_a_o">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_7">
+         <property name="title">
+          <string>Select Manning File</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_38">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_4">
+            <item row="0" column="0">
+             <widget class="QLineEdit" name="lineEdt_Manning">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Manning file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QToolButton" name="btn_Manning">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="title">
+          <string>Kc</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_24">
+          <item row="0" column="0">
+           <layout class="QGridLayout" name="gridLayout_5">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_KcMax">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Kc Maximum File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLineEdit" name="lineEdt_KcMax">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Kc Maximum file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QToolButton" name="btn_KcMax">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="label_KcMin">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="text">
+               <string>Select Kc Minimum File</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLineEdit" name="lineEdt_KcMin">
+              <property name="text">
+               <string/>
+              </property>
+              <property name="placeholderText">
+               <string>Select the Kc Minimum file</string>
+              </property>
+              <property name="clearButtonEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QToolButton" name="btn_KcMin">
+              <property name="text">
+               <string>...</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayout_23">
+         <item row="0" column="2">
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="1" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_Interception">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="suffix">
+              <string> m</string>
+             </property>
+             <property name="decimals">
+              <number>3</number>
+             </property>
+             <property name="maximum">
+              <double>3.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.001000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_LeafAreaIndexMax">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Leaf Area Index Max.</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_Interception">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Interception</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>16</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="2" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_LeafAreaIndexMax">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>3</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.001000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>6</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox_4">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="title">
+            <string>Fpar</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_22">
+            <item row="0" column="0">
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="0" column="0">
+               <widget class="QDoubleSpinBox" name="doubleSpinBox_FparMax">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="decimals">
+                 <number>3</number>
+                </property>
+                <property name="maximum">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.001000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="label_FparMax">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Fpar Max.</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QDoubleSpinBox" name="doubleSpinBox_FparMin">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="decimals">
+                 <number>3</number>
+                </property>
+                <property name="maximum">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.001000000000000</double>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLabel" name="label_FparMin">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Fpar Min.</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>102</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_Climate">
+    <attribute name="title">
+     <string>Climate</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBox_Climate">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>441</width>
+       <height>211</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Climate Data Series</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_27">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout_26">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_Precipitation">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Select Precipitation File  Series</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLineEdit" name="lineEdt_Precipitation">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="placeholderText">
+           <string>Select the precipitation file</string>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QToolButton" name="btn_Precipitation">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_Evapotranspiration">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Select Evapotranspiration File Series</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLineEdit" name="lineEdt_EvapoTranspiration">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="placeholderText">
+           <string>Select the Evapotranspiration file</string>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QToolButton" name="btn_Evapotranspiration">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="label_PanCoefficientKp">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Select Kp File Series</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLineEdit" name="lineEdt_PanCoefficientKp">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="placeholderText">
+           <string>Select Kp coefficient</string>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QToolButton" name="btn_PanCoefficientKp">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_RainyDays">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Select Rainy Days File</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLineEdit" name="lineEdt_RainyDays">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="placeholderText">
+           <string>Select the Rainy Days file</string>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="1">
+         <widget class="QToolButton" name="btn_RainyDays">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_ModelParam">
+    <attribute name="title">
+     <string>Parameters</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBox_InitialConditions">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>451</width>
+       <height>261</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Model Parameters</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_31">
+      <item row="0" column="0" colspan="2">
+       <layout class="QGridLayout" name="gridLayout_28">
+        <item row="0" column="0">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_ExponentCh">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.010000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="label_ExponentCh">
+          <property name="text">
+           <string>Exponent of ch</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_DelayCoefficientBaseFlow">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.010000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="label_DelayCoefficientBaseFlow">
+          <property name="text">
+           <string>Delay coefficient of base flow </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_DelayFactor">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.001000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_DelayFactor">
+          <property name="text">
+           <string>Delay factor</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_PartitioningCoefficientRelatedSoil">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.010000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="3">
+         <widget class="QLabel" name="label_PartitioningCoefficientRelatedSoil">
+          <property name="text">
+           <string>Partitioning coefficient related to soil </string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_RegionalConsecutiveDrynessLevel">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="suffix">
+           <string> mm</string>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>0.010000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QDoubleSpinBox" name="doubleSpinBox_InterceptionCalibrationAlpha">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>1.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.001000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1" colspan="3">
+         <widget class="QLabel" name="label_RegionalConsecutiveDrynessLevel">
+          <property name="text">
+           <string>Regional consecutive dryness level</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1" colspan="2">
+         <widget class="QLabel" name="label_InterceptionCalibrationAlpha">
+          <property name="text">
+           <string>Interception Calibration</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <widget class="QGroupBox" name="groupBox_5">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="title">
+         <string>Weight Factors</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_30">
+         <item row="0" column="0">
+          <layout class="QGridLayout" name="gridLayout_29">
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_ManningRelatedWeightFactor">
+             <property name="text">
+              <string>Manning related weight factor (w1)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_SoilRelatedWeightFactor">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>3</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.001000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_SoilRelatedWeightFactor">
+             <property name="text">
+              <string>Soil related weight factor (w2)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_ManningRelatedWeightFactor">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>3</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.001000000000000</double>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_SlopeRelatedWeightFactor">
+             <property name="text">
+              <string>Slope related weight factor (w3)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QDoubleSpinBox" name="doubleSpinBox_SlopeRelatedWeightFactor">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="decimals">
+              <number>3</number>
+             </property>
+             <property name="maximum">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>0.001000000000000</double>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <spacer name="horizontalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>122</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_Run">
+    <attribute name="title">
+     <string>Run</string>
+    </attribute>
+    <widget class="QGroupBox" name="groupBox_GenerateFiles">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>451</width>
+       <height>103</height>
+      </rect>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="title">
+      <string>Generate Files</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_33">
+      <item row="0" column="0">
+       <layout class="QGridLayout" name="gridLayout_32">
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="checkBox_InterceptionInt">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Interception [mm]</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="checkBox_RechargeRec">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Recharge [mm]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QCheckBox" name="checkBox_RunoffEsd">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Runoff [mm]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QCheckBox" name="checkBox_InterceptionEb">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Interception [mm]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QCheckBox" name="checkBox_SoilMoistureTur">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Soil Moisture [mm]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QCheckBox" name="checkBox_RunoffVazao">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Runoff [m³/s]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QCheckBox" name="checkBox_EvapotranspirationEvp">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Evapotranspiration [mm]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QCheckBox" name="checkBox_LateralFlowLf">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>Lateral Flow [mm]</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>451</width>
+       <height>211</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_37">
+      <item row="0" column="0">
+       <widget class="QTextBrowser" name="textBrowser_log">
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="acceptRichText">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
+        <property name="placeholderText">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <layout class="QGridLayout" name="gridLayout_36">
+        <item row="0" column="0">
+         <widget class="QPushButton" name="btn_Run">
+          <property name="text">
+           <string>Run</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="btn_Cancel">
+          <property name="text">
+           <string>Cancel</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QProgressBar" name="progressBar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+          <property name="textVisible">
+           <bool>false</bool>
+          </property>
+          <property name="invertedAppearance">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="tab_Info">
+    <attribute name="title">
+     <string>Info</string>
+    </attribute>
+    <widget class="QTextBrowser" name="textBrowser_Info">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>468</width>
+       <height>392</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::HLine</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <property name="documentTitle">
+      <string>Info</string>
+     </property>
+     <property name="lineWrapMode">
+      <enum>QTextEdit::WidgetWidth</enum>
+     </property>
+     <property name="lineWrapColumnOrWidth">
+      <number>0</number>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;title&gt;Info&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/imgBase/images/icon.png&quot; width=&quot;134&quot; height=&quot;134&quot; /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:18pt; font-weight:600; color:#000000; background-color:transparent;&quot;&gt;RUBEM Hydrological&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:10pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	Este plugin do QGIS auxilia na configuração e execução do algoritmo do &lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; font-weight:600; color:#000000; background-color:transparent;&quot;&gt;Rainfall rUnoff Balance Enhanced Model&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;, que é um modelo aprimorado de balanço entre chuva e escoamento.&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	O modelo hidrológico distribuído para transformação da precipitação em escoamento total é baseado em equações que representam os processos físicos do ciclo hidrológico, com distribuição espacial definida em grid e escala temporal mensal. O modelo foi desenvolvido com base em conceitos clássicos de processos  hidrológicos e de equacionamentos baseados principalmente nas formulações dos modelos SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) e WetSpass-M (ABDOLLAHI et al., 2017). &lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	A denominação é uma homenagem póstuma ao Professor Rubem La Laina Porto, decano do Departamento de Engenharia Hidráulica e  Ambiental, da Escola Politécnica da USP, que dedicou sua vida  profissional ao estudo, desenvolvimento e práticas em ciências  hidrológicas, contribuindo para o aperfeiçoamento do estado da arte e formação de alunos e profissionais atuantes na área. &lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;Equipe de desenvolvimento/pesquisa:&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; font-weight:600; color:#000000; background-color:transparent;&quot;&gt;Departamento de Engenharia Hidráulica e Ambiental da Escola Politécnica da Universidade de São Paulo&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;img src=&quot;:/imgBase/images/epusp.png&quot; width=&quot;165&quot; height=&quot;148&quot; /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; font-weight:600; color:#000000; background-color:transparent;&quot;&gt;Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;img src=&quot;:/imgBase/images/labsid.png&quot; width=&quot;188&quot; height=&quot;49&quot; /&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;&lt;br /&gt;O LabSid-PHA-USP agradece o apoio do &lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; font-weight:600; color:#000000; background-color:transparent;&quot;&gt;Fundo Patrimonial Amigos da Poli&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; para a adaptação da metodologia do RUBEM em formato de Plugin para o QGis.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/imgBase/images/adp.png&quot; width=&quot;233&quot; height=&quot;131&quot; /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="tabStopWidth">
+      <number>80</number>
+     </property>
+     <property name="textInteractionFlags">
+      <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+     </property>
+     <property name="placeholderText">
+      <string/>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QLabel" name="label_27">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>560</y>
+     <width>479</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;RUBEM Hydrological © Developed by &lt;a href=&quot;http://labsid.eng.br/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;LabSid&lt;/span&gt;&lt;/a&gt; PHA EPUSP&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="openExternalLinks">
+    <bool>true</bool>
+   </property>
+  </widget>
+ </widget>
+ <tabstops>
+  <tabstop>toolButton_InputFolder</tabstop>
+  <tabstop>toolButton_OutputFolder</tabstop>
+  <tabstop>btn_Dem</tabstop>
+  <tabstop>btn_Clone</tabstop>
+  <tabstop>doubleSpinBox_GridSize</tabstop>
+  <tabstop>btn_Sample</tabstop>
+  <tabstop>lineEdt_Sample</tabstop>
+  <tabstop>dtEdt_StartSim</tabstop>
+  <tabstop>dtEdt_EndSim</tabstop>
+  <tabstop>checkBox_Sample</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>lineEdt_OutputFolder</tabstop>
+  <tabstop>lineEdt_Dem</tabstop>
+  <tabstop>lineEdt_Clone</tabstop>
+  <tabstop>doubleSpinBox_TusInitial</tabstop>
+  <tabstop>scrollArea_2</tabstop>
+  <tabstop>lineEdt_SoilMap</tabstop>
+  <tabstop>btn_SoilMap</tabstop>
+  <tabstop>lineEdt_DensityDg</tabstop>
+  <tabstop>btn_DensityDg</tabstop>
+  <tabstop>lineEdt_HydraulicConductivityKr</tabstop>
+  <tabstop>btn_HydraulicConductivityKr</tabstop>
+  <tabstop>lineEdt_FieldCapacityCC</tabstop>
+  <tabstop>btn_FieldCapacityCC</tabstop>
+  <tabstop>lineEdt_WiltingPointWP</tabstop>
+  <tabstop>btn_WiltingPointWP</tabstop>
+  <tabstop>lineEdt_Porosity</tabstop>
+  <tabstop>btn_Porosity</tabstop>
+  <tabstop>lineEdt_Saturation</tabstop>
+  <tabstop>lineEdt_RootZoneThicknessZr</tabstop>
+  <tabstop>btn_Saturation</tabstop>
+  <tabstop>btn_RootZoneThickNessZr</tabstop>
+  <tabstop>doubleSpinBox_BaseFlowInitial</tabstop>
+  <tabstop>doubleSpinBox_BaseFlowLimit</tabstop>
+  <tabstop>lineEdt_InputFolder</tabstop>
+  <tabstop>doubleSpinBox_InitialSoilMoisture</tabstop>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>lineEdt_LandUseSeries</tabstop>
+  <tabstop>btn_LandUseSeries</tabstop>
+  <tabstop>btn_NDVIMin</tabstop>
+  <tabstop>lineEdt_NDVISeries</tabstop>
+  <tabstop>btn_NDVISeries</tabstop>
+  <tabstop>btn_NDVIMax</tabstop>
+  <tabstop>lineEdt_NDVIMin</tabstop>
+  <tabstop>lineEdt_NDVIMax</tabstop>
+  <tabstop>lineEdt_a_s</tabstop>
+  <tabstop>btn_a_s</tabstop>
+  <tabstop>lineEdt_a_i</tabstop>
+  <tabstop>lineEdt_a_o</tabstop>
+  <tabstop>btn_a_v</tabstop>
+  <tabstop>lineEdt_a_v</tabstop>
+  <tabstop>btn_a_i</tabstop>
+  <tabstop>btn_a_o</tabstop>
+  <tabstop>lineEdt_Manning</tabstop>
+  <tabstop>btn_Manning</tabstop>
+  <tabstop>lineEdt_KcMax</tabstop>
+  <tabstop>btn_KcMax</tabstop>
+  <tabstop>lineEdt_KcMin</tabstop>
+  <tabstop>btn_KcMin</tabstop>
+  <tabstop>doubleSpinBox_Interception</tabstop>
+  <tabstop>doubleSpinBox_LeafAreaIndexMax</tabstop>
+  <tabstop>doubleSpinBox_FparMax</tabstop>
+  <tabstop>doubleSpinBox_FparMin</tabstop>
+  <tabstop>lineEdt_Precipitation</tabstop>
+  <tabstop>btn_Precipitation</tabstop>
+  <tabstop>lineEdt_EvapoTranspiration</tabstop>
+  <tabstop>btn_Evapotranspiration</tabstop>
+  <tabstop>lineEdt_PanCoefficientKp</tabstop>
+  <tabstop>btn_PanCoefficientKp</tabstop>
+  <tabstop>lineEdt_RainyDays</tabstop>
+  <tabstop>btn_RainyDays</tabstop>
+  <tabstop>doubleSpinBox_ExponentCh</tabstop>
+  <tabstop>doubleSpinBox_DelayCoefficientBaseFlow</tabstop>
+  <tabstop>doubleSpinBox_DelayFactor</tabstop>
+  <tabstop>doubleSpinBox_PartitioningCoefficientRelatedSoil</tabstop>
+  <tabstop>doubleSpinBox_RegionalConsecutiveDrynessLevel</tabstop>
+  <tabstop>doubleSpinBox_SoilRelatedWeightFactor</tabstop>
+  <tabstop>doubleSpinBox_ManningRelatedWeightFactor</tabstop>
+  <tabstop>doubleSpinBox_SlopeRelatedWeightFactor</tabstop>
+  <tabstop>checkBox_InterceptionInt</tabstop>
+  <tabstop>checkBox_RechargeRec</tabstop>
+  <tabstop>checkBox_RunoffEsd</tabstop>
+  <tabstop>checkBox_InterceptionEb</tabstop>
+  <tabstop>checkBox_SoilMoistureTur</tabstop>
+  <tabstop>checkBox_RunoffVazao</tabstop>
+  <tabstop>checkBox_EvapotranspirationEvp</tabstop>
+  <tabstop>checkBox_LateralFlowLf</tabstop>
+  <tabstop>textBrowser_log</tabstop>
+  <tabstop>btn_Run</tabstop>
+  <tabstop>btn_Cancel</tabstop>
+  <tabstop>textBrowser_Info</tabstop>
+  <tabstop>doubleSpinBox_InterceptionCalibrationAlpha</tabstop>
+ </tabstops>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>btn_Cancel</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>183</x>
+     <y>479</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>371</x>
+     <y>391</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_InputFolder</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInputDirectoryPath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>449</x>
+     <y>51</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>474</x>
+     <y>14</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_OutputFolder</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setOutputDirectoryPath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>451</x>
+     <y>99</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>476</x>
+     <y>112</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Dem</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setDEMFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>457</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>474</x>
+     <y>171</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Clone</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setCloneFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>457</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>476</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Sample</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setSampleFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>457</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>477</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_GridSize</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setGridSize()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>411</x>
+     <y>298</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>479</x>
+     <y>457</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_Sample</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setExportSampleLocations()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>132</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>293</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dtEdt_EndSim</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setEndSimulationPeriod()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>428</x>
+     <y>409</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>475</x>
+     <y>419</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dtEdt_StartSim</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setStartSimulationPeriod()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>184</x>
+     <y>409</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>445</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_SoilMap</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setSoilMapFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_DensityDg</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setDensityFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>267</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_HydraulicConductivityKr</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setHydraulicConductivityFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>312</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>279</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_FieldCapacityCC</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setFieldCapacityFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>357</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>327</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_WiltingPointWP</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setWiltingPointFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>402</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>389</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Porosity</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setPorosityFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>447</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>490</x>
+     <y>438</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Saturation</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setSaturationFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>492</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>486</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_RootZoneThickNessZr</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setRootZoneThicknessFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>537</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>488</x>
+     <y>427</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_InitialSoilMoisture</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInitialSoilMoisture()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>584</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>470</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_BaseFlowInitial</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInitialBaseFlow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>73</x>
+     <y>610</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>512</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_BaseFlowLimit</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setBaseFlowLimit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>338</x>
+     <y>610</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>530</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_TusInitial</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInitialTus()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>338</x>
+     <y>584</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>493</x>
+     <y>517</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_LandUseSeries</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setLandUseSeriesFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>-141</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>493</x>
+     <y>186</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_NDVISeries</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setNDVISeriesFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>-59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>491</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_NDVIMax</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setNDVIMaximumSeriesFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>-14</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>482</x>
+     <y>315</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_NDVIMin</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setNDVIMinimumSeriesFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>31</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>489</x>
+     <y>376</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_a_i</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setAiFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>490</x>
+     <y>220</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_a_o</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setAoFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>158</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>488</x>
+     <y>144</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_a_s</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setAsFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>203</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_a_v</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setAvFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>248</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>487</x>
+     <y>511</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Manning</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setManningFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>311</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>495</x>
+     <y>314</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_KcMax</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setKcMaximumFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>393</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>493</x>
+     <y>573</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_KcMin</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setKcMinimumFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>442</x>
+     <y>438</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>491</x>
+     <y>558</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_FparMax</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setFparMaximum()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>503</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>416</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_FparMin</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setFparMinimum()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>529</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>497</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_Interception</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInterception()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>340</x>
+     <y>501</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>547</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_LeafAreaIndexMax</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setLeafAreaIndexMaximum()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>329</x>
+     <y>527</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>370</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Precipitation</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setPrecipitationSeriesFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>491</x>
+     <y>188</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Evapotranspiration</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setEvapotranspirationSeriesFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>268</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>306</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_PanCoefficientKp</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setKpSeriesFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>313</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>483</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_RainyDays</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setRainyDaysSeriesFilePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>450</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>463</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_ExponentCh</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setExponentCh()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>65</x>
+     <y>190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_DelayFactor</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setDelayFactor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>231</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>236</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_RegionalConsecutiveDrynessLevel</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setRegionalConsecutiveDrynessLevel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>257</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>338</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_DelayCoefficientBaseFlow</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setDelayCoefficientBaseFlow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>205</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>139</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_PartitioningCoefficientRelatedSoil</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setPartitioningCoefficientRelated()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>265</x>
+     <y>231</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>149</x>
+     <y>122</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_ManningRelatedWeightFactor</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setManningRelatedWeightFactor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>332</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>4</x>
+     <y>397</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_SoilRelatedWeightFactor</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setSoilRelatedWeightFactor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>355</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>486</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_SlopeRelatedWeightFactor</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setSlopeRelatedWeightFactor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>378</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>327</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_InterceptionInt</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInterception()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>40</x>
+     <y>197</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>231</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_InterceptionEb</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInterceptionEbGenerateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>44</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>0</x>
+     <y>133</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_EvapotranspirationEvp</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setEvapotranspirationGenerateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>37</x>
+     <y>245</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_RechargeRec</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setRechargeGenerateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>190</x>
+     <y>196</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>170</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_SoilMoistureTur</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setSoilMoistureGenerateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>189</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>485</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_LateralFlowLf</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setLateralFLowGenerateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>193</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>483</x>
+     <y>45</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_RunoffEsd</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setRunoffEsdGenerateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>327</x>
+     <y>194</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>485</x>
+     <y>94</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_RunoffVazao</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setRunoffVazaoGenerateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>326</x>
+     <y>220</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>484</x>
+     <y>26</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_Run</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setRunState()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>479</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>445</x>
+     <y>127</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_InterceptionCalibrationAlpha</sender>
+   <signal>editingFinished()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInterceptionCalibration()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>279</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>92</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>setInputDirectoryPath()</slot>
+  <slot>setOutputDirectoryPath()</slot>
+  <slot>setDEMFilePath()</slot>
+  <slot>setCloneFilePath()</slot>
+  <slot>setSampleFilePath()</slot>
+  <slot>setGridSize()</slot>
+  <slot>setExportSampleLocations()</slot>
+  <slot>setEndSimulationPeriod()</slot>
+  <slot>setStartSimulationPeriod()</slot>
+  <slot>setSoilMapFilePath()</slot>
+  <slot>setDensityFilePath()</slot>
+  <slot>setHydraulicConductivityFilePath()</slot>
+  <slot>setFieldCapacityFilePath()</slot>
+  <slot>setWiltingPointFilePath()</slot>
+  <slot>setPorosityFilePath()</slot>
+  <slot>setSaturationFilePath()</slot>
+  <slot>setRootZoneThicknessFilePath()</slot>
+  <slot>setInitialSoilMoisture()</slot>
+  <slot>setInitialBaseFlow()</slot>
+  <slot>setBaseFlowLimit()</slot>
+  <slot>setInitialTus()</slot>
+  <slot>setLandUseSeriesFilePath()</slot>
+  <slot>setNDVISeriesFilePath()</slot>
+  <slot>setNDVIMaximumSeriesFilePath()</slot>
+  <slot>setNDVIMinimumSeriesFilePath()</slot>
+  <slot>setAiFilePath()</slot>
+  <slot>setAoFilePath()</slot>
+  <slot>setAsFilePath()</slot>
+  <slot>setAvFilePath()</slot>
+  <slot>setManningFilePath()</slot>
+  <slot>setKcMaximumFilePath()</slot>
+  <slot>setKcMinimumFilePath()</slot>
+  <slot>setFparMaximum()</slot>
+  <slot>setFparMinimum()</slot>
+  <slot>setInterception()</slot>
+  <slot>setLeafAreaIndexMaximum()</slot>
+  <slot>setPrecipitationSeriesFilePath()</slot>
+  <slot>setEvapotranspirationSeriesFilePath()</slot>
+  <slot>setKpSeriesFilePath()</slot>
+  <slot>setRainyDaysSeriesFilePath()</slot>
+  <slot>setExponentCh()</slot>
+  <slot>setDelayFactor()</slot>
+  <slot>setDelayCoefficientBaseFlow()</slot>
+  <slot>setPartitioningCoefficientRelated()</slot>
+  <slot>setManningRelatedWeightFactor()</slot>
+  <slot>setSoilRelatedWeightFactor()</slot>
+  <slot>setSlopeRelatedWeightFactor()</slot>
+  <slot>setRegionalConsecutiveDrynessLevel()</slot>
+  <slot>setRunoffVazaoGenerateFile()</slot>
+  <slot>setRunoffEsdGenerateFile()</slot>
+  <slot>setLateralFLowGenerateFile()</slot>
+  <slot>setSoilMoistureGenerateFile()</slot>
+  <slot>setRechargeGenerateFile()</slot>
+  <slot>setEvapotranspirationGenerateFile()</slot>
+  <slot>setInterceptionEbGenerateFile()</slot>
+  <slot>setInterceptionGenerateFile()</slot>
+  <slot>setRunState()</slot>
+  <slot>setInterceptionCalibration()</slot>
+ </slots>
+</ui>

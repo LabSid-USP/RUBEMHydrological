@@ -1,12 +1,47 @@
+# This file contains metadata for your plugin.
+
+# This file should be included when you package your plugin.# Mandatory items:
+
 [general]
-name= Plugin ADP
-qgisMinimumVersion=2.16
-qgisMaximumVersion=3.99
-description= Plugin Testes
-about= Plugin Base para ADP
-version=0.0
-author=Plugin Qgis
-email=lina@labsid.eng.br
-icon=images/icon.jpg
-experimental=False
+name=RUBEM Hydrological
+qgisMinimumVersion=3.0
+description=This plugin uses Rainfall rUnoff Balance Enhanced Model (a distributed hydrological model) to calculate monthly flows with changes in land use over time.
+version=0.1
+author=Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos LabSid-PHA-EPUSP
+email=rubem.hydrological@labsid.eng.br
+
+about=RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the Rainfall rUnoff Balance Enhanced Model algorithm, which is an improved model of balance between rain and runoff. The distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017). The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.
+
+tracker=https://github.com/LabSid-USP/Plugin_QGIS_RUBEM/issues
+repository=https://github.com/LabSid-USP/Plugin_QGIS_RUBEM
+# End of mandatory metadata
+
+# Recommended items:
+
+hasProcessingProvider=no
+# Uncomment the following line and add your changelog:
+# changelog=
+
+# Tags are comma separated with spaces allowed
+tags=hydrological model,remote sensing,grid,hydrology,pcraster,water,catchment
+
+homepage=https://github.com/LabSid-USP/Plugin_QGIS_RUBEM/#readme
+category=Plugins
+icon=icon.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+# Since QGIS 3.8, a comma separated list of plugins to be installed
+# (or upgraded) can be specified.
+# Check the documentation for more information.
+# plugin_dependencies=
+
+Category of the plugin: Raster, Vector, Database or Web
+# category=
+
+# If the plugin can run on QGIS Server.
+server=False
 
