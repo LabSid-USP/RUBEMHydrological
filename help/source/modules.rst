@@ -1,7 +1,7 @@
-Plugin_QGIS_RUBEM
+RUBEMHydrological
 =================
 
 .. toctree::
    :maxdepth: 4
 
-   Plugin_QGIS_RUBEM
+   RUBEMHydrological

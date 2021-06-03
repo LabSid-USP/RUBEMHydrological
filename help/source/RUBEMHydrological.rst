@@ -1,4 +1,4 @@
-Plugin\_QGIS\_RUBEM package
+RUBEMHydrological package
 ===========================
 
 Subpackages
@@ -7,23 +7,23 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   Plugin_QGIS_RUBEM.test
+   RUBEMHydrological.test
 
 Submodules
 ----------
 
-Plugin\_QGIS\_RUBEM.rubem\_hydrological module
+RUBEMHydrological.rubem\_hydrological module
 ----------------------------------------------
 
-.. automodule:: Plugin_QGIS_RUBEM.rubem_hydrological
+.. automodule:: RUBEMHydrological.rubem_hydrological
    :members:
    :undoc-members:
    :show-inheritance:
 
-Plugin\_QGIS\_RUBEM.rubem\_hydrological\_dialog module
+RUBEMHydrological.rubem\_hydrological\_dialog module
 ------------------------------------------------------
 
-.. automodule:: Plugin_QGIS_RUBEM.rubem_hydrological_dialog
+.. automodule:: RUBEMHydrological.rubem_hydrological_dialog
    :members:
    :undoc-members:
    :show-inheritance:
@@ -31,7 +31,7 @@ Plugin\_QGIS\_RUBEM.rubem\_hydrological\_dialog module
 Module contents
 ---------------
 
-.. automodule:: Plugin_QGIS_RUBEM
+.. automodule:: RUBEMHydrological
    :members:
    :undoc-members:
    :show-inheritance:
