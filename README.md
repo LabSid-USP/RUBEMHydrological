@@ -1,8 +1,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/LabSid-USP/Plugin_QGIS_RUBEM">
-    <img src="https://github.com/LabSid-USP/Plugin_QGIS_RUBEM/blob/develop/images/icon.png" alt="Logo" width="120" height="120">
+  <a href="https://github.com/LabSid-USP/RUBEMHydrological">
+    <img src="https://github.com/LabSid-USP/RUBEMHydrological/blob/develop/images/icon.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">RUBEM Hydrological</h3>
@@ -10,14 +10,14 @@
   <p align="center">
     QGIS plugin that uses <b>R</b>ainfall r<b>U</b>noff <b>B</b>alance <b>E</b>nhanced <b>M</b>odel (a distributed hydrological model) to calculate monthly flows with changes in land use over time
     <br />
-    <a href="https://github.com/LabSid-USP/Plugin_QGIS_RUBEM"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/LabSid-USP/RUBEMHydrological"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/LabSid-USP/Plugin_QGIS_RUBEM">View Demo</a>
+    <a href="https://github.com/LabSid-USP/RUBEMHydrological">View Demo</a>
     ·
-    <a href="https://github.com/LabSid-USP/Plugin_QGIS_RUBEM/issues">Report Bug</a>
+    <a href="https://github.com/LabSid-USP/RUBEMHydrological/issues">Report Bug</a>
     ·
-    <a href="https://github.com/LabSid-USP/Plugin_QGIS_RUBEM/issues">Request Feature</a>
+    <a href="https://github.com/LabSid-USP/RUBEMHydrological/issues">Request Feature</a>
   </p>
 </p>
 
@@ -81,17 +81,17 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/LabSid-USP/Plugin_QGIS_RUBEM.git
+   git clone https://github.com/LabSid-USP/RUBEMHydrological.git
    ```
 2. Copy the repo folder to QGIS plugin directory 
    
    Windows:
    ```powershell
-   Xcopy /E /I C:\Plugin_QGIS_RUBEM %APPDATA%\QGIS\QGIS3\profiles\default\python\plugins\Plugin_QGIS_RUBEM
+   Xcopy /E /I C:\RUBEMHydrological %APPDATA%\QGIS\QGIS3\profiles\default\python\plugins\RUBEMHydrological
    ```
    GNU/Linux:
    ```sh
-   cp -R /Plugin_QGIS_RUBEM /home/USER/.local/share/QGIS/QGIS3/profiles/default/python/plugins/Plugin_QGIS_RUBEM 
+   cp -R /RUBEMHydrological /home/USER/.local/share/QGIS/QGIS3/profiles/default/python/plugins/RUBEMHydrological 
    ```
 
 
@@ -107,7 +107,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/LabSid-USP/Plugin_QGIS_RUBEM/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/LabSid-USP/RUBEMHydrological/issues) for a list of proposed features (and known issues).
 
 
 
@@ -134,7 +134,7 @@ Distributed under the GPLv3 License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Project Link: [https://github.com/LabSid-USP/Plugin_QGIS_RUBEM](https://github.com/LabSid-USP/Plugin_QGIS_RUBEM)
+Project Link: [https://github.com/LabSid-USP/RUBEMHydrological](https://github.com/LabSid-USP/RUBEMHydrological)
 
 
 
