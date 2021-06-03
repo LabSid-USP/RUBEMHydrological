@@ -1,4 +1,4 @@
-Plugin\_QGIS\_RUBEM package
+RUBEMHydrological package
 ===========================
 
 Subpackages
@@ -12,7 +12,7 @@ Subpackages
 Submodules
 ----------
 
-Plugin\_QGIS\_RUBEM.rubem\_hydrological module
+RUBEMHydrological.rubem\_hydrological module
 ----------------------------------------------
 
 .. automodule:: RUBEMHydrological.rubem_hydrological
@@ -20,7 +20,7 @@ Plugin\_QGIS\_RUBEM.rubem\_hydrological module
    :undoc-members:
    :show-inheritance:
 
-Plugin\_QGIS\_RUBEM.rubem\_hydrological\_dialog module
+RUBEMHydrological.rubem\_hydrological\_dialog module
 ------------------------------------------------------
 
 .. automodule:: RUBEMHydrological.rubem_hydrological_dialog

@@ -1,10 +1,10 @@
-Plugin\_QGIS\_RUBEM.test package
+RUBEMHydrological.test package
 ================================
 
 Submodules
 ----------
 
-Plugin\_QGIS\_RUBEM.test.qgis\_interface module
+RUBEMHydrological.test.qgis\_interface module
 -----------------------------------------------
 
 .. automodule:: RUBEMHydrological.test.qgis_interface
@@ -12,7 +12,7 @@ Plugin\_QGIS\_RUBEM.test.qgis\_interface module
    :undoc-members:
    :show-inheritance:
 
-Plugin\_QGIS\_RUBEM.test.test\_init module
+RUBEMHydrological.test.test\_init module
 ------------------------------------------
 
 .. automodule:: RUBEMHydrological.test.test_init
@@ -20,7 +20,7 @@ Plugin\_QGIS\_RUBEM.test.test\_init module
    :undoc-members:
    :show-inheritance:
 
-Plugin\_QGIS\_RUBEM.test.test\_qgis\_environment module
+RUBEMHydrological.test.test\_qgis\_environment module
 -------------------------------------------------------
 
 .. automodule:: RUBEMHydrological.test.test_qgis_environment
@@ -28,7 +28,7 @@ Plugin\_QGIS\_RUBEM.test.test\_qgis\_environment module
    :undoc-members:
    :show-inheritance:
 
-Plugin\_QGIS\_RUBEM.test.test\_resources module
+RUBEMHydrological.test.test\_resources module
 -----------------------------------------------
 
 .. automodule:: RUBEMHydrological.test.test_resources
@@ -36,7 +36,7 @@ Plugin\_QGIS\_RUBEM.test.test\_resources module
    :undoc-members:
    :show-inheritance:
 
-Plugin\_QGIS\_RUBEM.test.test\_rubem\_hydrological\_dialog module
+RUBEMHydrological.test.test\_rubem\_hydrological\_dialog module
 -----------------------------------------------------------------
 
 .. automodule:: RUBEMHydrological.test.test_rubem_hydrological_dialog
@@ -44,7 +44,7 @@ Plugin\_QGIS\_RUBEM.test.test\_rubem\_hydrological\_dialog module
    :undoc-members:
    :show-inheritance:
 
-Plugin\_QGIS\_RUBEM.test.test\_translations module
+RUBEMHydrological.test.test\_translations module
 --------------------------------------------------
 
 .. automodule:: RUBEMHydrological.test.test_translations
@@ -52,7 +52,7 @@ Plugin\_QGIS\_RUBEM.test.test\_translations module
    :undoc-members:
    :show-inheritance:
 
-Plugin\_QGIS\_RUBEM.test.utilities module
+RUBEMHydrological.test.utilities module
 -----------------------------------------
 
 .. automodule:: RUBEMHydrological.test.utilities
