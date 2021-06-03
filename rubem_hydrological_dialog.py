@@ -635,7 +635,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_PanCoefficientKp        
         """           
         filePath = self.getFilePath(caption="Select Kp Series File", filter="*.001")
-        directoryPath, fileName = os.path.split(filePath)
         self.config['FILES']['kp'], self.config['FILES']['kpFilePrefix'] = self.splitDirFilePrefix(filePath)        
         self.lineEdt_PanCoefficientKp.setText(filePath) 
 
