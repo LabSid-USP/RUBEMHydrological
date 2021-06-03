@@ -642,7 +642,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     def setRainyDaysSeriesFilePath(self):
         """Defines the project's Rainy Days file. 
         
-        Alsod change the lineEdt_RainyDays field with the selected file path.
+        Also updates the lineEdt_RainyDays field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_RainyDays        
