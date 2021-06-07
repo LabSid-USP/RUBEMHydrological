@@ -18,7 +18,7 @@ from qgis.PyQt.QtGui import QIcon
 
 
 
-class RUBEMHydrologicalDialogTest(unittest.TestCase):
+class RUBEMHydrologicalResourcesTest(unittest.TestCase):
     """Test rerources work."""
 
     def setUp(self):
