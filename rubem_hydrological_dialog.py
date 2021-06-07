@@ -39,7 +39,10 @@ except ImportError:
     from PyQt5.QtWidgets import QDialog, QFileDialog
     from PyQt5.QtCore import QObject, QThread, pyqtSignal
 
-from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+try:
+    from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+except ImportError:
+    from rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
         
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     def __init__(self, iface):

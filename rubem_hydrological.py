@@ -37,7 +37,10 @@ except ImportError:
     from PyQt5.QtGui import QIcon
     from PyQt5.QtWidgets import QAction
 
-from .rubem_hydrological_dialog import RUBEMHydrologicalDialog
+try:
+    from .rubem_hydrological_dialog import RUBEMHydrologicalDialog
+except ImportError:
+    from rubem_hydrological_dialog import RUBEMHydrologicalDialog   
 
 class RUBEMHydrological:
     """QGIS Plugin Implementation."""
