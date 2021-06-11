@@ -1138,7 +1138,11 @@ class Worker(QObject):
 
     def run(self):
         """RUBEM Long-running task"""
-        proc = subprocess.Popen(command, shell=True, encoding='latin-1', stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        proc.wait()
+        proc = subprocess.Popen(command, shell=True, encoding='latin-1', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        try:
+            outs, errs = proc.communicate(timeout=150)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            outs, errs = proc.communicate()  
         self.progress.emit(100)
-        self.finished.emit(proc.communicate()[0])
+        self.finished.emit(outs + errs)
