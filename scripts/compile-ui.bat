@@ -1,5 +1,6 @@
 ﻿@ECHO OFF
 
+::QGIS Installation Path
 set OSGEO4W_ROOT=C:\\PROGRA~1\\QGIS\\
 
 set PATH=%OSGEO4W_ROOT%\bin;%PATH%
@@ -15,11 +16,12 @@ path %OSGEO4W_ROOT%\apps\qgis\bin;%OSGEO4W_ROOT%\apps\grass\grass78\lib;%OSGEO4W
 cd /d %~dp0
 
 @ECHO ON
+
 ::Ui Compilation
-call pyuic5 --import-from . rubem_hydrological_dialog_base.ui -o rubem_hydrological_dialog_base_ui.py          
+call pyuic5 --import-from . ..\rubem_hydrological_dialog_base.ui -o ..\rubem_hydrological_dialog_base_ui.py          
 
 ::Resources
-call pyrcc5 resources.qrc -o resources_rc.py
+call pyrcc5 ..\resources.qrc -o ..\resources_rc.py
 
 @ECHO OFF
 GOTO END

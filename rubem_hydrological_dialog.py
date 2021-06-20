@@ -17,7 +17,7 @@
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
  *   the Free Software Foundation; either version 2 of the License, or     *
- #   any later version.                                                    *
+ *   any later version.                                                    *
  *                                                                         *
  ***************************************************************************/
 """
@@ -27,19 +27,22 @@ __date__ = '2021-05-19'
 __copyright__ = 'Copyright 2021, LabSid'
 
 import os
-import io
 from pathlib import Path
 import configparser
-import subprocess
 
 try:
     from qgis.PyQt.QtWidgets import QDialog, QFileDialog
-    from qgis.PyQt.QtCore import QObject, QThread, pyqtSignal
+    from qgis.PyQt.QtCore import QThread
 except ImportError:
     from PyQt5.QtWidgets import QDialog, QFileDialog
-    from PyQt5.QtCore import QObject, QThread, pyqtSignal
+    from PyQt5.QtCore import QThread
 
-from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+try:
+    from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+    from .rubem_thread_workers import RUBEMStandaloneWorker
+except ImportError:
+    from rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+    from rubem_thread_workers import RUBEMStandaloneWorker
         
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     def __init__(self, iface):
@@ -215,8 +218,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Settings tab
     ### Model General Settings
     def setDEMFilePath(self):
-        """Defines the project's DEM map file and change the lineEdt_Dem 
-            field with the selected file path.
+        """Defines the project's DEM map file.
+        
+        Also updates the lineEdt_Dem field with the selected file path.
         
         :Slot signal: clicked
         :Signal sender: btn_Dem        
@@ -226,8 +230,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Dem.setText(filePath)
 
     def setCloneFilePath(self):
-        """Defines the project's Clone file and change the lineEdt_Clone 
-            field with the selected file path.
+        """Defines the project's Clone file.
+        
+        Also updates the lineEdt_Clone field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_Clone        
@@ -237,8 +242,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Clone.setText(filePath)     
 
     def setExportSampleLocations(self):
-        """Defines as enabled the fields related to the Sample file:
-            lineEdt_Sample, btn_Sample and label_SelectSample.
+        """Defines as enabled the fields related to the Sample file.
+        
+        Fields: lineEdt_Sample, btn_Sample and label_SelectSample.
         
         :Slot signal: checked
         :Signal sender: checkBox_Sample     
@@ -253,8 +259,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.label_SelectSample.setEnabled(False)      
 
     def setSampleFilePath(self):
-        """Defines the project's Sample file and change the lineEdt_Sample 
-            field with the selected file path.
+        """Defines the project's Sample file.
+        
+        Also updates the lineEdt_Sample field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_Sample        
@@ -273,7 +280,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Simulation Period
     def setStartSimulationPeriod(self):
-        """Defines the start date of the model simulation period. Following the 'dd/MM/yyyy' format.
+        """Defines the start date of the model simulation period. 
+        
+        Follows the format 'dd/MM/yyyy'.
                 
         :Slot signal: editingFinished
         :Signal sender: dtEdt_StartSim        
@@ -281,7 +290,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config['SIM_TIME']['start'] = self.dtEdt_StartSim.date().toString('dd/MM/yyyy')
     
     def setEndSimulationPeriod(self):
-        """Defines the end date of the model simulation period. Following the 'dd/MM/yyyy' format. 
+        """Defines the end date of the model simulation period. 
+        
+        Follows the format 'dd/MM/yyyy'. 
                 
         :Slot signal: editingFinished
         :Signal sender: dtEdt_EndSim        
@@ -291,8 +302,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Soil tab
     ### Soil Parameters
     def setSoilMapFilePath(self):
-        """Defines the project's Soil Map file and change the lineEdt_SoilMap 
-            field with the selected file path.
+        """Defines the project's Soil Map file.
+        
+        Also updates the lineEdt_SoilMap field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_SoilMap        
@@ -302,8 +314,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_SoilMap.setText(filePath)  
 
     def setDensityFilePath(self):
-        """Defines the project's Density file and change the lineEdt_DensityDg
-            field with the selected file path.
+        """Defines the project's Density file.
+        
+        Also updates the lineEdt_DensityDg field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_DensityDg        
@@ -313,8 +326,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_DensityDg.setText(filePath)  
 
     def setHydraulicConductivityFilePath(self):
-        """Defines the project's HydraulicConductivity file and change the lineEdt_HydraulicConductivityKr 
-            field with the selected file path.
+        """Defines the project's HydraulicConductivity file.
+        
+        Also updates the lineEdt_HydraulicConductivityKr field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_HydraulicConductivityKr       
@@ -324,8 +338,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_HydraulicConductivityKr.setText(filePath)  
 
     def setFieldCapacityFilePath(self):
-        """Defines the project's Field Capacity file and change the lineEdt_FieldCapacityCC 
-            field with the selected file path.
+        """Defines the project's Field Capacity file.
+        
+        Also updates the lineEdt_FieldCapacityCC field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_FieldCapacityCC        
@@ -335,8 +350,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_FieldCapacityCC.setText(filePath) 
 
     def setWiltingPointFilePath(self):
-        """Defines the project's Wilting Point file and change the lineEdt_WiltingPointWP 
-            field with the selected file path.
+        """Defines the project's Wilting Point file.
+        
+        Also updates the lineEdt_WiltingPointWP field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_WiltingPointWP        
@@ -346,8 +362,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_WiltingPointWP.setText(filePath) 
 
     def setPorosityFilePath(self):
-        """Defines the project's Porosity file and change the lineEdt_Porosity 
-            field with the selected file path.
+        """Defines the project's Porosity file.
+        
+        Also updates the lineEdt_Porosity field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_Porosity        
@@ -357,8 +374,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Porosity.setText(filePath) 
 
     def setSaturationFilePath(self):
-        """Defines the project's Saturation file and change the lineEdt_Saturation 
-            field with the selected file path.
+        """Defines the project's Saturation file.
+        
+        Also updates the lineEdt_Saturation field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_Saturation        
@@ -368,8 +386,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Saturation.setText(filePath) 
 
     def setRootZoneThicknessFilePath(self):
-        """Defines the project's Root Zone Thickness file and change the lineEdt_RootZoneThicknessZr 
-            field with the selected file path.
+        """Defines the project's Root Zone Thickness file.
+        
+        Also updates the lineEdt_RootZoneThicknessZr field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_RootZoneThicknessZr        
@@ -414,8 +433,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Land Use tab
     ### Land Use Series
     def setLandUseSeriesFilePath(self):
-        """Defines the project's Land Use Series file folder, change the lineEdt_LandUseSeries 
-            field with the selected file path and set land use file prefix.
+        """Defines the project's Land Use Series file folder. 
+        
+        Also updates the lineEdt_LandUseSeries field with the selected file path and set land use file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_LandUseSeries        
@@ -426,8 +446,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### NDVI
     def setNDVISeriesFilePath(self):
-        """Defines the project's NDVISeries file folder, change the lineEdt_NDVISeries 
-            field with the selected file path and define the ndvi file prefix.
+        """Defines the project's NDVISeries file folder. 
+        
+        Also updates the lineEdt_NDVISeries field with the selected file path and define the ndvi file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_NDVISeries        
@@ -437,8 +458,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_NDVISeries.setText(filePath)     
 
     def setNDVIMaximumSeriesFilePath(self):
-        """Defines the project's NDVIMax file and change the lineEdt_NDVIMax 
-            field with the selected file path.
+        """Defines the project's NDVIMax file. 
+        
+        Also updates the lineEdt_NDVIMax field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_NDVIMax        
@@ -448,8 +470,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_NDVIMax.setText(filePath)         
 
     def setNDVIMinimumSeriesFilePath(self):
-        """Defines the project's NDVIMin file and change the lineEdt_NDVIMin 
-            field with the selected file path.
+        """Defines the project's NDVIMin file. 
+        
+        Also updates the lineEdt_NDVIMin field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_NDVIMin        
@@ -460,8 +483,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### a
     def setAiFilePath(self):
-        """Defines the project's a_i file and change the lineEdt_a_i 
-            field with the selected file path.
+        """Defines the project's a_i file. 
+        
+        Also updates the lineEdt_a_i field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_a_i        
@@ -471,8 +495,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_a_i.setText(filePath)     
 
     def setAoFilePath(self):
-        """Defines the project's a_o file and change the lineEdt_a_o 
-            field with the selected file path.
+        """Defines the project's a_o file. 
+        
+        Also updates the lineEdt_a_o field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_a_o        
@@ -482,8 +507,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_a_o.setText(filePath)               
 
     def setAsFilePath(self):
-        """Defines the project's a_s file and change the lineEdt_a_s 
-            field with the selected file path.
+        """Defines the project's a_s file. 
+        
+        Also updates the lineEdt_a_s field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_a_s        
@@ -493,8 +519,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_a_s.setText(filePath)   
 
     def setAvFilePath(self):
-        """Defines the project's a_v file and change the lineEdt_a_v 
-            field with the selected file path.
+        """Defines the project's a_v file. 
+        
+        Also updates the lineEdt_a_v field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_a_v        
@@ -505,8 +532,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Manning
     def setManningFilePath(self):
-        """Defines the project's Manning file and change the lineEdt_Manning 
-            field with the selected file path.
+        """Defines the project's Manning file. 
+        
+        Also updates the lineEdt_Manning field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_Manning        
@@ -518,8 +546,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Kc
     def setKcMaximumFilePath(self):
-        """Defines the project's KcMax file and change the lineEdt_KcMax 
-            field with the selected file path.
+        """Defines the project's KcMax file. 
+        
+        Also updates the lineEdt_KcMax field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_KcMax        
@@ -529,8 +558,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_KcMax.setText(filePath)         
 
     def setKcMinimumFilePath(self):
-        """Defines the project's KcMin file and change the lineEdt_KcMin 
-            field with the selected file path.
+        """Defines the project's KcMin file. 
+        
+        Also updates the lineEdt_KcMin field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_KcMin        
@@ -576,8 +606,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # Climate tab
     def setPrecipitationSeriesFilePath(self):
-        """Defines the project's Precipitation folder file, change the lineEdt_Precipitation 
-            field with the selected file path and define the prec file prefix.
+        """Defines the project's Precipitation folder file. 
+        
+        Alsochange the lineEdt_Precipitation field with the selected file path and define the prec file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_Precipitation        
@@ -587,8 +618,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Precipitation.setText(filePath)     
 
     def setEvapotranspirationSeriesFilePath(self):
-        """Defines the project's Evapotranspiration folder file, change the lineEdt_EvapoTranspiration 
-            field with the selected file path and define the etp file prefix.
+        """Defines the project's Evapotranspiration folder file. 
+        
+        Also updates the lineEdt_EvapoTranspiration field with the selected file path and define the etp file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_EvapoTranspiration        
@@ -598,20 +630,21 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_EvapoTranspiration.setText(filePath)     
 
     def setKpSeriesFilePath(self):
-        """Defines the project's Pan Coefficient (Kp) folder file, change the lineEdt_PanCoefficientKp 
-            field with the selected file path and define the Kp file prefix.
+        """Defines the project's Pan Coefficient (Kp) folder file. 
+        
+        Also updates the lineEdt_PanCoefficientKp field with the selected file path and define the Kp file prefix.
                 
         :Slot signal: clicked
         :Signal sender: btn_PanCoefficientKp        
         """           
         filePath = self.getFilePath(caption="Select Kp Series File", filter="*.001")
-        directoryPath, fileName = os.path.split(filePath)
         self.config['FILES']['kp'], self.config['FILES']['kpFilePrefix'] = self.splitDirFilePrefix(filePath)        
         self.lineEdt_PanCoefficientKp.setText(filePath) 
 
     def setRainyDaysSeriesFilePath(self):
-        """Defines the project's Rainy Days file and change the lineEdt_RainyDays 
-            field with the selected file path.
+        """Defines the project's Rainy Days file. 
+        
+        Also updates the lineEdt_RainyDays field with the selected file path.
                 
         :Slot signal: clicked
         :Signal sender: btn_RainyDays        
@@ -901,7 +934,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.textBrowser_log.append("Configuration updated with current values")      
 
     def loadConfigFromFile(self, configFilePath):
-        """Reads the configuration file passed as an argument and sets the values of 
+        """Reads the configuration file argument and sets the values of 
             the GUI's data entry objects to those contained in the file.
 
         :param configFilePath: Valid path to the configuration file.
@@ -1054,8 +1087,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.textBrowser_log.append("\n# RUBEM execution started...")
 
         # Make command list available to execution thread
-        global command
-        command = [self.modelFilePath, "--configfile", self.configFilePath]
+        self.command = [self.modelFilePath, "--configfile", self.configFilePath]
         self.runLongTask()
 
     def reportExecutionLog(self, outputLog):
@@ -1075,10 +1107,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         # Create a QThread object
         self.thread = QThread()
         # Create a worker object
-        self.worker = Worker()
+        self.worker = RUBEMStandaloneWorker(self.command)
         # Move worker to the thread
         self.worker.moveToThread(self.thread)
         # Connect signals and slots
+        self.btn_Cancel.clicked.connect(self.worker.kill)
         self.thread.started.connect(self.worker.run)
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
@@ -1097,15 +1130,3 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             lambda: self.progressBar.setValue(0)
         )
 
-# Create a worker class
-class Worker(QObject):
-    """Constructor"""
-    finished = pyqtSignal(str)
-    progress = pyqtSignal(int)
-
-    def run(self):
-        """RUBEM Long-running task"""
-        proc = subprocess.Popen(command, shell=True, encoding='latin-1', stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        proc.wait()
-        self.progress.emit(100)
-        self.finished.emit(proc.communicate()[0])

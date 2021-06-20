@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'rubem_hydrological_dialog_base.ui'
+# Form implementation generated from reading ui file '..\rubem_hydrological_dialog_base.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -1545,4 +1545,7 @@ class Ui_RUBEMHydrological(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_Info), _translate("RUBEMHydrological", "Info"))
         self.label_27.setText(_translate("RUBEMHydrological", "<html><head/><body><p>RUBEM Hydrological © Developed by <a href=\"http://labsid.eng.br/\"><span style=\" text-decoration: underline; color:#0000ff;\">LabSid</span></a> PHA EPUSP</p></body></html>"))
 
-from . import resources_rc
+try:
+    from . import resources_rc
+except ImportError:
+    from resources_rc import *
