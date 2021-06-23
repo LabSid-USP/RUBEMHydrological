@@ -32,6 +32,8 @@ from pathlib import Path
 import configparser
 import subprocess
 
+from PyQt5.QtWidgets import QMessageBox
+
 try:
     from qgis.PyQt.QtWidgets import QDialog, QFileDialog
     from qgis.PyQt.QtCore import QObject, QThread, pyqtSignal
@@ -41,8 +43,10 @@ except ImportError:
 
 try:
     from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+    from .rubem_config import *
 except ImportError:
     from rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+    from rubem_config import *
         
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     def __init__(self, iface):
@@ -55,91 +59,16 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lastOpenedDirectory = None
         self.plugin_dir = os.path.dirname(os.path.abspath(__file__))
         self.modelFilePath = None
-        self.configFilePath = None
+        self.projectFilePath = None
         self.config = configparser.ConfigParser()
-        
-        self.config['SIM_TIME'] = {
-                    'start' : '',
-                    'end' : ''
-        }
-            
-        self.config['FILES'] = { 
-                'input' : '',
-                'dem' : '',
-                'demtif' : '',
-                'clone' : '',
-                'lddTif' : '',
-                'etp' : '',
-                'prec' : '',
-                'ndvi' : '',
-                'kp' : '',
-                'landuse' : '',
-                'solo' : '',
-                'output' : '',
-                'samples' : '',
-                'etpFilePrefix' : '',
-                'precFilePrefix' : '',
-                'ndviFilePrefix' : '',  
-                'ndvimax' : '', 
-                'ndvimin' : '', 
-                'kpFilePrefix' : '',
-                'landuseFilePrefix' : ''
-        }
-        self.config['PARAMETERS'] = {
-                'rainydays' : '',
-                'a_i' : '',
-                'a_o' : '',
-                'a_s' : '',
-                'a_v' : '',
-                'manning' : '',
-                'dg' : '',
-                'kr' : '',
-                'capCampo' : '',
-                'porosidade' : '',
-                'saturacao' : '',
-                'pontomurcha' : '',
-                'zr' : '',
-                'kcmin' : '',
-                'kcmax' : ''
-        }
-        self.config['GRID'] = {
-                'grid' : ''
-        }
-        self.config['CALIBRATION'] = {
-                'alfa' : '',
-                'b' : '',
-                'w1' : '',
-                'w2' : '',
-                'w3' : '',
-                'rcd' : '',
-                'f' : '',
-                'alfa_gw' : '',
-                'x' : ''
-        }
-        self.config['INITIAL SOIL CONDITIONS'] = {
-                'ftur_ini' : '',
-                'eb_ini' : '',
-                'eb_lim' : '',
-                'tus_ini' : ''
-        }
-        self.config['CONSTANT'] = {
-                'fpar_max' : '',
-                'fpar_min' : '',
-                'lai_max' : '',
-                'i_imp' : ''
-        }
-        self.config['GENERATE_FILE'] = {
-                'Int' : 'True', 
-                'Eb' : 'True',
-                'Esd' : 'False',
-                'Evp' : 'False',
-                'Lf' : 'False',
-                'Rec' : 'False', 
-                'Tur' : 'False', 
-                'Vazao' : 'False',
-                'auxQtot' : 'False', 
-                'auxRec' : 'False'
-        } 
+        self.config.read_dict(defaultConfigSchema)
+
+        self.pushButton_SaveProject.setDisabled(True)
+        self.pushButton_SaveAsProject.setDisabled(True)
+        self.tabWidget.setDisabled(True)
+        self.tab_Info.setEnabled(True)
+
+        self.hasCurrentProject = False
 
     def getDirectoryPath(self, caption):
         """Gets the path of an existing directory using QFileDialog and returns it.
@@ -194,7 +123,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """    
         directoryPath = self.getDirectoryPath(caption="Select Input Directory")
         self.config['FILES']['input'] = directoryPath
-        self.lineEdt_InputFolder.setText(directoryPath)
+        self.lineEdit_InputFolder.setText(directoryPath)
 
         #TODO: Create dialog message to ask if the user want to load the config.ini
         #       file found in the parend directory
@@ -212,7 +141,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """              
         directoryPath = self.getDirectoryPath(caption="Select Output Directory")
         self.config['FILES']['output'] = directoryPath
-        self.lineEdt_OutputFolder.setText(directoryPath)
+        self.lineEdit_OutputFolder.setText(directoryPath)
 
     # Tab widget
     ## Settings tab
@@ -227,6 +156,18 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """            
         filePath = self.getFilePath(caption="Select DEM map File", filter="*.map")
         self.config['FILES']['dem'] = filePath
+        self.lineEdt_Dem.setText(filePath)
+
+    def setDEMTifFilePath(self):
+        """Defines the project's DEM TIFF file.
+        
+        Also updates the lineEdt_DemTif field with the selected file path.
+        
+        :Slot signal: clicked
+        :Signal sender: btn_DemTif        
+        """            
+        filePath = self.getFilePath(caption="Select DEM TIFF File", filter="*.tif")
+        self.config['FILES']['demTif'] = filePath
         self.lineEdt_Dem.setText(filePath)
 
     def setCloneFilePath(self):
@@ -829,8 +770,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.textBrowser_log.append("Updating configuration with current values...")
         
         # Project Folder
-        self.config['FILES']['input'] = self.lineEdt_InputFolder.text()
-        self.config['FILES']['output'] = self.lineEdt_OutputFolder.text()
+        self.config['FILES']['input'] = self.lineEdit_InputFolder.text()
+        self.config['FILES']['output'] = self.lineEdit_OutputFolder.text()
 
         # Tab widget
         ## Settings tab
@@ -946,9 +887,15 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.config.read_file(configfile)
             configfile.close()  
 
+        self.updateGUIFromConfig()
+        self.textBrowser_log.append("Configurations loaded")
+
+    def updateGUIFromConfig(self):
+        """[summary]
+        """
         # Project Folder
-        self.lineEdt_InputFolder.setText(self.config['FILES']['input'])
-        self.lineEdt_OutputFolder.setText(self.config['FILES']['output'])
+        self.lineEdit_InputFolder.setText(self.config['FILES']['input'])
+        self.lineEdit_OutputFolder.setText(self.config['FILES']['output'])
 
         # Tab widget
         ## Settings tab
@@ -1043,19 +990,198 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.checkBox_SoilMoistureTur.setChecked(self.config.getboolean('GENERATE_FILE','Tur'))   
         self.checkBox_LateralFlowLf.setChecked(self.config.getboolean('GENERATE_FILE','Lf'))   
         self.checkBox_RunoffEsd.setChecked(self.config.getboolean('GENERATE_FILE','Esd'))   
-        self.checkBox_RunoffVazao.setChecked(self.config.getboolean('GENERATE_FILE','Vazao')) 
-        self.textBrowser_log.append("Configurations loaded")
+        self.checkBox_RunoffVazao.setChecked(self.config.getboolean('GENERATE_FILE','Vazao'))    
 
-    def saveConfigToFile(self, filePath):
+    def getUserRetSaveCurProj(self):
+        """[summary]
+
+        :return: [description]
+        :rtype: [type]
+        """
+        # msg = QMessageBox()
+        # msg.setWindowTitle("RUBEM Hydrological") 
+        # msg.setText("Do you want to save the current project?")
+        # msg.setInformativeText("Your changes will be lost if you don't save them.")
+        # msg.setStandardButtons(QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel)
+        # msg.setDefaultButton(QMessageBox.Save)
+        
+        # response = msg.exec()
+        #return response
+
+        response = QMessageBox.warning(
+            self,
+            "RUBEM Hydrological",   # Window title
+            "Do you want to save the current project?\n\n"      # Text
+            "Your changes will be lost if you don't save them.",
+            QMessageBox.Save | QMessageBox.Discard | QMessageBox.Cancel,    # Buttons 
+            QMessageBox.Save    # Default button
+        )
+        return response
+
+    def newProject(self):
+        """[summary]
+
+        :Slot signal: clicked
+        :Signal sender: pushButton_NewProject   
+
+        :return: [description]
+        :rtype: [type]
+        """      
+
+        def setupNewProject():
+            """[summary]
+            """
+            self.config.read_dict(defaultConfigSchema)
+            self.updateGUIFromConfig()
+            self.saveAsProject(isNewProject=True)
+            self.pushButton_SaveProject.setEnabled(True)
+            self.pushButton_SaveAsProject.setEnabled(True)
+            self.tabWidget.setEnabled(True)
+
+        # Check if there is already a current project and ask to save it
+        if self.hasCurrentProject:
+            response = self.getUserRetSaveCurProj()
+            # Save project before creating a new one
+            if response == QMessageBox.Save:
+                self.saveProject()
+                setupNewProject()            
+            # Don't save project before creating a new one            
+            # elif response == QMessageBox.Discard:
+            #   pass
+            elif response == QMessageBox.Cancel:
+                # User canceled saving the current project 
+                # and the creation of a new one
+                return None            
+        # If there is no open projet create a new one
+        else:
+            setupNewProject()
+
+    def openProject(self):
+        """[summary]
+
+        :Slot signal: clicked
+        :Signal sender: pushButton_OpenProject   
+
+        :return: [description]
+        :rtype: [type]
+        """
+
+        def setupOpenedProject():
+            """[summary]
+            """
+            filePath, _ = QFileDialog.getOpenFileName(self, caption='Open Project', directory=self.lastOpenedDirectory, filter='Project (*.ini)')    
+            if filePath:
+                self.projectFilePath = filePath
+                self.hasCurrentProject = True
+                self.loadConfigFromFile(self.projectFilePath)
+                self.updateGUIFromConfig()
+                self.pushButton_SaveProject.setEnabled(True)
+                self.pushButton_SaveAsProject.setEnabled(True) 
+                self.tabWidget.setEnabled(True)               
+
+        # Check if there is already a current project and ask to save it
+        if self.hasCurrentProject:
+            response = self.getUserRetSaveCurProj()
+            # Save project before opening a project file
+            if response == QMessageBox.Save:
+                self.saveProject()
+                setupOpenedProject()                
+            # Don't save project before opening a project file           
+            elif response == QMessageBox.Discard:
+                setupOpenedProject()
+            elif response == QMessageBox.Cancel:
+                # User canceled saving the current project 
+                # and opening another project file
+                return None            
+        # If there is no open projet select a project file
+        else:
+            setupOpenedProject()
+
+    def saveProject(self, filePath=None, caption=None):
         """Saves the values present in the configuration dictionary to a specified file.
 
-        :param filePath: Valid path to the configuration file.
-        :type filePath: String
-        """        
-        with open(filePath, 'w') as configfile:
-            self.config.write(configfile)
-            configfile.close()    
-        self.textBrowser_log.append("Configuration file saved in " + filePath)        
+        :Slot signal: clicked
+        :Signal sender: pushButton_SaveProject    
+
+        :param filePath: Valid path to the configuration file, defaults to None (slot).
+        :type filePath: String, optional (slot)
+        
+        :return: [description]
+        :rtype: [type]
+        """
+
+        def setupFileDialog():
+            """[summary]
+
+            :return: [description]
+            :rtype: [type]
+            """
+            if caption:
+                tmpFilePath, _ = QFileDialog.getSaveFileName(self, caption=caption, directory=self.lastOpenedDirectory, filter='Project (*.ini)')
+            else:
+                tmpFilePath, _ = QFileDialog.getSaveFileName(self, caption='Save project', directory=self.lastOpenedDirectory, filter='Project (*.ini)')
+            return tmpFilePath                
+
+        def setupProjectFileWrite(selectedFilePath):
+            """[summary]
+
+            :param selectedFilePath: [description]
+            :type selectedFilePath: [type]
+            """
+            with open(selectedFilePath, 'w') as configfile:
+                self.config.write(configfile)
+                configfile.close()    
+            
+            self.textBrowser_log.append("Project file saved in " + selectedFilePath)
+            self.hasCurrentProject = True            
+
+        # Ask user for project file path
+        # --> Call this function without any arguments
+        # --> Clicking 'Save' in the GUI without a current project
+        # --> Clicking 'New' in the GUI without a current project       
+        if not filePath and not self.projectFilePath:
+            retFilePath = setupFileDialog()
+            # Check if the user has selected a path to the project file
+            if retFilePath:
+                setupProjectFileWrite(retFilePath)
+            # If the user cancels the save exit without doing anything
+            return
+        
+        # Save project with project file path already defined in object instance
+        # --> Clicking 'Save' in the GUI with a current project
+        elif not filePath and self.projectFilePath and not caption:
+            setupProjectFileWrite(self.projectFilePath)
+        
+        # Ask the user where to save the project file as...
+        # Only the saveAsProject() function sets the caption argument 
+        # when calling this function.
+        # --> Clicking 'Save As..' in the GUI with a current project
+        # --> Clicking 'New' in the GUI with a current project 
+        elif not filePath and self.projectFilePath and caption:        
+            retFilePath = setupFileDialog()
+            # Check if the user has selected a path to the project file
+            if retFilePath:
+                setupProjectFileWrite(retFilePath)
+            # If the user cancels the save exit without doing anything
+            return            
+
+        # Save the project using the filePath argument as the project file path.
+        # In this case it doesn't matter if self.projectFilePath is set or not
+        # --> Call this function with filePath argument
+        else:
+            setupProjectFileWrite(filePath)
+
+    def saveAsProject(self, isNewProject=False):
+        """[summary]
+
+        :param isNewProject: [description], defaults to False
+        :type isNewProject: bool, optional
+        """
+        if isNewProject:
+            self.saveProject(caption='Save new project as')
+        else:
+            self.saveProject(caption='Save project as')
+
 
     def showConfig(self):
         """Go through the settings dictionary and print the respective sections, options and 
@@ -1081,7 +1207,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.modelFilePath = os.path.join(self.plugin_dir, 'RainfallRunoff.exe')
 
         self.updateConfigFromGUI()
-        self.saveConfigToFile(self.configFilePath)
+        self.saveProject(self.configFilePath)
         self.showConfig()
 
         self.textBrowser_log.append("\n# RUBEM execution started...")

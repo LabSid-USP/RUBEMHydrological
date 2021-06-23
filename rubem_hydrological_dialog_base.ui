@@ -64,15 +64,6 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="PlaceholderText">
-      <brush brushstyle="SolidPattern">
-       <color alpha="255">
-        <red>132</red>
-        <green>132</green>
-        <blue>132</blue>
-       </color>
-      </brush>
-     </colorrole>
     </active>
     <inactive>
      <colorrole role="WindowText">
@@ -102,15 +93,6 @@
        </color>
       </brush>
      </colorrole>
-     <colorrole role="PlaceholderText">
-      <brush brushstyle="NoBrush">
-       <color alpha="255">
-        <red>0</red>
-        <green>0</green>
-        <blue>0</blue>
-       </color>
-      </brush>
-     </colorrole>
     </inactive>
     <disabled>
      <colorrole role="WindowText">
@@ -137,15 +119,6 @@
         <red>10</red>
         <green>36</green>
         <blue>106</blue>
-       </color>
-      </brush>
-     </colorrole>
-     <colorrole role="PlaceholderText">
-      <brush brushstyle="NoBrush">
-       <color alpha="255">
-        <red>0</red>
-        <green>0</green>
-        <blue>0</blue>
        </color>
       </brush>
      </colorrole>
@@ -200,7 +173,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -219,7 +192,7 @@
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_38">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pushButton_NewProject">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -232,7 +205,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_2">
+          <widget class="QPushButton" name="pushButton_OpenProject">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -245,7 +218,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_3">
+          <widget class="QPushButton" name="pushButton_SaveProject">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -254,6 +227,13 @@
            </property>
            <property name="text">
             <string>Save</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_SaveAsProject">
+           <property name="text">
+            <string>Save As…</string>
            </property>
           </widget>
          </item>
@@ -287,7 +267,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -296,334 +276,364 @@
        <attribute name="title">
         <string>Settings</string>
        </attribute>
-       <layout class="QVBoxLayout" name="verticalLayout_27">
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_26">
+       <widget class="QScrollArea" name="scrollArea_3">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>466</width>
+          <height>458</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="widgetResizable">
+         <bool>true</bool>
+        </property>
+        <widget class="QWidget" name="scrollAreaWidgetContents_3">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>0</y>
+           <width>450</width>
+           <height>497</height>
+          </rect>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_23">
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_23">
-            <item>
-             <widget class="QGroupBox" name="groupBox_ModelGeneralConf">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="title">
-               <string>Model General Settings</string>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_22">
-               <item>
-                <layout class="QVBoxLayout" name="verticalLayout_21">
+           <widget class="QGroupBox" name="groupBox_9">
+            <property name="title">
+             <string>Project Directories</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_21">
+             <item>
+              <layout class="QGridLayout" name="gridLayout_14">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_InputFolder">
+                 <property name="text">
+                  <string>Select input directory</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_40">
                  <item>
-                  <layout class="QGridLayout" name="gridLayout_12">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_Dem">
-                     <property name="toolTip">
-                      <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
-                     </property>
-                     <property name="text">
-                      <string>Select DEM MAP file</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <layout class="QHBoxLayout" name="horizontalLayout_31">
-                     <item>
-                      <widget class="QLineEdit" name="lineEdt_Dem">
-                       <property name="acceptDrops">
-                        <bool>true</bool>
-                       </property>
-                       <property name="toolTip">
-                        <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
-                       </property>
-                       <property name="toolTipDuration">
-                        <number>-1</number>
-                       </property>
-                       <property name="statusTip">
-                        <string/>
-                       </property>
-                       <property name="whatsThis">
-                        <string/>
-                       </property>
-                       <property name="autoFillBackground">
-                        <bool>false</bool>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="dragEnabled">
-                        <bool>false</bool>
-                       </property>
-                       <property name="placeholderText">
-                        <string>Select the Digital Elevation Model *.map file</string>
-                       </property>
-                       <property name="clearButtonEnabled">
-                        <bool>true</bool>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QToolButton" name="btn_Dem">
-                       <property name="toolTip">
-                        <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
-                       </property>
-                       <property name="toolTipDuration">
-                        <number>-1</number>
-                       </property>
-                       <property name="text">
-                        <string>…</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
+                  <widget class="QLineEdit" name="lineEdit_InputFolder">
+                   <property name="placeholderText">
+                    <string>Select input directory</string>
+                   </property>
+                  </widget>
                  </item>
                  <item>
-                  <layout class="QGridLayout" name="gridLayout_11">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_DemTif">
-                     <property name="toolTip">
-                      <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
-                     </property>
-                     <property name="text">
-                      <string>Select DEM TIFF file</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <layout class="QHBoxLayout" name="horizontalLayout_32">
-                     <item>
-                      <widget class="QLineEdit" name="lineEdt_DemTif">
-                       <property name="toolTip">
-                        <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
-                       </property>
-                       <property name="toolTipDuration">
-                        <number>-1</number>
-                       </property>
-                       <property name="statusTip">
-                        <string/>
-                       </property>
-                       <property name="whatsThis">
-                        <string/>
-                       </property>
-                       <property name="autoFillBackground">
-                        <bool>false</bool>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="dragEnabled">
-                        <bool>false</bool>
-                       </property>
-                       <property name="placeholderText">
-                        <string>Select the Digital Elevation Model *.tiff file</string>
-                       </property>
-                       <property name="clearButtonEnabled">
-                        <bool>true</bool>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QToolButton" name="btn_DemTif">
-                       <property name="toolTip">
-                        <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
-                       </property>
-                       <property name="toolTipDuration">
-                        <number>-1</number>
-                       </property>
-                       <property name="text">
-                        <string>…</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_10">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_Clone">
-                     <property name="toolTip">
-                      <string> This map Defines the basin for cells being True. Mandatory</string>
-                     </property>
-                     <property name="text">
-                      <string>Select Clone MAP file</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <layout class="QHBoxLayout" name="horizontalLayout_33">
-                     <item>
-                      <widget class="QLineEdit" name="lineEdt_Clone">
-                       <property name="toolTip">
-                        <string> This map Defines the basin for cells being True. Mandatory</string>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="placeholderText">
-                        <string>Select the Clone *.map file</string>
-                       </property>
-                       <property name="clearButtonEnabled">
-                        <bool>true</bool>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QToolButton" name="btn_Clone">
-                       <property name="toolTip">
-                        <string> This map Defines the basin for cells being True. Mandatory</string>
-                       </property>
-                       <property name="text">
-                        <string>…</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QHBoxLayout" name="horizontalLayout_36">
-                   <item>
-                    <widget class="QCheckBox" name="checkBox_Sample">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="layoutDirection">
-                      <enum>Qt::LeftToRight</enum>
-                     </property>
-                     <property name="text">
-                      <string>Export results to station locations</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <layout class="QHBoxLayout" name="horizontalLayout_35">
-                     <item>
-                      <widget class="QDoubleSpinBox" name="doubleSpinBox_GridSize">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="toolTip">
-                        <string>Cell dimension value in meters.</string>
-                       </property>
-                       <property name="wrapping">
-                        <bool>false</bool>
-                       </property>
-                       <property name="frame">
-                        <bool>true</bool>
-                       </property>
-                       <property name="alignment">
-                        <set>Qt::AlignJustify|Qt::AlignVCenter</set>
-                       </property>
-                       <property name="specialValueText">
-                        <string/>
-                       </property>
-                       <property name="suffix">
-                        <string> m</string>
-                       </property>
-                       <property name="decimals">
-                        <number>3</number>
-                       </property>
-                       <property name="maximum">
-                        <double>999.990000000000009</double>
-                       </property>
-                       <property name="singleStep">
-                        <double>1.000000000000000</double>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QLabel" name="label_GridSize">
-                       <property name="sizePolicy">
-                        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                         <horstretch>0</horstretch>
-                         <verstretch>0</verstretch>
-                        </sizepolicy>
-                       </property>
-                       <property name="toolTip">
-                        <string>Cell dimension value in meters.</string>
-                       </property>
-                       <property name="text">
-                        <string>Grid size</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
-                 </item>
-                 <item>
-                  <layout class="QGridLayout" name="gridLayout_9">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="label_SelectSample">
-                     <property name="enabled">
-                      <bool>false</bool>
-                     </property>
-                     <property name="toolTip">
-                      <string>This file is a nominal map with unique Ids for cells identified as being a
-location where time-series output is required.</string>
-                     </property>
-                     <property name="text">
-                      <string>Select Station Locations file</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="0">
-                    <layout class="QHBoxLayout" name="horizontalLayout_34">
-                     <item>
-                      <widget class="QLineEdit" name="lineEdt_Sample">
-                       <property name="enabled">
-                        <bool>false</bool>
-                       </property>
-                       <property name="toolTip">
-                        <string>This file is a nominal map with unique Ids for cells identified as being a
-location where time-series output is required.</string>
-                       </property>
-                       <property name="text">
-                        <string/>
-                       </property>
-                       <property name="placeholderText">
-                        <string>Select Station Locations *.map file</string>
-                       </property>
-                       <property name="clearButtonEnabled">
-                        <bool>true</bool>
-                       </property>
-                      </widget>
-                     </item>
-                     <item>
-                      <widget class="QToolButton" name="btn_Sample">
-                       <property name="enabled">
-                        <bool>false</bool>
-                       </property>
-                       <property name="toolTip">
-                        <string>This file is a nominal map with unique Ids for cells identified as being a
-location where time-series output is required.</string>
-                       </property>
-                       <property name="text">
-                        <string>…</string>
-                       </property>
-                      </widget>
-                     </item>
-                    </layout>
-                   </item>
-                  </layout>
+                  <widget class="QToolButton" name="toolButton_InputFolder">
+                   <property name="text">
+                    <string>…</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
               </layout>
-             </widget>
-            </item>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_15">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_OutputFolder">
+                 <property name="text">
+                  <string>Select output directory</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_39">
+                 <item>
+                  <widget class="QLineEdit" name="lineEdit_OutputFolder">
+                   <property name="placeholderText">
+                    <string>Select output directory</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="toolButton_OutputFolder">
+                   <property name="text">
+                    <string>…</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_ModelGeneralConf">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="title">
+             <string>Model General Settings</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_22">
+             <item>
+              <layout class="QGridLayout" name="gridLayout_12">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_Dem">
+                 <property name="toolTip">
+                  <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
+                 </property>
+                 <property name="text">
+                  <string>Select DEM MAP file</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_31">
+                 <item>
+                  <widget class="QLineEdit" name="lineEdt_Dem">
+                   <property name="acceptDrops">
+                    <bool>true</bool>
+                   </property>
+                   <property name="toolTip">
+                    <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
+                   </property>
+                   <property name="toolTipDuration">
+                    <number>-1</number>
+                   </property>
+                   <property name="statusTip">
+                    <string/>
+                   </property>
+                   <property name="whatsThis">
+                    <string/>
+                   </property>
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="dragEnabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Select the Digital Elevation Model *.map file</string>
+                   </property>
+                   <property name="clearButtonEnabled">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="btn_Dem">
+                   <property name="toolTip">
+                    <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
+                   </property>
+                   <property name="toolTipDuration">
+                    <number>-1</number>
+                   </property>
+                   <property name="text">
+                    <string>…</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_11">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_DemTif">
+                 <property name="toolTip">
+                  <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
+                 </property>
+                 <property name="text">
+                  <string>Select DEM TIFF file</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_32">
+                 <item>
+                  <widget class="QLineEdit" name="lineEdt_DemTif">
+                   <property name="toolTip">
+                    <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
+                   </property>
+                   <property name="toolTipDuration">
+                    <number>-1</number>
+                   </property>
+                   <property name="statusTip">
+                    <string/>
+                   </property>
+                   <property name="whatsThis">
+                    <string/>
+                   </property>
+                   <property name="autoFillBackground">
+                    <bool>false</bool>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="dragEnabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Select the Digital Elevation Model *.tiff file</string>
+                   </property>
+                   <property name="clearButtonEnabled">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="btn_DemTif">
+                   <property name="toolTip">
+                    <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
+                   </property>
+                   <property name="toolTipDuration">
+                    <number>-1</number>
+                   </property>
+                   <property name="text">
+                    <string>…</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_10">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_Clone">
+                 <property name="toolTip">
+                  <string> This map Defines the basin for cells being True. Mandatory</string>
+                 </property>
+                 <property name="text">
+                  <string>Select Clone MAP file</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_33">
+                 <item>
+                  <widget class="QLineEdit" name="lineEdt_Clone">
+                   <property name="toolTip">
+                    <string> This map Defines the basin for cells being True. Mandatory</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Select the Clone *.map file</string>
+                   </property>
+                   <property name="clearButtonEnabled">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="btn_Clone">
+                   <property name="toolTip">
+                    <string> This map Defines the basin for cells being True. Mandatory</string>
+                   </property>
+                   <property name="text">
+                    <string>…</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_Sample">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="text">
+                <string>Export results to station locations</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QGridLayout" name="gridLayout_9">
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_SelectSample">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="toolTip">
+                  <string>This file is a nominal map with unique Ids for cells identified as being a
+location where time-series output is required.</string>
+                 </property>
+                 <property name="text">
+                  <string>Select Station Locations file</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <layout class="QHBoxLayout" name="horizontalLayout_34">
+                 <item>
+                  <widget class="QLineEdit" name="lineEdt_Sample">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="toolTip">
+                    <string>This file is a nominal map with unique Ids for cells identified as being a
+location where time-series output is required.</string>
+                   </property>
+                   <property name="text">
+                    <string/>
+                   </property>
+                   <property name="placeholderText">
+                    <string>Select Station Locations *.map file</string>
+                   </property>
+                   <property name="clearButtonEnabled">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QToolButton" name="btn_Sample">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="toolTip">
+                    <string>This file is a nominal map with unique Ids for cells identified as being a
+location where time-series output is required.</string>
+                   </property>
+                   <property name="text">
+                    <string>…</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_41">
             <item>
              <widget class="QGroupBox" name="groupBox_SimulationPeriod">
               <property name="sizePolicy">
@@ -835,24 +845,77 @@ location where time-series output is required.</string>
               </layout>
              </widget>
             </item>
+            <item>
+             <widget class="QGroupBox" name="groupBox_10">
+              <property name="title">
+               <string>Grid</string>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_36">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_35">
+                 <item>
+                  <widget class="QLabel" name="label_GridSize">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="toolTip">
+                    <string>Cell dimension value in meters.</string>
+                   </property>
+                   <property name="text">
+                    <string>Size</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QDoubleSpinBox" name="doubleSpinBox_GridSize">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="toolTip">
+                    <string>Cell dimension value in meters.</string>
+                   </property>
+                   <property name="wrapping">
+                    <bool>false</bool>
+                   </property>
+                   <property name="frame">
+                    <bool>true</bool>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+                   </property>
+                   <property name="specialValueText">
+                    <string/>
+                   </property>
+                   <property name="suffix">
+                    <string> m</string>
+                   </property>
+                   <property name="decimals">
+                    <number>3</number>
+                   </property>
+                   <property name="maximum">
+                    <double>999.990000000000009</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>1.000000000000000</double>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
+             </widget>
+            </item>
            </layout>
           </item>
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
          </layout>
-        </item>
-       </layout>
+        </widget>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_Soil">
        <attribute name="title">
@@ -897,7 +960,7 @@ location where time-series output is required.</string>
            <x>0</x>
            <y>0</y>
            <width>450</width>
-           <height>574</height>
+           <height>566</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1562,7 +1625,7 @@ location where time-series output is required.</string>
            <x>0</x>
            <y>0</y>
            <width>450</width>
-           <height>814</height>
+           <height>805</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -3142,9 +3205,9 @@ location where time-series output is required.</string>
              </property>
              <property name="html">
               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Tahoma'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;taag_font_SmallSlant&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;  ___  __  _____  ______  ___                      &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;  / _ \/ / / / _ )/ __/  |/  /                      &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt; / , _/ /_/ / _  / _// /|_/ /                       &lt;/span&gt;&lt;/p&gt;
@@ -3153,7 +3216,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt; / _  / // / _  / __/ _ \/ / _ \/ _ `/ / __/ _ `/ / &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;/_//_/\_, /\_,_/_/  \___/_/\___/\_, /_/\__/\_,_/_/  &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;     /___/                     /___/                &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;---&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Tahoma'; font-size:8pt;&quot;&gt;---&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="acceptRichText">
               <bool>true</bool>
@@ -3241,35 +3304,35 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;title&gt;Info&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;title&gt;Info&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Tahoma'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/imgBase/images/banner.png&quot; /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;RUBEM Hydrological is a QGIS plugin that assists in the configuration of the &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEM#readme&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Rainfall rUnoff Balance Enhanced Model&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; algorithm, which is an improved model of balance between rain and runoff.&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;RUBEM Hydrological is a QGIS plugin that assists in the configuration of the &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEM#readme&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Rainfall rUnoff Balance Enhanced Model&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; algorithm, which is an improved model of balance between rain and runoff.&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Explore the docs » &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Explore the docs » &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;View Demo&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Report Bug&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Request Feature&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;View Demo&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Report Bug&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Request Feature&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	The RUBEM distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017).&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a name=&quot;docs-internal-guid-4c2b91a3-7fff-c7f8-b68d-38b3c4c4d7f5&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;D&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;evelopment /Research team:&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:600;&quot;&gt;Department of Hydraulic and Environmental Engineering at the Escola Politécnica of the University of São Paulo&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Department of Hydraulic and Environmental Engineering at the Escola Politécnica of the University of São Paulo&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a href=&quot;https://www.poli.usp.br/&quot;&gt;&lt;img src=&quot;:/imgBase/images/epusp.png&quot; width=&quot;165&quot; height=&quot;148&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:600;&quot;&gt;Laboratory of Decision Support Systems Applied to Environmental and Water Resources Engineering&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Laboratory of Decision Support Systems Applied to Environmental and Water Resources Engineering&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a href=&quot;http://labsid.eng.br/Contato.aspx&quot;&gt;&lt;img src=&quot;:/imgBase/images/labsid.png&quot; width=&quot;188&quot; height=&quot;49&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;&lt;br /&gt;LabSid-PHA-USP thanks the support of the &lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; font-weight:600; color:#000000; background-color:transparent;&quot;&gt;Patrimonial Fund Amigos da Poli&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; for the adaptation of the RUBEM methodology in Plugin format for QGIS.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://www.amigosdapoli.com.br/&quot;&gt;&lt;img src=&quot;:/imgBase/images/adp.png&quot; width=&quot;233&quot; height=&quot;131&quot; /&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="tabStopWidth">
+         <number>80</number>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
         <property name="placeholderText">
          <string/>
-        </property>
-        <property name="tabStopWidth" stdset="0">
-         <number>80</number>
         </property>
        </widget>
       </widget>
@@ -3281,7 +3344,6 @@ p, li { white-space: pre-wrap; }
  <tabstops>
   <tabstop>btn_Dem</tabstop>
   <tabstop>btn_Clone</tabstop>
-  <tabstop>doubleSpinBox_GridSize</tabstop>
   <tabstop>btn_Sample</tabstop>
   <tabstop>lineEdt_Sample</tabstop>
   <tabstop>dtEdt_EndSim</tabstop>
@@ -3367,30 +3429,14 @@ p, li { white-space: pre-wrap; }
  </resources>
  <connections>
   <connection>
-   <sender>btn_Cancel</sender>
-   <signal>clicked()</signal>
-   <receiver>RUBEMHydrological</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>184</x>
-     <y>538</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>371</x>
-     <y>391</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>btn_Dem</sender>
    <signal>clicked()</signal>
    <receiver>RUBEMHydrological</receiver>
    <slot>setDEMFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>457</x>
-     <y>222</y>
+     <x>440</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
      <x>474</x>
@@ -3405,8 +3451,8 @@ p, li { white-space: pre-wrap; }
    <slot>setCloneFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>457</x>
-     <y>316</y>
+     <x>440</x>
+     <y>393</y>
     </hint>
     <hint type="destinationlabel">
      <x>476</x>
@@ -3421,28 +3467,12 @@ p, li { white-space: pre-wrap; }
    <slot>setSampleFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>457</x>
-     <y>391</y>
+     <x>440</x>
+     <y>466</y>
     </hint>
     <hint type="destinationlabel">
      <x>477</x>
      <y>361</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>doubleSpinBox_GridSize</sender>
-   <signal>editingFinished()</signal>
-   <receiver>RUBEMHydrological</receiver>
-   <slot>setGridSize()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>411</x>
-     <y>345</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>479</x>
-     <y>457</y>
     </hint>
    </hints>
   </connection>
@@ -3453,8 +3483,8 @@ p, li { white-space: pre-wrap; }
    <slot>setExportSampleLocations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>146</x>
-     <y>344</y>
+     <x>190</x>
+     <y>420</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -3469,8 +3499,8 @@ p, li { white-space: pre-wrap; }
    <slot>setEndSimulationPeriod()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>428</x>
-     <y>456</y>
+     <x>303</x>
+     <y>562</y>
     </hint>
     <hint type="destinationlabel">
      <x>475</x>
@@ -3485,8 +3515,8 @@ p, li { white-space: pre-wrap; }
    <slot>setStartSimulationPeriod()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>184</x>
-     <y>456</y>
+     <x>303</x>
+     <y>534</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -3501,8 +3531,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSoilMapFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>222</y>
+     <x>438</x>
+     <y>164</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -3517,8 +3547,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDensityFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>267</y>
+     <x>438</x>
+     <y>213</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3533,8 +3563,8 @@ p, li { white-space: pre-wrap; }
    <slot>setHydraulicConductivityFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>312</y>
+     <x>438</x>
+     <y>262</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -3549,8 +3579,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFieldCapacityFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>357</y>
+     <x>438</x>
+     <y>311</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -3565,8 +3595,8 @@ p, li { white-space: pre-wrap; }
    <slot>setWiltingPointFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>402</y>
+     <x>438</x>
+     <y>360</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3581,8 +3611,8 @@ p, li { white-space: pre-wrap; }
    <slot>setPorosityFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>447</y>
+     <x>438</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>490</x>
@@ -3597,8 +3627,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSaturationFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>492</y>
+     <x>438</x>
+     <y>458</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3613,8 +3643,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRootZoneThicknessFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>537</y>
+     <x>438</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -3629,8 +3659,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInitialSoilMoisture()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>61</x>
-     <y>584</y>
+     <x>91</x>
+     <y>632</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
@@ -3645,8 +3675,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInitialBaseFlow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>73</x>
-     <y>610</y>
+     <x>105</x>
+     <y>575</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -3661,8 +3691,8 @@ p, li { white-space: pre-wrap; }
    <slot>setBaseFlowLimit()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>338</x>
-     <y>610</y>
+     <x>317</x>
+     <y>575</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3677,8 +3707,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInitialTus()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>338</x>
-     <y>584</y>
+     <x>111</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -3693,8 +3723,8 @@ p, li { white-space: pre-wrap; }
    <slot>setLandUseSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>185</y>
+     <x>441</x>
+     <y>142</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -3709,8 +3739,8 @@ p, li { white-space: pre-wrap; }
    <slot>setNDVISeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>267</y>
+     <x>440</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -3725,8 +3755,8 @@ p, li { white-space: pre-wrap; }
    <slot>setNDVIMaximumSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>312</y>
+     <x>440</x>
+     <y>274</y>
     </hint>
     <hint type="destinationlabel">
      <x>482</x>
@@ -3741,8 +3771,8 @@ p, li { white-space: pre-wrap; }
    <slot>setNDVIMinimumSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>357</y>
+     <x>440</x>
+     <y>323</y>
     </hint>
     <hint type="destinationlabel">
      <x>489</x>
@@ -3757,8 +3787,8 @@ p, li { white-space: pre-wrap; }
    <slot>setAiFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>439</y>
+     <x>440</x>
+     <y>407</y>
     </hint>
     <hint type="destinationlabel">
      <x>490</x>
@@ -3773,8 +3803,8 @@ p, li { white-space: pre-wrap; }
    <slot>setAoFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>484</y>
+     <x>440</x>
+     <y>456</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -3789,8 +3819,8 @@ p, li { white-space: pre-wrap; }
    <slot>setAsFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>529</y>
+     <x>440</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3805,8 +3835,8 @@ p, li { white-space: pre-wrap; }
    <slot>setAvFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>574</y>
+     <x>440</x>
+     <y>554</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3821,8 +3851,8 @@ p, li { white-space: pre-wrap; }
    <slot>setManningFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>637</y>
+     <x>441</x>
+     <y>618</y>
     </hint>
     <hint type="destinationlabel">
      <x>495</x>
@@ -3837,8 +3867,8 @@ p, li { white-space: pre-wrap; }
    <slot>setKcMaximumFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>719</y>
+     <x>440</x>
+     <y>701</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -3853,8 +3883,8 @@ p, li { white-space: pre-wrap; }
    <slot>setKcMinimumFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>764</y>
+     <x>440</x>
+     <y>750</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -3869,8 +3899,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFparMaximum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>90</x>
-     <y>828</y>
+     <x>91</x>
+     <y>816</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -3885,8 +3915,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFparMinimum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>90</x>
-     <y>854</y>
+     <x>298</x>
+     <y>816</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3901,8 +3931,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterception()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>341</x>
-     <y>826</y>
+     <x>88</x>
+     <y>884</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3917,8 +3947,8 @@ p, li { white-space: pre-wrap; }
    <slot>setLeafAreaIndexMaximum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>330</x>
-     <y>852</y>
+     <x>83</x>
+     <y>856</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -3933,8 +3963,8 @@ p, li { white-space: pre-wrap; }
    <slot>setPrecipitationSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>450</x>
-     <y>223</y>
+     <x>460</x>
+     <y>170</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -3949,8 +3979,8 @@ p, li { white-space: pre-wrap; }
    <slot>setEvapotranspirationSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>450</x>
-     <y>268</y>
+     <x>460</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -3965,8 +3995,8 @@ p, li { white-space: pre-wrap; }
    <slot>setKpSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>450</x>
-     <y>313</y>
+     <x>460</x>
+     <y>277</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
@@ -3981,8 +4011,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRainyDaysSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>450</x>
-     <y>358</y>
+     <x>460</x>
+     <y>331</y>
     </hint>
     <hint type="destinationlabel">
      <x>463</x>
@@ -3997,8 +4027,8 @@ p, li { white-space: pre-wrap; }
    <slot>setExponentCh()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>65</x>
-     <y>190</y>
+     <x>88</x>
+     <y>177</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4013,8 +4043,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDelayFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>60</x>
-     <y>231</y>
+     <x>308</x>
+     <y>177</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4029,8 +4059,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRegionalConsecutiveDrynessLevel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>90</x>
-     <y>257</y>
+     <x>112</x>
+     <y>234</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -4045,8 +4075,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDelayCoefficientBaseFlow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>265</x>
-     <y>205</y>
+     <x>87</x>
+     <y>206</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -4061,8 +4091,8 @@ p, li { white-space: pre-wrap; }
    <slot>setPartitioningCoefficientRelated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>265</x>
-     <y>231</y>
+     <x>301</x>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
@@ -4077,8 +4107,8 @@ p, li { white-space: pre-wrap; }
    <slot>setManningRelatedWeightFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>332</y>
+     <x>104</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4093,8 +4123,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSoilRelatedWeightFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>355</y>
+     <x>104</x>
+     <y>316</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -4109,8 +4139,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSlopeRelatedWeightFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>378</y>
+     <x>104</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -4125,8 +4155,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterception()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>197</y>
+     <x>72</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4141,8 +4171,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterceptionEbGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>44</x>
-     <y>221</y>
+     <x>76</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4157,8 +4187,8 @@ p, li { white-space: pre-wrap; }
    <slot>setEvapotranspirationGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>37</x>
-     <y>245</y>
+     <x>69</x>
+     <y>215</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -4173,8 +4203,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRechargeGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>190</x>
-     <y>196</y>
+     <x>460</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -4189,8 +4219,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSoilMoistureGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>189</x>
-     <y>217</y>
+     <x>460</x>
+     <y>215</y>
     </hint>
     <hint type="destinationlabel">
      <x>485</x>
@@ -4205,8 +4235,8 @@ p, li { white-space: pre-wrap; }
    <slot>setLateralFLowGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>193</x>
-     <y>244</y>
+     <x>225</x>
+     <y>191</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
@@ -4221,8 +4251,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRunoffEsdGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>327</x>
-     <y>194</y>
+     <x>460</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
      <x>485</x>
@@ -4237,8 +4267,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRunoffVazaoGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>326</x>
-     <y>220</y>
+     <x>460</x>
+     <y>191</y>
     </hint>
     <hint type="destinationlabel">
      <x>484</x>
@@ -4253,8 +4283,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRunState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>538</y>
+     <x>102</x>
+     <y>477</y>
     </hint>
     <hint type="destinationlabel">
      <x>445</x>
@@ -4269,8 +4299,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterceptionCalibration()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>60</x>
-     <y>279</y>
+     <x>94</x>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4285,12 +4315,108 @@ p, li { white-space: pre-wrap; }
    <slot>setDEMTifFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>446</x>
-     <y>261</y>
+     <x>440</x>
+     <y>344</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
      <y>532</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_SaveProject</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>saveProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>216</x>
+     <y>44</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>435</x>
+     <y>-4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_OpenProject</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>openProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>157</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>172</x>
+     <y>-4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_NewProject</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>newProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>34</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>109</x>
+     <y>-6</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_InputFolder</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setInputDirectoryPath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>426</x>
+     <y>155</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>410</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_OutputFolder</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setOutputDirectoryPath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>427</x>
+     <y>208</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>415</x>
+     <y>-10</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_SaveAsProject</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>saveAsProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>330</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>270</x>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -4358,5 +4484,9 @@ p, li { white-space: pre-wrap; }
   <slot>saveConfigToFile()</slot>
   <slot>loadConfigFromFile()</slot>
   <slot>setDEMTifFilePath()</slot>
+  <slot>saveProject()</slot>
+  <slot>openProject()</slot>
+  <slot>newProject()</slot>
+  <slot>saveAsProject()</slot>
  </slots>
 </ui>
