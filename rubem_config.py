@@ -79,6 +79,7 @@ defaultConfigSchema = {
                 'Tur' : 'False', 
                 'Vazao' : 'False',
                 'auxQtot' : 'False', 
-                'auxRec' : 'False'
+                'auxRec' : 'False',
+                'genTss': 'False'
         }
 }
