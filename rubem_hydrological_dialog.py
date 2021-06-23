@@ -36,10 +36,10 @@ from PyQt5.QtWidgets import QMessageBox
 
 try:
     from qgis.PyQt.QtWidgets import QDialog, QFileDialog
-    from qgis.PyQt.QtCore import QObject, QThread, pyqtSignal
+    from qgis.PyQt.QtCore import QObject, QThread, pyqtSignal, QDate
 except ImportError:
     from PyQt5.QtWidgets import QDialog, QFileDialog
-    from PyQt5.QtCore import QObject, QThread, pyqtSignal
+    from PyQt5.QtCore import QObject, QThread, pyqtSignal, QDate
 
 try:
     from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
@@ -937,8 +937,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.lineEdt_Sample.setText(self.config.get('FILES', 'samples'))
 
         self.doubleSpinBox_GridSize.setValue(self.config.getfloat('GRID','grid'))   
-        self.dtEdt_StartSim.date().fromString(self.config.get('SIM_TIME', 'start'), 'dd/MM/yyyy')
-        self.dtEdt_EndSim.date().fromString(self.config.get('SIM_TIME', 'end'), 'dd/MM/yyyy')
+        self.dtEdt_StartSim.setDate(QDate.fromString(self.config.get('SIM_TIME', 'start'), 'dd/MM/yyyy'))
+        self.dtEdt_EndSim.setDate(QDate.fromString(self.config.get('SIM_TIME', 'end'), 'dd/MM/yyyy'))
 
         ## Soil tab
         ### Soil Parameters 
