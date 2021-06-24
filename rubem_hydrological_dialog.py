@@ -224,7 +224,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_Sample        
         """  
         filePath = self.getFilePath(
-            caption="Select Sample File", 
+            caption="Select Sample Stations File", 
             filter="*.map"
         )
         self.config.set('FILES', 'samples', filePath)         
@@ -282,7 +282,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_DensityDg        
         """    
         filePath = self.getFilePath(
-            caption="Select Density File", 
+            caption="Select Soil Bulk Density File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -298,7 +298,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_HydraulicConductivityKr       
         """     
         filePath = self.getFilePath(
-            caption="Select Hydraulic Conductivity File", 
+            caption="Select Soil Saturated Hydraulic Conductivity File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -314,7 +314,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_FieldCapacityCC        
         """         
         filePath = self.getFilePath(
-            caption="Select Field Capacity File", 
+            caption="Select Soil Field Capacity File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -330,7 +330,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_WiltingPointWP        
         """              
         filePath = self.getFilePath(
-            caption="Select Wilting Point File", 
+            caption="Select Soil Wilting Point File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -346,7 +346,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_Porosity        
         """           
         filePath = self.getFilePath(
-            caption="Select Porosity File", 
+            caption="Select Soil Porosity File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -362,7 +362,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_Saturation        
         """         
         filePath = self.getFilePath(
-            caption="Select Saturation File", 
+            caption="Select Soil Saturation File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -378,7 +378,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_RootZoneThicknessZr        
         """         
         filePath = self.getFilePath(
-            caption="Select Root Zone Thickness File", 
+            caption="Select Soil Rootzone Depth File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -513,7 +513,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_a_i        
         """           
         filePath = self.getFilePath(
-            caption="Select a_i File", 
+            caption="Select Impervious Area Fraction (ai) File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
     )
@@ -529,7 +529,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_a_o        
         """              
         filePath = self.getFilePath(
-            caption="Select a_o File", 
+            caption="Select Open Water Area Fraction (ao) File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )       
@@ -545,7 +545,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_a_s        
         """           
         filePath = self.getFilePath(
-            caption="Select a_s File", 
+            caption="Select Bare Soil Area Fraction (as) File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -561,7 +561,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_a_v        
         """          
         filePath = self.getFilePath(
-            caption="Select a_v File", 
+            caption="Select Vegetated Area Fraction (av) File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -596,7 +596,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_KcMax        
         """     
         filePath = self.getFilePath(
-            caption="Select Kc Maximum File", 
+            caption="Select Maximum Crop Coefficient (Kc) File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -612,7 +612,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_KcMin        
         """    
         filePath = self.getFilePath(
-            caption="Select Kc Minimum File", 
+            caption="Select Minimum Crop Coefficient (Kc) File", 
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)"
         )
@@ -681,7 +681,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_Precipitation        
         """          
         filePath = self.getFilePath(
-            caption="Select Precipitation Series File", 
+            caption="Select Rainfall Series File", 
             filter="(*.001);;All Files(*)"
         )
         tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
@@ -699,7 +699,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_EvapoTranspiration        
         """              
         filePath = self.getFilePath(
-            caption="Select Evapotranspiration Series File", 
+            caption="Select Potential Evapotranspiration Series File", 
             filter="(*.001);;All Files(*)"
         )
         tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
@@ -708,7 +708,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_EvapoTranspiration.setText(filePath)     
 
     def setKpSeriesFilePath(self):
-        """Defines the project's Pan Coefficient (Kp) folder file. 
+        """Defines the project's Class A Pan Coefficient (Kp) folder file. 
         
         Also updates the lineEdt_PanCoefficientKp field with the selected file 
         path and define the Kp file prefix.
@@ -717,7 +717,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_PanCoefficientKp        
         """           
         filePath = self.getFilePath(
-            caption="Select Kp Series File", 
+            caption="Select Class A Pan Coefficient (Kp) Series File", 
             filter="(*.001);;All Files(*)"
         )
         tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
