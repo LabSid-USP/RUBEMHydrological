@@ -1254,8 +1254,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.saveProject()
                 setupNewProject()            
             # Don't save project before creating a new one            
-            # elif response == QMessageBox.Discard:
-            #   pass
+            elif response == QMessageBox.Discard:
+                setupNewProject()                            
             elif response == QMessageBox.Cancel:
                 # User canceled saving the current project 
                 # and the creation of a new one
