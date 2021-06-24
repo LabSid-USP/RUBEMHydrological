@@ -1088,9 +1088,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_DemTif.setText(self.config.get('FILES', 'demtif'))
         self.lineEdt_Clone.setText(self.config.get('FILES', 'clone'))     
        
-        if self.config.get('FILES', 'samples'):
-            self.checkBox_Sample.setChecked(True)
-            self.lineEdt_Sample.setText(self.config.get('FILES', 'samples'))
+        self.checkBox_Sample.setChecked(self.config.getboolean('GENERATE_FILE','genTss'))
+        self.lineEdt_Sample.setText(self.config.get('FILES', 'samples'))
 
         self.doubleSpinBox_GridSize.setValue(self.config.getfloat('GRID','grid'))   
         self.dtEdt_StartSim.setDate(QDate.fromString(self.config.get('SIM_TIME', 'start'), 'dd/MM/yyyy'))
@@ -1115,12 +1114,19 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         ## Land Use tab
         ### Land Use Series
-        tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'landuse'))       
-        self.lineEdt_LandUseSeries.setText(os.path.normpath(tmpPath)) 
+        if os.path.isdir(self.config.get('FILES', 'landuse')):
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'landuse'))       
+            self.lineEdt_LandUseSeries.setText(os.path.normpath(tmpPath))
+        else:
+            self.lineEdt_LandUseSeries.setText(self.config.get('FILES', 'landuse'))
 
         ### NDVI
-        tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'ndvi'))
-        self.lineEdt_NDVISeries.setText(tmpPath)     
+        if os.path.isdir(self.config.get('FILES', 'ndvi')):
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'ndvi'))
+            self.lineEdt_NDVISeries.setText(tmpPath)
+        else:
+            self.lineEdt_NDVISeries.setText(self.config.get('FILES', 'ndvi'))                 
+        
         self.lineEdt_NDVIMax.setText(self.config.get('FILES', 'ndvimax'))          
         self.lineEdt_NDVIMin.setText(self.config.get('FILES', 'ndvimin'))    
 
@@ -1148,14 +1154,23 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.doubleSpinBox_LeafAreaIndexMax.setValue(self.config.getfloat('CONSTANT','lai_max'))  
 
         ## Climate tab
-        tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'prec'))
-        self.lineEdt_Precipitation.setText(tmpPath)     
+        if os.path.isdir(self.config.get('FILES', 'prec')):
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'prec'))
+            self.lineEdt_Precipitation.setText(tmpPath)
+        else:
+            self.lineEdt_Precipitation.setText(self.config.get('FILES', 'prec'))                 
         
-        tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'etp'))   
-        self.lineEdt_EvapoTranspiration.setText(tmpPath)  
+        if os.path.isdir(self.config.get('FILES', 'etp')):
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'etp'))   
+            self.lineEdt_EvapoTranspiration.setText(tmpPath)  
+        else:
+            self.lineEdt_EvapoTranspiration.setText(self.config.get('FILES', 'etp'))            
         
-        tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'kp'))
-        self.lineEdt_PanCoefficientKp.setText(tmpPath)
+        if os.path.isdir(self.config.get('FILES', 'kp')):
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get('FILES', 'kp'))
+            self.lineEdt_PanCoefficientKp.setText(tmpPath)
+        else:
+            self.lineEdt_PanCoefficientKp.setText(self.config.get('FILES', 'kp'))            
 
         self.lineEdt_RainyDays.setText(self.config.get('PARAMETERS', 'rainydays')) 
 
@@ -1353,6 +1368,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             # Check if the user has selected a path to the project file
             if retFilePath:
                 setupProjectFileWrite(retFilePath)
+                self.projectFilePath = retFilePath
             # If the user cancels the save exit without doing anything
             return
         
