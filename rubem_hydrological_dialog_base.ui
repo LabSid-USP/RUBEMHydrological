@@ -302,8 +302,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>450</width>
-           <height>497</height>
+           <width>449</width>
+           <height>490</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_23">
@@ -905,7 +905,7 @@ location where time-series output is required.</string>
                     <number>3</number>
                    </property>
                    <property name="maximum">
-                    <double>999.990000000000009</double>
+                    <double>999999999.990000009536743</double>
                    </property>
                    <property name="singleStep">
                     <double>1.000000000000000</double>
@@ -965,8 +965,8 @@ location where time-series output is required.</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>450</width>
-           <height>566</height>
+           <width>449</width>
+           <height>562</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1630,8 +1630,8 @@ location where time-series output is required.</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>450</width>
-           <height>805</height>
+           <width>449</width>
+           <height>793</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_15">
