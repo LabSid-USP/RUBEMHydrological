@@ -83,3 +83,61 @@ defaultConfigSchema = {
                 'genTss': 'False'
         }
 }
+        
+maxValuesDic = {
+        'GRID': {
+                'grid' : '500.00'
+        },
+        'CALIBRATION': {
+                'alfa' : '4.500',
+                'b' : '0.500',
+                'w1' : '0.333',
+                'w2' : '0.333',
+                'w3' : '0.334',
+                'rcd' : '5.000',
+                'f' : '0.500',
+                'alfa_gw' : '0.500',
+                'x' : '0.500'
+        },
+        'INITIAL SOIL CONDITIONS': {
+                'ftur_ini' : '1.000',
+                'eb_ini' : '0.100',
+                'eb_lim' : '1.000',
+                'tus_ini' : '1.000'
+        },
+        'CONSTANT': {
+                'fpar_max' : '0.950',
+                'fpar_min' : '0.001',
+                'lai_max' : '12.000',
+                'i_imp' : '2.500'
+        }
+}
+
+minValuesDic = {
+        'GRID': {
+                'grid' : '500.00'
+        },
+        'CALIBRATION': {
+                'alfa' : '4.500',
+                'b' : '0.500',
+                'w1' : '0.333',
+                'w2' : '0.333',
+                'w3' : '0.334',
+                'rcd' : '5.000',
+                'f' : '0.500',
+                'alfa_gw' : '0.500',
+                'x' : '0.500'
+        },
+        'INITIAL SOIL CONDITIONS': {
+                'ftur_ini' : '1.000',
+                'eb_ini' : '0.100',
+                'eb_lim' : '1.000',
+                'tus_ini' : '1.000'
+        },
+        'CONSTANT': {
+                'fpar_max' : '0.950',
+                'fpar_min' : '0.001',
+                'lai_max' : '12.000',
+                'i_imp' : '2.500'
+        }
+}
