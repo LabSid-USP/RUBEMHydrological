@@ -30,23 +30,25 @@ import os
 from glob import glob
 from pathlib import Path
 import configparser
-import subprocess
 
 from PyQt5.QtWidgets import QMessageBox
 
 try:
     from qgis.PyQt.QtWidgets import QDialog, QFileDialog
-    from qgis.PyQt.QtCore import QObject, QThread, pyqtSignal, QDate
+    from qgis.PyQt.QtCore import QThread, QDate
 except ImportError:
     from PyQt5.QtWidgets import QDialog, QFileDialog
-    from PyQt5.QtCore import QObject, QThread, pyqtSignal, QDate
+    from PyQt5.QtCore import QThread, QDate
 
 try:
     from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+    from .rubem_thread_workers import RUBEMStandaloneWorker
     from .rubem_config import *
 except ImportError:
     from rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
+    from rubem_thread_workers import RUBEMStandaloneWorker
     from rubem_config import *
+
         
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     def __init__(self, iface):
@@ -1435,8 +1437,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.textBrowser_log.append("\n# RUBEM execution started...")
 
         # Make command list available to execution thread
-        global command
-        command = [self.modelFilePath, "--configfile", self.configFilePath]
+        self.command = [self.modelFilePath, "--configfile", self.configFilePath]
         self.runLongTask()
 
     def reportExecutionLog(self, outputLog):
@@ -1456,10 +1457,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         # Create a QThread object
         self.thread = QThread()
         # Create a worker object
-        self.worker = Worker()
+        self.worker = RUBEMStandaloneWorker(self.command)
         # Move worker to the thread
         self.worker.moveToThread(self.thread)
         # Connect signals and slots
+        self.btn_Cancel.clicked.connect(self.worker.kill)
         self.thread.started.connect(self.worker.run)
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
@@ -1478,15 +1480,3 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             lambda: self.progressBar.setValue(0)
         )
 
-# Create a worker class
-class Worker(QObject):
-    """Constructor"""
-    finished = pyqtSignal(str)
-    progress = pyqtSignal(int)
-
-    def run(self):
-        """RUBEM Long-running task"""
-        proc = subprocess.Popen(command, shell=True, encoding='latin-1', stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        proc.wait()
-        self.progress.emit(100)
-        self.finished.emit(proc.communicate()[0])
