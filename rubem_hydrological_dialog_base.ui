@@ -329,6 +329,9 @@
                    <property name="placeholderText">
                     <string>Select input directory</string>
                    </property>
+                   <property name="clearButtonEnabled">
+                    <bool>true</bool>
+                   </property>
                   </widget>
                  </item>
                  <item>
@@ -357,6 +360,9 @@
                   <widget class="QLineEdit" name="lineEdit_OutputFolder">
                    <property name="placeholderText">
                     <string>Select output directory</string>
+                   </property>
+                   <property name="clearButtonEnabled">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
