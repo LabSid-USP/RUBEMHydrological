@@ -1423,22 +1423,17 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """Invokes the model's standalone executable including the configuration file generated 
             from user input as an argument in the CLI.
         """
-        
-        # Use the directory immediately preceding the input directory to save the config.ini file
-        path = Path(self.config.get('FILES', 'input'))
-        self.configFilePath = os.path.join(path.parent.absolute(), 'config.ini')
-
         # Use the standalone executable file of the model present in the plugin's root directory
-        self.modelFilePath = os.path.join(self.plugin_dir, 'RainfallRunoff.exe')
+        self.modelFilePath = os.path.join(self.plugin_dir, 'rubem', 'rubem.exe')
 
         self.updateConfigFromGUI()
-        self.saveProject(self.configFilePath)
+        self.saveProject(self.projectFilePath)
         self.showConfig()
 
         self.textBrowser_log.append("\n# RUBEM execution started...")
 
         # Make command list available to execution thread
-        self.command = [self.modelFilePath, "--configfile", self.configFilePath]
+        self.command = [self.modelFilePath, "--configfile", self.projectFilePath]
         self.runLongTask()
 
     def reportExecutionLog(self, outputLog):
