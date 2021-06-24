@@ -1,8 +1,9 @@
 <RCC>
   <qresource prefix="imgBase">
+    <file>images/banner.png</file>
     <file>images/icon.png</file>
     <file>images/adp.png</file>
     <file>images/labsid.png</file>
-	<file>images/epusp.png</file>
+    <file>images/epusp.png</file>
   </qresource>
 </RCC>
