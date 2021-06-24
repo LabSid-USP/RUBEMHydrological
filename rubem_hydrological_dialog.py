@@ -181,7 +181,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """            
         filePath = self.getFilePath(caption="Select DEM TIFF File", filter="*.tif")
         self.config.set('FILES', 'demTif', filePath)
-        self.lineEdt_Dem.setText(filePath)
+        self.lineEdt_DemTif.setText(filePath)
 
     def setCloneFilePath(self):
         """Defines the project's Clone file.
