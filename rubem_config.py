@@ -71,13 +71,13 @@ defaultConfigSchema = {
         },
         'GENERATE_FILE': {
                 'Int' : 'True', 
-                'Eb' : 'False',
-                'Esd' : 'False',
-                'Evp' : 'False',
+                'bflow' : 'False',
+                'sfrun' : 'False',
+                'etp' : 'False',
                 'Lf' : 'False',
                 'Rec' : 'False', 
-                'Tur' : 'False', 
-                'Vazao' : 'False',
+                'ssat' : 'False', 
+                'runoff' : 'False',
                 'auxQtot' : 'False', 
                 'auxRec' : 'False',
                 'genTss': 'False'
