@@ -146,14 +146,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config.set('FILES', 'input', directoryPath)
         self.lineEdit_InputFolder.setText(directoryPath)
 
-        #TODO: Create dialog message to ask if the user want to load the config.ini
-        #       file found in the parend directory
-        # Check if parent directory has a config.ini file and load it
-        # path = Path(directoryPath)
-        # configFilePath = os.path.join(path.parent.absolute(), 'config.ini')
-        # if os.path.isfile(configFilePath):
-        #     self.loadConfigFromFile(configFilePath)
-
     def setOutputDirectoryPath(self):
         """Defines the directory containing the project's output data.
         
