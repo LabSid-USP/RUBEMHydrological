@@ -1074,27 +1074,12 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.updateGUIFromConfig()
         self.textBrowser_log.append("Configurations loaded")
 
-    def checkTrailingSeparator(self, path):
-        """[summary]
-
-        :param path: [description]
-        :type path: str
-
-        :return: [description]
-        :rtype: str
-        """
-        if not path.endswith('/'):
-            return f"{path}/"
-        
-        return path
-
-
     def updateGUIFromConfig(self):
         """[summary]
         """
         # Project Folder
-        self.lineEdit_InputFolder.setText(self.checkTrailingSeparator(self.config.get('FILES', 'input')))
-        self.lineEdit_OutputFolder.setText(self.checkTrailingSeparator(self.config.get('FILES', 'output')))            
+        self.lineEdit_InputFolder.setText(self.config.get('FILES', 'input'))
+        self.lineEdit_OutputFolder.setText(self.config.get('FILES', 'output'))            
 
         # Tab widget
         ## Settings tab
