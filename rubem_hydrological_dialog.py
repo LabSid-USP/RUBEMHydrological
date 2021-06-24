@@ -832,7 +832,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """        
         self.config.set(
             'GENERATE_FILE', 
-            'Eb', 
+            'bflow', 
             str(self.checkBox_InterceptionEb.isChecked())
         )  
 
@@ -845,7 +845,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """        
         self.config.set(
             'GENERATE_FILE', 
-            'Evp', 
+            'etp', 
             str(self.checkBox_EvapotranspirationEvp.isChecked())
         )   
 
@@ -871,7 +871,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """        
         self.config.set(
             'GENERATE_FILE', 
-            'Tur', 
+            'ssat', 
             str(self.checkBox_SoilMoistureTur.isChecked())
         )   
 
@@ -897,7 +897,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """        
         self.config.set(
             'GENERATE_FILE', 
-            'Esd', 
+            'sfrun', 
             str(self.checkBox_RunoffEsd.isChecked())
         )   
 
@@ -910,7 +910,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: checkBox_RunoffVazao     
         """        
         self.config.set(
-            'GENERATE_FILE', 'Vazao', str(self.checkBox_RunoffVazao.isChecked())) 
+            'GENERATE_FILE', 'runoff', str(self.checkBox_RunoffVazao.isChecked())) 
 
     #TODO: Rename setAuxQtotGenerateFile and checkBox_auxQtot
     # def setAuxQtotGenerateFile(self):
@@ -1046,13 +1046,13 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         ## Run tab
         ### Geneate Files
         self.config.set('GENERATE_FILE', 'Int', str(self.checkBox_InterceptionInt.isChecked()))  
-        self.config.set('GENERATE_FILE', 'Eb', str(self.checkBox_InterceptionEb.isChecked()))  
-        self.config.set('GENERATE_FILE', 'Evp', str(self.checkBox_EvapotranspirationEvp.isChecked()))   
+        self.config.set('GENERATE_FILE', 'bflow', str(self.checkBox_InterceptionEb.isChecked()))  
+        self.config.set('GENERATE_FILE', 'etp', str(self.checkBox_EvapotranspirationEvp.isChecked()))   
         self.config.set('GENERATE_FILE', 'Rec', str(self.checkBox_RechargeRec.isChecked()))                           
-        self.config.set('GENERATE_FILE', 'Tur', str(self.checkBox_SoilMoistureTur.isChecked()))   
+        self.config.set('GENERATE_FILE', 'ssat', str(self.checkBox_SoilMoistureTur.isChecked()))   
         self.config.set('GENERATE_FILE', 'Lf', str(self.checkBox_LateralFlowLf.isChecked()))   
-        self.config.set('GENERATE_FILE', 'Esd', str(self.checkBox_RunoffEsd.isChecked()))   
-        self.config.set('GENERATE_FILE', 'Vazao', str(self.checkBox_RunoffVazao.isChecked())) 
+        self.config.set('GENERATE_FILE', 'sfrun', str(self.checkBox_RunoffEsd.isChecked()))   
+        self.config.set('GENERATE_FILE', 'runoff', str(self.checkBox_RunoffVazao.isChecked())) 
         # self.config.set('GENERATE_FILE', 'auxQtot', str(self.checkBox_auxQtot.isChecked())) 
         # self.config.set('GENERATE_FILE', 'auxRec', str(self.checkBox_auxRec.isChecked())) 
         
@@ -1191,13 +1191,13 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         ## Run tab
         ### Generate Files
         self.checkBox_InterceptionInt.setChecked(self.config.getboolean('GENERATE_FILE','Int'))  
-        self.checkBox_InterceptionEb.setChecked(self.config.getboolean('GENERATE_FILE','Eb'))  
-        self.checkBox_EvapotranspirationEvp.setChecked(self.config.getboolean('GENERATE_FILE','Evp'))   
+        self.checkBox_InterceptionEb.setChecked(self.config.getboolean('GENERATE_FILE','bflow'))  
+        self.checkBox_EvapotranspirationEvp.setChecked(self.config.getboolean('GENERATE_FILE','etp'))   
         self.checkBox_RechargeRec.setChecked(self.config.getboolean('GENERATE_FILE','Rec'))                           
-        self.checkBox_SoilMoistureTur.setChecked(self.config.getboolean('GENERATE_FILE','Tur'))   
+        self.checkBox_SoilMoistureTur.setChecked(self.config.getboolean('GENERATE_FILE','ssat'))   
         self.checkBox_LateralFlowLf.setChecked(self.config.getboolean('GENERATE_FILE','Lf'))   
-        self.checkBox_RunoffEsd.setChecked(self.config.getboolean('GENERATE_FILE','Esd'))   
-        self.checkBox_RunoffVazao.setChecked(self.config.getboolean('GENERATE_FILE','Vazao'))    
+        self.checkBox_RunoffEsd.setChecked(self.config.getboolean('GENERATE_FILE','sfrun'))   
+        self.checkBox_RunoffVazao.setChecked(self.config.getboolean('GENERATE_FILE','runoff'))    
 
     def getUserRetSaveCurProj(self):
         """[summary]
