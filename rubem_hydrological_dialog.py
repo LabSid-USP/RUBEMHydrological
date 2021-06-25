@@ -134,7 +134,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :rtype: [type]
         """
         pattern = '*.0*'
-        return os.path.normpath(glob(f'{path}{pattern}')[0])
+        fileList = glob(f'{path}{pattern}')
+        if fileList:
+            return os.path.normpath(fileList[0])
+        else:
+            return ''
 
     # Project Folder
     def setInputDirectoryPath(self):
