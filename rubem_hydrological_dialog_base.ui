@@ -202,6 +202,9 @@
            <property name="text">
             <string>&amp;New</string>
            </property>
+           <property name="shortcut">
+            <string>Ctrl+N</string>
+           </property>
           </widget>
          </item>
          <item>
@@ -214,6 +217,9 @@
            </property>
            <property name="text">
             <string>&amp;Open</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+O</string>
            </property>
           </widget>
          </item>
@@ -228,12 +234,18 @@
            <property name="text">
             <string>&amp;Save</string>
            </property>
+           <property name="shortcut">
+            <string>Ctrl+S</string>
+           </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_SaveAsProject">
            <property name="text">
             <string>Save &amp;As…</string>
+           </property>
+           <property name="shortcut">
+            <string>Ctrl+Shift+S</string>
            </property>
           </widget>
          </item>
@@ -267,7 +279,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>5</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
