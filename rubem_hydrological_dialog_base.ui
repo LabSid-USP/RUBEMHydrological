@@ -200,7 +200,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>New</string>
+            <string>&amp;New</string>
            </property>
           </widget>
          </item>
@@ -213,7 +213,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Open</string>
+            <string>&amp;Open</string>
            </property>
           </widget>
          </item>
@@ -226,14 +226,14 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Save</string>
+            <string>&amp;Save</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_SaveAsProject">
            <property name="text">
-            <string>Save As…</string>
+            <string>Save &amp;As…</string>
            </property>
           </widget>
          </item>
@@ -3384,14 +3384,14 @@ p, li { white-space: pre-wrap; }
              <item row="0" column="0">
               <widget class="QPushButton" name="btn_Run">
                <property name="text">
-                <string>Run</string>
+                <string>&amp;Run</string>
                </property>
               </widget>
              </item>
              <item row="0" column="1">
               <widget class="QPushButton" name="btn_Cancel">
                <property name="text">
-                <string>Cancel</string>
+                <string>&amp;Cancel</string>
                </property>
               </widget>
              </item>
