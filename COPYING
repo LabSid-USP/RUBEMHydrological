@@ -18,9 +18,9 @@ Visit https://github.com/LabSid-USP/RUBEMHydrological for more information.
 Notice on third party software:
 
 RUBEM Hydrological uses open source software from third parties. These are to their
-individual license agreements. Any binary packages of these third party tools
-are subject to their individual licenses. PCRaster reserves the right to change
-which third party tools are used.
+individual license agreements. Any binary packages of these third party tools are 
+subject to their individual licenses. RUBEM Hydrological reserves the right to 
+change which third party tools are used.
 
 GDAL (https://www.gdal.org/)
 Numpy (https://www.numpy.org/)
