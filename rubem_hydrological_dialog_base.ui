@@ -302,8 +302,8 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>449</width>
-           <height>490</height>
+           <width>450</width>
+           <height>504</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_23">
@@ -965,8 +965,8 @@ location where time-series output is required.</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>449</width>
-           <height>562</height>
+           <width>450</width>
+           <height>574</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1630,8 +1630,8 @@ location where time-series output is required.</string>
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>449</width>
-           <height>793</height>
+           <width>450</width>
+           <height>814</height>
           </rect>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -3211,9 +3211,9 @@ location where time-series output is required.</string>
              </property>
              <property name="html">
               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Tahoma'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;taag_font_SmallSlant&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;  ___  __  _____  ______  ___                      &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;  / _ \/ / / / _ )/ __/  |/  /                      &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt; / , _/ /_/ / _  / _// /|_/ /                       &lt;/span&gt;&lt;/p&gt;
@@ -3222,7 +3222,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt; / _  / // / _  / __/ _ \/ / _ \/ _ `/ / __/ _ `/ / &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;/_//_/\_, /\_,_/_/  \___/_/\___/\_, /_/\__/\_,_/_/  &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;     /___/                     /___/                &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Tahoma'; font-size:8pt;&quot;&gt;---&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;---&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="acceptRichText">
               <bool>true</bool>
@@ -3310,35 +3310,35 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="html">
          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;title&gt;Info&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;meta charset=&quot;utf-8&quot; /&gt;&lt;title&gt;Info&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Tahoma'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/imgBase/images/banner.png&quot; /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;RUBEM Hydrological is a QGIS plugin that assists in the configuration of the &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEM#readme&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Rainfall rUnoff Balance Enhanced Model&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; algorithm, which is an improved model of balance between rain and runoff.&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;RUBEM Hydrological is a QGIS plugin that assists in the configuration of the &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEM#readme&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Rainfall rUnoff Balance Enhanced Model&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; algorithm, which is an improved model of balance between rain and runoff.&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Explore the docs » &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Explore the docs » &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;View Demo&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Report Bug&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Request Feature&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;View Demo&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Report Bug&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Request Feature&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	The RUBEM distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017).&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.&lt;/span&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a name=&quot;docs-internal-guid-4c2b91a3-7fff-c7f8-b68d-38b3c4c4d7f5&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;D&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;evelopment /Research team:&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Department of Hydraulic and Environmental Engineering at the Escola Politécnica of the University of São Paulo&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:600;&quot;&gt;Department of Hydraulic and Environmental Engineering at the Escola Politécnica of the University of São Paulo&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a href=&quot;https://www.poli.usp.br/&quot;&gt;&lt;img src=&quot;:/imgBase/images/epusp.png&quot; width=&quot;165&quot; height=&quot;148&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Laboratory of Decision Support Systems Applied to Environmental and Water Resources Engineering&lt;/span&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2'; font-size:9pt; font-weight:600;&quot;&gt;Laboratory of Decision Support Systems Applied to Environmental and Water Resources Engineering&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a href=&quot;http://labsid.eng.br/Contato.aspx&quot;&gt;&lt;img src=&quot;:/imgBase/images/labsid.png&quot; width=&quot;188&quot; height=&quot;49&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;&lt;br /&gt;LabSid-PHA-USP thanks the support of the &lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; font-weight:600; color:#000000; background-color:transparent;&quot;&gt;Patrimonial Fund Amigos da Poli&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; for the adaptation of the RUBEM methodology in Plugin format for QGIS.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://www.amigosdapoli.com.br/&quot;&gt;&lt;img src=&quot;:/imgBase/images/adp.png&quot; width=&quot;233&quot; height=&quot;131&quot; /&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="tabStopWidth">
-         <number>80</number>
         </property>
         <property name="textInteractionFlags">
          <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
         </property>
         <property name="placeholderText">
          <string/>
+        </property>
+        <property name="tabStopWidth" stdset="0">
+         <number>80</number>
         </property>
        </widget>
       </widget>
@@ -3348,16 +3348,29 @@ p, li { white-space: pre-wrap; }
   </widget>
  </widget>
  <tabstops>
-  <tabstop>btn_Dem</tabstop>
-  <tabstop>btn_Clone</tabstop>
-  <tabstop>btn_Sample</tabstop>
-  <tabstop>lineEdt_Sample</tabstop>
-  <tabstop>dtEdt_EndSim</tabstop>
-  <tabstop>checkBox_Sample</tabstop>
+  <tabstop>pushButton_NewProject</tabstop>
+  <tabstop>pushButton_OpenProject</tabstop>
+  <tabstop>pushButton_SaveProject</tabstop>
+  <tabstop>pushButton_SaveAsProject</tabstop>
   <tabstop>tabWidget</tabstop>
+  <tabstop>scrollArea_3</tabstop>
+  <tabstop>lineEdit_InputFolder</tabstop>
+  <tabstop>toolButton_InputFolder</tabstop>
+  <tabstop>lineEdit_OutputFolder</tabstop>
+  <tabstop>toolButton_OutputFolder</tabstop>
   <tabstop>lineEdt_Dem</tabstop>
+  <tabstop>btn_Dem</tabstop>
+  <tabstop>lineEdt_DemTif</tabstop>
+  <tabstop>btn_DemTif</tabstop>
   <tabstop>lineEdt_Clone</tabstop>
-  <tabstop>doubleSpinBox_TusInitial</tabstop>
+  <tabstop>btn_Clone</tabstop>
+  <tabstop>checkBox_Sample</tabstop>
+  <tabstop>lineEdt_Sample</tabstop>
+  <tabstop>btn_Sample</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>dtEdt_StartSim</tabstop>
+  <tabstop>dtEdt_EndSim</tabstop>
+  <tabstop>doubleSpinBox_GridSize</tabstop>
   <tabstop>scrollArea_2</tabstop>
   <tabstop>lineEdt_SoilMap</tabstop>
   <tabstop>btn_SoilMap</tabstop>
@@ -3372,39 +3385,40 @@ p, li { white-space: pre-wrap; }
   <tabstop>lineEdt_Porosity</tabstop>
   <tabstop>btn_Porosity</tabstop>
   <tabstop>lineEdt_Saturation</tabstop>
-  <tabstop>lineEdt_RootZoneThicknessZr</tabstop>
   <tabstop>btn_Saturation</tabstop>
+  <tabstop>lineEdt_RootZoneThicknessZr</tabstop>
   <tabstop>btn_RootZoneThickNessZr</tabstop>
   <tabstop>doubleSpinBox_BaseFlowInitial</tabstop>
   <tabstop>doubleSpinBox_BaseFlowLimit</tabstop>
+  <tabstop>doubleSpinBox_TusInitial</tabstop>
   <tabstop>doubleSpinBox_InitialSoilMoisture</tabstop>
   <tabstop>scrollArea</tabstop>
   <tabstop>lineEdt_LandUseSeries</tabstop>
   <tabstop>btn_LandUseSeries</tabstop>
-  <tabstop>btn_NDVIMin</tabstop>
   <tabstop>lineEdt_NDVISeries</tabstop>
   <tabstop>btn_NDVISeries</tabstop>
+  <tabstop>lineEdt_NDVIMax</tabstop>
   <tabstop>btn_NDVIMax</tabstop>
   <tabstop>lineEdt_NDVIMin</tabstop>
-  <tabstop>lineEdt_NDVIMax</tabstop>
+  <tabstop>btn_NDVIMin</tabstop>
+  <tabstop>lineEdt_a_i</tabstop>
+  <tabstop>btn_a_i</tabstop>
+  <tabstop>lineEdt_a_o</tabstop>
+  <tabstop>btn_a_o</tabstop>
   <tabstop>lineEdt_a_s</tabstop>
   <tabstop>btn_a_s</tabstop>
-  <tabstop>lineEdt_a_i</tabstop>
-  <tabstop>lineEdt_a_o</tabstop>
-  <tabstop>btn_a_v</tabstop>
   <tabstop>lineEdt_a_v</tabstop>
-  <tabstop>btn_a_i</tabstop>
-  <tabstop>btn_a_o</tabstop>
+  <tabstop>btn_a_v</tabstop>
   <tabstop>lineEdt_Manning</tabstop>
   <tabstop>btn_Manning</tabstop>
   <tabstop>lineEdt_KcMax</tabstop>
   <tabstop>btn_KcMax</tabstop>
   <tabstop>lineEdt_KcMin</tabstop>
   <tabstop>btn_KcMin</tabstop>
-  <tabstop>doubleSpinBox_Interception</tabstop>
-  <tabstop>doubleSpinBox_LeafAreaIndexMax</tabstop>
   <tabstop>doubleSpinBox_FparMax</tabstop>
   <tabstop>doubleSpinBox_FparMin</tabstop>
+  <tabstop>doubleSpinBox_LeafAreaIndexMax</tabstop>
+  <tabstop>doubleSpinBox_Interception</tabstop>
   <tabstop>lineEdt_Precipitation</tabstop>
   <tabstop>btn_Precipitation</tabstop>
   <tabstop>lineEdt_EvapoTranspiration</tabstop>
@@ -3413,22 +3427,27 @@ p, li { white-space: pre-wrap; }
   <tabstop>btn_PanCoefficientKp</tabstop>
   <tabstop>lineEdt_RainyDays</tabstop>
   <tabstop>btn_RainyDays</tabstop>
-  <tabstop>doubleSpinBox_ExponentCh</tabstop>
-  <tabstop>doubleSpinBox_DelayCoefficientBaseFlow</tabstop>
-  <tabstop>doubleSpinBox_DelayFactor</tabstop>
+  <tabstop>doubleSpinBox_InterceptionCalibrationAlpha</tabstop>
   <tabstop>doubleSpinBox_PartitioningCoefficientRelatedSoil</tabstop>
+  <tabstop>doubleSpinBox_ExponentCh</tabstop>
+  <tabstop>doubleSpinBox_DelayFactor</tabstop>
+  <tabstop>doubleSpinBox_DelayCoefficientBaseFlow</tabstop>
   <tabstop>doubleSpinBox_RegionalConsecutiveDrynessLevel</tabstop>
-  <tabstop>doubleSpinBox_SoilRelatedWeightFactor</tabstop>
   <tabstop>doubleSpinBox_ManningRelatedWeightFactor</tabstop>
+  <tabstop>doubleSpinBox_SoilRelatedWeightFactor</tabstop>
   <tabstop>doubleSpinBox_SlopeRelatedWeightFactor</tabstop>
   <tabstop>checkBox_InterceptionInt</tabstop>
   <tabstop>checkBox_RechargeRec</tabstop>
   <tabstop>checkBox_InterceptionEb</tabstop>
+  <tabstop>checkBox_RunoffEsd</tabstop>
+  <tabstop>checkBox_LateralFlowLf</tabstop>
+  <tabstop>checkBox_RunoffVazao</tabstop>
+  <tabstop>checkBox_EvapotranspirationEvp</tabstop>
+  <tabstop>checkBox_SoilMoistureTur</tabstop>
   <tabstop>textBrowser_log</tabstop>
   <tabstop>btn_Run</tabstop>
   <tabstop>btn_Cancel</tabstop>
   <tabstop>textBrowser_Info</tabstop>
-  <tabstop>doubleSpinBox_InterceptionCalibrationAlpha</tabstop>
  </tabstops>
  <resources>
   <include location="resources.qrc"/>
@@ -3442,7 +3461,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>295</y>
+     <y>249</y>
     </hint>
     <hint type="destinationlabel">
      <x>474</x>
@@ -3458,7 +3477,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>393</y>
+     <y>347</y>
     </hint>
     <hint type="destinationlabel">
      <x>476</x>
@@ -3474,7 +3493,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>466</y>
+     <y>420</y>
     </hint>
     <hint type="destinationlabel">
      <x>477</x>
@@ -3490,7 +3509,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>190</x>
-     <y>420</y>
+     <y>374</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -3505,8 +3524,8 @@ p, li { white-space: pre-wrap; }
    <slot>setEndSimulationPeriod()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>303</x>
-     <y>562</y>
+     <x>271</x>
+     <y>524</y>
     </hint>
     <hint type="destinationlabel">
      <x>475</x>
@@ -3521,8 +3540,8 @@ p, li { white-space: pre-wrap; }
    <slot>setStartSimulationPeriod()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>303</x>
-     <y>534</y>
+     <x>271</x>
+     <y>496</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -3730,7 +3749,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>441</x>
-     <y>142</y>
+     <y>-214</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -3746,7 +3765,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>225</y>
+     <y>-131</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -3762,7 +3781,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>274</y>
+     <y>-82</y>
     </hint>
     <hint type="destinationlabel">
      <x>482</x>
@@ -3778,7 +3797,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>323</y>
+     <y>-33</y>
     </hint>
     <hint type="destinationlabel">
      <x>489</x>
@@ -3794,7 +3813,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>407</y>
+     <y>51</y>
     </hint>
     <hint type="destinationlabel">
      <x>490</x>
@@ -3810,7 +3829,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>456</y>
+     <y>100</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -3826,7 +3845,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>505</y>
+     <y>149</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3842,7 +3861,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>554</y>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -3858,7 +3877,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>441</x>
-     <y>618</y>
+     <y>262</y>
     </hint>
     <hint type="destinationlabel">
      <x>495</x>
@@ -3874,7 +3893,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>701</y>
+     <y>345</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -3890,7 +3909,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>750</y>
+     <y>394</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -3905,8 +3924,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFparMaximum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>816</y>
+     <x>87</x>
+     <y>470</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -3921,8 +3940,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFparMinimum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>298</x>
-     <y>816</y>
+     <x>294</x>
+     <y>470</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3937,8 +3956,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterception()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>884</y>
+     <x>86</x>
+     <y>538</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -3953,8 +3972,8 @@ p, li { white-space: pre-wrap; }
    <slot>setLeafAreaIndexMaximum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>856</y>
+     <x>81</x>
+     <y>510</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4033,8 +4052,8 @@ p, li { white-space: pre-wrap; }
    <slot>setExponentCh()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>177</y>
+     <x>84</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4049,8 +4068,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDelayFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>308</x>
-     <y>177</y>
+     <x>303</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4065,8 +4084,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRegionalConsecutiveDrynessLevel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>234</y>
+     <x>108</x>
+     <y>235</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -4081,8 +4100,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDelayCoefficientBaseFlow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>206</y>
+     <x>83</x>
+     <y>207</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -4097,8 +4116,8 @@ p, li { white-space: pre-wrap; }
    <slot>setPartitioningCoefficientRelated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
-     <y>147</y>
+     <x>297</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
@@ -4113,8 +4132,8 @@ p, li { white-space: pre-wrap; }
    <slot>setManningRelatedWeightFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>104</x>
-     <y>288</y>
+     <x>100</x>
+     <y>289</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4129,8 +4148,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSoilRelatedWeightFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>104</x>
-     <y>316</y>
+     <x>100</x>
+     <y>317</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -4145,8 +4164,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSlopeRelatedWeightFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>104</x>
-     <y>344</y>
+     <x>100</x>
+     <y>345</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -4305,8 +4324,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterceptionCalibration()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
-     <y>147</y>
+     <x>90</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4322,7 +4341,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>440</x>
-     <y>344</y>
+     <y>298</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -4386,7 +4405,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>426</x>
-     <y>155</y>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>410</x>
@@ -4402,7 +4421,7 @@ p, li { white-space: pre-wrap; }
    <hints>
     <hint type="sourcelabel">
      <x>427</x>
-     <y>208</y>
+     <y>162</y>
     </hint>
     <hint type="destinationlabel">
      <x>415</x>
@@ -4423,6 +4442,950 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>270</x>
      <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_Sample</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>37</x>
+     <y>371</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>372</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_InputFolder</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>82</x>
+     <y>110</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>164</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdit_OutputFolder</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>54</x>
+     <y>163</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>211</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_Dem</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>242</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_DemTif</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>296</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>525</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_Sample</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>108</x>
+     <y>422</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-2</x>
+     <y>511</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>126</x>
+     <y>504</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>17</x>
+     <y>550</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dtEdt_EndSim</sender>
+   <signal>dateTimeChanged(QDateTime)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>515</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-3</x>
+     <y>495</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dtEdt_StartSim</sender>
+   <signal>dateTimeChanged(QDateTime)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>227</x>
+     <y>489</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>473</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_GridSize</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>372</x>
+     <y>502</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>431</x>
+     <y>582</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_Clone</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>342</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>3</x>
+     <y>80</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_SoilMap</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>159</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>41</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_DensityDg</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>63</x>
+     <y>210</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_HydraulicConductivityKr</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>71</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>18</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_FieldCapacityCC</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>39</x>
+     <y>309</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>76</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_WiltingPointWP</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>361</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>321</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_Porosity</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>75</x>
+     <y>409</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>437</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_Saturation</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>154</x>
+     <y>458</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>5</x>
+     <y>366</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_RootZoneThicknessZr</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>51</x>
+     <y>508</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>580</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_BaseFlowInitial</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>575</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>433</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_TusInitial</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>39</x>
+     <y>608</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>68</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_InitialSoilMoisture</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>82</x>
+     <y>636</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>486</x>
+     <y>570</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_BaseFlowLimit</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>290</x>
+     <y>574</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>489</x>
+     <y>468</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_LandUseSeries</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>86</x>
+     <y>-220</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>2</x>
+     <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_NDVISeries</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>-134</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>69</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_NDVIMax</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>-94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>426</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_NDVIMin</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>-40</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>446</x>
+     <y>65</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_a_i</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>44</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-5</x>
+     <y>31</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_a_o</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>123</x>
+     <y>104</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>9</x>
+     <y>518</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_a_s</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>8</x>
+     <y>70</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_a_v</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>93</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>488</x>
+     <y>9</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_Manning</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>200</x>
+     <y>262</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>495</x>
+     <y>378</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_KcMax</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>302</x>
+     <y>352</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>484</x>
+     <y>466</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_KcMin</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>216</x>
+     <y>395</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>489</x>
+     <y>372</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_FparMax</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>46</x>
+     <y>460</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-6</x>
+     <y>455</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_FparMin</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>252</x>
+     <y>459</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>498</x>
+     <y>405</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_LeafAreaIndexMax</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>501</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>418</x>
+     <y>577</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_Interception</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>50</x>
+     <y>528</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-5</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_Precipitation</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>58</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1</x>
+     <y>4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_EvapoTranspiration</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>96</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>-5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_PanCoefficientKp</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>128</x>
+     <y>269</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>24</x>
+     <y>-1</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>lineEdt_RainyDays</sender>
+   <signal>textChanged(QString)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>403</x>
+     <y>324</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>559</x>
+     <y>108</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_InterceptionCalibrationAlpha</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>49</x>
+     <y>140</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>485</x>
+     <y>5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_ExponentCh</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>34</x>
+     <y>-11</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_DelayCoefficientBaseFlow</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>202</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>71</x>
+     <y>-13</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_RegionalConsecutiveDrynessLevel</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>72</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>283</x>
+     <y>-9</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_PartitioningCoefficientRelatedSoil</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>270</x>
+     <y>136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>342</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_DelayFactor</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>280</x>
+     <y>171</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>494</x>
+     <y>352</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_ManningRelatedWeightFactor</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>62</x>
+     <y>281</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>23</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_SoilRelatedWeightFactor</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>77</x>
+     <y>305</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>502</x>
+     <y>540</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>doubleSpinBox_SlopeRelatedWeightFactor</sender>
+   <signal>valueChanged(double)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>82</x>
+     <y>344</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>637</x>
+     <y>477</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_InterceptionInt</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>47</x>
+     <y>137</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>716</x>
+     <y>229</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_InterceptionEb</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>152</x>
+     <y>161</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>881</x>
+     <y>192</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_LateralFlowLf</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>124</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>908</x>
+     <y>182</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_EvapotranspirationEvp</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>143</x>
+     <y>214</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>955</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_RechargeRec</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>357</x>
+     <y>136</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>741</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_RunoffEsd</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>430</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>773</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_RunoffVazao</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>398</x>
+     <y>190</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>575</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_SoilMoistureTur</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>306</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>650</x>
+     <y>239</y>
     </hint>
    </hints>
   </connection>
@@ -4494,5 +5457,6 @@ p, li { white-space: pre-wrap; }
   <slot>openProject()</slot>
   <slot>newProject()</slot>
   <slot>saveAsProject()</slot>
+  <slot>setProjectModified()</slot>
  </slots>
 </ui>

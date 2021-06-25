@@ -71,6 +71,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.tab_Info.setEnabled(True)
 
         self.hasCurrentProject = False
+        self.hasProjectBeenModified = False
 
     def getDirectoryPath(self, caption):
         """Gets the path of an existing directory using QFileDialog and returns it.
@@ -139,6 +140,18 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             return os.path.normpath(fileList[0])
         else:
             return ''
+
+    def setProjectModified(self, *arguments):
+        """[summary]
+
+        :Slot signal: 
+        :Signal sender:        
+        """
+        # Only a current project can be modified
+        if self.hasCurrentProject:
+            # Only update this flag if project hasn't been modified
+            if not self.hasProjectBeenModified:
+                self.hasProjectBeenModified = True
 
     # Project Folder
     def setInputDirectoryPath(self):
@@ -1294,8 +1307,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.pushButton_SaveAsProject.setEnabled(True)
             self.tabWidget.setEnabled(True)
 
-        # Check if there is already a current project and ask to save it
-        if self.hasCurrentProject:
+        # Check if there is already a current project and it has been 
+        # modified then ask to save it
+        if self.hasCurrentProject and self.hasProjectBeenModified:
             response = self.getUserRetSaveCurProj()
             # Save project before creating a new one
             if response == QMessageBox.Save:
@@ -1341,8 +1355,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveAsProject.setEnabled(True) 
                 self.tabWidget.setEnabled(True)               
 
-        # Check if there is already a current project and ask to save it
-        if self.hasCurrentProject:
+        # Check if there is already a current project and it has been 
+        # modified then ask to save it
+        if self.hasCurrentProject and self.hasProjectBeenModified:
             response = self.getUserRetSaveCurProj()
             # Save project before opening a project file
             if response == QMessageBox.Save:
@@ -1405,7 +1420,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 configfile.close()    
             
             self.textBrowser_log.append("Project file saved in " + selectedFilePath)
-            self.hasCurrentProject = True            
+            self.hasCurrentProject = True    
+            self.hasProjectBeenModified = False
 
         # Ask user for project file path
         # --> Call this function without any arguments
