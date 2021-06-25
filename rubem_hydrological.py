@@ -29,11 +29,11 @@ __copyright__ = 'Copyright 2021, LabSid'
 import os
 
 try:
-    from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication
+    from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt
     from qgis.PyQt.QtGui import QIcon
     from qgis.PyQt.QtWidgets import QAction
 except ImportError:
-    from PyQt5.QtCore import QSettings, QTranslator, QCoreApplication
+    from PyQt5.QtCore import QSettings, QTranslator, QCoreApplication, Qt
     from PyQt5.QtGui import QIcon
     from PyQt5.QtWidgets import QAction
 
@@ -196,6 +196,13 @@ class RUBEMHydrological:
             self.first_start = False
             self.dlg = RUBEMHydrologicalDialog(self.iface)
 
+        # configure top window tile
+        self.dlg.setWindowFlags(
+            Qt.WindowSystemMenuHint | 
+            Qt.WindowTitleHint | 
+            Qt.WindowContextHelpButtonHint | 
+            Qt.WindowCloseButtonHint
+        )
         # show the dialog
         self.dlg.show()
         # Run the dialog event loop
