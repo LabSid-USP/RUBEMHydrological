@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/LabSid-USP/RUBEMHydrological">
-    <img src="https://github.com/LabSid-USP/RUBEMHydrological/blob/develop/images/icon.png" alt="Logo" width="120" height="120">
+    <img src="https://github.com/LabSid-USP/RUBEMHydrological/blob/main/images/icon.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">RUBEM Hydrological</h3>
@@ -51,10 +51,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+<!--
 <p align="center">
-  <img width="373" height="456" src="https://user-images.githubusercontent.com/70075435/120209930-9a0b7800-c205-11eb-8289-8148d0b62db1.png">
+  <img width="373" height="456" src="">
 </p>
-
+ -->
+ 
 RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the [Rainfall rUnoff Balance Enhanced Model](https://github.com/LabSid-USP/RUBEM#readme) algorithm, which is an improved model of balance between rain and runoff.
 
 The distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017).
