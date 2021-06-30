@@ -47,28 +47,28 @@ __license__ = "GPL"
 __date__ = "2021-05-19"
 __version__ = "1.3.2"
 
+import configparser
 import os
 from glob import glob
 from pathlib import Path
-import configparser
 
 from PyQt5.QtWidgets import QMessageBox
 
 try:
+    from qgis.PyQt.QtCore import QDate, QThread
     from qgis.PyQt.QtWidgets import QDialog, QFileDialog
-    from qgis.PyQt.QtCore import QThread, QDate
 except ImportError:
+    from PyQt5.QtCore import QDate, QThread
     from PyQt5.QtWidgets import QDialog, QFileDialog
-    from PyQt5.QtCore import QThread, QDate
 
 try:
+    from .rubem_config import *
     from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
     from .rubem_thread_workers import RUBEMStandaloneWorker
-    from .rubem_config import *
 except ImportError:
+    from rubem_config import *
     from rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
     from rubem_thread_workers import RUBEMStandaloneWorker
-    from rubem_config import *
 
 
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):

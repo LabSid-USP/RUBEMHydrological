@@ -13,12 +13,11 @@ __date__ = "2021-05-19"
 __copyright__ = "Copyright 2021, LabSid"
 
 import unittest
+from test.utilities import get_qgis_app
 
-from qgis.PyQt.QtWidgets import QDialogButtonBox, QDialog
+from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox
 
 from rubem_hydrological_dialog import RUBEMHydrologicalDialog
-
-from test.utilities import get_qgis_app
 
 QGIS_APP = get_qgis_app()
 

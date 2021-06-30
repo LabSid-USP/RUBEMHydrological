@@ -50,11 +50,11 @@ __version__ = "1.3.2"
 import os
 
 try:
-    from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt
+    from qgis.PyQt.QtCore import QCoreApplication, QSettings, Qt, QTranslator
     from qgis.PyQt.QtGui import QIcon
     from qgis.PyQt.QtWidgets import QAction
 except ImportError:
-    from PyQt5.QtCore import QSettings, QTranslator, QCoreApplication, Qt
+    from PyQt5.QtCore import QCoreApplication, QSettings, Qt, QTranslator
     from PyQt5.QtGui import QIcon
     from PyQt5.QtWidgets import QAction
 

@@ -47,7 +47,7 @@ __license__ = "GPL"
 __date__ = "2021-05-19"
 __version__ = "1.3.2"
 
-from subprocess import Popen, TimeoutExpired, PIPE
+from subprocess import PIPE, Popen, TimeoutExpired
 
 try:
     from qgis.PyQt.QtCore import QObject, pyqtSignal
