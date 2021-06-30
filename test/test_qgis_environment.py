@@ -16,8 +16,7 @@ import os
 import unittest
 from test.utilities import get_qgis_app
 
-from qgis.core import (QgsCoordinateReferenceSystem, QgsProviderRegistry,
-                       QgsRasterLayer)
+from qgis.core import QgsCoordinateReferenceSystem, QgsProviderRegistry, QgsRasterLayer
 
 QGIS_APP = get_qgis_app()
 

@@ -17,27 +17,9 @@
 #
 # Contact: rubem.hydrological@labsid.eng.br
 
-"""
-/***************************************************************************
- **RUBEM Hydrological
-                A Rainfall rUnoff Balance Enhanced Model wizard
- **Description
-                             -------------------
-        begin                : **2021
-        copyright            : **Laboratório de Sistemas de Suporte a 
-                             :   Decisões Aplicados à Engenharia Ambiental e 
-                             :   de Recursos Hídricos (LabSid) PHA-EPUSP
-        email                : **rubem.hydrological@labsid.eng.br
- ***************************************************************************/
+"""RUBEM Hydrological plugin main working code.
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
- *   any later version.                                                    *
- *                                                                         *
- ***************************************************************************/
+Contains all the information about the actions of the plugin and the main code.
 """
 
 __author__ = "LabSid PHA EPUSP"
@@ -68,7 +50,7 @@ class RUBEMHydrological:
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
-        """Constructor.
+        """Initialize plugin setup.
 
         :param iface: An interface instance that will be passed to this class
             which provides the hook by which you can manipulate the QGIS
@@ -163,7 +145,6 @@ class RUBEMHydrological:
             added to self.actions list.
         :rtype: QAction
         """
-
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
         action.triggered.connect(callback)
@@ -188,7 +169,6 @@ class RUBEMHydrological:
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
-
         icon_path = ":/imgBase/images/icon.png"
         self.add_action(
             icon_path,
@@ -201,14 +181,13 @@ class RUBEMHydrological:
         self.first_start = True
 
     def unload(self):
-        """Removes the plugin menu item and icon from QGIS GUI."""
+        """Remove the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginMenu(self.tr("&RUBEM Hydrological"), action)
             self.iface.removeToolBarIcon(action)
 
     def run(self):
-        """Run method that performs all the real work"""
-
+        """Run method that performs all the real work."""
         # Create the dialog with elements (after translation) and keep reference
         # Only create GUI ONCE in callback, so that it will only load when the plugin is started
         if self.first_start == True:

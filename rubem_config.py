@@ -17,28 +17,7 @@
 #
 # Contact: rubem.hydrological@labsid.eng.br
 
-"""
-/***************************************************************************
- **RUBEM Hydrological
-                A Rainfall rUnoff Balance Enhanced Model wizard
- **Description
-                             -------------------
-        begin                : **2021
-        copyright            : **Laboratório de Sistemas de Suporte a 
-                             :   Decisões Aplicados à Engenharia Ambiental e 
-                             :   de Recursos Hídricos (LabSid) PHA-EPUSP
-        email                : **rubem.hydrological@labsid.eng.br
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
- *   any later version.                                                    *
- *                                                                         *
- ***************************************************************************/
-"""
+"""RUBEM Hydrological plugin settings schemas."""
 
 __author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"

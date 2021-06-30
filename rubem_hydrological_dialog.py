@@ -17,28 +17,7 @@
 #
 # Contact: rubem.hydrological@labsid.eng.br
 
-"""
-/***************************************************************************
- **RUBEM Hydrological
-                A Rainfall rUnoff Balance Enhanced Model wizard
- **Description
-                             -------------------
-        begin                : **2021
-        copyright            : **Laboratório de Sistemas de Suporte a 
-                             :   Decisões Aplicados à Engenharia Ambiental e 
-                             :   de Recursos Hídricos (LabSid) PHA-EPUSP
-        email                : **rubem.hydrological@labsid.eng.br
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
- *   any later version.                                                    *
- *                                                                         *
- ***************************************************************************/
-"""
+"""RUBEM Hydrological plugin dialog window."""
 
 __author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
@@ -72,9 +51,21 @@ except ImportError:
 
 
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
-    def __init__(self, iface):
-        """Constructor."""
+    """[summary].
 
+    :param QDialog: [description].
+    :type QDialog: [type]
+
+    :param Ui_RUBEMHydrological: [description].
+    :type Ui_RUBEMHydrological: [type]
+    """
+
+    def __init__(self, iface):
+        """[summary].
+
+        :param iface: [description].
+        :type iface: [type]
+        """
         QDialog.__init__(self)
         self.setupUi(self)
         self.iface = iface
@@ -95,7 +86,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.hasProjectBeenModified = False
 
     def getDirectoryPath(self, caption):
-        """Gets the path of an existing directory using QFileDialog and returns it.
+        """Get the path of an existing directory using QFileDialog and returns it.
 
         :param caption: This is the title of the file selection window.
         :type caption: String
@@ -109,7 +100,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         return f"{directoryPath}/"
 
     def getFilePath(self, caption, filter, selectedFilter=""):
-        """Gets the path of an existing file using QFileDialog and returns it.
+        """Get the path of an existing file using QFileDialog and returns it.
 
         :param caption: This is the title of the file selection window.
         :type caption: String
@@ -147,7 +138,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         return f"{directoryPath}/", "".join(filter(str.isalpha, filePrefix))
 
     def getFirstFileNameMapSeries(self, path):
-        """[summary]
+        """[summary].
 
         :param path: [description]
         :type path: [type]
@@ -163,7 +154,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             return ""
 
     def setProjectModified(self, *arguments):
-        """[summary]
+        """[summary].
 
         :Slot signal:
         :Signal sender:
@@ -176,7 +167,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # Project Folder
     def setInputDirectoryPath(self):
-        """Defines the directory containing the project's input data.
+        """Define the directory containing the project's input data.
 
         :Slot signal: clicked
         :Signal sender: toolButton_InputFolder
@@ -186,7 +177,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdit_InputFolder.setText(directoryPath)
 
     def setOutputDirectoryPath(self):
-        """Defines the directory containing the project's output data.
+        """Define the directory containing the project's output data.
 
         :Slot signal: clicked
         :Signal sender: toolButton_OutputFolder
@@ -199,7 +190,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Settings tab
     ### Model General Settings
     def setDEMFilePath(self):
-        """Defines the project's DEM map file.
+        """Define the project's DEM map file.
 
         Also updates the lineEdt_Dem field with the selected file path.
 
@@ -211,7 +202,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Dem.setText(filePath)
 
     def setDEMTifFilePath(self):
-        """Defines the project's DEM TIFF file.
+        """Define the project's DEM TIFF file.
 
         Also updates the lineEdt_DemTif field with the selected file path.
 
@@ -223,7 +214,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_DemTif.setText(filePath)
 
     def setCloneFilePath(self):
-        """Defines the project's Clone file.
+        """Define the project's Clone file.
 
         Also updates the lineEdt_Clone field with the selected file path.
 
@@ -235,7 +226,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Clone.setText(filePath)
 
     def setExportSampleLocations(self):
-        """Defines as enabled the fields related to the Sample file.
+        """Define as enabled the fields related to the Sample file.
 
         Fields: lineEdt_Sample, btn_Sample and label_SelectSample.
 
@@ -256,7 +247,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.label_SelectSample.setEnabled(False)
 
     def setSampleFilePath(self):
-        """Defines the project's Sample file.
+        """Define the project's Sample file.
 
         Also updates the lineEdt_Sample field with the selected file path.
 
@@ -270,7 +261,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Sample.setText(filePath)
 
     def setGridSize(self):
-        """Defines the project's Grid size.
+        """Define the project's Grid size.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_GridSize
@@ -279,7 +270,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Simulation Period
     def setStartSimulationPeriod(self):
-        """Defines the start date of the model simulation period.
+        """Define the start date of the model simulation period.
 
         Follows the format 'dd/MM/yyyy'.
 
@@ -291,7 +282,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setEndSimulationPeriod(self):
-        """Defines the end date of the model simulation period.
+        """Define the end date of the model simulation period.
 
         Follows the format 'dd/MM/yyyy'.
 
@@ -305,7 +296,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Soil tab
     ### Soil Parameters
     def setSoilMapFilePath(self):
-        """Defines the project's Soil Map file.
+        """Define the project's Soil Map file.
 
         Also updates the lineEdt_SoilMap field with the selected file path.
 
@@ -317,7 +308,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_SoilMap.setText(filePath)
 
     def setDensityFilePath(self):
-        """Defines the project's Density file.
+        """Define the project's Density file.
 
         Also updates the lineEdt_DensityDg field with the selected file path.
 
@@ -333,7 +324,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_DensityDg.setText(filePath)
 
     def setHydraulicConductivityFilePath(self):
-        """Defines the project's HydraulicConductivity file.
+        """Define the project's HydraulicConductivity file.
 
         Also updates the lineEdt_HydraulicConductivityKr field with the selected file path.
 
@@ -349,7 +340,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_HydraulicConductivityKr.setText(filePath)
 
     def setFieldCapacityFilePath(self):
-        """Defines the project's Field Capacity file.
+        """Define the project's Field Capacity file.
 
         Also updates the lineEdt_FieldCapacityCC field with the selected file path.
 
@@ -365,7 +356,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_FieldCapacityCC.setText(filePath)
 
     def setWiltingPointFilePath(self):
-        """Defines the project's Wilting Point file.
+        """Define the project's Wilting Point file.
 
         Also updates the lineEdt_WiltingPointWP field with the selected file path.
 
@@ -381,7 +372,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_WiltingPointWP.setText(filePath)
 
     def setPorosityFilePath(self):
-        """Defines the project's Porosity file.
+        """Define the project's Porosity file.
 
         Also updates the lineEdt_Porosity field with the selected file path.
 
@@ -397,7 +388,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Porosity.setText(filePath)
 
     def setSaturationFilePath(self):
-        """Defines the project's Saturation file.
+        """Define the project's Saturation file.
 
         Also updates the lineEdt_Saturation field with the selected file path.
 
@@ -413,7 +404,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Saturation.setText(filePath)
 
     def setRootZoneThicknessFilePath(self):
-        """Defines the project's Root Zone Thickness file.
+        """Define the project's Root Zone Thickness file.
 
         Also updates the lineEdt_RootZoneThicknessZr field with the selected file path.
 
@@ -430,7 +421,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Initial Soil Conditions
     def setInitialSoilMoisture(self):
-        """Defines the project's Initial soil moisture value in millimeters.
+        """Define the project's Initial soil moisture value in millimeters.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_InitialSoilMoisture
@@ -442,7 +433,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setInitialBaseFlow(self):
-        """Defines the project's Initial Base Flow value in millimeters.
+        """Define the project's Initial Base Flow value in millimeters.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_BaseFlowInitial
@@ -454,7 +445,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setBaseFlowLimit(self):
-        """Defines the project's Base Flow Limit value in millimeters.
+        """Define the project's Base Flow Limit value in millimeters.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_BaseFlowLimit
@@ -466,7 +457,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setInitialTus(self):
-        """Defines the project's Initial Tus value in millimeters.
+        """Define the project's Initial Tus value in millimeters.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_TusInitial
@@ -480,7 +471,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Land Use tab
     ### Land Use Series
     def setLandUseSeriesFilePath(self):
-        """Defines the project's Land Use Series file folder.
+        """Define the project's Land Use Series file folder.
 
         Also updates the lineEdt_LandUseSeries field with the selected file
         path and set land use file prefix.
@@ -498,7 +489,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### NDVI
     def setNDVISeriesFilePath(self):
-        """Defines the project's NDVISeries file folder.
+        """Define the project's NDVISeries file folder.
 
         Also updates the lineEdt_NDVISeries field with the selected file
         path and define the ndvi file prefix.
@@ -515,7 +506,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_NDVISeries.setText(filePath)
 
     def setNDVIMaximumSeriesFilePath(self):
-        """Defines the project's NDVIMax file.
+        """Define the project's NDVIMax file.
 
         Also updates the lineEdt_NDVIMax field with the selected file path.
 
@@ -529,7 +520,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_NDVIMax.setText(filePath)
 
     def setNDVIMinimumSeriesFilePath(self):
-        """Defines the project's NDVIMin file.
+        """Define the project's NDVIMin file.
 
         Also updates the lineEdt_NDVIMin field with the selected file path.
 
@@ -544,7 +535,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### a
     def setAiFilePath(self):
-        """Defines the project's a_i file.
+        """Define the project's a_i file.
 
         Also updates the lineEdt_a_i field with the selected file path.
 
@@ -560,7 +551,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_a_i.setText(filePath)
 
     def setAoFilePath(self):
-        """Defines the project's a_o file.
+        """Define the project's a_o file.
 
         Also updates the lineEdt_a_o field with the selected file path.
 
@@ -576,7 +567,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_a_o.setText(filePath)
 
     def setAsFilePath(self):
-        """Defines the project's a_s file.
+        """Define the project's a_s file.
 
         Also updates the lineEdt_a_s field with the selected file path.
 
@@ -592,7 +583,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_a_s.setText(filePath)
 
     def setAvFilePath(self):
-        """Defines the project's a_v file.
+        """Define the project's a_v file.
 
         Also updates the lineEdt_a_v field with the selected file path.
 
@@ -609,7 +600,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Manning
     def setManningFilePath(self):
-        """Defines the project's Manning file.
+        """Define the project's Manning file.
 
         Also updates the lineEdt_Manning field with the selected file path.
 
@@ -626,7 +617,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Kc
     def setKcMaximumFilePath(self):
-        """Defines the project's KcMax file.
+        """Define the project's KcMax file.
 
         Also updates the lineEdt_KcMax field with the selected file path.
 
@@ -642,7 +633,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_KcMax.setText(filePath)
 
     def setKcMinimumFilePath(self):
-        """Defines the project's KcMin file.
+        """Define the project's KcMin file.
 
         Also updates the lineEdt_KcMin field with the selected file path.
 
@@ -659,7 +650,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Fpar
     def setFparMaximum(self):
-        """Defines the project's Fpar Maximum value.
+        """Define the project's Fpar Maximum value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_FparMax
@@ -667,7 +658,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config.set("CONSTANT", "fpar_max", str(self.doubleSpinBox_FparMax.value()))
 
     def setFparMinimum(self):
-        """Defines the project's Fpar Minimum value.
+        """Define the project's Fpar Minimum value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_FparMin
@@ -676,7 +667,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     ### Interception
     def setInterception(self):
-        """Defines the project's Interception value.
+        """Define the project's Interception value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_Interception
@@ -687,7 +678,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # Leaf Area Index
     def setLeafAreaIndexMaximum(self):
-        """Defines the project's Maximum Leaf Area Index value.
+        """Define the project's Maximum Leaf Area Index value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_LeafAreaIndexMax
@@ -698,7 +689,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # Climate tab
     def setPrecipitationSeriesFilePath(self):
-        """Defines the project's Precipitation folder file.
+        """Define the project's Precipitation folder file.
 
         Alsochange the lineEdt_Precipitation field with the selected file
         path and define the prec file prefix.
@@ -715,7 +706,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_Precipitation.setText(filePath)
 
     def setEvapotranspirationSeriesFilePath(self):
-        """Defines the project's Evapotranspiration folder file.
+        """Define the project's Evapotranspiration folder file.
 
         Also updates the lineEdt_EvapoTranspiration field with the selected file
         path and define the etp file prefix.
@@ -733,7 +724,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_EvapoTranspiration.setText(filePath)
 
     def setKpSeriesFilePath(self):
-        """Defines the project's Class A Pan Coefficient (Kp) folder file.
+        """Define the project's Class A Pan Coefficient (Kp) folder file.
 
         Also updates the lineEdt_PanCoefficientKp field with the selected file
         path and define the Kp file prefix.
@@ -751,7 +742,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_PanCoefficientKp.setText(filePath)
 
     def setRainyDaysSeriesFilePath(self):
-        """Defines the project's Rainy Days file.
+        """Define the project's Rainy Days file.
 
         Also updates the lineEdt_RainyDays field with the selected file path.
 
@@ -769,7 +760,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Parameters tab
     ### Model Parameters
     def setExponentCh(self):
-        """Defines the project's Exponent of Ch value.
+        """Define the project's Exponent of Ch value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_ExponentCh
@@ -777,7 +768,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config.set("CALIBRATION", "b", str(self.doubleSpinBox_ExponentCh.value()))
 
     def setDelayFactor(self):
-        """Defines the project's Delay Factor value.
+        """Define the project's Delay Factor value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_DelayFactor
@@ -785,7 +776,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config.set("CALIBRATION", "x", str(self.doubleSpinBox_DelayFactor.value()))
 
     def setRegionalConsecutiveDrynessLevel(self):
-        """Defines the project's Regional Consecutive Dryness (RCD) Level value.
+        """Define the project's Regional Consecutive Dryness (RCD) Level value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_RegionalConsecutiveDrynessLevel
@@ -797,7 +788,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setDelayCoefficientBaseFlow(self):
-        """Defines the project's Delay Coefficient Base Flow value.
+        """Define the project's Delay Coefficient Base Flow value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_DelayCoefficientBaseFlow
@@ -809,7 +800,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setPartitioningCoefficientRelated(self):
-        """Defines the project's Partitioning Coefficient Related value.
+        """Define the project's Partitioning Coefficient Related value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_PartitioningCoefficientRelatedSoil
@@ -821,7 +812,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setInterceptionCalibration(self):
-        """Defines the project's Interception Calibration value.
+        """Define the project's Interception Calibration value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_InterceptionCalibrationAlpha
@@ -834,7 +825,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     #### Weight Factors
     def setManningRelatedWeightFactor(self):
-        """Defines the project's Manning Related Weight Factor (w1) value.
+        """Define the project's Manning Related Weight Factor (w1) value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_ManningRelatedWeightFactor
@@ -846,7 +837,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setSoilRelatedWeightFactor(self):
-        """Defines the project's Soil Related Weight Factor (w2) value.
+        """Define the project's Soil Related Weight Factor (w2) value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_SoilRelatedWeightFactor
@@ -856,7 +847,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setSlopeRelatedWeightFactor(self):
-        """Defines the project's Slope Related Weight Factor (w3) value.
+        """Define the project's Slope Related Weight Factor (w3) value.
 
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_SlopeRelatedWeightFactor
@@ -870,8 +861,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     ## Run tab
     ### Geneate Files
     def setInterceptionGenerateFile(self):
-        """Defines whether the Interception file will be generated as
-            output from the model execution.
+        """Define whether the Interception file will be generated as output from the model execution.
 
         :Slot signal: checked
         :Signal sender: checkBox_InterceptionInt
@@ -881,8 +871,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setInterceptionEbGenerateFile(self):
-        """Defines whether the Interception Eb file will be generated as
-            output from the model execution.
+        """Define whether the Interception Eb file will be generated as output from the model execution.
 
         :Slot signal: checked
         :Signal sender: checkBox_InterceptionEb
@@ -892,8 +881,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setEvapotranspirationGenerateFile(self):
-        """Defines whether the Evapotranspiration file will be generated as
-            output from the model execution.
+        """Define whether the Evapotranspiration file will be generated as output from the model execution.
 
         :Slot signal: checked
         :Signal sender: checkBox_EvapotranspirationEvp
@@ -903,8 +891,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setRechargeGenerateFile(self):
-        """Defines whether the Recharge file will be generated as
-            output from the model execution.
+        """Define whether the Recharge file will be generated as output from the model execution.
 
         :Slot signal: checked
         :Signal sender: checkBox_RechargeRec
@@ -914,8 +901,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setSoilMoistureGenerateFile(self):
-        """Defines whether the Soil Moisture file will be generated as
-            output from the model execution.
+        """Define whether the Soil Moisture file will be generated as output from the model execution.
 
         :Slot signal: checked
         :Signal sender: checkBox_SoilMoistureTur
@@ -925,8 +911,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setLateralFLowGenerateFile(self):
-        """Defines whether the Lateral FLow file will be generated as
-            output from the model execution.
+        """Define whether the Lateral FLow file will be generated as output from the model execution.
 
         :Slot signal: checked
         :Signal sender: checkBox_LateralFlowLf
@@ -936,8 +921,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def setRunoffEsdGenerateFile(self):
-        """Defines whether the Runoff Esd file will be generated as
-            output from the model execution.
+        """Define whether the Runoff Esd file will be generated as output from the model execution.
 
         :Slot signal: checked
         :Signal sender: checkBox_RunoffEsd
@@ -948,8 +932,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # TODO: Rename setRunoffVazaoGenerateFile, checkBox_RunoffVazao, GUI and config section GENERATE_FILES option Vazao
     def setRunoffVazaoGenerateFile(self):
-        """Defines whether the Runoff Vazao file will be generated as
-            output from the model execution.
+        """Define whether the Runoff Vazao file will be generated as output from the model execution.
 
         :Slot signal: checked
         :Signal sender: checkBox_RunoffVazao
@@ -958,29 +941,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             "GENERATE_FILE", "runoff", str(self.checkBox_RunoffVazao.isChecked())
         )
 
-    # TODO: Rename setAuxQtotGenerateFile and checkBox_auxQtot
-    # def setAuxQtotGenerateFile(self):
-    # """Defines whether the AuxQtot file will be generated as
-    #     output from the model execution.
-
-    # :Slot signal: checked
-    # :Signal sender: checkBox_auxQtot
-    # """
-    #     self.config.set('GENERATE_FILE', 'auxQtot', str(self.checkBox_auxQtot.isChecked()))
-
-    # TODO: Rename setAuxRecGenerateFile and checkBox_auxRec
-    # def setAuxRecGenerateFile(self):
-    # """Defines whether the AuxRec file will be generated as
-    #     output from the model execution.
-
-    # :Slot signal: checked
-    # :Signal sender: checkBox_auxRec
-    # """
-    #     self.config.set('GENERATE_FILE', 'auxRec', str(self.checkBox_auxRec.isChecked()))
-
     def updateConfigFromGUI(self):
-        """Updates the configuration dictionary with the values present in the GUI's data entry objects."""
-
+        """Update the configuration dictionary with the values present in the GUI's data entry objects."""
         self.textBrowser_log.append("Updating configuration with current values...")
 
         # Project Folder
@@ -1176,8 +1138,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.textBrowser_log.append("Configuration updated with current values")
 
     def loadConfigFromFile(self, configFilePath):
-        """Reads the configuration file argument and sets the values of
-            the GUI's data entry objects to those contained in the file.
+        """Read the configuration file argument and sets the values of the GUI's data entry objects to those contained in the file.
 
         :param configFilePath: Valid path to the configuration file.
         :type configFilePath: String
@@ -1194,7 +1155,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.textBrowser_log.append("Configurations loaded")
 
     def updateGUIFromConfig(self):
-        """[summary]"""
+        """[summary]."""
         # Project Folder
         self.lineEdit_InputFolder.setText(self.config.get("FILES", "input"))
         self.lineEdit_OutputFolder.setText(self.config.get("FILES", "output"))
@@ -1378,7 +1339,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
 
     def getUserRetSaveCurProj(self):
-        """[summary]
+        """[summary].
 
         :return: [description]
         :rtype: [type]
@@ -1404,7 +1365,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         return response
 
     def newProject(self):
-        """[summary]
+        """[summary].
 
         :Slot signal: clicked
         :Signal sender: pushButton_NewProject
@@ -1414,7 +1375,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """
 
         def setupNewProject():
-            """[summary]"""
+            """[summary]."""
             self.textBrowser_log.clear()
             self.config.read_dict(defaultConfigSchema)
             self.updateGUIFromConfig()
@@ -1443,17 +1404,17 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             setupNewProject()
 
     def openProject(self):
-        """[summary]
+        """[summary].
 
         :Slot signal: clicked
         :Signal sender: pushButton_OpenProject
 
-        :return: [description]
+        :return: [description].
         :rtype: [type]
         """
 
         def setupOpenedProject():
-            """[summary]"""
+            """[summary]."""
             filePath, _ = QFileDialog.getOpenFileName(
                 self,
                 caption="Open Project",
@@ -1490,7 +1451,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             setupOpenedProject()
 
     def saveProject(self, filePath=None, caption=None):
-        """Saves the values present in the configuration dictionary to a specified file.
+        """Save the values present in the configuration dictionary to a specified file.
 
         :Slot signal: clicked
         :Signal sender: pushButton_SaveProject
@@ -1498,14 +1459,14 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :param filePath: Valid path to the configuration file, defaults to None (slot).
         :type filePath: String, optional (slot)
 
-        :return: [description]
+        :return: [description].
         :rtype: [type]
         """
 
         def setupFileDialog():
-            """[summary]
+            """[summary].
 
-            :return: [description]
+            :return: [description].
             :rtype: [type]
             """
             if caption:
@@ -1525,9 +1486,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             return tmpFilePath
 
         def setupProjectFileWrite(selectedFilePath):
-            """[summary]
+            """[summary].
 
-            :param selectedFilePath: [description]
+            :param selectedFilePath: [description].
             :type selectedFilePath: [type]
             """
             with open(selectedFilePath, "w") as configfile:
@@ -1576,9 +1537,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             setupProjectFileWrite(filePath)
 
     def saveAsProject(self, isNewProject=False):
-        """[summary]
+        """[summary].
 
-        :param isNewProject: [description], defaults to False
+        :param isNewProject: [description], defaults to False.
         :type isNewProject: bool, optional
         """
         if isNewProject:
@@ -1587,9 +1548,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.saveProject(caption="Save project as")
 
     def showConfig(self):
-        """Go through the settings dictionary and print the respective sections, options and
-        values in the textBrowser_log (in the 'Run' tab).
-        """
+        """Go through the settings dictionary and print the respective sections, options and values in the textBrowser_log (in the 'Run' tab)."""
         self.textBrowser_log.append("Showing current configuration:")
         for section in self.config.sections():
             self.textBrowser_log.append("[" + section + "]")
@@ -1600,9 +1559,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # TODO: Capture execution log fom RainfallRunoff.exe without freezing GUI
     def setRunState(self):
-        """Invokes the model's standalone executable including the configuration file generated
-        from user input as an argument in the CLI.
-        """
+        """Invoke the model's standalone executable including the configuration file generated from user input as an argument in the CLI."""
         # Use the standalone executable file of the model present in the plugin's root directory
         self.modelFilePath = os.path.join(self.plugin_dir, "rubem", "rubem.exe")
 
@@ -1617,11 +1574,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.runLongTask()
 
     def reportExecutionLog(self, outputLog):
-        """Update textBrowser_log with output captured from execution"""
+        """Update textBrowser_log with output captured from execution."""
         self.textBrowser_log.append(outputLog.strip())
 
     def reportProgress(self, n):
-        """Update progressBar with int representing overall progress of exec thread
+        """Update progressBar with int representing overall progress of exec thread.
 
         :Slot signal: emit(int)
         :Signal sender: pyqtSignal(int)
@@ -1629,7 +1586,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.progressBar.setValue(n)
 
     def runLongTask(self):
-        """Configure QThread"""
+        """Configure QThread."""
         # Create a QThread object
         self.thread = QThread()
         # Create a worker object

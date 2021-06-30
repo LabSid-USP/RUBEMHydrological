@@ -17,28 +17,7 @@
 #
 # Contact: rubem.hydrological@labsid.eng.br
 
-"""
-/***************************************************************************
- **RUBEM Hydrological
-                A Rainfall rUnoff Balance Enhanced Model wizard
- **Description
-                             -------------------
-        begin                : **2021
-        copyright            : **Laboratório de Sistemas de Suporte a 
-                             :   Decisões Aplicados à Engenharia Ambiental e 
-                             :   de Recursos Hídricos (LabSid) PHA-EPUSP
-        email                : **rubem.hydrological@labsid.eng.br
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
- *   any later version.                                                    *
- *                                                                         *
- ***************************************************************************/
-"""
+"""RUBEM Hydrological plugin thread workers code."""
 
 __author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
@@ -56,14 +35,14 @@ except ImportError:
 
 # Create RUBEM standalone worker class
 class RUBEMStandaloneWorker(QObject):
-    """[summary]
+    """[summary].
 
     :param QObject: [description]
     :type QObject: [type]
     """
 
     def __init__(self, command):
-        """[summary]
+        """[summary].
 
         :param command: [description]
         :type command: [type]
@@ -74,7 +53,7 @@ class RUBEMStandaloneWorker(QObject):
         self.process = None
 
     def run(self):
-        """RUBEM Long-running task"""
+        """[summary]."""
         self.process = Popen(
             self.command, shell=True, encoding="latin-1", stdout=PIPE, stderr=PIPE
         )
@@ -90,7 +69,7 @@ class RUBEMStandaloneWorker(QObject):
         self.finished.emit(outs + errs)
 
     def kill(self):
-        """[summary]"""
+        """[summary]."""
         self.killed = True
         self.process.kill()
 

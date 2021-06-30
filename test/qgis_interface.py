@@ -43,14 +43,15 @@ class QgisInterface(QObject):
     currentLayerChanged = pyqtSignal(QgsMapCanvasLayer)
 
     def __init__(self, canvas):
-        """Constructor
+        """Initialize QGIS objects.
+
         :param canvas:
         """
         QObject.__init__(self)
         self.canvas = canvas
-        # Set up slots so we can mimic the behaviour of QGIS when layers
+        # Set up slots so we can mimic the behavior of QGIS when layers
         # are added.
-        LOGGER.debug("Initialising canvas...")
+        LOGGER.debug("Initializing canvas...")
         # noinspection PyArgumentList
         QgsMapLayerRegistry.instance().layersAdded.connect(self.addLayers)
         # noinspection PyArgumentList
@@ -140,7 +141,7 @@ class QgisInterface(QObject):
         pass
 
     def addRasterLayer(self, path, base_name):
-        """Add a raster layer given a raster layer file name
+        """Add a raster layer given a raster layer file name.
 
         :param path: Path to layer.
         :type path: str

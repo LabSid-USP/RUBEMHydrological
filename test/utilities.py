@@ -20,7 +20,6 @@ def get_qgis_app():
 
     If QGIS is already running the handle to that app will be returned.
     """
-
     try:
         from qgis.core import QgsApplication
         from qgis.gui import QgsMapCanvas

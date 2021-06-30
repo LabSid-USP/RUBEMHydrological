@@ -17,27 +17,10 @@
 #
 # Contact: rubem.hydrological@labsid.eng.br
 
-"""
-/***************************************************************************
- **RUBEM Hydrological
-                A Rainfall rUnoff Balance Enhanced Model wizard
- **Description
-                             -------------------
-        begin                : **2021
-        copyright            : **Laboratório de Sistemas de Suporte a 
-                             :   Decisões Aplicados à Engenharia Ambiental e 
-                             :   de Recursos Hídricos (LabSid) PHA-EPUSP
-        email                : **rubem.hydrological@labsid.eng.br
- ***************************************************************************/
+"""RUBEM Hydrological plugin starting point.
 
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 3 of the License, or     *
- *   any later version.                                                    *
- *                                                                         *
- ***************************************************************************/
+This file is required by Python’s import system. 
+Also, QGIS requires that this file contains a `classFactory()` function, which is called when the plugin gets loaded into QGIS.
 """
 
 __author__ = "LabSid PHA EPUSP"
@@ -49,6 +32,14 @@ __version__ = "1.3.2"
 
 
 def classFactory(iface):
+    """Call when the plugin gets loaded into QGIS.
+
+    :param iface: Reference to the instance of `QgisInterface`.
+    :type iface: class
+
+    :return: Object of RUBEM Hydrological plugin’s class from the `rubem_hydrological.py` (`RUBEMHydrological`).
+    :rtype: class
+    """
     from .rubem_hydrological import RUBEMHydrological
 
     return RUBEMHydrological(iface)
