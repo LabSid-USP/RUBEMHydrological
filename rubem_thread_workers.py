@@ -40,11 +40,11 @@
  ***************************************************************************/
 """
 
-__author__ = 'LabSid PHA EPUSP'
+__author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = 'Copyright 2021, LabSid PHA EPUSP'
+__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
 __license__ = "GPL"
-__date__ = '2021-05-19'
+__date__ = "2021-05-19"
 __version__ = "1.3.2"
 
 from subprocess import Popen, TimeoutExpired, PIPE
@@ -61,6 +61,7 @@ class RUBEMStandaloneWorker(QObject):
     :param QObject: [description]
     :type QObject: [type]
     """
+
     def __init__(self, command):
         """[summary]
 
@@ -73,25 +74,25 @@ class RUBEMStandaloneWorker(QObject):
         self.process = None
 
     def run(self):
-        """RUBEM Long-running task
-        """
-        self.process = Popen(self.command, shell=True, encoding='latin-1', stdout=PIPE, stderr=PIPE)
+        """RUBEM Long-running task"""
+        self.process = Popen(
+            self.command, shell=True, encoding="latin-1", stdout=PIPE, stderr=PIPE
+        )
         try:
-            #TODO: Verificar se o processo parou de responder, mas nao matar se ainda estiver funcionando
+            # TODO: Verificar se o processo parou de responder, mas nao matar se ainda estiver funcionando
             outs, errs = self.process.communicate(timeout=150)
         except TimeoutExpired:
             self.killed = True
             self.process.kill()
-            outs, errs = self.process.communicate()  
-        
+            outs, errs = self.process.communicate()
+
         self.progress.emit(100)
         self.finished.emit(outs + errs)
 
     def kill(self):
-        """[summary]
-        """
+        """[summary]"""
         self.killed = True
         self.process.kill()
 
     finished = pyqtSignal(str)
-    progress = pyqtSignal(int)        
+    progress = pyqtSignal(int)

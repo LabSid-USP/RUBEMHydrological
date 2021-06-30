@@ -8,14 +8,13 @@
 
 """
 
-__author__ = 'rubem.hydrological@labsid.eng.br'
-__date__ = '2021-05-19'
-__copyright__ = 'Copyright 2021, LabSid'
+__author__ = "rubem.hydrological@labsid.eng.br"
+__date__ = "2021-05-19"
+__copyright__ = "Copyright 2021, LabSid"
 
 import unittest
 
 from qgis.PyQt.QtGui import QIcon
-
 
 
 class RUBEMHydrologicalResourcesTest(unittest.TestCase):
@@ -31,14 +30,12 @@ class RUBEMHydrologicalResourcesTest(unittest.TestCase):
 
     def test_icon_png(self):
         """Test we can click OK."""
-        path = ':/imgBase/images/icon.png'
+        path = ":/imgBase/images/icon.png"
         icon = QIcon(path)
         self.assertFalse(icon.isNull())
+
 
 if __name__ == "__main__":
     suite = unittest.makeSuite(RUBEMHydrologicalResourcesTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
-
-
-

@@ -8,9 +8,9 @@
 
 """
 
-__author__ = 'rubem.hydrological@labsid.eng.br'
-__date__ = '2021-05-19'
-__copyright__ = 'Copyright 2021, LabSid'
+__author__ = "rubem.hydrological@labsid.eng.br"
+__date__ = "2021-05-19"
+__copyright__ = "Copyright 2021, LabSid"
 
 import unittest
 
@@ -19,6 +19,7 @@ from qgis.PyQt.QtWidgets import QDialogButtonBox, QDialog
 from rubem_hydrological_dialog import RUBEMHydrologicalDialog
 
 from test.utilities import get_qgis_app
+
 QGIS_APP = get_qgis_app()
 
 
@@ -48,8 +49,8 @@ class RUBEMHydrologicalDialogTest(unittest.TestCase):
         result = self.dialog.result()
         self.assertEqual(result, QDialog.Rejected)
 
+
 if __name__ == "__main__":
     suite = unittest.makeSuite(RUBEMHydrologicalDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
-

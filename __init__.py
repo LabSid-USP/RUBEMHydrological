@@ -40,13 +40,15 @@
  ***************************************************************************/
 """
 
-__author__ = 'LabSid PHA EPUSP'
+__author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = 'Copyright 2021, LabSid PHA EPUSP'
+__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
 __license__ = "GPL"
-__date__ = '2021-05-19'
+__date__ = "2021-05-19"
 __version__ = "1.3.2"
+
 
 def classFactory(iface):
     from .rubem_hydrological import RUBEMHydrological
+
     return RUBEMHydrological(iface)

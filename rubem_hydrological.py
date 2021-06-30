@@ -40,11 +40,11 @@
  ***************************************************************************/
 """
 
-__author__ = 'LabSid PHA EPUSP'
+__author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = 'Copyright 2021, LabSid PHA EPUSP'
+__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
 __license__ = "GPL"
-__date__ = '2021-05-19'
+__date__ = "2021-05-19"
 __version__ = "1.3.2"
 
 import os
@@ -61,7 +61,8 @@ except ImportError:
 try:
     from .rubem_hydrological_dialog import RUBEMHydrologicalDialog
 except ImportError:
-    from rubem_hydrological_dialog import RUBEMHydrologicalDialog   
+    from rubem_hydrological_dialog import RUBEMHydrologicalDialog
+
 
 class RUBEMHydrological:
     """QGIS Plugin Implementation."""
@@ -79,11 +80,10 @@ class RUBEMHydrological:
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
-        locale = QSettings().value('locale/userLocale')[0:2]
+        locale = QSettings().value("locale/userLocale")[0:2]
         locale_path = os.path.join(
-            self.plugin_dir,
-            'i18n',
-            'RUBEMHydrological_{}.qm'.format(locale))
+            self.plugin_dir, "i18n", "RUBEMHydrological_{}.qm".format(locale)
+        )
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -92,12 +92,12 @@ class RUBEMHydrological:
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u'&RUBEM Hydrological')
+        self.menu = self.tr("&RUBEM Hydrological")
 
         # Check if plugin was started the first time in current QGIS session
         # Must be set in initGui() to survive plugin reloads
         self.first_start = None
-    
+
     # noinspection PyMethodMayBeStatic
     def tr(self, message):
         """Get the translation for a string using Qt translation API.
@@ -111,7 +111,7 @@ class RUBEMHydrological:
         :rtype: QString
         """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
-        return QCoreApplication.translate('RUBEMHydrological', message)
+        return QCoreApplication.translate("RUBEMHydrological", message)
 
     def add_action(
         self,
@@ -123,7 +123,8 @@ class RUBEMHydrological:
         add_to_toolbar=True,
         status_tip=None,
         whats_this=None,
-        parent=None):
+        parent=None,
+    ):
         """Add a toolbar icon to the toolbar.
 
         :param icon_path: Path to the icon for this action. Can be a resource
@@ -179,9 +180,7 @@ class RUBEMHydrological:
             self.iface.addToolBarIcon(action)
 
         if add_to_menu:
-            self.iface.addPluginToMenu(
-                self.menu,
-                action)
+            self.iface.addPluginToMenu(self.menu, action)
 
         self.actions.append(action)
 
@@ -193,9 +192,10 @@ class RUBEMHydrological:
         icon_path = ":/imgBase/images/icon.png"
         self.add_action(
             icon_path,
-            text=self.tr(u'RUBEM Hydrological'),
+            text=self.tr("RUBEM Hydrological"),
             callback=self.run,
-            parent=self.iface.mainWindow())
+            parent=self.iface.mainWindow(),
+        )
 
         # will be set False in run()
         self.first_start = True
@@ -203,9 +203,7 @@ class RUBEMHydrological:
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginMenu(
-                self.tr(u'&RUBEM Hydrological'),
-                action)
+            self.iface.removePluginMenu(self.tr("&RUBEM Hydrological"), action)
             self.iface.removeToolBarIcon(action)
 
     def run(self):
@@ -219,10 +217,10 @@ class RUBEMHydrological:
 
         # configure top window tile
         self.dlg.setWindowFlags(
-            Qt.WindowSystemMenuHint | 
-            Qt.WindowTitleHint | 
-            Qt.WindowContextHelpButtonHint | 
-            Qt.WindowCloseButtonHint
+            Qt.WindowSystemMenuHint
+            | Qt.WindowTitleHint
+            | Qt.WindowContextHelpButtonHint
+            | Qt.WindowCloseButtonHint
         )
         # show the dialog
         self.dlg.show()
@@ -233,5 +231,3 @@ class RUBEMHydrological:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
-        
-        
