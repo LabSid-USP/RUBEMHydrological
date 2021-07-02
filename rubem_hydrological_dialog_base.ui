@@ -130,7 +130,7 @@
   </property>
   <property name="windowIcon">
    <iconset theme=":/imgBase/images/icon.png">
-    <normaloff>.</normaloff>.</iconset>
+    <normaloff>../../.designer/backup</normaloff>../../.designer/backup</iconset>
   </property>
   <property name="autoFillBackground">
    <bool>true</bool>
@@ -3479,6 +3479,74 @@ p, li { white-space: pre-wrap; }
        <attribute name="title">
         <string>Visualization</string>
        </attribute>
+       <widget class="QWidget" name="layoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>441</width>
+          <height>441</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_42">
+         <item>
+          <widget class="QGroupBox" name="groupBox_MapSeriesData">
+           <property name="title">
+            <string>Map-series Data</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_28">
+            <item>
+             <widget class="QLabel" name="label_MapSeriesData">
+              <property name="text">
+               <string>Map-series Data</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListWidget" name="listWidget_MapSeriesData"/>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_MapSeriesData">
+              <property name="text">
+               <string>Show Map-series Data</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_TimeSeriesData">
+           <property name="title">
+            <string>Time-series Data</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_27">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_26">
+              <item>
+               <widget class="QLabel" name="label_TimeSeriesData">
+                <property name="text">
+                 <string>Time-series Data</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QListWidget" name="listWidget_TimeSeriesData"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_TimeSeriesData">
+                <property name="text">
+                 <string>Show Time-series Data</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_Info">
        <attribute name="title">
