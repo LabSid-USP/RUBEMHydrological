@@ -291,7 +291,7 @@
        <string/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>6</number>
       </property>
       <property name="documentMode">
        <bool>false</bool>
@@ -3474,6 +3474,11 @@ p, li { white-space: pre-wrap; }
          </item>
         </layout>
        </widget>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Visualization</string>
+       </attribute>
       </widget>
       <widget class="QWidget" name="tab_Info">
        <attribute name="title">
