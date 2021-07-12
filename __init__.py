@@ -19,8 +19,9 @@
 
 """RUBEM Hydrological plugin starting point.
 
-This file is required by Python’s import system. 
-Also, QGIS requires that this file contains a `classFactory()` function, which is called when the plugin gets loaded into QGIS.
+This file is required by Python’s import system.
+Also, QGIS requires that this file contains a `classFactory()` function,\n
+which is called when the plugin gets loaded into QGIS.
 """
 
 __author__ = "LabSid PHA EPUSP"
@@ -37,9 +38,13 @@ def classFactory(iface):
     :param iface: Reference to the instance of `QgisInterface`.
     :type iface: class
 
-    :return: Object of RUBEM Hydrological plugin’s class from the `rubem_hydrological.py` (`RUBEMHydrological`).
+    :return: Object of RUBEM Hydrological plugin’s class from the\n
+    `rubem_hydrological.py` (`RUBEMHydrological`).
     :rtype: class
     """
-    from .rubem_hydrological import RUBEMHydrological
+    try:
+        from .rubem_hydrological import RUBEMHydrological
+    except ImportError:
+        from rubem_hydrological import RUBEMHydrological
 
     return RUBEMHydrological(iface)
