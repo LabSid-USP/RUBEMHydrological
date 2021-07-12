@@ -120,6 +120,9 @@ venv.bak/
 # Visual Studio Code project settings
 .vscode
 
+# JetBrains PyCharm project settings
+.idea
+
 # Rope project settings
 .ropeproject
 
@@ -133,3 +136,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
