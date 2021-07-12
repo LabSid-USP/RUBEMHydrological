@@ -31,21 +31,19 @@ import os
 from glob import glob
 from pathlib import Path
 
-from PyQt5.QtWidgets import QMessageBox
-
 try:
     from qgis.PyQt.QtCore import QDate, QThread
-    from qgis.PyQt.QtWidgets import QDialog, QFileDialog
+    from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QMessageBox
 except ImportError:
     from PyQt5.QtCore import QDate, QThread
-    from PyQt5.QtWidgets import QDialog, QFileDialog
+    from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox
 
 try:
-    from .rubem_config import *
+    from .rubem_config import defaultConfigSchema
     from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
     from .rubem_thread_workers import RUBEMStandaloneWorker
 except ImportError:
-    from rubem_config import *
+    from rubem_config import defaultConfigSchema
     from rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
     from rubem_thread_workers import RUBEMStandaloneWorker
 
