@@ -1564,6 +1564,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 "Project file saved in " + selectedFilePath)
             self.hasCurrentProject = True
             self.hasProjectBeenModified = False
+            self.projectFilePath = selectedFilePath
 
         # Ask user for project file path
         # --> Call this function without any arguments
