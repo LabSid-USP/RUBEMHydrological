@@ -102,7 +102,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         if directoryPath:
             return f"{directoryPath}/"
         else:
-            return ""            
+            return ""
 
     def getFilePath(self, caption, filter, selectedFilter=""):
         """Get the path of an existing file using QFileDialog and returns it.
@@ -126,7 +126,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         if filePath:
             return filePath
         else:
-            return ""            
+            return ""
 
     def splitDirFilePrefix(self, filePath):
         """Split directory path and file prefix from file path.
@@ -1564,6 +1564,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 "Project file saved in " + selectedFilePath)
             self.hasCurrentProject = True
             self.hasProjectBeenModified = False
+            self.projectFilePath = selectedFilePath
 
         # Ask user for project file path
         # --> Call this function without any arguments
