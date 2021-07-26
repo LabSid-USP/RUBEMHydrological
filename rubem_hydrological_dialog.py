@@ -1429,6 +1429,14 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
         return response
 
+    def updateWindowTitle(self, projectTitle=None):
+        if not projectTitle:
+            _, file = os.path.split(self.projectFilePath)
+            projectName, _ = os.path.splitext(file)
+            self.setWindowTitle(projectName + " — RUBEM Hydrological")
+        else:
+            self.setWindowTitle(projectTitle + " — RUBEM Hydrological")
+
     def newProject(self):
         """[summary].
 
@@ -1444,6 +1452,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.textBrowser_log.clear()
             self.config.read_dict(defaultConfigSchema)
             self.updateGUIFromConfig()
+            self.projectFilePath = None
+            self.updateWindowTitle("Untitled project")
             self.saveAsProject(isNewProject=True)
             self.pushButton_SaveProject.setEnabled(True)
             self.pushButton_SaveAsProject.setEnabled(True)
@@ -1495,6 +1505,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveProject.setEnabled(True)
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
+                self.updateWindowTitle()
 
         # Check if there is already a current project and it has been
         # modified then ask to save it
@@ -1565,6 +1576,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.hasCurrentProject = True
             self.hasProjectBeenModified = False
             self.projectFilePath = selectedFilePath
+            self.updateWindowTitle()
 
         # Ask user for project file path
         # --> Call this function without any arguments
