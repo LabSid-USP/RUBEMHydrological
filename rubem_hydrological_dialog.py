@@ -31,23 +31,28 @@ import os
 from glob import glob
 from pathlib import Path
 
-from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QLabel, QLineEdit, QMessageBox, QDateEdit
 
 try:
     from qgis.PyQt.QtCore import QDate, QThread
-    from qgis.PyQt.QtWidgets import QDialog, QFileDialog
+    from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QSizePolicy
 except ImportError:
     from PyQt5.QtCore import QDate, QThread
-    from PyQt5.QtWidgets import QDialog, QFileDialog
+    from PyQt5.QtWidgets import QDialog, QFileDialog, QSizePolicy
+
+from qgis.gui import QgsMessageBar
+from qgis.core import Qgis
 
 try:
     from .rubem_config import *
     from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
     from .rubem_thread_workers import RUBEMStandaloneWorker
+    from .rubem_input_validators import *
 except ImportError:
     from rubem_config import *
     from rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
     from rubem_thread_workers import RUBEMStandaloneWorker
+    from rubem_input_validators import *
 
 
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
@@ -69,6 +74,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         QDialog.__init__(self)
         self.setupUi(self)
         self.iface = iface
+        self.bar = QgsMessageBar(self)
+        self.bar.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.lastOpenedFile = None
         self.lastOpenedDirectory = None
         self.plugin_dir = os.path.dirname(os.path.abspath(__file__))
@@ -84,6 +91,110 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         self.hasCurrentProject = False
         self.hasProjectBeenModified = False
+
+        self.uiDirPathDict = {
+            "input": (self.lineEdit_InputFolder, self.label_InputFolder),
+            "output": (self.lineEdit_OutputFolder, self.label_OutputFolder)
+        }
+
+        self.uiFilePathDict = {
+            "dem": (self.lineEdt_Dem, self.label_Dem, ('.map')),
+            "demtif": (self.lineEdt_DemTif, self.label_DemTif, ('.tif', '.tiff')),
+            "clone": (self.lineEdt_Clone, self.label_Clone, ('.map')),
+            "samples": (self.lineEdt_Sample, self.label_SelectSample, ('.map')),
+            # Soil tab
+            # Soil Parameters
+            "solo": (self.lineEdt_SoilMap, self.label_SoilMap, ('.map')),
+            "dg": (self.lineEdt_DensityDg, self.label_DensityDg, ('.txt', '.csv')),
+            "kr": (self.lineEdt_HydraulicConductivityKr, self.label_HydraulicConductivityKr, ('.txt', '.csv')),
+            "capCampo": (self.lineEdt_FieldCapacityCC, self.label_FieldCapacityCC, ('.txt', '.csv')),
+            "pontomurcha": (self.lineEdt_WiltingPointWP, self.label_WiltingPointWP, ('.txt', '.csv')),
+            "porosidade": (self.lineEdt_Porosity, self.label_Porosity, ('.txt', '.csv')),
+            "saturacao": (self.lineEdt_Saturation, self.label_Saturation, ('.txt', '.csv')),
+            "zr": (self.lineEdt_RootZoneThicknessZr, self.label_RootZoneThickNessZr, ('.txt', '.csv')),
+            # Land Use tab
+            # Land Use Series
+            "landuse": (self.lineEdt_LandUseSeries, self.groupBox_LandUseSeries, ('.001')),
+            #"landuseFilePrefix", tmpPrefix
+            "ndvi": (self.lineEdt_NDVISeries, self.label_NDVISeries, ('.001')),
+            #"ndviFilePrefix", tmpPrefix
+            "ndvimax": (self.lineEdt_NDVIMax, self.label_NDVIMax, ('.map')),
+            "ndvimin": (self.lineEdt_NDVIMin, self.label_NDVIMin, ('.map')),
+            # a
+            "a_i": (self.lineEdt_a_i, self.label_a_i, ('.txt', '.csv')),
+            "a_o": (self.lineEdt_a_o, self.label_a_o, ('.txt', '.csv')),
+            "a_s": (self.lineEdt_a_s, self.label_a_s, ('.txt', '.csv')),
+            "a_v": (self.lineEdt_a_v, self.label_a_v, ('.txt', '.csv')),
+            # Manning
+            "manning": (self.lineEdt_Manning, self.groupBox_Manning, ('.txt', '.csv')),
+            # Kc
+            "kcmax": (self.lineEdt_KcMax, self.label_KcMax, ('.txt', '.csv')),
+            "kcmin": (self.lineEdt_KcMin, self.label_KcMin, ('.txt', '.csv')),
+            # Climate tab
+            "prec": (self.lineEdt_Precipitation, self.label_Precipitation, ('.001')),
+            #"precFilePrefix", tmpPrefix
+            "etp": (self.lineEdt_EvapoTranspiration, self.label_Evapotranspiration, ('.001')),
+            #"etpFilePrefix", tmpPrefix
+            "kp": (self.lineEdt_PanCoefficientKp, self.label_PanCoefficientKp, ('.001')),
+            #"kpFilePrefix", tmpPrefix
+            "rainydays": (self.lineEdt_RainyDays, self.label_RainyDays, ('.txt', '.csv'))
+        }
+
+        self.uiGenerateFilesDict = {
+            # Run tab
+            # Geneate Files
+            "Int": self.checkBox_InterceptionInt,
+            "bflow": self.checkBox_InterceptionEb,
+            "etp": self.checkBox_EvapotranspirationEvp,
+            "Rec": self.checkBox_RechargeRec,
+            "ssat": self.checkBox_SoilMoistureTur,
+            "Lf": self.checkBox_LateralFlowLf,
+            "sfrun": self.checkBox_RunoffEsd,
+            "runoff": self.checkBox_RunoffVazao
+        }
+
+        # self.uiSpinBoxDict = {
+        #     # Grid Size
+        #     "grid": self.doubleSpinBox_GridSize,
+        #     # Initial Soil Conditions
+        #     "ftur_ini": self.doubleSpinBox_InitialSoilMoisture,
+        #     "eb_ini": self.doubleSpinBox_BaseFlowInitial,
+        #     "eb_lim": self.doubleSpinBox_BaseFlowLimit,
+        #     "tus_ini": self.doubleSpinBox_TusInitial,
+        #     # Fpar
+        #     "fpar_max": self.doubleSpinBox_FparMax,
+        #     "fpar_min": self.doubleSpinBox_FparMin,
+        #     # Interception
+        #     "i_imp": self.doubleSpinBox_Interception,
+        #     # Leaf Area Index
+        #     "lai_max": self.doubleSpinBox_LeafAreaIndexMax,
+        #     # Parameters tab
+        #     # Model Parameters
+        #     "b": self.doubleSpinBox_ExponentCh,
+        #     "x": self.doubleSpinBox_DelayFactor,
+        #     "rcd": self.doubleSpinBox_RegionalConsecutiveDrynessLevel,
+        #     "alfa_gw": self.doubleSpinBox_DelayCoefficientBaseFlow,
+        #     "f": self.doubleSpinBox_PartitioningCoefficientRelatedSoil,
+        #     "alfa": self.doubleSpinBox_InterceptionCalibrationAlpha,
+        #     # Weight Factors
+        #     "w1": self.doubleSpinBox_ManningRelatedWeightFactor,
+        #     "w2": self.doubleSpinBox_SoilRelatedWeightFactor,
+        #     "w3": self.doubleSpinBox_SlopeRelatedWeightFactor,
+        # }
+
+        self.setupUserInputValidators()
+
+    def setupUserInputValidators(self):
+
+        for key, elementsTuple in self.uiDirPathDict.items():
+            lineEdit, label = elementsTuple
+            validator = DirectoryPathValidator(lineEdit, label)
+            lineEdit.setValidator(validator)
+
+        for key, elementsTuple in self.uiFilePathDict.items():
+            lineEdit, label, allowedExt = elementsTuple
+            validator = FilePathValidator(lineEdit, label, allowedExt)
+            lineEdit.setValidator(validator)
 
     def getDirectoryPath(self, caption):
         """Get the path of an existing directory using QFileDialog and returns it.
@@ -102,7 +213,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         if directoryPath:
             return f"{directoryPath}/"
         else:
-            return ""            
+            return ""
 
     def getFilePath(self, caption, filter, selectedFilter=""):
         """Get the path of an existing file using QFileDialog and returns it.
@@ -126,7 +237,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         if filePath:
             return filePath
         else:
-            return ""            
+            return ""
 
     def splitDirFilePrefix(self, filePath):
         """Split directory path and file prefix from file path.
@@ -173,8 +284,62 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             if not self.hasProjectBeenModified:
                 self.hasProjectBeenModified = True
 
+    def hasFilledAllFields(self):
+        """Check if all fields have been properly filled in.
+
+        Returns:
+            [type]: [description]
+        """
+        emptyFields = []
+        for element in self.uiDirPathDict.values():
+            lineEdit, _ = element
+            if not lineEdit.text() or not os.path.exists(lineEdit.text()):
+                lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
+                emptyFields.append(lineEdit)
+
+        # for lineEdit in self.findChildren(QLineEdit):
+        for element in self.uiFilePathDict.values():
+            lineEdit, _, _ = element
+            if not lineEdit.text() or not os.path.exists(lineEdit.text()):
+                lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
+                emptyFields.append(lineEdit)
+
+        if emptyFields:
+            self.bar.pushMessage("Misconfiguration",
+                                 "Data entered is missing or non-existent", level=Qgis.Warning)
+
+        hasFilesToGenerate = True
+        for key, element in self.uiGenerateFilesDict.items():
+            if element.isChecked():
+                if not hasFilesToGenerate:
+                    hasFilesToGenerate = True
+                for checkbox in self.uiGenerateFilesDict.values():
+                    checkbox.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
+                break
+            else:
+                hasFilesToGenerate = False
+                self.bar.pushMessage("Misconfiguration",
+                                     "No output variable selected", level=Qgis.Warning)
+                element.setStyleSheet(INVALID_LABEL_STYLESHEET)
+
+        hasValidDateRange = True
+        if self.dtEdt_StartSim.date() >= self.dtEdt_EndSim.date():
+            hasValidDateRange = False
+            self.groupBox_SimulationPeriod.setStyleSheet(
+                INVALID_LABEL_STYLESHEET)
+            self.bar.pushMessage("Misconfiguration",
+                                 "The end date must be greater than the start date", level=Qgis.Warning)
+        else:
+            self.groupBox_SimulationPeriod.setStyleSheet(
+                ACCEPTABLE_LABEL_STYLESHEET)
+
+        if not emptyFields and hasFilesToGenerate and hasValidDateRange:
+            return True
+        else:
+            return False
+
     # Project Folder
-    def setInputDirectoryPath(self):
+    def setInputDirectoryPath(self, userInputDir=None):
         """Define the directory containing the project's input data.
 
         :Slot signal: clicked
@@ -1631,16 +1796,17 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.modelFilePath = os.path.join(
             self.plugin_dir, "rubem", "rubem.exe")
 
-        self.updateConfigFromGUI()
-        self.saveProject(self.projectFilePath)
-        self.showConfig()
+        if self.hasFilledAllFields():
+            self.updateConfigFromGUI()
+            self.saveProject(self.projectFilePath)
+            self.showConfig()
 
-        self.textBrowser_log.append("\n# RUBEM execution started...")
+            self.textBrowser_log.append("\n# RUBEM execution started...")
 
-        # Make command list available to execution thread
-        self.command = [self.modelFilePath,
-                        "--configfile", self.projectFilePath]
-        self.runLongTask()
+            # Make command list available to execution thread
+            self.command = [self.modelFilePath,
+                            "--configfile", self.projectFilePath]
+            self.runLongTask()
 
     def reportExecutionLog(self, outputLog):
         """Update textBrowser_log with output captured from execution."""
