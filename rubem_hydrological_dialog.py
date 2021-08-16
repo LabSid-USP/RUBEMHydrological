@@ -308,19 +308,16 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.bar.pushMessage("Misconfiguration",
                                  "Data entered is missing or non-existent", level=Qgis.Warning)
 
-        hasFilesToGenerate = True
-        for key, element in self.uiGenerateFilesDict.items():
+        checkedBoxes = []
+        for element in self.uiGenerateFilesDict.values():
             if element.isChecked():
-                if not hasFilesToGenerate:
-                    hasFilesToGenerate = True
-                for checkbox in self.uiGenerateFilesDict.values():
-                    checkbox.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
-                break
-            else:
-                hasFilesToGenerate = False
-                self.bar.pushMessage("Misconfiguration",
-                                     "No output variable selected", level=Qgis.Warning)
-                element.setStyleSheet(INVALID_LABEL_STYLESHEET)
+                checkedBoxes.append(element)         
+                
+        if not checkedBoxes:
+            self.groupBox_GenerateFiles.setStyleSheet(INVALID_LABEL_STYLESHEET)
+            self.bar.pushMessage("Misconfiguration", "No output variable selected", level=Qgis.Warning)
+        else:
+            self.groupBox_GenerateFiles.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
         hasValidDateRange = True
         if self.dtEdt_StartSim.date() >= self.dtEdt_EndSim.date():
@@ -333,7 +330,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.groupBox_SimulationPeriod.setStyleSheet(
                 ACCEPTABLE_LABEL_STYLESHEET)
 
-        if not emptyFields and hasFilesToGenerate and hasValidDateRange:
+        if not emptyFields and checkedBoxes and hasValidDateRange:
             return True
         else:
             return False
