@@ -31,21 +31,38 @@ import os
 from glob import glob
 from pathlib import Path
 
+from qgis.core import (
+    Qgis,
+    QgsProject,
+    QgsVectorLayer,
+    QgsRasterLayer,
+    QgsLayerTreeLayer,
+    QgsCoordinateReferenceSystem,
+)
+
+from qgis.gui import QgsMapToolEmitPoint
+
 try:
-    from qgis.PyQt.QtCore import QDate, QThread
+    from qgis.PyQt.QtCore import Qt, QDate, QThread, QModelIndex
     from qgis.PyQt.QtWidgets import QDialog, QFileDialog, QMessageBox
+    from qgis.PyQt.QtGui import QStandardItemModel
 except ImportError:
-    from PyQt5.QtCore import QDate, QThread
+    from PyQt5.QtCore import Qt, QDate, QThread, QModelIndex
     from PyQt5.QtWidgets import QDialog, QFileDialog, QMessageBox
+    from PyQt5.QtGui import QStandardItemModel
 
 try:
     from .rubem_config import defaultConfigSchema
     from .rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
     from .rubem_thread_workers import RUBEMStandaloneWorker
+    from .rubem_output_item import StandardItem
+    from .rubem_output_plot import plotTimeSeriesData
 except ImportError:
     from rubem_config import defaultConfigSchema
     from rubem_hydrological_dialog_base_ui import Ui_RUBEMHydrological
     from rubem_thread_workers import RUBEMStandaloneWorker
+    from rubem_output_item import StandardItem
+    from rubem_output_plot import plotTimeSeriesData
 
 
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
@@ -78,10 +95,184 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.pushButton_SaveProject.setDisabled(True)
         self.pushButton_SaveAsProject.setDisabled(True)
         self.tabWidget.setDisabled(True)
-        self.tab_Info.setEnabled(True)
+        self.tab_Results.setDisabled(True)
 
         self.hasCurrentProject = False
         self.hasProjectBeenModified = False
+
+        self.treeView_MapSeriesData.setHeaderHidden(True)
+        self.treeView_TimeSeriesData.setHeaderHidden(True)
+
+        self.timeSeriesTreeModel = QStandardItemModel()
+        self.mapSeriesTreeModel = QStandardItemModel()
+
+        # TODO: Implement interaction with active raster layer on QGIS canvas
+        # self.canvas = iface.mapCanvas()
+        # self.pointTool = QgsMapToolEmitPoint(self.canvas)
+        # self.pointTool.canvasClicked.connect(self.displayPoint)
+        # self.canvas.setMapTool(self.pointTool)
+
+        # TODO: Reorganize information in dictionaries
+        self.mapSeriesDictFileNames = {
+            "Runoff [m³/s]": "Runoff",
+            "Interception [mm]": "Int",
+            "Baseflow [mm]": "Bflow",
+            "Surface Runoff [mm]": "SfRun",
+            "ETa [mm]": "Etp",
+            "Lateral Flow [mm]": "Lf",
+            "Recharge [mm]": "Rec",
+            "Saturates Zone Storage [mm]": "Ssat",
+        }
+
+        # TODO: Reorganize information in dictionaries
+        self.timeSeriesDictFileNames = {
+            "Runoff [m³/s]": "outRun",
+            "Interception [mm]": "outInt",
+            "Baseflow [mm]": "outBflow",
+            "Surface Runoff [mm]": "outSfRun",
+            "ETa [mm]": "outEtp",
+            "Lateral Flow [mm]": "outLf",
+            "Recharge [mm]": "outRec",
+            "Saturated Zone Storage [mm]": "outSsat",
+        }
+
+        # TODO: Reorganize information in dictionaries. Preferably use this format.
+        # ? Should this dictionary be here or in another specific location?
+        self.timeSeriesDict = {
+            "outRun": {
+                "plot": {
+                    "title": "Total Runoff",
+                    "x_label": "Time Steps [month]",
+                    "y_label": "Value [m³/s]",
+                },
+            },
+            "outInt": {
+                "plot": {
+                    "title": "Interception",
+                    "x_label": "Time Steps [month]",
+                    "y_label": "Value [mm]",
+                },
+            },
+            "outBflow": {
+                "plot": {
+                    "title": "Baseflow",
+                    "x_label": "Time Steps [month]",
+                    "y_label": "Value [mm]",
+                },
+            },
+            "outSfRun": {
+                "plot": {
+                    "title": "Surface Runoff",
+                    "x_label": "Time Steps [month]",
+                    "y_label": "Value [mm]",
+                },
+            },
+            "outEtp": {
+                "plot": {
+                    "title": "Actual Evapotranspiration",
+                    "x_label": "Time Steps [month]",
+                    "y_label": "Value [mm]",
+                },
+            },
+            "outLf": {
+                "plot": {
+                    "title": "Lateral Flow",
+                    "x_label": "Time Steps [month]",
+                    "y_label": "Value [mm]",
+                },
+            },
+            "outRec": {
+                "plot": {
+                    "title": "Recharge",
+                    "x_label": "Time Steps [month]",
+                    "y_label": "Value [mm]",
+                },
+            },
+            "outSsat": {
+                "plot": {
+                    "title": "Saturated Zone Storage",
+                    "x_label": "Time Steps [month]",
+                    "y_label": "Value [mm]",
+                },
+            },
+        }
+
+    # TODO: Add docstring information and comments
+    def populateMapSeriesTree(self):
+        self.mapSeriesTreeModel.clear()
+        mapSeriesRootNode = self.mapSeriesTreeModel.invisibleRootItem()
+        for key, fileName in self.mapSeriesDictFileNames.items():
+            tmpOutMapSeries = StandardItem(key)
+            tmpOutMapSeries.setSelectable(False)
+            tmpOutMapFileList = glob(
+                os.path.join(self.config.get("FILES", "output") + fileName) + "*.[0-9]*"
+            )
+            tmpOutMapSeries.appendRows(
+                [StandardItem(item, isPath=True) for item in tmpOutMapFileList]
+            )
+            mapSeriesRootNode.appendRow(tmpOutMapSeries)
+            self.treeView_MapSeriesData.setModel(self.mapSeriesTreeModel)
+
+    # TODO: Add docstring information and comments
+    def populateTimeSeriesTree(self):
+        self.timeSeriesTreeModel.clear()
+        timeSeriesRootNode = self.timeSeriesTreeModel.invisibleRootItem()
+        for key, fileName in self.timeSeriesDictFileNames.items():
+            tmpOutTimeSeries = StandardItem(key)
+            tmpOutTimeSeries.setSelectable(False)
+            tmpTimeSeriesFile = (
+                os.path.join(self.config.get("FILES", "output") + fileName) + ".csv"
+            )
+            tmpOutTimeSeries.appendRow(StandardItem(tmpTimeSeriesFile, isPath=True))
+            timeSeriesRootNode.appendRow(tmpOutTimeSeries)
+            self.treeView_TimeSeriesData.setModel(self.timeSeriesTreeModel)
+
+    # TODO: Add docstring information and comments
+    def plotWrapper(self, index: QModelIndex):
+        if index.flags() & Qt.ItemIsSelectable:
+            key = os.path.splitext(index.data())[0]
+            plotTimeSeriesData(
+                os.path.join(self.config.get("FILES", "output"), index.data()),
+                self.timeSeriesDict.get(key).get("plot"),
+                self.config.get("SIM_TIME", "start"),
+                self.config.get("SIM_TIME", "end"),
+            )
+
+    # TODO: Add docstring information and comments
+    def canvasHandler(self, index: QModelIndex):
+        if index.flags() & Qt.ItemIsSelectable:
+            rasterPath = os.path.join(self.config.get("FILES", "output"), index.data())
+            legend = index.data()
+            rlayer = QgsRasterLayer(rasterPath, legend)
+            rlayer.setCrs(QgsCoordinateReferenceSystem("EPSG:4326"))
+            if not rlayer.isValid():
+                # TODO: Move this message to plugin message bar
+                self.iface.messageBar().pushMessage(
+                    "Error", "Layer failed to load!", level=Qgis.Critical
+                )
+            elif QgsProject.instance().mapLayersByName(legend):
+                # TODO: Move this message to plugin message bar
+                self.iface.messageBar().pushMessage(
+                    "Error",
+                    "This raster has already been added to the current project in QGIS.",
+                    level=Qgis.Critical,
+                )
+            else:
+                QgsProject.instance().addMapLayer(rlayer, False)
+                layerTree = self.iface.layerTreeCanvasBridge().rootGroup()
+                layerTree.insertChildNode(-1, QgsLayerTreeLayer(rlayer))
+
+    # TODO: Add docstring information and comments
+    #! Obsolete and/or used for testing method only
+    def displayPoint(self, pointTool):
+        value = self.getValue(
+            os.path.join(
+                self.config.get("FILES", "output"), self.iface.activeLayer().name()
+            ),
+            pointTool[0],
+            pointTool[1],
+        )
+        self.textBrowser_log.append(f"{pointTool[0]}, {pointTool[1]} => {value}")
 
     def getDirectoryPath(self, caption):
         """Get the path of an existing directory using QFileDialog\n
@@ -181,8 +372,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: clicked
         :Signal sender: toolButton_OutputFolder
         """
-        directoryPath = self.getDirectoryPath(
-            caption="Select Output Directory")
+        directoryPath = self.getDirectoryPath(caption="Select Output Directory")
         self.config.set("FILES", "output", directoryPath)
         self.lineEdit_OutputFolder.setText(directoryPath)
 
@@ -197,8 +387,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: clicked
         :Signal sender: btn_Dem
         """
-        filePath = self.getFilePath(
-            caption="Select DEM map File", filter="*.map")
+        filePath = self.getFilePath(caption="Select DEM map File", filter="*.map")
         self.config.set("FILES", "dem", filePath)
         self.lineEdt_Dem.setText(filePath)
 
@@ -210,8 +399,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: clicked
         :Signal sender: btn_DemTif
         """
-        filePath = self.getFilePath(
-            caption="Select DEM TIFF File", filter="*.tif")
+        filePath = self.getFilePath(caption="Select DEM TIFF File", filter="*.tif")
         self.config.set("FILES", "demTif", filePath)
         self.lineEdt_DemTif.setText(filePath)
 
@@ -223,8 +411,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: clicked
         :Signal sender: btn_Clone
         """
-        filePath = self.getFilePath(
-            caption="Select Clone File", filter="*.map")
+        filePath = self.getFilePath(caption="Select Clone File", filter="*.map")
         self.config.set("FILES", "clone", filePath)
         self.lineEdt_Clone.setText(filePath)
 
@@ -269,8 +456,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_GridSize
         """
-        self.config.set("GRID", "grid", str(
-            self.doubleSpinBox_GridSize.value()))
+        self.config.set("GRID", "grid", str(self.doubleSpinBox_GridSize.value()))
 
     # Simulation Period
     def setStartSimulationPeriod(self):
@@ -282,8 +468,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: dtEdt_StartSim
         """
         self.config.set(
-            "SIM_TIME", "start",
-            self.dtEdt_StartSim.date().toString("dd/MM/yyyy")
+            "SIM_TIME", "start", self.dtEdt_StartSim.date().toString("dd/MM/yyyy")
         )
 
     def setEndSimulationPeriod(self):
@@ -308,8 +493,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: clicked
         :Signal sender: btn_SoilMap
         """
-        filePath = self.getFilePath(
-            caption="Select Soil Map File", filter="*.map")
+        filePath = self.getFilePath(caption="Select Soil Map File", filter="*.map")
         self.config.set("FILES", "solo", filePath)
         self.lineEdt_SoilMap.setText(filePath)
 
@@ -490,8 +674,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_LandUseSeries
         """
         filePath = self.getFilePath(
-            caption="Select Land Use Series File",
-            filter="(*.001);;All Files(*)"
+            caption="Select Land Use Series File", filter="(*.001);;All Files(*)"
         )
         tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
         self.config.set("FILES", "landuse", tmpDir)
@@ -666,8 +849,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_FparMax
         """
-        self.config.set("CONSTANT", "fpar_max", str(
-            self.doubleSpinBox_FparMax.value()))
+        self.config.set("CONSTANT", "fpar_max", str(self.doubleSpinBox_FparMax.value()))
 
     def setFparMinimum(self):
         """Define the project's Fpar Minimum value.
@@ -675,8 +857,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_FparMin
         """
-        self.config.set("CONSTANT", "fpar_min", str(
-            self.doubleSpinBox_FparMin.value()))
+        self.config.set("CONSTANT", "fpar_min", str(self.doubleSpinBox_FparMin.value()))
 
     # Interception
     def setInterception(self):
@@ -697,8 +878,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: doubleSpinBox_LeafAreaIndexMax
         """
         self.config.set(
-            "CONSTANT", "lai_max", str(
-                self.doubleSpinBox_LeafAreaIndexMax.value())
+            "CONSTANT", "lai_max", str(self.doubleSpinBox_LeafAreaIndexMax.value())
         )
 
     # Climate tab
@@ -712,8 +892,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_Precipitation
         """
         filePath = self.getFilePath(
-            caption="Select Rainfall Series File",
-            filter="(*.001);;All Files(*)"
+            caption="Select Rainfall Series File", filter="(*.001);;All Files(*)"
         )
         tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
         self.config.set("FILES", "prec", tmpDir)
@@ -780,8 +959,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_ExponentCh
         """
-        self.config.set("CALIBRATION", "b", str(
-            self.doubleSpinBox_ExponentCh.value()))
+        self.config.set("CALIBRATION", "b", str(self.doubleSpinBox_ExponentCh.value()))
 
     def setDelayFactor(self):
         """Define the project's Delay Factor value.
@@ -789,8 +967,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Slot signal: editingFinished
         :Signal sender: doubleSpinBox_DelayFactor
         """
-        self.config.set("CALIBRATION", "x", str(
-            self.doubleSpinBox_DelayFactor.value()))
+        self.config.set("CALIBRATION", "x", str(self.doubleSpinBox_DelayFactor.value()))
 
     def setRegionalConsecutiveDrynessLevel(self):
         """Define the project's Regional Consecutive Dryness (RCD) Level value.
@@ -860,8 +1037,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: doubleSpinBox_SoilRelatedWeightFactor
         """
         self.config.set(
-            "CALIBRATION", "w2", str(
-                self.doubleSpinBox_SoilRelatedWeightFactor.value())
+            "CALIBRATION", "w2", str(self.doubleSpinBox_SoilRelatedWeightFactor.value())
         )
 
     def setSlopeRelatedWeightFactor(self):
@@ -886,8 +1062,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: checkBox_InterceptionInt
         """
         self.config.set(
-            "GENERATE_FILE", "Int", str(
-                self.checkBox_InterceptionInt.isChecked())
+            "GENERATE_FILE", "Int", str(self.checkBox_InterceptionInt.isChecked())
         )
 
     def setInterceptionEbGenerateFile(self):
@@ -898,8 +1073,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: checkBox_InterceptionEb
         """
         self.config.set(
-            "GENERATE_FILE", "bflow", str(
-                self.checkBox_InterceptionEb.isChecked())
+            "GENERATE_FILE", "bflow", str(self.checkBox_InterceptionEb.isChecked())
         )
 
     def setEvapotranspirationGenerateFile(self):
@@ -910,8 +1084,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: checkBox_EvapotranspirationEvp
         """
         self.config.set(
-            "GENERATE_FILE", "etp", str(
-                self.checkBox_EvapotranspirationEvp.isChecked())
+            "GENERATE_FILE", "etp", str(self.checkBox_EvapotranspirationEvp.isChecked())
         )
 
     def setRechargeGenerateFile(self):
@@ -933,8 +1106,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: checkBox_SoilMoistureTur
         """
         self.config.set(
-            "GENERATE_FILE", "ssat", str(
-                self.checkBox_SoilMoistureTur.isChecked())
+            "GENERATE_FILE", "ssat", str(self.checkBox_SoilMoistureTur.isChecked())
         )
 
     def setLateralFLowGenerateFile(self):
@@ -969,15 +1141,13 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: checkBox_RunoffVazao
         """
         self.config.set(
-            "GENERATE_FILE", "runoff", str(
-                self.checkBox_RunoffVazao.isChecked())
+            "GENERATE_FILE", "runoff", str(self.checkBox_RunoffVazao.isChecked())
         )
 
     def updateConfigFromGUI(self):
         """Update the configuration dictionary with the values present in\n
-         the GUI's data entry objects."""
-        self.textBrowser_log.append(
-            "Updating configuration with current values...")
+        the GUI's data entry objects."""
+        self.textBrowser_log.append("Updating configuration with current values...")
 
         # Project Folder
         self.config.set("FILES", "input", self.lineEdit_InputFolder.text())
@@ -997,38 +1167,27 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.config.set("FILES", "samples", self.lineEdt_Sample.text())
 
         # Grid Size
-        self.config.set("GRID", "grid", str(
-            self.doubleSpinBox_GridSize.value()))
+        self.config.set("GRID", "grid", str(self.doubleSpinBox_GridSize.value()))
 
         # Simulation Period
         self.config.set(
-            "SIM_TIME",
-            "start",
-            self.dtEdt_StartSim.date().toString("dd/MM/yyyy")
+            "SIM_TIME", "start", self.dtEdt_StartSim.date().toString("dd/MM/yyyy")
         )
         self.config.set(
-            "SIM_TIME",
-            "end",
-            self.dtEdt_EndSim.date().toString("dd/MM/yyyy")
+            "SIM_TIME", "end", self.dtEdt_EndSim.date().toString("dd/MM/yyyy")
         )
 
         # Soil tab
         # Soil Parameters
         self.config.set("FILES", "solo", self.lineEdt_SoilMap.text())
         self.config.set("PARAMETERS", "dg", self.lineEdt_DensityDg.text())
-        self.config.set("PARAMETERS", "kr",
-                        self.lineEdt_HydraulicConductivityKr.text())
+        self.config.set("PARAMETERS", "kr", self.lineEdt_HydraulicConductivityKr.text())
 
-        self.config.set("PARAMETERS", "capCampo",
-                        self.lineEdt_FieldCapacityCC.text())
-        self.config.set("PARAMETERS", "pontomurcha",
-                        self.lineEdt_WiltingPointWP.text())
-        self.config.set("PARAMETERS", "porosidade",
-                        self.lineEdt_Porosity.text())
-        self.config.set("PARAMETERS", "saturacao",
-                        self.lineEdt_Saturation.text())
-        self.config.set("PARAMETERS", "zr",
-                        self.lineEdt_RootZoneThicknessZr.text())
+        self.config.set("PARAMETERS", "capCampo", self.lineEdt_FieldCapacityCC.text())
+        self.config.set("PARAMETERS", "pontomurcha", self.lineEdt_WiltingPointWP.text())
+        self.config.set("PARAMETERS", "porosidade", self.lineEdt_Porosity.text())
+        self.config.set("PARAMETERS", "saturacao", self.lineEdt_Saturation.text())
+        self.config.set("PARAMETERS", "zr", self.lineEdt_RootZoneThicknessZr.text())
 
         # Initial Soil Conditions
         self.config.set(
@@ -1054,13 +1213,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         # Land Use tab
         # Land Use Series
-        tmpPath, tmpPrefix = self.splitDirFilePrefix(
-            self.lineEdt_LandUseSeries.text())
+        tmpPath, tmpPrefix = self.splitDirFilePrefix(self.lineEdt_LandUseSeries.text())
         self.config.set("FILES", "landuse", tmpPath)
         self.config.set("FILES", "landuseFilePrefix", tmpPrefix)
 
-        tmpPath, tmpPrefix = self.splitDirFilePrefix(
-            self.lineEdt_NDVISeries.text())
+        tmpPath, tmpPrefix = self.splitDirFilePrefix(self.lineEdt_NDVISeries.text())
         self.config.set("FILES", "ndvi", tmpPath)
         self.config.set("FILES", "ndviFilePrefix", tmpPrefix)
 
@@ -1081,10 +1238,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config.set("PARAMETERS", "kcmin", self.lineEdt_KcMin.text())
 
         # Fpar
-        self.config.set("CONSTANT", "fpar_max", str(
-            self.doubleSpinBox_FparMax.value()))
-        self.config.set("CONSTANT", "fpar_min", str(
-            self.doubleSpinBox_FparMin.value()))
+        self.config.set("CONSTANT", "fpar_max", str(self.doubleSpinBox_FparMax.value()))
+        self.config.set("CONSTANT", "fpar_min", str(self.doubleSpinBox_FparMin.value()))
 
         # Interception
         self.config.set(
@@ -1093,13 +1248,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         # Leaf Area Index
         self.config.set(
-            "CONSTANT", "lai_max", str(
-                self.doubleSpinBox_LeafAreaIndexMax.value())
+            "CONSTANT", "lai_max", str(self.doubleSpinBox_LeafAreaIndexMax.value())
         )
 
         # Climate tab
-        tmpPath, tmpPrefix = self.splitDirFilePrefix(
-            self.lineEdt_Precipitation.text())
+        tmpPath, tmpPrefix = self.splitDirFilePrefix(self.lineEdt_Precipitation.text())
         self.config.set("FILES", "prec", tmpPath)
         self.config.set("FILES", "precFilePrefix", tmpPrefix)
 
@@ -1115,15 +1268,12 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config.set("FILES", "kp", tmpPath)
         self.config.set("FILES", "kpFilePrefix", tmpPrefix)
 
-        self.config.set("PARAMETERS", "rainydays",
-                        self.lineEdt_RainyDays.text())
+        self.config.set("PARAMETERS", "rainydays", self.lineEdt_RainyDays.text())
 
         # Parameters tab
         # Model Parameters
-        self.config.set("CALIBRATION", "b", str(
-            self.doubleSpinBox_ExponentCh.value()))
-        self.config.set("CALIBRATION", "x", str(
-            self.doubleSpinBox_DelayFactor.value()))
+        self.config.set("CALIBRATION", "b", str(self.doubleSpinBox_ExponentCh.value()))
+        self.config.set("CALIBRATION", "x", str(self.doubleSpinBox_DelayFactor.value()))
         self.config.set(
             "CALIBRATION",
             "rcd",
@@ -1152,8 +1302,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             str(self.doubleSpinBox_ManningRelatedWeightFactor.value()),
         )
         self.config.set(
-            "CALIBRATION", "w2", str(
-                self.doubleSpinBox_SoilRelatedWeightFactor.value())
+            "CALIBRATION", "w2", str(self.doubleSpinBox_SoilRelatedWeightFactor.value())
         )
         self.config.set(
             "CALIBRATION",
@@ -1164,23 +1313,19 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         # Run tab
         # Geneate Files
         self.config.set(
-            "GENERATE_FILE", "Int", str(
-                self.checkBox_InterceptionInt.isChecked())
+            "GENERATE_FILE", "Int", str(self.checkBox_InterceptionInt.isChecked())
         )
         self.config.set(
-            "GENERATE_FILE", "bflow", str(
-                self.checkBox_InterceptionEb.isChecked())
+            "GENERATE_FILE", "bflow", str(self.checkBox_InterceptionEb.isChecked())
         )
         self.config.set(
-            "GENERATE_FILE", "etp", str(
-                self.checkBox_EvapotranspirationEvp.isChecked())
+            "GENERATE_FILE", "etp", str(self.checkBox_EvapotranspirationEvp.isChecked())
         )
         self.config.set(
             "GENERATE_FILE", "Rec", str(self.checkBox_RechargeRec.isChecked())
         )
         self.config.set(
-            "GENERATE_FILE", "ssat", str(
-                self.checkBox_SoilMoistureTur.isChecked())
+            "GENERATE_FILE", "ssat", str(self.checkBox_SoilMoistureTur.isChecked())
         )
         self.config.set(
             "GENERATE_FILE", "Lf", str(self.checkBox_LateralFlowLf.isChecked())
@@ -1189,12 +1334,10 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             "GENERATE_FILE", "sfrun", str(self.checkBox_RunoffEsd.isChecked())
         )
         self.config.set(
-            "GENERATE_FILE", "runoff", str(
-                self.checkBox_RunoffVazao.isChecked())
+            "GENERATE_FILE", "runoff", str(self.checkBox_RunoffVazao.isChecked())
         )
 
-        self.textBrowser_log.append(
-            "Configuration updated with current values")
+        self.textBrowser_log.append("Configuration updated with current values")
 
     def loadConfigFromFile(self, configFilePath):
         """Read the configuration file argument and sets the values of the\n
@@ -1232,11 +1375,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
         self.lineEdt_Sample.setText(self.config.get("FILES", "samples"))
 
-        self.doubleSpinBox_GridSize.setValue(
-            self.config.getfloat("GRID", "grid"))
+        self.doubleSpinBox_GridSize.setValue(self.config.getfloat("GRID", "grid"))
         self.dtEdt_StartSim.setDate(
-            QDate.fromString(self.config.get(
-                "SIM_TIME", "start"), "dd/MM/yyyy")
+            QDate.fromString(self.config.get("SIM_TIME", "start"), "dd/MM/yyyy")
         )
         self.dtEdt_EndSim.setDate(
             QDate.fromString(self.config.get("SIM_TIME", "end"), "dd/MM/yyyy")
@@ -1249,17 +1390,13 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_HydraulicConductivityKr.setText(
             self.config.get("PARAMETERS", "kr")
         )
-        self.lineEdt_FieldCapacityCC.setText(
-            self.config.get("PARAMETERS", "capCampo"))
+        self.lineEdt_FieldCapacityCC.setText(self.config.get("PARAMETERS", "capCampo"))
         self.lineEdt_WiltingPointWP.setText(
             self.config.get("PARAMETERS", "pontomurcha")
         )
-        self.lineEdt_Porosity.setText(
-            self.config.get("PARAMETERS", "porosidade"))
-        self.lineEdt_Saturation.setText(
-            self.config.get("PARAMETERS", "saturacao"))
-        self.lineEdt_RootZoneThicknessZr.setText(
-            self.config.get("PARAMETERS", "zr"))
+        self.lineEdt_Porosity.setText(self.config.get("PARAMETERS", "porosidade"))
+        self.lineEdt_Saturation.setText(self.config.get("PARAMETERS", "saturacao"))
+        self.lineEdt_RootZoneThicknessZr.setText(self.config.get("PARAMETERS", "zr"))
 
         # Initial Soil Conditions
         self.doubleSpinBox_InitialSoilMoisture.setValue(
@@ -1283,13 +1420,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             )
             self.lineEdt_LandUseSeries.setText(os.path.normpath(tmpPath))
         else:
-            self.lineEdt_LandUseSeries.setText(
-                self.config.get("FILES", "landuse"))
+            self.lineEdt_LandUseSeries.setText(self.config.get("FILES", "landuse"))
 
         # NDVI
         if os.path.isdir(self.config.get("FILES", "ndvi")):
-            tmpPath = self.getFirstFileNameMapSeries(
-                self.config.get("FILES", "ndvi"))
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get("FILES", "ndvi"))
             self.lineEdt_NDVISeries.setText(tmpPath)
         else:
             self.lineEdt_NDVISeries.setText(self.config.get("FILES", "ndvi"))
@@ -1330,36 +1465,28 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         # Climate tab
         if os.path.isdir(self.config.get("FILES", "prec")):
-            tmpPath = self.getFirstFileNameMapSeries(
-                self.config.get("FILES", "prec"))
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get("FILES", "prec"))
             self.lineEdt_Precipitation.setText(tmpPath)
         else:
-            self.lineEdt_Precipitation.setText(
-                self.config.get("FILES", "prec"))
+            self.lineEdt_Precipitation.setText(self.config.get("FILES", "prec"))
 
         if os.path.isdir(self.config.get("FILES", "etp")):
-            tmpPath = self.getFirstFileNameMapSeries(
-                self.config.get("FILES", "etp"))
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get("FILES", "etp"))
             self.lineEdt_EvapoTranspiration.setText(tmpPath)
         else:
-            self.lineEdt_EvapoTranspiration.setText(
-                self.config.get("FILES", "etp"))
+            self.lineEdt_EvapoTranspiration.setText(self.config.get("FILES", "etp"))
 
         if os.path.isdir(self.config.get("FILES", "kp")):
-            tmpPath = self.getFirstFileNameMapSeries(
-                self.config.get("FILES", "kp"))
+            tmpPath = self.getFirstFileNameMapSeries(self.config.get("FILES", "kp"))
             self.lineEdt_PanCoefficientKp.setText(tmpPath)
         else:
-            self.lineEdt_PanCoefficientKp.setText(
-                self.config.get("FILES", "kp"))
+            self.lineEdt_PanCoefficientKp.setText(self.config.get("FILES", "kp"))
 
-        self.lineEdt_RainyDays.setText(
-            self.config.get("PARAMETERS", "rainydays"))
+        self.lineEdt_RainyDays.setText(self.config.get("PARAMETERS", "rainydays"))
 
         # Parameters tab
         # Model Parameters
-        self.doubleSpinBox_ExponentCh.setValue(
-            self.config.getfloat("CALIBRATION", "b"))
+        self.doubleSpinBox_ExponentCh.setValue(self.config.getfloat("CALIBRATION", "b"))
         self.doubleSpinBox_DelayFactor.setValue(
             self.config.getfloat("CALIBRATION", "x")
         )
@@ -1449,6 +1576,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.pushButton_SaveProject.setEnabled(True)
             self.pushButton_SaveAsProject.setEnabled(True)
             self.tabWidget.setEnabled(True)
+            self.qgisProject = QgsProject.instance()
+            self.qgisProject.clear()
 
         # Check if there is already a current project and it has been
         # modified then ask to save it
@@ -1496,6 +1625,10 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveProject.setEnabled(True)
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
+                self.qgisProject = QgsProject.instance()
+                self.qgisProject.read(
+                    os.path.splitext(self.projectFilePath)[0] + ".qgs"
+                )
 
         # Check if there is already a current project and it has been
         # modified then ask to save it
@@ -1563,8 +1696,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.config.write(configfile)
                 configfile.close()
 
-            self.textBrowser_log.append(
-                "Project file saved in " + selectedFilePath)
+            self.qgisProject.write(os.path.splitext(selectedFilePath)[0] + ".qgs")
+
+            self.textBrowser_log.append("Project file saved in " + selectedFilePath)
             self.hasCurrentProject = True
             self.hasProjectBeenModified = False
 
@@ -1627,19 +1761,17 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.textBrowser_log.append("[" + section + "]")
             for option in self.config.options(section):
                 self.textBrowser_log.append(
-                    self.tr("\t" + option + " = " +
-                            self.config.get(section, option))
+                    self.tr("\t" + option + " = " + self.config.get(section, option))
                 )
 
     # TODO: Capture execution log fom RainfallRunoff.exe without freezing GUI
     def setRunState(self):
         """Invoke the model's standalone executable including the\n
-         configuration file generated from user input as an\n
-          argument in the CLI."""
+        configuration file generated from user input as an\n
+         argument in the CLI."""
         # Use the standalone executable file of the model present in the
         #  plugin's root directory
-        self.modelFilePath = os.path.join(
-            self.plugin_dir, "rubem", "rubem.exe")
+        self.modelFilePath = os.path.join(self.plugin_dir, "rubem", "rubem.exe")
 
         self.updateConfigFromGUI()
         self.saveProject(self.projectFilePath)
@@ -1648,13 +1780,15 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.textBrowser_log.append("\n# RUBEM execution started...")
 
         # Make command list available to execution thread
-        self.command = [self.modelFilePath,
-                        "--configfile", self.projectFilePath]
+        self.command = [self.modelFilePath, "--configfile", self.projectFilePath]
         self.runLongTask()
 
     def reportExecutionLog(self, outputLog):
-        """Update textBrowser_log with output captured from execution."""
+        """Update textBrowser_log with output captured from execution.s"""
         self.textBrowser_log.append(outputLog.strip())
+        self.tab_Results.setEnabled(True)
+        self.populateMapSeriesTree()
+        self.populateTimeSeriesTree()
 
     def reportProgress(self, n):
         """Update progressBar with int representing overall progress of exec\n
