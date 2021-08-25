@@ -37,13 +37,18 @@ try:
     from qgis.PyQt.QtWidgets import QAction
 except ImportError:
     from PyQt5.QtCore import QCoreApplication, QSettings, Qt, QTranslator
-    from PyQt5.QtGui import QIcon
+    from PyQt5.QtGui import QIcon, QGuiApplication
     from PyQt5.QtWidgets import QAction
 
 try:
     from .rubem_hydrological_dialog import RUBEMHydrologicalDialog
 except ImportError:
     from rubem_hydrological_dialog import RUBEMHydrologicalDialog
+
+
+# QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+QCoreApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
 
 class RUBEMHydrological:
@@ -202,8 +207,10 @@ class RUBEMHydrological:
             | Qt.WindowContextHelpButtonHint
             | Qt.WindowCloseButtonHint
         )
+
         # show the dialog
         self.dlg.show()
+        self.dlg.adjustSize()
         # Run the dialog event loop
         result = self.dlg.exec_()
         # See if OK was pressed
