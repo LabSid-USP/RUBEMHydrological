@@ -104,8 +104,8 @@ defaultConfigSchema = {
         "genTss": "False",
     },
     "GENERATE_FILE_FORMAT": {
-        "enableMapSeries" = "True",
-        "enableTiff" = "True"
+        "enableMapSeries": "True",
+        "enableTiff": "True"
     }    
 }
 
