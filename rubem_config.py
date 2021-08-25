@@ -130,6 +130,10 @@ maxValuesDic = {
         "lai_max": "12.000",
         "i_imp": "2.500",
     },
+    "GENERATE_FILE_FORMAT": {
+        "enableMapSeries" = "True",
+        "enableTiff" = "True"
+    }
 }
 
 minValuesDic = {
