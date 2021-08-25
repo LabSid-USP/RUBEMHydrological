@@ -1776,6 +1776,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.config.getboolean("GENERATE_FILE", "runoff")
         )
 
+    # TODO: docstring
     def getUserRetSaveCurProj(self):
         """[summary].
 
@@ -1792,6 +1793,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
         return response
 
+    # TODO: docstring
     def updateWindowTitle(self, projectTitle=None):
         if not projectTitle:
             _, file = os.path.split(self.projectFilePath)
@@ -1810,6 +1812,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :rtype: [type]
         """
 
+        # TODO: docstring
         def setupNewProject():
             """[summary]."""
             self.textBrowser_log.clear()
@@ -1852,7 +1855,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :return: [description].
         :rtype: [type]
         """
-
+        # TODO: docstring
         def setupOpenedProject():
             """[summary]."""
             filePath, _ = QFileDialog.getOpenFileName(
@@ -1871,6 +1874,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
                 self.qgisProject = QgsProject.instance()
+                
+                # TODO: Check if QGIS project file exist
                 self.qgisProject.read(
                     os.path.splitext(self.projectFilePath)[0] + ".qgs"
                 )
@@ -1910,6 +1915,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :rtype: [type]
         """
 
+        # TODO: docstring
         def setupFileDialog():
             """[summary].
 
@@ -1932,6 +1938,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 )
             return tmpFilePath
 
+        # TODO: docstring
         def setupProjectFileWrite(selectedFilePath):
             """[summary].
 
@@ -1942,6 +1949,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.config.write(configfile)
                 configfile.close()
 
+            self.qgisProject = QgsProject.instance()
             self.qgisProject.write(os.path.splitext(selectedFilePath)[0] + ".qgs")
 
             self.textBrowser_log.append("Project file saved in " + selectedFilePath)
