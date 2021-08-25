@@ -17,12 +17,7 @@
 #
 # Contact: rubem.hydrological@labsid.eng.br
 
-"""RUBEM Hydrological plugin starting point.
-
-This file is required by Python’s import system.
-Also, QGIS requires that this file contains a `classFactory()` function,\n
-which is called when the plugin gets loaded into QGIS.
-"""
+"""RUBEM Hydrological plugin tree view data model code."""
 
 __author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
@@ -32,19 +27,22 @@ __date__ = "2021-05-19"
 __version__ = "1.3.2"
 
 
-def classFactory(iface):
-    """Call when the plugin gets loaded into QGIS.
+from os.path import split
 
-    :param iface: Reference to the instance of `QgisInterface`.
-    :type iface: class
+try:
+    from qgis.PyQt.QtGui import QStandardItem
+except ImportError:
+    from PyQt5.QtGui import QStandardItem
 
-    :return: Object of RUBEM Hydrological plugin’s class from the\n
-    `rubem_hydrological.py` (`RUBEMHydrological`).
-    :rtype: class
-    """
-    try:
-        from .rubem_hydrological import RUBEMHydrological
-    except ImportError:
-        from rubem_hydrological import RUBEMHydrological
+# TODO: Add docstring information and comments
+class StandardItem(QStandardItem):
+    def __init__(self, txt="", isPath=False):
+        super().__init__()
 
-    return RUBEMHydrological(iface)
+        self.setEditable(False)
+
+        if isPath:
+            _, self.title = split(txt)
+            self.setText(self.title)
+        else:
+            self.setText(txt)

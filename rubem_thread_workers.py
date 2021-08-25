@@ -34,6 +34,8 @@ except ImportError:
     from PyQt5.QtCore import QObject, pyqtSignal
 
 # Create RUBEM standalone worker class
+
+
 class RUBEMStandaloneWorker(QObject):
     """[summary].
 
@@ -55,10 +57,13 @@ class RUBEMStandaloneWorker(QObject):
     def run(self):
         """[summary]."""
         self.process = Popen(
-            self.command, shell=True, encoding="latin-1", stdout=PIPE, stderr=PIPE
+            self.command,
+            shell=True,
+            encoding="latin-1",
+            stdout=PIPE,
+            stderr=PIPE
         )
         try:
-            # TODO: Verificar se o processo parou de responder, mas nao matar se ainda estiver funcionando
             outs, errs = self.process.communicate(timeout=150)
         except TimeoutExpired:
             self.killed = True
