@@ -359,30 +359,32 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.mapSeriesTreeModel.clear()
         mapSeriesRootNode = self.mapSeriesTreeModel.invisibleRootItem()
         for key, fileName in self.mapSeriesDictFileNames.items():
-            tmpOutMapSeries = StandardItem(key)
-            tmpOutMapSeries.setSelectable(False)
             tmpOutMapFileList = glob(
                 os.path.join(self.config.get("FILES", "output") + fileName) + "*.[0-9]*"
             )
-            tmpOutMapSeries.appendRows(
-                [StandardItem(item, isPath=True) for item in tmpOutMapFileList]
-            )
-            mapSeriesRootNode.appendRow(tmpOutMapSeries)
-            self.treeView_MapSeriesData.setModel(self.mapSeriesTreeModel)
+            if tmpOutMapFileList:
+                tmpOutMapSeries = StandardItem(key)
+                tmpOutMapSeries.setSelectable(False)
+                tmpOutMapSeries.appendRows(
+                    [StandardItem(item, isPath=True) for item in tmpOutMapFileList]
+                )
+                mapSeriesRootNode.appendRow(tmpOutMapSeries)
+                self.treeView_MapSeriesData.setModel(self.mapSeriesTreeModel)
 
     # TODO: Add docstring information and comments
     def populateTimeSeriesTree(self):
         self.timeSeriesTreeModel.clear()
         timeSeriesRootNode = self.timeSeriesTreeModel.invisibleRootItem()
         for key, fileName in self.timeSeriesDictFileNames.items():
-            tmpOutTimeSeries = StandardItem(key)
-            tmpOutTimeSeries.setSelectable(False)
             tmpTimeSeriesFile = (
                 os.path.join(self.config.get("FILES", "output") + fileName) + ".csv"
             )
-            tmpOutTimeSeries.appendRow(StandardItem(tmpTimeSeriesFile, isPath=True))
-            timeSeriesRootNode.appendRow(tmpOutTimeSeries)
-            self.treeView_TimeSeriesData.setModel(self.timeSeriesTreeModel)
+            if os.path.exists(tmpTimeSeriesFile):
+                tmpOutTimeSeries = StandardItem(key)
+                tmpOutTimeSeries.setSelectable(False)                
+                tmpOutTimeSeries.appendRow(StandardItem(tmpTimeSeriesFile, isPath=True))
+                timeSeriesRootNode.appendRow(tmpOutTimeSeries)
+                self.treeView_TimeSeriesData.setModel(self.timeSeriesTreeModel)
 
     # TODO: Add docstring information and comments
     def plotWrapper(self, index: QModelIndex):
