@@ -459,8 +459,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
         if directoryPath:
             return f"{directoryPath}/"
-        else:
-            return ""
 
     def getFilePath(self, caption, filter, selectedFilter=""):
         """Get the path of an existing file using QFileDialog and returns it.
@@ -483,8 +481,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
         if filePath:
             return filePath
-        else:
-            return ""
 
     def splitDirFilePrefix(self, filePath):
         """Split directory path and file prefix from file path.
@@ -597,8 +593,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: toolButton_InputFolder
         """
         directoryPath = self.getDirectoryPath(caption="Select Input Directory")
-        self.config.set("FILES", "input", directoryPath)
-        self.lineEdit_InputFolder.setText(directoryPath)
+        if directoryPath:
+            self.config.set("FILES", "input", directoryPath)
+            self.lineEdit_InputFolder.setText(directoryPath)
 
     def setOutputDirectoryPath(self):
         """Define the directory containing the project's output data.
@@ -607,8 +604,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: toolButton_OutputFolder
         """
         directoryPath = self.getDirectoryPath(caption="Select Output Directory")
-        self.config.set("FILES", "output", directoryPath)
-        self.lineEdit_OutputFolder.setText(directoryPath)
+        if directoryPath:
+            self.config.set("FILES", "output", directoryPath)
+            self.lineEdit_OutputFolder.setText(directoryPath)
 
     # Tab widget
     # Settings tab
@@ -622,8 +620,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_Dem
         """
         filePath = self.getFilePath(caption="Select DEM map File", filter="*.map")
-        self.config.set("FILES", "dem", filePath)
-        self.lineEdt_Dem.setText(filePath)
+        if filePath:
+            self.config.set("FILES", "dem", filePath)
+            self.lineEdt_Dem.setText(filePath)
 
     def setDEMTifFilePath(self):
         """Define the project's DEM TIFF file.
@@ -634,8 +633,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_DemTif
         """
         filePath = self.getFilePath(caption="Select DEM TIFF File", filter="*.tif")
-        self.config.set("FILES", "demTif", filePath)
-        self.lineEdt_DemTif.setText(filePath)
+        if filePath:
+            self.config.set("FILES", "demTif", filePath)
+            self.lineEdt_DemTif.setText(filePath)
 
     def setCloneFilePath(self):
         """Define the project's Clone file.
@@ -646,8 +646,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_Clone
         """
         filePath = self.getFilePath(caption="Select Clone File", filter="*.map")
-        self.config.set("FILES", "clone", filePath)
-        self.lineEdt_Clone.setText(filePath)
+        if filePath:
+            self.config.set("FILES", "clone", filePath)
+            self.lineEdt_Clone.setText(filePath)
 
     def setExportSampleLocations(self):
         """Define as enabled the fields related to the Sample file.
@@ -681,8 +682,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         filePath = self.getFilePath(
             caption="Select Sample Stations File", filter="*.map"
         )
-        self.config.set("FILES", "samples", filePath)
-        self.lineEdt_Sample.setText(filePath)
+        if filePath:
+            self.config.set("FILES", "samples", filePath)
+            self.lineEdt_Sample.setText(filePath)
 
     def setGridSize(self):
         """Define the project's Grid size.
@@ -728,8 +730,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :Signal sender: btn_SoilMap
         """
         filePath = self.getFilePath(caption="Select Soil Map File", filter="*.map")
-        self.config.set("FILES", "solo", filePath)
-        self.lineEdt_SoilMap.setText(filePath)
+        if filePath:
+            self.config.set("FILES", "solo", filePath)
+            self.lineEdt_SoilMap.setText(filePath)
 
     def setDensityFilePath(self):
         """Define the project's Density file.
@@ -744,8 +747,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "dg", filePath)
-        self.lineEdt_DensityDg.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "dg", filePath)
+            self.lineEdt_DensityDg.setText(filePath)
 
     def setHydraulicConductivityFilePath(self):
         """Define the project's HydraulicConductivity file.
@@ -761,8 +765,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "kr", filePath)
-        self.lineEdt_HydraulicConductivityKr.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "kr", filePath)
+            self.lineEdt_HydraulicConductivityKr.setText(filePath)
 
     def setFieldCapacityFilePath(self):
         """Define the project's Field Capacity file.
@@ -778,8 +783,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "capCampo", filePath)
-        self.lineEdt_FieldCapacityCC.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "capCampo", filePath)
+            self.lineEdt_FieldCapacityCC.setText(filePath)
 
     def setWiltingPointFilePath(self):
         """Define the project's Wilting Point file.
@@ -795,8 +801,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "pontomurcha", filePath)
-        self.lineEdt_WiltingPointWP.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "pontomurcha", filePath)
+            self.lineEdt_WiltingPointWP.setText(filePath)
 
     def setPorosityFilePath(self):
         """Define the project's Porosity file.
@@ -811,8 +818,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "porosidade", filePath)
-        self.lineEdt_Porosity.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "porosidade", filePath)
+            self.lineEdt_Porosity.setText(filePath)
 
     def setSaturationFilePath(self):
         """Define the project's Saturation file.
@@ -827,8 +835,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "saturacao", filePath)
-        self.lineEdt_Saturation.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "saturacao", filePath)
+            self.lineEdt_Saturation.setText(filePath)
 
     def setRootZoneThicknessFilePath(self):
         """Define the project's Root Zone Thickness file.
@@ -844,8 +853,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "zr", filePath)
-        self.lineEdt_RootZoneThicknessZr.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "zr", filePath)
+            self.lineEdt_RootZoneThicknessZr.setText(filePath)
 
     # Initial Soil Conditions
     def setInitialSoilMoisture(self):
@@ -910,10 +920,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         filePath = self.getFilePath(
             caption="Select Land Use Series File", filter="(*.001);;All Files(*)"
         )
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
-        self.config.set("FILES", "landuse", tmpDir)
-        self.config.set("FILES", "landuseFilePrefix", tmpPrefix)
-        self.lineEdt_LandUseSeries.setText(filePath)
+        if filePath:
+            tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+            self.config.set("FILES", "landuse", tmpDir)
+            self.config.set("FILES", "landuseFilePrefix", tmpPrefix)
+            self.lineEdt_LandUseSeries.setText(filePath)
 
     # NDVI
     def setNDVISeriesFilePath(self):
@@ -928,10 +939,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         filePath = self.getFilePath(
             caption="Select NDVI Series File", filter="(*.001);;All Files(*)"
         )
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
-        self.config.set("FILES", "ndvi", tmpDir)
-        self.config.set("FILES", "ndviFilePrefix", tmpPrefix)
-        self.lineEdt_NDVISeries.setText(filePath)
+        if filePath:
+            tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+            self.config.set("FILES", "ndvi", tmpDir)
+            self.config.set("FILES", "ndviFilePrefix", tmpPrefix)
+            self.lineEdt_NDVISeries.setText(filePath)
 
     def setNDVIMaximumSeriesFilePath(self):
         """Define the project's NDVIMax file.
@@ -944,8 +956,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         filePath = self.getFilePath(
             caption="Select Maximum NDVI Series File", filter="(*.map)"
         )
-        self.config.set("FILES", "ndvimax", filePath)
-        self.lineEdt_NDVIMax.setText(filePath)
+        if filePath:
+            self.config.set("FILES", "ndvimax", filePath)
+            self.lineEdt_NDVIMax.setText(filePath)
 
     def setNDVIMinimumSeriesFilePath(self):
         """Define the project's NDVIMin file.
@@ -958,8 +971,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         filePath = self.getFilePath(
             caption="Select Minimum NDVI Series File", filter="(*.map)"
         )
-        self.config.set("FILES", "ndvimin", filePath)
-        self.lineEdt_NDVIMin.setText(filePath)
+        if filePath:
+            self.config.set("FILES", "ndvimin", filePath)
+            self.lineEdt_NDVIMin.setText(filePath)
 
     # a
     def setAiFilePath(self):
@@ -975,8 +989,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "a_i", filePath)
-        self.lineEdt_a_i.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "a_i", filePath)
+            self.lineEdt_a_i.setText(filePath)
 
     def setAoFilePath(self):
         """Define the project's a_o file.
@@ -991,8 +1006,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "a_o", filePath)
-        self.lineEdt_a_o.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "a_o", filePath)
+            self.lineEdt_a_o.setText(filePath)
 
     def setAsFilePath(self):
         """Define the project's a_s file.
@@ -1007,8 +1023,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "a_s", filePath)
-        self.lineEdt_a_s.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "a_s", filePath)
+            self.lineEdt_a_s.setText(filePath)
 
     def setAvFilePath(self):
         """Define the project's a_v file.
@@ -1023,8 +1040,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "a_v", filePath)
-        self.lineEdt_a_v.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "a_v", filePath)
+            self.lineEdt_a_v.setText(filePath)
 
     # Manning
     def setManningFilePath(self):
@@ -1040,8 +1058,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "manning", filePath)
-        self.lineEdt_Manning.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "manning", filePath)
+            self.lineEdt_Manning.setText(filePath)
 
     # Kc
     def setKcMaximumFilePath(self):
@@ -1057,8 +1076,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "kcmax", filePath)
-        self.lineEdt_KcMax.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "kcmax", filePath)
+            self.lineEdt_KcMax.setText(filePath)
 
     def setKcMinimumFilePath(self):
         """Define the project's KcMin file.
@@ -1073,8 +1093,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "kcmin", filePath)
-        self.lineEdt_KcMin.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "kcmin", filePath)
+            self.lineEdt_KcMin.setText(filePath)
 
     # Fpar
     def setFparMaximum(self):
@@ -1128,10 +1149,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         filePath = self.getFilePath(
             caption="Select Rainfall Series File", filter="(*.001);;All Files(*)"
         )
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
-        self.config.set("FILES", "prec", tmpDir)
-        self.config.set("FILES", "precFilePrefix", tmpPrefix)
-        self.lineEdt_Precipitation.setText(filePath)
+        if filePath:
+            tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+            self.config.set("FILES", "prec", tmpDir)
+            self.config.set("FILES", "precFilePrefix", tmpPrefix)
+            self.lineEdt_Precipitation.setText(filePath)
 
     def setEvapotranspirationSeriesFilePath(self):
         """Define the project's Evapotranspiration folder file.
@@ -1146,10 +1168,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             caption="Select Potential Evapotranspiration Series File",
             filter="(*.001);;All Files(*)",
         )
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
-        self.config.set("FILES", "etp", tmpDir)
-        self.config.set("FILES", "etpFilePrefix", tmpPrefix)
-        self.lineEdt_EvapoTranspiration.setText(filePath)
+        if filePath:
+            tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+            self.config.set("FILES", "etp", tmpDir)
+            self.config.set("FILES", "etpFilePrefix", tmpPrefix)
+            self.lineEdt_EvapoTranspiration.setText(filePath)
 
     def setKpSeriesFilePath(self):
         """Define the project's Class A Pan Coefficient (Kp) folder file.
@@ -1164,10 +1187,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             caption="Select Class A Pan Coefficient (Kp) Series File",
             filter="(*.001);;All Files(*)",
         )
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
-        self.config.set("FILES", "kp", tmpDir)
-        self.config.set("FILES", "kpFilePrefix", tmpPrefix)
-        self.lineEdt_PanCoefficientKp.setText(filePath)
+        if filePath:
+            tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+            self.config.set("FILES", "kp", tmpDir)
+            self.config.set("FILES", "kpFilePrefix", tmpPrefix)
+            self.lineEdt_PanCoefficientKp.setText(filePath)
 
     def setRainyDaysSeriesFilePath(self):
         """Define the project's Rainy Days file.
@@ -1182,8 +1206,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             filter="CSV files (*.csv);;Text files (*.txt)",
             selectedFilter="Text files (*.txt)",
         )
-        self.config.set("PARAMETERS", "rainydays", filePath)
-        self.lineEdt_RainyDays.setText(filePath)
+        if filePath:
+            self.config.set("PARAMETERS", "rainydays", filePath)
+            self.lineEdt_RainyDays.setText(filePath)
 
     # Parameters tab
     # Model Parameters
@@ -1874,7 +1899,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
                 self.qgisProject = QgsProject.instance()
-                
+
                 # TODO: Check if QGIS project file exist
                 self.qgisProject.read(
                     os.path.splitext(self.projectFilePath)[0] + ".qgs"
