@@ -48,7 +48,8 @@ def plotTimeSeriesData(sourceFile, plotDict, startDate, endDate):
         datetime.datetime.strptime(startDate, "%d/%m/%Y"),
         datetime.datetime.strptime(endDate, "%d/%m/%Y"),
         freq="MS",
-    ).to_pydatetime()[:-1]
+    ).to_pydatetime()
+
     df["Dates"] = dateList
     df.set_index("Dates")
 
