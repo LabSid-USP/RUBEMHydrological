@@ -166,11 +166,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.label_WiltingPointWP,
                 (".txt", ".csv"),
             ),
-            "porosidade": (
-                self.lineEdt_Porosity,
-                self.label_Porosity,
-                (".txt", ".csv"),
-            ),
             "saturacao": (
                 self.lineEdt_Saturation,
                 self.label_Saturation,
@@ -381,7 +376,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             )
             if os.path.exists(tmpTimeSeriesFile):
                 tmpOutTimeSeries = StandardItem(key)
-                tmpOutTimeSeries.setSelectable(False)                
+                tmpOutTimeSeries.setSelectable(False)
                 tmpOutTimeSeries.appendRow(StandardItem(tmpTimeSeriesFile, isPath=True))
                 timeSeriesRootNode.appendRow(tmpOutTimeSeries)
                 self.treeView_TimeSeriesData.setModel(self.timeSeriesTreeModel)
@@ -806,23 +801,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         if filePath:
             self.config.set("PARAMETERS", "pontomurcha", filePath)
             self.lineEdt_WiltingPointWP.setText(filePath)
-
-    def setPorosityFilePath(self):
-        """Define the project's Porosity file.
-
-        Also updates the lineEdt_Porosity field with the selected file path.
-
-        :Slot signal: clicked
-        :Signal sender: btn_Porosity
-        """
-        filePath = self.getFilePath(
-            caption="Select Soil Porosity File",
-            filter="CSV files (*.csv);;Text files (*.txt)",
-            selectedFilter="Text files (*.txt)",
-        )
-        if filePath:
-            self.config.set("PARAMETERS", "porosidade", filePath)
-            self.lineEdt_Porosity.setText(filePath)
 
     def setSaturationFilePath(self):
         """Define the project's Saturation file.
@@ -1445,7 +1423,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
         self.config.set("PARAMETERS", "capCampo", self.lineEdt_FieldCapacityCC.text())
         self.config.set("PARAMETERS", "pontomurcha", self.lineEdt_WiltingPointWP.text())
-        self.config.set("PARAMETERS", "porosidade", self.lineEdt_Porosity.text())
         self.config.set("PARAMETERS", "saturacao", self.lineEdt_Saturation.text())
         self.config.set("PARAMETERS", "zr", self.lineEdt_RootZoneThicknessZr.text())
 
@@ -1655,7 +1632,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.lineEdt_WiltingPointWP.setText(
             self.config.get("PARAMETERS", "pontomurcha")
         )
-        self.lineEdt_Porosity.setText(self.config.get("PARAMETERS", "porosidade"))
         self.lineEdt_Saturation.setText(self.config.get("PARAMETERS", "saturacao"))
         self.lineEdt_RootZoneThicknessZr.setText(self.config.get("PARAMETERS", "zr"))
 

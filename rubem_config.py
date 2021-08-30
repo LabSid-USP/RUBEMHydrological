@@ -59,7 +59,6 @@ defaultConfigSchema = {
         "dg": "",
         "kr": "",
         "capCampo": "",
-        "porosidade": "",
         "saturacao": "",
         "pontomurcha": "",
         "zr": "",
@@ -103,10 +102,7 @@ defaultConfigSchema = {
         "auxRec": "False",
         "genTss": "False",
     },
-    "GENERATE_FILE_FORMAT": {
-        "enableMapSeries": "True",
-        "enableTiff": "True"
-    }    
+    "GENERATE_FILE_FORMAT": {"enableMapSeries": "True", "enableTiff": "True"},
 }
 
 maxValuesDic = {
@@ -133,7 +129,7 @@ maxValuesDic = {
         "fpar_min": "0.001",
         "lai_max": "12.000",
         "i_imp": "2.500",
-    }
+    },
 }
 
 minValuesDic = {
