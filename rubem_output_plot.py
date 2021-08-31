@@ -45,7 +45,7 @@ sty_cycle = ls_cycle + color_cycle + lw_cycle
 # TODO: Add docstring information and comments
 def plotTimeSeriesData(sourceFile, plotDict, startDate, endDate):
 
-    df = pd.read_csv(sourceFile, index_col=0)
+    df = pd.read_csv(sourceFile, sep=';', index_col=0)
 
     dateList = pd.date_range(
         datetime.datetime.strptime(startDate, "%d/%m/%Y"),
