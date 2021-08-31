@@ -27,7 +27,7 @@ tags=hydrological model,remote sensing,grid,hydrology,pcraster,water,catchment
 
 homepage=https://github.com/LabSid-USP/RUBEMHydrological/#readme
 category=Plugins
-icon=icon.png
+icon=images\icon.png
 # experimental flag
 experimental=True
 
