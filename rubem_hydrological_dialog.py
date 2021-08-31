@@ -2095,12 +2095,24 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.updateConfigFromGUI()
             self.saveProject(self.projectFilePath)
             # self.showConfig()
-
-            self.textBrowser_log.append("\n# RUBEM execution started...")
-
+            
             # Make command list available to execution thread
-            self.command = [self.modelFilePath, "--configfile", self.projectFilePath]
-            self.runLongTask()
+            self.command = [self.modelFilePath, "--configfile", self.projectFilePath]            
+            
+            # Empty output directory
+            if not os.listdir(self.config.get("FILES", "output")):
+                self.textBrowser_log.append("\n# RUBEM execution started...")
+                self.runLongTask()
+            # Output directory contains files, ask user before proceeding
+            else:
+                response = self.getUserRetDirNotEmpty()
+                # User decided to proceed
+                if response == QMessageBox.Ok:
+                    self.textBrowser_log.append("\n# RUBEM execution started...")
+                    self.runLongTask()
+                # User decided to cancel
+                # elif response == QMessageBox.Cancel:
+                #   return None
 
     def reportExecutionLog(self, outputLog):
         """Update textBrowser_log with output captured from execution.s"""
