@@ -1833,7 +1833,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             QMessageBox.Ok | QMessageBox.Cancel,
             QMessageBox.Ok,
         )
-        return response        
+        return response
 
     # TODO: docstring
     def updateWindowTitle(self, projectTitle=None):
@@ -1933,6 +1933,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveProject.setEnabled(True)
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
+                
+                if os.listdir(self.config.get("FILES", "output")):
+                    self.tab_Results.setEnabled(True)
+                    self.populateMapSeriesTree()
+                    self.populateTimeSeriesTree()
 
                 # TODO: Check if QGIS project file exist
                 self.qgisProject.read(
