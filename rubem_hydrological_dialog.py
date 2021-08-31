@@ -1796,6 +1796,22 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         )
         return response
 
+    def getUserRetQGISCurProj(self):
+        """[summary].
+
+        :return: [description]
+        :rtype: [type]
+        """
+        response = QMessageBox.warning(
+            self,
+            "RUBEM Hydrological",
+            "Do you want to proceed without saving the current QGIS project?\n\n"
+            "Your changes will be lost if you don't save them.",
+            QMessageBox.Ok | QMessageBox.Cancel,
+            QMessageBox.Ok,
+        )
+        return response
+
     # TODO: docstring
     def updateWindowTitle(self, projectTitle=None):
         if not projectTitle:
@@ -1818,6 +1834,16 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         # TODO: docstring
         def setupNewProject():
             """[summary]."""
+
+            self.qgisProject = QgsProject.instance()
+            if self.qgisProject.isDirty():
+                response = self.getUserRetQGISCurProj()
+                if response == QMessageBox.Ok:
+                    # self.qgisProject.clear()
+                    self.iface.newProject()
+                else:
+                    return None
+
             self.textBrowser_log.clear()
             self.config.read_dict(defaultConfigSchema)
             self.updateGUIFromConfig()
@@ -1827,8 +1853,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.pushButton_SaveProject.setEnabled(True)
             self.pushButton_SaveAsProject.setEnabled(True)
             self.tabWidget.setEnabled(True)
-            self.qgisProject = QgsProject.instance()
-            self.qgisProject.clear()
 
         # Check if there is already a current project and it has been
         # modified then ask to save it
@@ -1868,6 +1892,16 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 filter="Project (*.ini)",
             )
             if filePath:
+
+                self.qgisProject = QgsProject.instance()
+                if self.qgisProject.isDirty():
+                    response = self.getUserRetQGISCurProj()
+                    if response == QMessageBox.Ok:
+                        # self.qgisProject.clear()
+                        self.iface.newProject()
+                    else:
+                        return None
+
                 self.textBrowser_log.clear()
                 self.projectFilePath = filePath
                 self.hasCurrentProject = True
@@ -1876,7 +1910,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveProject.setEnabled(True)
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
-                self.qgisProject = QgsProject.instance()
 
                 # TODO: Check if QGIS project file exist
                 self.qgisProject.read(
