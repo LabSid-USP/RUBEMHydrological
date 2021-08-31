@@ -145,7 +145,7 @@
    <bool>true</bool>
   </property>
   <property name="modal">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_29">
    <item>
@@ -177,7 +177,7 @@
            </sizepolicy>
           </property>
           <property name="toolTip">
-           <string>Create a new project.</string>
+           <string>Create a new project</string>
           </property>
           <property name="text">
            <string>&amp;New</string>
@@ -267,7 +267,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>4</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -317,6 +317,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="toolTip">
+              <string/>
+             </property>
+             <property name="whatsThis">
+              <string/>
+             </property>
              <property name="title">
               <string>Project Directories</string>
              </property>
@@ -326,7 +332,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_InputFolder">
                   <property name="toolTip">
-                   <string>Path to database folder</string>
+                   <string>Folder with data inputs.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to folder where all necessary inputs to run the model are located.</string>
                   </property>
                   <property name="text">
                    <string>Select input directory</string>
@@ -341,7 +350,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdit_InputFolder">
                     <property name="toolTip">
-                     <string>Path to database folder</string>
+                     <string>Folder with data inputs.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Path to folder where all necessary inputs to run the model are located.</string>
                     </property>
                     <property name="placeholderText">
                      <string>Select input directory</string>
@@ -354,7 +366,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="toolButton_InputFolder">
                     <property name="toolTip">
-                     <string>Path to database folder</string>
+                     <string>Folder with data inputs.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Path to folder where all necessary inputs to run the model are located.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -386,7 +401,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_OutputFolder">
                   <property name="toolTip">
-                   <string>Path to output data folder</string>
+                   <string>Folder where the results will be saved.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>The directory where the results will be saved after the simulation.</string>
                   </property>
                   <property name="text">
                    <string>Select output directory</string>
@@ -401,7 +419,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdit_OutputFolder">
                     <property name="toolTip">
-                     <string>Path to output data folder</string>
+                     <string>Folder where the results will be saved.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>The directory where the results will be saved after the simulation.</string>
                     </property>
                     <property name="placeholderText">
                      <string>Select output directory</string>
@@ -414,7 +435,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="toolButton_OutputFolder">
                     <property name="toolTip">
-                     <string>Path to output data folder</string>
+                     <string>Folder where the results will be saved.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>The directory where the results will be saved after the simulation.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -445,7 +469,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_Dem">
                   <property name="toolTip">
-                   <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
+                   <string>Digital Elevation Model map in *.map file.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Raster map with topographic ground elevation in meters.</string>
                   </property>
                   <property name="text">
                    <string>Select DEM MAP file</string>
@@ -463,7 +490,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      <bool>true</bool>
                     </property>
                     <property name="toolTip">
-                     <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
+                     <string>Digital Elevation Model map in *.map file.</string>
                     </property>
                     <property name="toolTipDuration">
                      <number>-1</number>
@@ -472,7 +499,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      <string/>
                     </property>
                     <property name="whatsThis">
-                     <string/>
+                     <string>Raster map with topographic ground elevation in meters.</string>
                     </property>
                     <property name="autoFillBackground">
                      <bool>false</bool>
@@ -494,10 +521,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_Dem">
                     <property name="toolTip">
-                     <string>Open file dialog to select a Digital Elevation Map (DEM) file in .map format</string>
+                     <string>Digital Elevation Model map in *.map file.</string>
                     </property>
                     <property name="toolTipDuration">
                      <number>-1</number>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Raster map with topographic ground elevation in meters.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -526,7 +556,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_DemTif">
                   <property name="toolTip">
-                   <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
+                   <string>Digital Elevation Model map in .tif.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Raster map with topographic ground elevation in meters.</string>
                   </property>
                   <property name="text">
                    <string>Select DEM TIFF file</string>
@@ -541,7 +574,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdt_DemTif">
                     <property name="toolTip">
-                     <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
+                     <string>Digital Elevation Model map in .tif.</string>
                     </property>
                     <property name="toolTipDuration">
                      <number>-1</number>
@@ -550,7 +583,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      <string/>
                     </property>
                     <property name="whatsThis">
-                     <string/>
+                     <string>Raster map with topographic ground elevation in meters.</string>
                     </property>
                     <property name="autoFillBackground">
                      <bool>false</bool>
@@ -572,10 +605,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_DemTif">
                     <property name="toolTip">
-                     <string>Open file dialog to select a Digital Elevation Map (DEM) file in .tiff format</string>
+                     <string>Digital Elevation Model map in .tif.</string>
                     </property>
                     <property name="toolTipDuration">
                      <number>-1</number>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Raster map with topographic ground elevation in meters.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -593,7 +629,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdt_Clone">
                     <property name="toolTip">
-                     <string> This map Defines the basin for cells being True. Mandatory</string>
+                     <string>This map defines the basin area to simulate in the model.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This is a *.map file (PCRaster boolean format) that defines the mask used to select the area to simulate in the model.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -609,7 +648,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_Clone">
                     <property name="toolTip">
-                     <string> This map Defines the basin for cells being True. Mandatory</string>
+                     <string>This map defines the basin area to simulate in the model.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This is a *.map file (PCRaster boolean format) that defines the mask used to select the area to simulate in the model.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -621,7 +663,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_Clone">
                   <property name="toolTip">
-                   <string> This map Defines the basin for cells being True. Mandatory</string>
+                   <string>This map defines the basin area to simulate in the model.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This is a *.map file (PCRaster boolean format) that defines the mask used to select the area to simulate in the model.</string>
                   </property>
                   <property name="text">
                    <string>Select Clone MAP file</string>
@@ -667,6 +712,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>It enables the generation of results for each selected variable in .csv format for each valid pixel in stations maps.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>Option for generating results in .csv format for each valid pixel in stations maps.</string>
+                </property>
                 <property name="layoutDirection">
                  <enum>Qt::LeftToRight</enum>
                 </property>
@@ -683,8 +734,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <bool>false</bool>
                   </property>
                   <property name="toolTip">
-                   <string>This file is a nominal map with unique Ids for cells identified as being a
-location where time-series output is required.</string>
+                   <string>Map with locations to plot the results as graphs and tables.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a nominal map with unique Ids for cells identified as being a location where time-series output is required. Non-station cells have a value of -9999.</string>
                   </property>
                   <property name="text">
                    <string>Select Station Locations file</string>
@@ -702,8 +755,10 @@ location where time-series output is required.</string>
                      <bool>false</bool>
                     </property>
                     <property name="toolTip">
-                     <string>This file is a nominal map with unique Ids for cells identified as being a
-location where time-series output is required.</string>
+                     <string>Map with locations to plot the results as graphs and tables.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a nominal map with unique Ids for cells identified as being a location where time-series output is required. Non-station cells have a value of -9999.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -722,8 +777,10 @@ location where time-series output is required.</string>
                      <bool>false</bool>
                     </property>
                     <property name="toolTip">
-                     <string>This file is a nominal map with unique Ids for cells identified as being a
-location where time-series output is required.</string>
+                     <string>Map with locations to plot the results as graphs and tables.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a nominal map with unique Ids for cells identified as being a location where time-series output is required. Non-station cells have a value of -9999.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -746,6 +803,13 @@ location where time-series output is required.</string>
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
+               </property>
+               <property name="toolTip">
+                <string>Resolution in meters of dataset´s maps.</string>
+               </property>
+               <property name="whatsThis">
+                <string>Value representing the resolution of the dataset´s maps (clone, soil, map series…).
+</string>
                </property>
                <property name="title">
                 <string>Grid</string>
@@ -775,7 +839,11 @@ location where time-series output is required.</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Cell dimension value in meters.</string>
+                     <string>Resolution in meters of dataset´s maps.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Value representing the resolution of the dataset´s maps (clone, soil, map series…).
+</string>
                     </property>
                     <property name="text">
                      <string>Size</string>
@@ -794,7 +862,11 @@ location where time-series output is required.</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Cell dimension value in meters.</string>
+                     <string>Resolution in meters of dataset's maps.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Value representing the resolution of the dataset's maps (clone, soil, map series…).
+</string>
                     </property>
                     <property name="wrapping">
                      <bool>false</bool>
@@ -1025,7 +1097,10 @@ location where time-series output is required.</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string> Date of the first time step of the simulation.</string>
+                       <string>The simulation start date.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Date of the first time step of the simulation scenario (month and year of the start period of simulation scenario).</string>
                       </property>
                       <property name="layoutDirection">
                        <enum>Qt::LeftToRight</enum>
@@ -1050,7 +1125,10 @@ location where time-series output is required.</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string> Date of the first time step of the simulation.</string>
+                       <string>The simulation start date.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Date of the first time step of the simulation scenario (month and year of the start period of simulation scenario).</string>
                       </property>
                       <property name="layoutDirection">
                        <enum>Qt::LeftToRight</enum>
@@ -1076,7 +1154,10 @@ location where time-series output is required.</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>Date of the last time step of the simulation.</string>
+                       <string>The simulation end date.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Date of the last time step of the simulation scenario (month and year of the last period of simulation scenario).</string>
                       </property>
                       <property name="layoutDirection">
                        <enum>Qt::LeftToRight</enum>
@@ -1101,7 +1182,10 @@ location where time-series output is required.</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>Date of the last time step of the simulation.</string>
+                       <string>The simulation end date.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Date of the last time step of the simulation scenario (month and year of the last period of simulation scenario).</string>
                       </property>
                       <property name="layoutDirection">
                        <enum>Qt::LeftToRight</enum>
@@ -1214,7 +1298,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-111</y>
+            <y>0</y>
             <width>441</width>
             <height>629</height>
            </rect>
@@ -1247,7 +1331,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.map file that defines the soil classes. Mandatory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>This map defines the soil classes.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Path to map that represents the soil classes of the study area, the number of classes are defined by user and are related to hydraulic properties.</string>
                       </property>
                       <property name="text">
                        <string>Select Soil MAP file</string>
@@ -1262,7 +1349,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QLineEdit" name="lineEdt_SoilMap">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.map file that defines the soil classes. Mandatory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>This map defines the soil classes.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>Path to map that represents the soil classes of the study area, the number of classes are defined by user and are related to hydraulic properties.</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -1278,7 +1368,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QToolButton" name="btn_SoilMap">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.map file that defines the soil classes. Mandatory.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>This map defines the soil classes.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>Path to map that represents the soil classes of the study area, the number of classes are defined by user and are related to hydraulic properties.</string>
                         </property>
                         <property name="text">
                          <string>…</string>
@@ -1313,7 +1406,11 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of Bulk Density for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Values of Bulk density for each soil class.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>This file is a *.txt or *.csv file with values, representing the Bulk density for each soil class.
+</string>
                       </property>
                       <property name="text">
                        <string>Select Bulk Density file</string>
@@ -1328,7 +1425,11 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QLineEdit" name="lineEdt_DensityDg">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of Bulk Density for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of Bulk density for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the Bulk density for each soil class.
+</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -1344,7 +1445,11 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QToolButton" name="btn_DensityDg">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of Bulk Density for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of Bulk density for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the Bulk density for each soil class.
+</string>
                         </property>
                         <property name="text">
                          <string>…</string>
@@ -1379,7 +1484,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of saturated hydraulic conductivity for&lt;/p&gt;&lt;p&gt;each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Values of saturated hydraulic conductivity for each soil class.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>This file is a *.txt or *.csv file with values, representing the saturated hydraulic conductivity for each soil class.</string>
                       </property>
                       <property name="text">
                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Saturated Hydraulic Conductivity (K&lt;span style=&quot; vertical-align:sub;&quot;&gt;SAT&lt;/span&gt;) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1394,7 +1502,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QLineEdit" name="lineEdt_HydraulicConductivityKr">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of saturated hydraulic conductivity for&lt;/p&gt;&lt;p&gt;each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of saturated hydraulic conductivity for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the saturated hydraulic conductivity for each soil class.</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -1410,7 +1521,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QToolButton" name="btn_HydraulicConductivityKr">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of saturated hydraulic conductivity for&lt;/p&gt;&lt;p&gt;each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of saturated hydraulic conductivity for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the saturated hydraulic conductivity for each soil class.</string>
                         </property>
                         <property name="text">
                          <string>…</string>
@@ -1445,7 +1559,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of field capacity water content (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Values of field capacity water content (θ) for each soil class.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>This file is a *.txt or *.csv file with values, representing the field capacity water content (θ)y for each soil class.</string>
                       </property>
                       <property name="text">
                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Field Capacity ( θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;FC&lt;/span&gt;) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1460,7 +1577,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QLineEdit" name="lineEdt_FieldCapacityCC">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of field capacity water content (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of field capacity water content (θ) for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the field capacity water content (θ)y for each soil class.</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -1476,7 +1596,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QToolButton" name="btn_FieldCapacityCC">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of field capacity water content (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of field capacity water content (θ) for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the field capacity water content (θ)y for each soil class.</string>
                         </property>
                         <property name="text">
                          <string>…</string>
@@ -1511,7 +1634,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of Wilting Point (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Values of Wilting Point (θwp) for each soil class.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>This file is a *.txt or *.csv file with values, representing the Wilting Point (θwp) for each soil class.</string>
                       </property>
                       <property name="text">
                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Wilting Point (θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;WP&lt;/span&gt;) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1526,7 +1652,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QLineEdit" name="lineEdt_WiltingPointWP">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of Wilting Point (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of Wilting Point (θwp) for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the Wilting Point (θwp) for each soil class.</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -1542,7 +1671,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QToolButton" name="btn_WiltingPointWP">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of Wilting Point (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of Wilting Point (θwp) for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the Wilting Point (θwp) for each soil class.</string>
                         </property>
                         <property name="text">
                          <string>…</string>
@@ -1577,7 +1709,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of soil porosity (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Values of saturated content for each soil class.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>This file is a *.txt or *.csv file with values, representing the saturated content for each soil class.</string>
                       </property>
                       <property name="text">
                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Saturated Content (θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;SAT&lt;/span&gt;) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1592,7 +1727,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QLineEdit" name="lineEdt_Saturation">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of soil porosity (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of saturated content for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the saturated content for each soil class.</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -1608,7 +1746,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QToolButton" name="btn_Saturation">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of soil porosity (θ) for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of saturated content for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the saturated content for each soil class.</string>
                         </property>
                         <property name="text">
                          <string>…</string>
@@ -1643,7 +1784,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of depth rootzone for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Values of depth rootzone for each soil class.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>This file is a *.txt or *.csv file with values, representing the depth rootzone for each soil class.</string>
                       </property>
                       <property name="text">
                        <string>Select Depth Rootzone file</string>
@@ -1658,7 +1802,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QLineEdit" name="lineEdt_RootZoneThicknessZr">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of depth rootzone for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of depth rootzone for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the depth rootzone for each soil class.</string>
                         </property>
                         <property name="text">
                          <string/>
@@ -1674,7 +1821,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item>
                        <widget class="QToolButton" name="btn_RootZoneThickNessZr">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a *.txt file with values of depth rootzone for each soil class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Values of depth rootzone for each soil class.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>This file is a *.txt or *.csv file with values, representing the depth rootzone for each soil class.</string>
                         </property>
                         <property name="text">
                          <string>…</string>
@@ -1717,7 +1867,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                          </sizepolicy>
                         </property>
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Baseflow value at the beginning of the simulation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Baseflow at the beginning  foi the simulation</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Float value representing the Baseflow in mm at the beginning of the simulation. It can be set by the rate of the flow in [L3T] and the grid cell dimension [L].&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="suffix">
                          <string> mm</string>
@@ -1742,7 +1895,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                          </sizepolicy>
                         </property>
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Baseflow value at the beginning of the simulation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Baseflow at the beginning  foi the simulation</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Float value representing the Baseflow in mm at the beginning of the simulation. It can be set by the rate of the flow in [L3T] and the grid cell dimension [L].&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="text">
                          <string>Initial Baseflow</string>
@@ -1765,7 +1921,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                          </sizepolicy>
                         </property>
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Baseflow only occurs when the amount of water stored in the saturated layer exceeds this threshold.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Minimum water store in the saturated zone for generating Baseflow.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>Float value representing the minimum water store in the saturated zone for generating Baseflow. It can be set by the rate of the monthly mean flow in [L3T] (from stream gauge) and the grid cell dimension [L] at dry season.</string>
                         </property>
                         <property name="suffix">
                          <string> mm</string>
@@ -1784,7 +1943,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       <item row="0" column="1">
                        <widget class="QLabel" name="label_BaseFlowLimit">
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Baseflow only occurs when the amount of water stored in the saturated layer exceeds this threshold.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>Minimum water store in the saturated zone for generating Baseflow.</string>
+                        </property>
+                        <property name="whatsThis">
+                         <string>Float value representing the minimum water store in the saturated zone for generating Baseflow. It can be set by the rate of the monthly mean flow in [L3T] (from stream gauge) and the grid cell dimension [L] at dry season.</string>
                         </property>
                         <property name="text">
                          <string>Baseflow Threshold</string>
@@ -1822,7 +1984,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Content of water in the saturated zone at the beginning of the simulation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Saturated zone Moisture Content value at the beginning of the simulation.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Value that represents the initial moisture content in the saturated zone.</string>
                       </property>
                       <property name="suffix">
                        <string> mm</string>
@@ -1847,7 +2012,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Content of water in the saturated zone at the beginning of the simulation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Saturated zone Moisture Content value at the beginning of the simulation.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Value that represents the initial moisture content in the saturated zone.</string>
                       </property>
                       <property name="text">
                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Initial Saturated Zone Storage (S&lt;span style=&quot; vertical-align:sub;&quot;&gt;SAT&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1883,10 +2051,19 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; 0 ≤ θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;INI&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Rootzone Soil Moisture Content value at the beginning of the simulation.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 ≤ θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;ini&lt;/span&gt; ≤ 1&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Value that represents the initial soil moisture content in the rootzone.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="suffix">
-                       <string> mm</string>
+                       <string> θ</string>
                       </property>
                       <property name="decimals">
                        <number>3</number>
@@ -1911,7 +2088,16 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        </sizepolicy>
                       </property>
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; 0 ≤ θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;INI&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>Rootzone Soil Moisture Content value at the beginning of the simulation.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 ≤ θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;ini&lt;/span&gt; ≤ 1&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Value that represents the initial soil moisture content in the rootzone.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="text">
                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Initial Soil Moisture Content (θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;INI&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1967,8 +2153,8 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>404</width>
+            <y>-365</y>
+            <width>441</width>
             <height>883</height>
            </rect>
           </property>
@@ -1980,6 +2166,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
+             </property>
+             <property name="toolTip">
+              <string>This map defines the land use map-series data input.</string>
+             </property>
+             <property name="whatsThis">
+              <string>Path to file *.001. The folder must contain the maps that represent the land use, where each map represents the value of the variable at an individual time step. If some *.00* is missing it will be used the previous step map.
+</string>
              </property>
              <property name="title">
               <string>Select Land Use MAP series</string>
@@ -1994,6 +2187,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>This map defines the land use map-series data input.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file *.001. The folder must contain the maps that represent the land use, where each map represents the value of the variable at an individual time step. If some *.00* is missing it will be used the previous step map.
+</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -2013,6 +2213,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>This map defines the land use map-series data input.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file *.001. The folder must contain the maps that represent the land use, where each map represents the value of the variable at an individual time step. If some *.00* is missing it will be used the previous step map.
+</string>
                   </property>
                   <property name="text">
                    <string>…</string>
@@ -2046,6 +2253,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>Monthly Normalized Difference Vegetation Index (NDVI) map-series.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file *.001. The folder must contain the maps that represent the mean monthly Normalized Difference Vegetation Index (NDVI), where each map represents the value of the variable at an individual time step.If some *.00* is missing it will be used the previous step map.</string>
+                  </property>
                   <property name="text">
                    <string>Select monthly NDVI MAP series</string>
                   </property>
@@ -2058,6 +2271,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                  <layout class="QHBoxLayout" name="horizontalLayout_8">
                   <item>
                    <widget class="QLineEdit" name="lineEdt_NDVISeries">
+                    <property name="toolTip">
+                     <string>Monthly Normalized Difference Vegetation Index (NDVI) map-series.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Path to file *.001. The folder must contain the maps that represent the mean monthly Normalized Difference Vegetation Index (NDVI), where each map represents the value of the variable at an individual time step.If some *.00* is missing it will be used the previous step map.</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -2071,6 +2290,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   </item>
                   <item>
                    <widget class="QToolButton" name="btn_NDVISeries">
+                    <property name="toolTip">
+                     <string>Monthly Normalized Difference Vegetation Index (NDVI) map-series.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Path to file *.001. The folder must contain the maps that represent the mean monthly Normalized Difference Vegetation Index (NDVI), where each map represents the value of the variable at an individual time step.If some *.00* is missing it will be used the previous step map.</string>
+                    </property>
                     <property name="text">
                      <string>…</string>
                     </property>
@@ -2099,6 +2324,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                  <layout class="QHBoxLayout" name="horizontalLayout_7">
                   <item>
                    <widget class="QLineEdit" name="lineEdt_NDVIMax">
+                    <property name="toolTip">
+                     <string>This map defines for each cell the maximum value of NDVI in all temporal series.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a scalar pcraster map with values for each cell, representing the maximum value of NDVI in the historic series available for the cell. </string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -2112,6 +2343,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   </item>
                   <item>
                    <widget class="QToolButton" name="btn_NDVIMax">
+                    <property name="toolTip">
+                     <string>This map defines for each cell the maximum value of NDVI in all temporal series.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a scalar pcraster map with values for each cell, representing the maximum value of NDVI in the historic series available for the cell. </string>
+                    </property>
                     <property name="text">
                      <string>…</string>
                     </property>
@@ -2126,6 +2363,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
+                  </property>
+                  <property name="toolTip">
+                   <string>This map defines for each cell the maximum value of NDVI in all temporal series.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a scalar pcraster map with values for each cell, representing the maximum value of NDVI in the historic series available for the cell. </string>
                   </property>
                   <property name="text">
                    <string>Select maximum NDVI MAP file</string>
@@ -2160,6 +2403,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="toolTip">
+                   <string>Map that defines for each cell the minimum value of NDVI in all temporal series.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a scalar pcraster map with values for each cell, representing the minimum value of NDVI in the historic series available for the cell.</string>
+                  </property>
                   <property name="text">
                    <string>Select minimum NDVI MAP file</string>
                   </property>
@@ -2172,6 +2421,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                  <layout class="QHBoxLayout" name="horizontalLayout_6">
                   <item>
                    <widget class="QLineEdit" name="lineEdt_NDVIMin">
+                    <property name="toolTip">
+                     <string>Map that defines for each cell the minimum value of NDVI in all temporal series.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a scalar pcraster map with values for each cell, representing the minimum value of NDVI in the historic series available for the cell.</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -2185,6 +2440,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   </item>
                   <item>
                    <widget class="QToolButton" name="btn_NDVIMin">
+                    <property name="toolTip">
+                     <string>Map that defines for each cell the minimum value of NDVI in all temporal series.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a scalar pcraster map with values for each cell, representing the minimum value of NDVI in the historic series available for the cell.</string>
+                    </property>
                     <property name="text">
                      <string>…</string>
                     </property>
@@ -2223,7 +2484,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of impervious surface area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Values of fraction of impervious surface area for each land use class.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file with values, representing the fraction of impervious surface area for each land use class.</string>
                   </property>
                   <property name="text">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Impervious Area Fraction (ai) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2238,7 +2502,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdt_a_i">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of impervious surface area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of fraction of impervious surface area for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the fraction of impervious surface area for each land use class.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2254,7 +2521,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_a_i">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of impervious surface area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of fraction of impervious surface area for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the fraction of impervious surface area for each land use class.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -2289,7 +2559,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of open-water area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Values of fraction of open-water area for each land use class.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file with values, representing the fraction of open-water area for each land use class.</string>
                   </property>
                   <property name="text">
                    <string>Select Open Water Area Fraction (ao) file</string>
@@ -2304,7 +2577,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdt_a_o">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of open-water area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of fraction of open-water area for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the fraction of open-water area for each land use class.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2320,7 +2596,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_a_o">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of open-water area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of fraction of open-water area for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the fraction of open-water area for each land use class.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -2355,7 +2634,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of bare soil area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Values of fraction of bare soil area for each land use class.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file with values, representing the fraction of bare soil area for each land use class.</string>
                   </property>
                   <property name="text">
                    <string>Select Bare Soil Area Fraction (as) file</string>
@@ -2370,7 +2652,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdt_a_s">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of bare soil area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of fraction of bare soil area for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the fraction of bare soil area for each land use class.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2386,7 +2671,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_a_s">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of bare soil area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of fraction of bare soil area for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the fraction of bare soil area for each land use class.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -2417,7 +2705,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdt_a_v">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of vegetated area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of fraction of vegetated area for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the fraction of vegetated area for each land use class.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2433,7 +2724,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_a_v">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of vegetated area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of fraction of vegetated area for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the fraction of vegetated area for each land use class.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -2451,7 +2745,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a .txt file with values of fraction of vegetated area for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Values of fraction of vegetated area for each land use class.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file with values, representing the fraction of vegetated area for each land use class.</string>
                   </property>
                   <property name="text">
                    <string>Select Vegetated Area Fraction (av) file</string>
@@ -2469,7 +2766,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
            <item>
             <widget class="QGroupBox" name="groupBox_Manning">
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of Manning's roughness coefficient for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>Values of Manning's roughness coefficient for each land use class.</string>
+             </property>
+             <property name="whatsThis">
+              <string>This file is a *.txt or *.csv file with values, representing the Manning Roughness coefficient for each land use class.</string>
              </property>
              <property name="title">
               <string>Select Manning file</string>
@@ -2480,7 +2780,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 <item>
                  <widget class="QLineEdit" name="lineEdt_Manning">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of Manning's roughness coefficient for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Values of Manning's roughness coefficient for each land use class.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file with values, representing the Manning Roughness coefficient for each land use class.</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -2496,7 +2799,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 <item>
                  <widget class="QToolButton" name="btn_Manning">
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of Manning's roughness coefficient for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Values of Manning's roughness coefficient for each land use class.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file with values, representing the Manning Roughness coefficient for each land use class.</string>
                   </property>
                   <property name="text">
                    <string>…</string>
@@ -2531,7 +2837,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of maximum crop coefficient (Kc) for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Values of maximum crop coefficient (KC) for each land use class.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file with values, representing the maximum value of the crop coefficient for each land use class.</string>
                   </property>
                   <property name="text">
                    <string>Select the Kc maximum file</string>
@@ -2546,7 +2855,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdt_KcMax">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of maximum crop coefficient (Kc) for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of maximum crop coefficient (KC) for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the maximum value of the crop coefficient for each land use class.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2562,7 +2874,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_KcMax">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of maximum crop coefficient (Kc) for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of maximum crop coefficient (KC) for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>This file is a *.txt or *.csv file with values, representing the maximum value of the crop coefficient for each land use class.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -2593,7 +2908,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QLineEdit" name="lineEdt_KcMin">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of minimum crop coefficient (Kc) for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of minimum crop coefficient for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Values of minimum crop coefficient for each land use class.</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2609,7 +2927,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item>
                    <widget class="QToolButton" name="btn_KcMin">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of minimum crop coefficient (Kc) for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Values of minimum crop coefficient for each land use class.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>Values of minimum crop coefficient for each land use class.</string>
                     </property>
                     <property name="text">
                      <string>…</string>
@@ -2627,7 +2948,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    </sizepolicy>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Open file dialog to select a  .txt file with values of minimum crop coefficient (Kc) for each land use class.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Values of minimum crop coefficient for each land use class.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Values of minimum crop coefficient for each land use class.</string>
                   </property>
                   <property name="text">
                    <string>Select the Kc minimum file</string>
@@ -2680,7 +3004,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum value of Fraction Photosynthetically Active Radiation (FPAR). This parameter is related to the maximum Leaf Area Index and allows to calculated de canopy storage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Maximum fraction of the solar radiation absorbed by live leaves.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 ≤ FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MAX&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;p&gt; FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MAX&lt;/span&gt;&amp;gt; FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MIN&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Maximum value of fraction photosynthetically active radiation. This parameter is related to the maximum Leaf Area Index and allows to calculate de canopy storage.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="decimals">
                      <number>3</number>
@@ -2705,7 +3032,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Maximum value of Fraction Photosynthetically Active Radiation (FPAR). This parameter is related to the maximum Leaf Area Index and allows to calculated de canopy storage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Maximum fraction of the solar radiation absorbed by live leaves.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 ≤ FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MAX&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;p&gt; FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MAX&lt;/span&gt;&amp;gt; FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MIN&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Maximum value of fraction photosynthetically active radiation. This parameter is related to the maximum Leaf Area Index and allows to calculate de canopy storage.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>FPAR max.</string>
@@ -2741,7 +3071,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum value of Fraction Photosynthetically Active Radiation (FPAR). This parameter is related to the minimum Leaf Area Index and allows to calculated de canopy storage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Minimum fraction of the solar radiation absorbed by live leaves.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 ≤ FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MIN&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;p&gt; FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MAX&lt;/span&gt;&amp;gt; FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MIN&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Minimum value of fraction photosynthetically active radiation. This parameter is related to the minimum Leaf Area Index and allows to calculate canopy storage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="decimals">
                      <number>3</number>
@@ -2766,7 +3099,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Minimum value of Fraction Photosynthetically Active Radiation (FPAR). This parameter is related to the minimum Leaf Area Index and allows to calculated de canopy storage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Minimum fraction of the solar radiation absorbed by live leaves.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 ≤ FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MIN&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;p&gt; FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MAX&lt;/span&gt;&amp;gt; FPAR&lt;span style=&quot; vertical-align:sub;&quot;&gt;MIN&lt;/span&gt;&lt;/p&gt;&lt;p&gt;Minimum value of fraction photosynthetically active radiation. This parameter is related to the minimum Leaf Area Index and allows to calculate canopy storage.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>FPAR min.</string>
@@ -2807,7 +3143,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Values of LAI maximum are related to the land cover of the study area.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>Maximum value of the Leaf Area Index (LAI)</string>
+               </property>
+               <property name="whatsThis">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1 ≤ LAI&lt;span style=&quot; vertical-align:sub;&quot;&gt;MAX&lt;/span&gt; ≤ 12&lt;/p&gt;&lt;p&gt;Values of LAI maximum can be found in the literature and are related to the land cover of the study area.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="decimals">
                 <number>3</number>
@@ -2832,7 +3171,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Values of LAI maximum are related to the land cover of the study area.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>Maximum value of the Leaf Area Index (LAI)</string>
+               </property>
+               <property name="whatsThis">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1 ≤ LAI&lt;span style=&quot; vertical-align:sub;&quot;&gt;MAX&lt;/span&gt; ≤ 12&lt;/p&gt;&lt;p&gt;Values of LAI maximum can be found in the literature and are related to the land cover of the study area.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
                 <string>Max. Leaf Area Index (LAI)</string>
@@ -2855,10 +3197,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rainfall interception in mm in impervious area (I&lt;span style=&quot; vertical-align:sub;&quot;&gt;I&lt;/span&gt;).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>Rainfall interception in mm in impervious area.</string>
+               </property>
+               <property name="whatsThis">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1 &amp;lt; I&lt;span style=&quot; vertical-align:sub;&quot;&gt;I&lt;/span&gt; &amp;lt; 3&lt;/p&gt;&lt;p&gt;Float value that represents the rainfall interception in mm in impervious areas.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="suffix">
-                <string> m</string>
+                <string> mm</string>
                </property>
                <property name="decimals">
                 <number>3</number>
@@ -2883,7 +3228,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 </sizepolicy>
                </property>
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rainfall interception in mm in impervious area (I&lt;span style=&quot; vertical-align:sub;&quot;&gt;I&lt;/span&gt;).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>Rainfall interception in mm in impervious area.</string>
+               </property>
+               <property name="whatsThis">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1 &amp;lt; I&lt;span style=&quot; vertical-align:sub;&quot;&gt;I&lt;/span&gt; &amp;lt; 3&lt;/p&gt;&lt;p&gt;Float value that represents the rainfall interception in mm in impervious areas.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Impervious Area Interception (I&lt;span style=&quot; vertical-align:sub;&quot;&gt;I&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2930,6 +3278,15 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>Monthly rainfall map-series.</string>
+                </property>
+                <property name="statusTip">
+                 <string/>
+                </property>
+                <property name="whatsThis">
+                 <string>Path to file *.001. The folder must contain the maps that represent the mean monthly rainfall, where each map represents the value of the variable at an individual time step.</string>
+                </property>
                 <property name="text">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Monthly Rainfall (P&lt;span style=&quot; vertical-align:sub;&quot;&gt;M&lt;/span&gt;) MAP series&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -2942,6 +3299,15 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item>
                  <widget class="QLineEdit" name="lineEdt_Precipitation">
+                  <property name="toolTip">
+                   <string>Monthly rainfall map-series.</string>
+                  </property>
+                  <property name="statusTip">
+                   <string/>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file *.001. The folder must contain the maps that represent the mean monthly rainfall, where each map represents the value of the variable at an individual time step.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -2955,6 +3321,15 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 </item>
                 <item>
                  <widget class="QToolButton" name="btn_Precipitation">
+                  <property name="toolTip">
+                   <string>Monthly rainfall map-series.</string>
+                  </property>
+                  <property name="statusTip">
+                   <string/>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file *.001. The folder must contain the maps that represent the mean monthly rainfall, where each map represents the value of the variable at an individual time step.</string>
+                  </property>
                   <property name="text">
                    <string>…</string>
                   </property>
@@ -2987,6 +3362,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>Monthly potential evapotranspiration map-series.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>Path to file *.001. The folder must contain the maps that represent the mean monthly potential evapotranspiration, where each map represents the value of the variable at an individual time step.</string>
+                </property>
                 <property name="text">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Monthly Potential Evapotranspiration (ET&lt;span style=&quot; vertical-align:sub;&quot;&gt;P &lt;/span&gt;) MAP series&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -2999,6 +3380,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
                  <widget class="QLineEdit" name="lineEdt_EvapoTranspiration">
+                  <property name="toolTip">
+                   <string>Monthly potential evapotranspiration map-series.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file *.001. The folder must contain the maps that represent the mean monthly potential evapotranspiration, where each map represents the value of the variable at an individual time step.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3012,6 +3399,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 </item>
                 <item>
                  <widget class="QToolButton" name="btn_Evapotranspiration">
+                  <property name="toolTip">
+                   <string>Monthly potential evapotranspiration map-series.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file *.001. The folder must contain the maps that represent the mean monthly potential evapotranspiration, where each map represents the value of the variable at an individual time step.</string>
+                  </property>
                   <property name="text">
                    <string>…</string>
                   </property>
@@ -3044,6 +3437,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>Class A Pan Coefficient, value for each pixel and each month of the simulation period.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>Path to file .001 that represents the monthly Class A Pan Coefficient  map-series data input for the entire simulation period.</string>
+                </property>
                 <property name="text">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Class A Pan Coefficient (K&lt;span style=&quot; vertical-align:sub;&quot;&gt;P&lt;/span&gt;) MAP series&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
@@ -3056,6 +3455,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
                  <widget class="QLineEdit" name="lineEdt_PanCoefficientKp">
+                  <property name="toolTip">
+                   <string>Class A Pan Coefficient, value for each pixel and each month of the simulation period.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file .001 that represents the monthly Class A Pan Coefficient  map-series data input for the entire simulation period.</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3069,6 +3474,12 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 </item>
                 <item>
                  <widget class="QToolButton" name="btn_PanCoefficientKp">
+                  <property name="toolTip">
+                   <string>Class A Pan Coefficient, value for each pixel and each month of the simulation period.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>Path to file .001 that represents the monthly Class A Pan Coefficient  map-series data input for the entire simulation period.</string>
+                  </property>
                   <property name="text">
                    <string>…</string>
                   </property>
@@ -3101,6 +3512,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="toolTip">
+                 <string>Number of rainy days for each month.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>This file is a *.txt or *.csv file representing the mean value of rainy days for each month.
+</string>
+                </property>
                 <property name="text">
                  <string>Select Rainy Days file</string>
                 </property>
@@ -3113,6 +3531,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
                  <widget class="QLineEdit" name="lineEdt_RainyDays">
+                  <property name="toolTip">
+                   <string>Number of rainy days for each month.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file representing the mean value of rainy days for each month.
+</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -3126,6 +3551,13 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                 </item>
                 <item>
                  <widget class="QToolButton" name="btn_RainyDays">
+                  <property name="toolTip">
+                   <string>Number of rainy days for each month.</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>This file is a *.txt or *.csv file representing the mean value of rainy days for each month.
+</string>
+                  </property>
                   <property name="text">
                    <string>…</string>
                   </property>
@@ -3189,10 +3621,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Used to partition the flow out of the root zone between interflow and flow to the saturated zone.</string>
+                     <string>Indicates the preferred flow direction in the rootzone.</string>
                     </property>
                     <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preferred Flow Direction: 1.0 = 100% horizontal, 0 = 100% vertical flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ f ≤ 1&lt;/p&gt;&lt;p&gt;Preferred Flow Direction: &lt;/p&gt;&lt;p&gt;If f = 1.0 is 100% horizontal;&lt;/p&gt;&lt;p&gt;If f = 0  is 100% vertical flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="decimals">
                      <number>2</number>
@@ -3206,15 +3638,18 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                     <property name="singleStep">
                      <double>0.010000000000000</double>
                     </property>
+                    <property name="value">
+                     <double>0.070000000000000</double>
+                    </property>
                    </widget>
                   </item>
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_PartitioningCoefficientRelatedSoil">
                     <property name="toolTip">
-                     <string>Used to partition the flow out of the root zone between interflow and flow to the saturated zone.</string>
+                     <string>Indicates the preferred flow direction in the rootzone.</string>
                     </property>
                     <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Preferred Flow Direction: 1.0 = 100% horizontal, 0 = 100% vertical flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ f ≤ 1&lt;/p&gt;&lt;p&gt;Preferred Flow Direction: &lt;/p&gt;&lt;p&gt;If f = 1.0 is 100% horizontal;&lt;/p&gt;&lt;p&gt;If f = 0  is 100% vertical flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flow Direction Factor (f)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3244,7 +3679,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item row="0" column="0">
                    <widget class="QDoubleSpinBox" name="doubleSpinBox_InterceptionCalibrationAlpha">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Represents the daily interception threshold that depends on land use.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Represents the daily interception threshold that depends on land use.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ α ≤ 10&lt;/p&gt;&lt;p&gt;As surface runoff is directly related to interception an optimal value can be obtained by calibration surface runoff against direct runoff separated from streamflow observations.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="wrapping">
                      <bool>false</bool>
@@ -3272,7 +3710,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_InterceptionCalibrationAlpha">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Represents the daily interception threshold that depends on land use.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Represents the daily interception threshold that depends on land use.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ α ≤ 10&lt;/p&gt;&lt;p&gt;As surface runoff is directly related to interception an optimal value can be obtained by calibration surface runoff against direct runoff separated from streamflow observations.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>Interception parameter (α)</string>
@@ -3308,10 +3749,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It incorporates a flow delay in the accumulated amount of water that flows out of the cell into its neighboring downstream cell.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Coefficient that affects the velocity in which water is transported downstream through the delineated river network.</string>
                     </property>
                     <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 ≤ x ≤ 1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Values close to 0 correspond to a fast responding catchment.&lt;/p&gt;&lt;p&gt;Values approaching 1 correspond to a slow responding catchment.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 ≤ x ≤ 1&lt;/p&gt;&lt;p&gt;Values close to 0 correspond to a fast responding catchment.&lt;/p&gt;&lt;p&gt;Values approaching 1 correspond to a slow responding catchment.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="decimals">
                      <number>3</number>
@@ -3327,10 +3768,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_DelayFactor">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;It incorporates a flow delay in the accumulated amount of water that flows out of the cell into its neighboring downstream cell.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Coefficient that affects the velocity in which water is transported downstream through the delineated river network.</string>
                     </property>
                     <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 ≤ x ≤ 1&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Values close to 0 correspond to a fast responding catchment.&lt;/p&gt;&lt;p&gt;Values approaching 1 correspond to a slow responding catchment.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0 ≤ x ≤ 1&lt;/p&gt;&lt;p&gt;Values close to 0 correspond to a fast responding catchment.&lt;/p&gt;&lt;p&gt;Values approaching 1 correspond to a slow responding catchment.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flow recession coefficient (x)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3366,7 +3807,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exponent value representing the effect of rainfall intensity in the runoff.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Exponent value representing the effect of rainfall intensity in the runoff.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ b ≤ 1&lt;/p&gt;&lt;p&gt;Reflects the effect of rainfall intensity on the rainfall excess coefficient. &lt;/p&gt;&lt;p&gt;The value is higher for low rainfall intensities resulting in less surface runoff, and approaches to one for high rainfall intensities. &lt;/p&gt;&lt;p&gt;If b = 1, a linear relationship is assumed between rainfall excess and soil moisture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="decimals">
                      <number>2</number>
@@ -3385,7 +3829,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_ExponentCh">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Exponent value representing the effect of rainfall intensity in the runoff.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>Exponent value representing the effect of rainfall intensity in the runoff.</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ b ≤ 1&lt;/p&gt;&lt;p&gt;Reflects the effect of rainfall intensity on the rainfall excess coefficient. &lt;/p&gt;&lt;p&gt;The value is higher for low rainfall intensities resulting in less surface runoff, and approaches to one for high rainfall intensities. &lt;/p&gt;&lt;p&gt;If b = 1, a linear relationship is assumed between rainfall excess and soil moisture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>Rainfall intensity coefficient (b)</string>
@@ -3421,10 +3868,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>Represents the baseflow recfession coefficient</string>
+                     <string>Coefficient that affects the baseflow recession curve.</string>
                     </property>
                     <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restriction: 0.01 ≤ α&lt;span style=&quot; vertical-align:sub;&quot;&gt;GW&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ α&lt;span style=&quot; vertical-align:sub;&quot;&gt;GW&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;p&gt;Index that relates the baseflow response to changes in groundwater recharge. &lt;/p&gt;&lt;p&gt;Lower values for α&lt;span style=&quot; vertical-align:sub;&quot;&gt;GW&lt;/span&gt; therefore correspond to areas that respond slowly to groundwater recharge, whereas higher values indicate areas that have a rapid response to groundwater recharge.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="showGroupSeparator" stdset="0">
                      <bool>false</bool>
@@ -3446,10 +3893,10 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_DelayCoefficientBaseFlow">
                     <property name="toolTip">
-                     <string>Represents the baseflow recfession coefficient</string>
+                     <string>Coefficient that affects the baseflow recession curve.</string>
                     </property>
                     <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Restriction: 0.01 ≤ α&lt;span style=&quot; vertical-align:sub;&quot;&gt;GW&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ α&lt;span style=&quot; vertical-align:sub;&quot;&gt;GW&lt;/span&gt; ≤ 1&lt;/p&gt;&lt;p&gt;Index that relates the baseflow response to changes in groundwater recharge. &lt;/p&gt;&lt;p&gt;Lower values for α&lt;span style=&quot; vertical-align:sub;&quot;&gt;GW&lt;/span&gt; therefore correspond to areas that respond slowly to groundwater recharge, whereas higher values indicate areas that have a rapid response to groundwater recharge.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Baseflow recession coefficient (α&lt;span style=&quot; vertical-align:sub;&quot;&gt;GW&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3485,7 +3932,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      </sizepolicy>
                     </property>
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Incorporates the intensity of rain and the number of consecutive days in runoff calculation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>incorporates the intensity of rain and the number of consecutive days in runoff calculation.</string>
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1 ≤ RCD ≤ 10&lt;/p&gt;&lt;p&gt;RCD = 1 can be used for very heavy or torrential rainfall and more than 10 consecutive rainy days/month.&lt;/p&gt;&lt;p&gt;RCD = 10 for low regional intensity rainfall less than 2 consecutive rainy days per month.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3510,7 +3957,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                   <item row="0" column="1">
                    <widget class="QLabel" name="label_RegionalConsecutiveDrynessLevel">
                     <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Incorporates the intensity of rain and the number of consecutive days in runoff calculation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>incorporates the intensity of rain and the number of consecutive days in runoff calculation.</string>
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;1 ≤ RCD ≤ 10&lt;/p&gt;&lt;p&gt;RCD = 1 can be used for very heavy or torrential rainfall and more than 10 consecutive rainy days/month.&lt;/p&gt;&lt;p&gt;RCD = 10 for low regional intensity rainfall less than 2 consecutive rainy days per month.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3537,7 +3984,7 @@ p, li { white-space: pre-wrap; }
             <item>
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
-               <widget class="QGroupBox" name="groupBox_5">
+               <widget class="QGroupBox" name="groupBox_WeightFactors">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -3564,7 +4011,10 @@ p, li { white-space: pre-wrap; }
                         </sizepolicy>
                        </property>
                        <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of land use factor. It measures the effect of the land use in the potential runoff produced.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        <string>It measures the effect of the land use in runoff production.</string>
+                       </property>
+                       <property name="whatsThis">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt; is one of the three components contributing to calculation of permeables areas runoff, and are related to Manning coefficient for each land use class. It measures the effect of the land use in the potential runoff produced.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;3&lt;/span&gt; = 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="decimals">
                         <number>3</number>
@@ -3580,7 +4030,10 @@ p, li { white-space: pre-wrap; }
                      <item row="0" column="1">
                       <widget class="QLabel" name="label_ManningRelatedWeightFactor">
                        <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of land use factor. It measures the effect of the land use in the potential runoff produced.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        <string>It measures the effect of the land use in runoff production.</string>
+                       </property>
+                       <property name="whatsThis">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt; is one of the three components contributing to calculation of permeables areas runoff, and are related to Manning coefficient for each land use class. It measures the effect of the land use in the potential runoff produced.&lt;/p&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;3&lt;/span&gt; = 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="text">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Land use related (w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3616,7 +4069,10 @@ p, li { white-space: pre-wrap; }
                         </sizepolicy>
                        </property>
                        <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of soil factor. It measures the effect of the soil classes in the potential runoff produced.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        <string>It measures the effect of the soil class in runoff production.</string>
+                       </property>
+                       <property name="whatsThis">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt; is one of the three components contributing to calculation of permeables area runoff, and are related to wilting points for each soil class. It measures the effect of the soil class in the potential runoff produced.&lt;/p&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;3&lt;/span&gt; = 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="decimals">
                         <number>3</number>
@@ -3632,7 +4088,10 @@ p, li { white-space: pre-wrap; }
                      <item row="0" column="1">
                       <widget class="QLabel" name="label_SoilRelatedWeightFactor">
                        <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of soil factor. It measures the effect of the soil classes in the potential runoff produced.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        <string>It measures the effect of the soil class in runoff production.</string>
+                       </property>
+                       <property name="whatsThis">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt; is one of the three components contributing to calculation of permeables area runoff, and are related to wilting points for each soil class. It measures the effect of the soil class in the potential runoff produced.&lt;/p&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;3&lt;/span&gt; = 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="text">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Soil related (w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3668,7 +4127,10 @@ p, li { white-space: pre-wrap; }
                         </sizepolicy>
                        </property>
                        <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of slope factor. It measures the effect of the slope in the potential runoff produced.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        <string>It measures the effect of the slope in runoff production.</string>
+                       </property>
+                       <property name="whatsThis">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;w&lt;sub&gt;3&lt;/sub&gt; is one of the three components contributing to calculation of permeables areas runoff, and are related to pixel slope. It measures the effect of the slope in the potential runoff produced.&lt;/p&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;3&lt;/span&gt; = 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="decimals">
                         <number>3</number>
@@ -3684,7 +4146,10 @@ p, li { white-space: pre-wrap; }
                      <item row="0" column="1">
                       <widget class="QLabel" name="label_SlopeRelatedWeightFactor">
                        <property name="toolTip">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Weight of slope factor. It measures the effect of the slope in the potential runoff produced.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                        <string>It measures the effect of the slope in runoff production.</string>
+                       </property>
+                       <property name="whatsThis">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;w&lt;sub&gt;3&lt;/sub&gt; is one of the three components contributing to calculation of permeables areas runoff, and are related to pixel slope. It measures the effect of the slope in the potential runoff produced.&lt;/p&gt;&lt;p&gt;w&lt;span style=&quot; vertical-align:sub;&quot;&gt;1&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;2&lt;/span&gt; + w&lt;span style=&quot; vertical-align:sub;&quot;&gt;3&lt;/span&gt; = 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                        </property>
                        <property name="text">
                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Slope related (w&lt;span style=&quot; vertical-align:sub;&quot;&gt;3&lt;/span&gt;)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3766,7 +4231,10 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If TRUE, Total Interceptation (I) [mm] map-series are reported.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>It enables the generation of raster files and/or tabular for Total Interception data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>This option allows to generate or not the results maps of Total Interception (I) [mm]  in raster format for all simulation period or .csv for each pixel of stations map.</string>
                 </property>
                 <property name="text">
                  <string>Total Interception [mm]</string>
@@ -3785,7 +4253,10 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If TRUE, Recarge (REC) [mm] map-series are reported.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>It enables the generation of raster files and/or tabular for Recharge data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>This option allows to generate or not the results maps of Recharge (REC) [mm] in raster format for all simulation period or .csv for each pixel of stations map.</string>
                 </property>
                 <property name="text">
                  <string>Recharge [mm]</string>
@@ -3801,7 +4272,10 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If TRUE, Baseflow [mm] map-series are reported.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>It enables the generation of raster files and/or tabular for Baseflow data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option allows to generate or not the results maps of  Baseflow (BF) [mm]  in raster format for all simulation period or .csv for each pixel of stations map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Baseflow [mm]</string>
@@ -3817,10 +4291,13 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If TRUE, Lateral Flow (LF) [mm] map-series are reported.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>It enables the generation of raster files and/or tabular for Lateral Flow data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>This option allows to generate or not the resulting maps of Lateral Flow (LF) [mm] in raster format for all simulation period or .csv for each pixel of stations map.</string>
                 </property>
                 <property name="text">
-                 <string>Lateral flow [mm]</string>
+                 <string>Lateral Flow [mm]</string>
                 </property>
                </widget>
               </item>
@@ -3833,7 +4310,10 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If TRUE, Total Runoff [m&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;s&lt;span style=&quot; vertical-align:super;&quot;&gt;-1&lt;/span&gt;] map-series are reported.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>It enables the generation of raster files and/or tabular for Total Runoff data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>This option allows to generate or not the results maps of Total Runoff [m&lt;sup&gt;3&lt;/sup&gt;s&lt;sup&gt;-1&lt;/sup&gt;] in raster format for all simulation period or .csv for each pixel of stations map.</string>
                 </property>
                 <property name="text">
                  <string>Total Runoff [m³/s]</string>
@@ -3849,7 +4329,10 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If TRUE, Surface runoff [mm] map-series are reported.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>It enables the generation of raster files and/or tabular for Surface Runoff data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option allows to generate or not the results maps of  Surface runoff (SR) [mm] in raster format for all simulation period or .csv for each pixel of stations map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Surface Runoff [mm]</string>
@@ -3865,10 +4348,13 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If TRUE, Soil moisture content [mm] map-series are reported.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>It enables the generation of raster files and/or tabular for Soil Moisture Content data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option allows to generate or not the results maps of Soil Moisture Content (Tur) [mm] in raster format for all simulation period or .csv for each pixel of stations map.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
-                 <string>Soil moisture content [mm]</string>
+                 <string>Soil Moisture Content [mm]</string>
                 </property>
                </widget>
               </item>
@@ -3881,7 +4367,10 @@ p, li { white-space: pre-wrap; }
                  </sizepolicy>
                 </property>
                 <property name="toolTip">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If TRUE, Actual Evapotransporation (ETa) [mm] map-series are reported.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>It enables the generation of raster files and/or tabular for Actual Evapotranspiration data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This option allows to generate or not the results maps of Actual Evapotranspiration (ETa) [mm] in raster format for all simulation period or .csv for each pixel of stations map.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="text">
                  <string>Actual Evapotransporation [mm]</string>
@@ -3985,38 +4474,58 @@ p, li { white-space: pre-wrap; }
       <layout class="QVBoxLayout" name="verticalLayout_30">
        <item>
         <widget class="QGroupBox" name="groupBox_MapSeriesData">
+         <property name="toolTip">
+          <string>Visualize the results in QGIS window for each time step of simulation period.</string>
+         </property>
          <property name="title">
           <string>Map-series Resullts</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_26">
           <item>
            <widget class="QLabel" name="label_MapSeriesData">
+            <property name="toolTip">
+             <string>Visualize the results in QGIS window for each time step of simulation period.</string>
+            </property>
             <property name="text">
              <string>Click to expand and double click to visualize in the map canvas</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QTreeView" name="treeView_MapSeriesData"/>
+           <widget class="QTreeView" name="treeView_MapSeriesData">
+            <property name="toolTip">
+             <string>Visualize the results in QGIS window for each time step of simulation period.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
        </item>
        <item>
         <widget class="QGroupBox" name="groupBox_TimeSeriesData">
+         <property name="toolTip">
+          <string>Visualize the sample results in a graph for all simulation period.</string>
+         </property>
          <property name="title">
           <string>Time-series Results</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_27">
           <item>
            <widget class="QLabel" name="label_TimeSeriesData">
+            <property name="toolTip">
+             <string>Visualize the sample results in a graph for all simulation period.</string>
+            </property>
             <property name="text">
              <string>Click to expand and double click to visualize</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QTreeView" name="treeView_TimeSeriesData"/>
+           <widget class="QTreeView" name="treeView_TimeSeriesData">
+            <property name="toolTip">
+             <string>Visualize the sample results in a graph for all simulation period.</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
