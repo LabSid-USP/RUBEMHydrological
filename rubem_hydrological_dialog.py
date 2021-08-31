@@ -602,8 +602,15 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         """
         directoryPath = self.getDirectoryPath(caption="Select Output Directory")
         if directoryPath:
-            self.config.set("FILES", "output", directoryPath)
-            self.lineEdit_OutputFolder.setText(directoryPath)
+            # Folder is empty
+            if not os.listdir(directoryPath):
+                self.config.set("FILES", "output", directoryPath)
+                self.lineEdit_OutputFolder.setText(directoryPath)
+            else:
+                response = self.getUserRetDirNotEmpty()
+                if response == QMessageBox.Ok:
+                    self.config.set("FILES", "output", directoryPath)
+                    self.lineEdit_OutputFolder.setText(directoryPath)
 
     # Tab widget
     # Settings tab
@@ -1811,6 +1818,22 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             QMessageBox.Ok,
         )
         return response
+
+    def getUserRetDirNotEmpty(self):
+        """[summary].
+
+        :return: [description]
+        :rtype: [type]
+        """
+        response = QMessageBox.warning(
+            self,
+            "RUBEM Hydrological",
+            "The selected output directory is not empty. Do you want to proceed using this output directory?\n\n"
+            "Files in this directory may be removed and/or altered.",
+            QMessageBox.Ok | QMessageBox.Cancel,
+            QMessageBox.Ok,
+        )
+        return response        
 
     # TODO: docstring
     def updateWindowTitle(self, projectTitle=None):
