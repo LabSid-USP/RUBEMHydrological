@@ -2094,7 +2094,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         if self.hasFilledAllFields():
             self.updateConfigFromGUI()
             self.saveProject(self.projectFilePath)
-            self.showConfig()
+            # self.showConfig()
 
             self.textBrowser_log.append("\n# RUBEM execution started...")
 
