@@ -26,6 +26,9 @@ __license__ = "GPL"
 __date__ = "2021-05-19"
 __version__ = "1.3.2"
 
+import matplotlib
+
+matplotlib.use("Qt5Agg")
 import matplotlib.pyplot as plt
 from cycler import cycler
 import pandas as pd
