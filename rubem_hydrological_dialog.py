@@ -577,7 +577,29 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         else:
             self.groupBox_SimulationPeriod.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
-        if not emptyFields and checkedBoxes and hasValidDateRange:
+        hasAreaFractionAddUpTo1 = True
+        if (
+            not self.doubleSpinBox_ManningRelatedWeightFactor.value()
+            + self.doubleSpinBox_SoilRelatedWeightFactor.value()
+            + self.doubleSpinBox_SlopeRelatedWeightFactor.value()
+            == 1
+        ):
+            hasAreaFractionAddUpTo1 = False
+            self.groupBox_WeightFactors.setStyleSheet(INVALID_LABEL_STYLESHEET)
+            self.bar.pushMessage(
+                "Misconfiguration",
+                "The sum of the area fractions must add up to 1",
+                level=Qgis.Warning,
+            )
+        else:
+            self.groupBox_WeightFactors.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
+
+        if (
+            not emptyFields
+            and checkedBoxes
+            and hasValidDateRange
+            and hasAreaFractionAddUpTo1
+        ):
             return True
         else:
             return False
@@ -1933,7 +1955,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveProject.setEnabled(True)
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
-                
+
                 if os.listdir(self.config.get("FILES", "output")):
                     self.tab_Results.setEnabled(True)
                     self.populateMapSeriesTree()
@@ -2095,10 +2117,10 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.updateConfigFromGUI()
             self.saveProject(self.projectFilePath)
             # self.showConfig()
-            
+
             # Make command list available to execution thread
-            self.command = [self.modelFilePath, "--configfile", self.projectFilePath]            
-            
+            self.command = [self.modelFilePath, "--configfile", self.projectFilePath]
+
             # Empty output directory
             if not os.listdir(self.config.get("FILES", "output")):
                 self.textBrowser_log.append("\n# RUBEM execution started...")
