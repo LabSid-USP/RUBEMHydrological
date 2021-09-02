@@ -42,6 +42,8 @@ from qgis.core import (
 
 from qgis.gui import QgsMapToolEmitPoint, QgsMessageBar
 
+from qgis.utils import showPluginHelp
+
 try:
     from qgis.PyQt.QtCore import Qt, QDate, QThread, QModelIndex
     from qgis.PyQt.QtWidgets import (
@@ -348,6 +350,17 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 },
             },
         }
+
+    # TODO: Add docstring information and comments
+    def helpHandler(self):
+        helpIndexPath = os.path.join(self.plugin_dir, "help/build/html/index")
+        showPluginHelp(filename=helpIndexPath)
+
+    # TODO: Add docstring information and comments
+    def aboutHandler(self):
+        helpAboutPath = os.path.join(self.plugin_dir, "help/about.html")
+        with open(helpAboutPath, "r") as aboutContent:
+            QMessageBox.about(self, "About RUBEM Hydrological", aboutContent.read())
 
     # TODO: Add docstring information and comments
     def populateMapSeriesTree(self):
