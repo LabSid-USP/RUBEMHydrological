@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>500</width>
-    <height>644</height>
+    <width>580</width>
+    <height>651</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -147,28 +147,19 @@
   <property name="modal">
    <bool>false</bool>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_29">
+  <layout class="QVBoxLayout" name="verticalLayout_24">
    <item>
-    <widget class="QGroupBox" name="groupBox_8">
+    <widget class="QWidget" name="widget_menu" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="title">
-      <string>Project</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_24">
-      <property name="bottomMargin">
-       <number>9</number>
-      </property>
+     <layout class="QVBoxLayout" name="verticalLayout_29">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_38">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetMinimumSize</enum>
-        </property>
-        <item>
+       <layout class="QGridLayout" name="gridLayout_16">
+        <item row="0" column="0">
          <widget class="QPushButton" name="pushButton_NewProject">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -182,12 +173,16 @@
           <property name="text">
            <string>&amp;New</string>
           </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/iconMenu/images/qgis-default-theme/mActionFileNew.svg</normaloff>:/iconMenu/images/qgis-default-theme/mActionFileNew.svg</iconset>
+          </property>
           <property name="shortcut">
            <string>Ctrl+N</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="1">
          <widget class="QPushButton" name="pushButton_OpenProject">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -201,12 +196,16 @@
           <property name="text">
            <string>&amp;Open</string>
           </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/iconMenu/images/qgis-default-theme/mActionFileOpen.svg</normaloff>:/iconMenu/images/qgis-default-theme/mActionFileOpen.svg</iconset>
+          </property>
           <property name="shortcut">
            <string>Ctrl+O</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="2">
          <widget class="QPushButton" name="pushButton_SaveProject">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -220,12 +219,16 @@
           <property name="text">
            <string>&amp;Save</string>
           </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/iconMenu/images/qgis-default-theme/mActionFileSave.svg</normaloff>:/iconMenu/images/qgis-default-theme/mActionFileSave.svg</iconset>
+          </property>
           <property name="shortcut">
            <string>Ctrl+S</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="0" column="3">
          <widget class="QPushButton" name="pushButton_SaveAsProject">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -239,8 +242,66 @@
           <property name="text">
            <string>Save &amp;As…</string>
           </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/iconMenu/images/qgis-default-theme/mActionFileSaveAs.svg</normaloff>:/iconMenu/images/qgis-default-theme/mActionFileSaveAs.svg</iconset>
+          </property>
           <property name="shortcut">
            <string>Ctrl+Shift+S</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="4">
+         <widget class="Line" name="line">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="6">
+         <widget class="Line" name="line_2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="5">
+         <widget class="QToolButton" name="toolButton_Help">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>Help Content</string>
+          </property>
+          <property name="text">
+           <string>Help</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/iconMenu/images/qgis-default-theme/mActionHelpContents.svg</normaloff>:/iconMenu/images/qgis-default-theme/mActionHelpContents.svg</iconset>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="7">
+         <widget class="QToolButton" name="toolButton_About">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="toolTip">
+           <string>About</string>
+          </property>
+          <property name="text">
+           <string>About</string>
+          </property>
+          <property name="icon">
+           <iconset resource="resources.qrc">
+            <normaloff>:/iconMenu/images/qgis-default-theme/pluginNew.svg</normaloff>:/iconMenu/images/qgis-default-theme/pluginNew.svg</iconset>
           </property>
          </widget>
         </item>
@@ -260,6 +321,12 @@
      <property name="toolTip">
       <string/>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QTabWidget::tab-bar {
+    alignment: center;
+}
+</string>
+     </property>
      <property name="tabPosition">
       <enum>QTabWidget::North</enum>
      </property>
@@ -267,7 +334,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <property name="documentMode">
       <bool>false</bool>
@@ -304,8 +371,8 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>441</width>
-            <height>635</height>
+            <width>509</width>
+            <height>728</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_25">
@@ -1298,9 +1365,9 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
-            <width>441</width>
-            <height>629</height>
+            <y>-178</y>
+            <width>509</width>
+            <height>755</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_20">
@@ -1910,58 +1977,71 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                       </item>
                      </layout>
                     </item>
-                    <item>
-                     <layout class="QFormLayout" name="formLayout_17">
-                      <item row="0" column="0">
-                       <widget class="QDoubleSpinBox" name="doubleSpinBox_BaseFlowLimit">
-                        <property name="sizePolicy">
-                         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                          <horstretch>0</horstretch>
-                          <verstretch>0</verstretch>
-                         </sizepolicy>
-                        </property>
-                        <property name="toolTip">
-                         <string>Minimum water store in the saturated zone for generating Baseflow.</string>
-                        </property>
-                        <property name="whatsThis">
-                         <string>Float value representing the minimum water store in the saturated zone for generating Baseflow. It can be set by the rate of the monthly mean flow in [L3T] (from stream gauge) and the grid cell dimension [L] at dry season.</string>
-                        </property>
-                        <property name="suffix">
-                         <string> mm</string>
-                        </property>
-                        <property name="decimals">
-                         <number>3</number>
-                        </property>
-                        <property name="maximum">
-                         <double>999999.000000000000000</double>
-                        </property>
-                        <property name="singleStep">
-                         <double>0.001000000000000</double>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="1">
-                       <widget class="QLabel" name="label_BaseFlowLimit">
-                        <property name="toolTip">
-                         <string>Minimum water store in the saturated zone for generating Baseflow.</string>
-                        </property>
-                        <property name="whatsThis">
-                         <string>Float value representing the minimum water store in the saturated zone for generating Baseflow. It can be set by the rate of the monthly mean flow in [L3T] (from stream gauge) and the grid cell dimension [L] at dry season.</string>
-                        </property>
-                        <property name="text">
-                         <string>Baseflow Threshold</string>
-                        </property>
-                        <property name="buddy">
-                         <cstring>doubleSpinBox_BaseFlowLimit</cstring>
-                        </property>
-                       </widget>
-                      </item>
-                     </layout>
-                    </item>
                    </layout>
                   </item>
                   <item>
                    <spacer name="verticalSpacer_29">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>7</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item>
+                   <layout class="QFormLayout" name="formLayout_17">
+                    <item row="0" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_BaseFlowLimit">
+                      <property name="sizePolicy">
+                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                       </sizepolicy>
+                      </property>
+                      <property name="toolTip">
+                       <string>Minimum water store in the saturated zone for generating Baseflow.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Float value representing the minimum water store in the saturated zone for generating Baseflow. It can be set by the rate of the monthly mean flow in [L3T] (from stream gauge) and the grid cell dimension [L] at dry season.</string>
+                      </property>
+                      <property name="suffix">
+                       <string> mm</string>
+                      </property>
+                      <property name="decimals">
+                       <number>3</number>
+                      </property>
+                      <property name="maximum">
+                       <double>999999.000000000000000</double>
+                      </property>
+                      <property name="singleStep">
+                       <double>0.001000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="0" column="1">
+                     <widget class="QLabel" name="label_BaseFlowLimit">
+                      <property name="toolTip">
+                       <string>Minimum water store in the saturated zone for generating Baseflow.</string>
+                      </property>
+                      <property name="whatsThis">
+                       <string>Float value representing the minimum water store in the saturated zone for generating Baseflow. It can be set by the rate of the monthly mean flow in [L3T] (from stream gauge) and the grid cell dimension [L] at dry season.</string>
+                      </property>
+                      <property name="text">
+                       <string>Baseflow Threshold</string>
+                      </property>
+                      <property name="buddy">
+                       <cstring>doubleSpinBox_BaseFlowLimit</cstring>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_18">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
                     </property>
@@ -2153,9 +2233,9 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-365</y>
-            <width>441</width>
-            <height>883</height>
+            <y>0</y>
+            <width>509</width>
+            <height>1012</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -4396,7 +4476,7 @@ p, li { white-space: pre-wrap; }
               <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a name=&quot;taag_font_SmallSlant&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;  ___  __  _____  ______  ___                      &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt;  / _ \/ / / / _ )/ __/  |/  /                      &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Courier New'; font-size:8pt;&quot;&gt; / , _/ /_/ / _  / _// /|_/ /                       &lt;/span&gt;&lt;/p&gt;
@@ -4532,82 +4612,11 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_Info">
-      <attribute name="title">
-       <string>Info</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_36">
-       <item>
-        <widget class="QTextBrowser" name="textBrowser_Info">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::HLine</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="lineWidth">
-          <number>0</number>
-         </property>
-         <property name="documentTitle">
-          <string>Info</string>
-         </property>
-         <property name="lineWrapMode">
-          <enum>QTextEdit::WidgetWidth</enum>
-         </property>
-         <property name="lineWrapColumnOrWidth">
-          <number>0</number>
-         </property>
-         <property name="html">
-          <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;title&gt;Info&lt;/title&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/imgBase/images/banner.png&quot; /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;RUBEM Hydrological is a QGIS plugin that assists in the configuration of the &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEM#readme&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Rainfall rUnoff Balance Enhanced Model&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; algorithm, which is an improved model of balance between rain and runoff.&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Explore the docs » &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;View Demo&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Report Bug&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; · &lt;/span&gt;&lt;a href=&quot;https://github.com/LabSid-USP/RUBEMHydrological/issues&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;Request Feature&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Arial'; font-size:9pt; color:#000000;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	The RUBEM distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017).&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;	The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.&lt;/span&gt;&lt;span style=&quot; font-size:9pt;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a name=&quot;docs-internal-guid-4c2b91a3-7fff-c7f8-b68d-38b3c4c4d7f5&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;D&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;evelopment /Research team:&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Department of Hydraulic and Environmental Engineering at the Escola Politécnica of the University of São Paulo&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a href=&quot;https://www.poli.usp.br/&quot;&gt;&lt;img src=&quot;:/imgBase/images/epusp.png&quot; width=&quot;165&quot; height=&quot;148&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;span style=&quot; font-size:9pt; font-weight:600;&quot;&gt;Laboratory of Decision Support Systems Applied to Environmental and Water Resources Engineering&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; line-height:120%;&quot;&gt;&lt;a href=&quot;http://labsid.eng.br/Contato.aspx&quot;&gt;&lt;img src=&quot;:/imgBase/images/labsid.png&quot; width=&quot;188&quot; height=&quot;49&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p align=&quot;justify&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt;&lt;br /&gt;LabSid-PHA-USP thanks the support of the &lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; font-weight:600; color:#000000; background-color:transparent;&quot;&gt;Patrimonial Fund Amigos da Poli&lt;/span&gt;&lt;span style=&quot; font-family:'Arial'; font-size:9pt; color:#000000; background-color:transparent;&quot;&gt; for the adaptation of the RUBEM methodology in Plugin format for QGIS.&lt;br /&gt;&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://www.amigosdapoli.com.br/&quot;&gt;&lt;img src=&quot;:/imgBase/images/adp.png&quot; width=&quot;233&quot; height=&quot;131&quot; /&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <property name="tabStopWidth">
-          <number>80</number>
-         </property>
-         <property name="textInteractionFlags">
-          <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse</set>
-         </property>
-         <property name="placeholderText">
-          <string/>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton_NewProject</tabstop>
-  <tabstop>pushButton_OpenProject</tabstop>
-  <tabstop>pushButton_SaveProject</tabstop>
-  <tabstop>pushButton_SaveAsProject</tabstop>
   <tabstop>tabWidget</tabstop>
   <tabstop>lineEdit_InputFolder</tabstop>
   <tabstop>toolButton_InputFolder</tabstop>
@@ -4700,7 +4709,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>textBrowser_log</tabstop>
   <tabstop>btn_Run</tabstop>
   <tabstop>btn_Cancel</tabstop>
-  <tabstop>textBrowser_Info</tabstop>
  </tabstops>
  <resources>
   <include location="resources.qrc"/>
@@ -4713,8 +4721,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDEMFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>326</y>
+     <x>507</x>
+     <y>361</y>
     </hint>
     <hint type="destinationlabel">
      <x>474</x>
@@ -4729,8 +4737,8 @@ p, li { white-space: pre-wrap; }
    <slot>setCloneFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>434</y>
+     <x>507</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
      <x>476</x>
@@ -4745,8 +4753,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSampleFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>514</y>
+     <x>507</x>
+     <y>607</y>
     </hint>
     <hint type="destinationlabel">
      <x>477</x>
@@ -4761,8 +4769,8 @@ p, li { white-space: pre-wrap; }
    <slot>setExportSampleLocations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>462</y>
+     <x>153</x>
+     <y>553</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4777,8 +4785,8 @@ p, li { white-space: pre-wrap; }
    <slot>setEndSimulationPeriod()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>614</y>
+     <x>438</x>
+     <y>789</y>
     </hint>
     <hint type="destinationlabel">
      <x>475</x>
@@ -4793,8 +4801,8 @@ p, li { white-space: pre-wrap; }
    <slot>setStartSimulationPeriod()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>584</y>
+     <x>438</x>
+     <y>760</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4809,8 +4817,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSoilMapFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>184</y>
+     <x>505</x>
+     <y>16</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -4825,8 +4833,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDensityFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>238</y>
+     <x>505</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -4841,8 +4849,8 @@ p, li { white-space: pre-wrap; }
    <slot>setHydraulicConductivityFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>292</y>
+     <x>505</x>
+     <y>162</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -4857,8 +4865,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFieldCapacityFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>346</y>
+     <x>505</x>
+     <y>235</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -4873,8 +4881,8 @@ p, li { white-space: pre-wrap; }
    <slot>setWiltingPointFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>400</y>
+     <x>505</x>
+     <y>308</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -4889,8 +4897,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSaturationFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>508</y>
+     <x>505</x>
+     <y>381</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -4905,8 +4913,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRootZoneThicknessFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>531</x>
-     <y>562</y>
+     <x>505</x>
+     <y>454</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -4921,11 +4929,11 @@ p, li { white-space: pre-wrap; }
    <slot>setInitialSoilMoisture()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>114</x>
-     <y>693</y>
+     <x>116</x>
+     <y>657</y>
     </hint>
     <hint type="destinationlabel">
-     <x>-1</x>
+     <x>0</x>
      <y>470</y>
     </hint>
    </hints>
@@ -4937,8 +4945,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInitialBaseFlow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>632</y>
+     <x>157</x>
+     <y>527</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -4953,8 +4961,8 @@ p, li { white-space: pre-wrap; }
    <slot>setBaseFlowLimit()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>386</x>
-     <y>632</y>
+     <x>166</x>
+     <y>571</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -4969,8 +4977,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInitialTus()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>663</y>
+     <x>159</x>
+     <y>614</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -4985,8 +4993,8 @@ p, li { white-space: pre-wrap; }
    <slot>setLandUseSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>534</x>
-     <y>159</y>
+     <x>508</x>
+     <y>168</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -5001,8 +5009,8 @@ p, li { white-space: pre-wrap; }
    <slot>setNDVISeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>248</y>
+     <x>507</x>
+     <y>263</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -5017,8 +5025,8 @@ p, li { white-space: pre-wrap; }
    <slot>setNDVIMaximumSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>302</y>
+     <x>507</x>
+     <y>336</y>
     </hint>
     <hint type="destinationlabel">
      <x>482</x>
@@ -5033,8 +5041,8 @@ p, li { white-space: pre-wrap; }
    <slot>setNDVIMinimumSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>356</y>
+     <x>507</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>489</x>
@@ -5049,8 +5057,8 @@ p, li { white-space: pre-wrap; }
    <slot>setAiFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>446</y>
+     <x>507</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
      <x>490</x>
@@ -5065,8 +5073,8 @@ p, li { white-space: pre-wrap; }
    <slot>setAoFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>500</y>
+     <x>507</x>
+     <y>578</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -5081,8 +5089,8 @@ p, li { white-space: pre-wrap; }
    <slot>setAsFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>554</y>
+     <x>507</x>
+     <y>651</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -5097,8 +5105,8 @@ p, li { white-space: pre-wrap; }
    <slot>setAvFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>608</y>
+     <x>507</x>
+     <y>724</y>
     </hint>
     <hint type="destinationlabel">
      <x>487</x>
@@ -5113,8 +5121,8 @@ p, li { white-space: pre-wrap; }
    <slot>setManningFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>534</x>
-     <y>675</y>
+     <x>508</x>
+     <y>796</y>
     </hint>
     <hint type="destinationlabel">
      <x>495</x>
@@ -5129,8 +5137,8 @@ p, li { white-space: pre-wrap; }
    <slot>setKcMaximumFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>764</y>
+     <x>507</x>
+     <y>891</y>
     </hint>
     <hint type="destinationlabel">
      <x>493</x>
@@ -5145,8 +5153,8 @@ p, li { white-space: pre-wrap; }
    <slot>setKcMinimumFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>818</y>
+     <x>507</x>
+     <y>964</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -5161,8 +5169,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFparMaximum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>89</x>
-     <y>886</y>
+     <x>172</x>
+     <y>1016</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -5177,8 +5185,8 @@ p, li { white-space: pre-wrap; }
    <slot>setFparMinimum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>886</y>
+     <x>373</x>
+     <y>1016</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -5193,8 +5201,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterception()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>93</x>
-     <y>957</y>
+     <x>106</x>
+     <y>1087</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -5209,8 +5217,8 @@ p, li { white-space: pre-wrap; }
    <slot>setLeafAreaIndexMaximum()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>85</x>
-     <y>927</y>
+     <x>98</x>
+     <y>1058</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -5225,8 +5233,8 @@ p, li { white-space: pre-wrap; }
    <slot>setPrecipitationSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>554</x>
-     <y>183</y>
+     <x>538</x>
+     <y>182</y>
     </hint>
     <hint type="destinationlabel">
      <x>491</x>
@@ -5241,8 +5249,8 @@ p, li { white-space: pre-wrap; }
    <slot>setEvapotranspirationSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>554</x>
-     <y>237</y>
+     <x>538</x>
+     <y>255</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -5257,8 +5265,8 @@ p, li { white-space: pre-wrap; }
    <slot>setKpSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>554</x>
-     <y>291</y>
+     <x>538</x>
+     <y>328</y>
     </hint>
     <hint type="destinationlabel">
      <x>483</x>
@@ -5273,8 +5281,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRainyDaysSeriesFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>554</x>
-     <y>345</y>
+     <x>538</x>
+     <y>401</y>
     </hint>
     <hint type="destinationlabel">
      <x>463</x>
@@ -5289,8 +5297,8 @@ p, li { white-space: pre-wrap; }
    <slot>setExponentCh()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>252</y>
+     <x>90</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -5305,8 +5313,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDelayFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>222</y>
+     <x>97</x>
+     <y>250</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -5321,8 +5329,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRegionalConsecutiveDrynessLevel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>312</y>
+     <x>123</x>
+     <y>396</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -5337,8 +5345,8 @@ p, li { white-space: pre-wrap; }
    <slot>setDelayCoefficientBaseFlow()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>282</y>
+     <x>90</x>
+     <y>340</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -5353,8 +5361,8 @@ p, li { white-space: pre-wrap; }
    <slot>setPartitioningCoefficientRelated()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>162</y>
+     <x>90</x>
+     <y>160</y>
     </hint>
     <hint type="destinationlabel">
      <x>149</x>
@@ -5385,8 +5393,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSoilRelatedWeightFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>374</x>
-     <y>239</y>
+     <x>384</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -5401,8 +5409,8 @@ p, li { white-space: pre-wrap; }
    <slot>setSlopeRelatedWeightFactor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>374</x>
-     <y>290</y>
+     <x>384</x>
+     <y>278</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -5433,8 +5441,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInterceptionEbGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>99</x>
-     <y>184</y>
+     <x>126</x>
+     <y>183</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -5465,8 +5473,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRechargeGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>158</y>
+     <x>539</x>
+     <y>156</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -5513,8 +5521,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRunoffEsdGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>184</y>
+     <x>539</x>
+     <y>183</y>
     </hint>
     <hint type="destinationlabel">
      <x>485</x>
@@ -5545,8 +5553,8 @@ p, li { white-space: pre-wrap; }
    <slot>setRunState()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>523</y>
+     <x>113</x>
+     <y>621</y>
     </hint>
     <hint type="destinationlabel">
      <x>445</x>
@@ -5577,60 +5585,12 @@ p, li { white-space: pre-wrap; }
    <slot>setDEMTifFilePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>380</y>
+     <x>507</x>
+     <y>434</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
      <y>532</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_SaveProject</sender>
-   <signal>clicked()</signal>
-   <receiver>RUBEMHydrological</receiver>
-   <slot>saveProject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>216</x>
-     <y>44</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>435</x>
-     <y>-4</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_OpenProject</sender>
-   <signal>clicked()</signal>
-   <receiver>RUBEMHydrological</receiver>
-   <slot>openProject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>157</x>
-     <y>36</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>172</x>
-     <y>-4</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_NewProject</sender>
-   <signal>clicked()</signal>
-   <receiver>RUBEMHydrological</receiver>
-   <slot>newProject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>67</x>
-     <y>59</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>109</x>
-     <y>-6</y>
     </hint>
    </hints>
   </connection>
@@ -5641,8 +5601,8 @@ p, li { white-space: pre-wrap; }
    <slot>setInputDirectoryPath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>182</y>
+     <x>507</x>
+     <y>192</y>
     </hint>
     <hint type="destinationlabel">
      <x>410</x>
@@ -5657,27 +5617,11 @@ p, li { white-space: pre-wrap; }
    <slot>setOutputDirectoryPath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>533</x>
-     <y>236</y>
+     <x>507</x>
+     <y>265</y>
     </hint>
     <hint type="destinationlabel">
      <x>415</x>
-     <y>-10</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_SaveAsProject</sender>
-   <signal>clicked()</signal>
-   <receiver>RUBEMHydrological</receiver>
-   <slot>saveAsProject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>330</x>
-     <y>39</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>270</x>
      <y>0</y>
     </hint>
    </hints>
@@ -5689,8 +5633,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>69</x>
-     <y>462</y>
+     <x>93</x>
+     <y>553</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -5721,8 +5665,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>90</x>
-     <y>236</y>
+     <x>116</x>
+     <y>265</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -5737,8 +5681,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>326</y>
+     <x>112</x>
+     <y>361</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -5753,8 +5697,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>99</x>
-     <y>380</y>
+     <x>125</x>
+     <y>434</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -5769,11 +5713,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>514</y>
+     <x>157</x>
+     <y>607</y>
     </hint>
     <hint type="destinationlabel">
-     <x>-2</x>
+     <x>0</x>
      <y>511</y>
     </hint>
    </hints>
@@ -5785,8 +5729,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>163</x>
-     <y>599</y>
+     <x>253</x>
+     <y>776</y>
     </hint>
     <hint type="destinationlabel">
      <x>17</x>
@@ -5801,11 +5745,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>614</y>
+     <x>438</x>
+     <y>789</y>
     </hint>
     <hint type="destinationlabel">
-     <x>-3</x>
+     <x>0</x>
      <y>495</y>
     </hint>
    </hints>
@@ -5817,8 +5761,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>584</y>
+     <x>438</x>
+     <y>760</y>
     </hint>
     <hint type="destinationlabel">
      <x>2</x>
@@ -5833,8 +5777,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>504</x>
-     <y>599</y>
+     <x>357</x>
+     <y>678</y>
     </hint>
     <hint type="destinationlabel">
      <x>431</x>
@@ -5849,8 +5793,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>86</x>
-     <y>434</y>
+     <x>112</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -5865,8 +5809,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>184</y>
+     <x>95</x>
+     <y>16</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -5881,8 +5825,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>238</y>
+     <x>115</x>
+     <y>89</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -5897,8 +5841,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>95</x>
-     <y>292</y>
+     <x>123</x>
+     <y>162</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -5913,8 +5857,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>346</y>
+     <x>91</x>
+     <y>235</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -5929,8 +5873,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>114</x>
-     <y>400</y>
+     <x>142</x>
+     <y>308</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -5945,8 +5889,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>133</x>
-     <y>508</y>
+     <x>161</x>
+     <y>381</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -5961,8 +5905,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>75</x>
-     <y>562</y>
+     <x>103</x>
+     <y>454</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -5977,8 +5921,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>96</x>
-     <y>632</y>
+     <x>124</x>
+     <y>527</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -5993,8 +5937,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>62</x>
-     <y>663</y>
+     <x>89</x>
+     <y>614</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -6009,8 +5953,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>105</x>
-     <y>693</y>
+     <x>116</x>
+     <y>657</y>
     </hint>
     <hint type="destinationlabel">
      <x>486</x>
@@ -6025,8 +5969,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>386</x>
-     <y>632</y>
+     <x>166</x>
+     <y>571</y>
     </hint>
     <hint type="destinationlabel">
      <x>489</x>
@@ -6073,8 +6017,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>126</x>
-     <y>302</y>
+     <x>152</x>
+     <y>336</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -6089,8 +6033,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>98</x>
-     <y>356</y>
+     <x>124</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>446</x>
@@ -6105,11 +6049,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
-     <y>444</y>
+     <x>96</x>
+     <y>505</y>
     </hint>
     <hint type="destinationlabel">
-     <x>-5</x>
+     <x>0</x>
      <y>31</y>
     </hint>
    </hints>
@@ -6121,8 +6065,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>500</y>
+     <x>157</x>
+     <y>578</y>
     </hint>
     <hint type="destinationlabel">
      <x>9</x>
@@ -6137,8 +6081,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>108</x>
-     <y>554</y>
+     <x>134</x>
+     <y>651</y>
     </hint>
     <hint type="destinationlabel">
      <x>8</x>
@@ -6153,8 +6097,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>129</x>
-     <y>608</y>
+     <x>155</x>
+     <y>724</y>
     </hint>
     <hint type="destinationlabel">
      <x>488</x>
@@ -6169,8 +6113,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>119</x>
-     <y>656</y>
+     <x>144</x>
+     <y>780</y>
     </hint>
     <hint type="destinationlabel">
      <x>495</x>
@@ -6185,8 +6129,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>764</y>
+     <x>157</x>
+     <y>891</y>
     </hint>
     <hint type="destinationlabel">
      <x>484</x>
@@ -6201,8 +6145,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>818</y>
+     <x>157</x>
+     <y>964</y>
     </hint>
     <hint type="destinationlabel">
      <x>489</x>
@@ -6217,11 +6161,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
-     <y>866</y>
+     <x>164</x>
+     <y>1016</y>
     </hint>
     <hint type="destinationlabel">
-     <x>-6</x>
+     <x>0</x>
      <y>455</y>
     </hint>
    </hints>
@@ -6233,8 +6177,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>344</x>
-     <y>886</y>
+     <x>373</x>
+     <y>1016</y>
     </hint>
     <hint type="destinationlabel">
      <x>498</x>
@@ -6249,8 +6193,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>927</y>
+     <x>87</x>
+     <y>1058</y>
     </hint>
     <hint type="destinationlabel">
      <x>418</x>
@@ -6265,11 +6209,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>957</y>
+     <x>76</x>
+     <y>1087</y>
     </hint>
     <hint type="destinationlabel">
-     <x>-5</x>
+     <x>0</x>
      <y>310</y>
     </hint>
    </hints>
@@ -6281,8 +6225,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>82</x>
-     <y>183</y>
+     <x>110</x>
+     <y>182</y>
     </hint>
     <hint type="destinationlabel">
      <x>1</x>
@@ -6302,7 +6246,7 @@ p, li { white-space: pre-wrap; }
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
-     <y>-5</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -6313,12 +6257,12 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>291</y>
+     <x>160</x>
+     <y>328</y>
     </hint>
     <hint type="destinationlabel">
      <x>24</x>
-     <y>-1</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -6329,8 +6273,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>345</y>
+     <x>160</x>
+     <y>401</y>
     </hint>
     <hint type="destinationlabel">
      <x>559</x>
@@ -6361,12 +6305,12 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>252</y>
+     <x>90</x>
+     <y>295</y>
     </hint>
     <hint type="destinationlabel">
      <x>34</x>
-     <y>-11</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -6377,12 +6321,12 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>73</x>
-     <y>282</y>
+     <x>90</x>
+     <y>340</y>
     </hint>
     <hint type="destinationlabel">
      <x>71</x>
-     <y>-13</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -6393,12 +6337,12 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>97</x>
-     <y>312</y>
+     <x>123</x>
+     <y>396</y>
     </hint>
     <hint type="destinationlabel">
      <x>283</x>
-     <y>-9</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -6409,8 +6353,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>162</y>
+     <x>90</x>
+     <y>160</y>
     </hint>
     <hint type="destinationlabel">
      <x>342</x>
@@ -6425,8 +6369,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>91</x>
-     <y>222</y>
+     <x>97</x>
+     <y>250</y>
     </hint>
     <hint type="destinationlabel">
      <x>494</x>
@@ -6457,8 +6401,8 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>374</x>
-     <y>239</y>
+     <x>384</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -6473,11 +6417,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>374</x>
-     <y>290</y>
+     <x>384</x>
+     <y>278</y>
     </hint>
     <hint type="destinationlabel">
-     <x>637</x>
+     <x>579</x>
      <y>477</y>
     </hint>
    </hints>
@@ -6489,11 +6433,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>59</x>
-     <y>158</y>
+     <x>86</x>
+     <y>156</y>
     </hint>
     <hint type="destinationlabel">
-     <x>716</x>
+     <x>579</x>
      <y>229</y>
     </hint>
    </hints>
@@ -6505,11 +6449,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>131</x>
-     <y>184</y>
+     <x>158</x>
+     <y>183</y>
     </hint>
     <hint type="destinationlabel">
-     <x>881</x>
+     <x>579</x>
      <y>192</y>
     </hint>
    </hints>
@@ -6525,7 +6469,7 @@ p, li { white-space: pre-wrap; }
      <y>210</y>
     </hint>
     <hint type="destinationlabel">
-     <x>908</x>
+     <x>579</x>
      <y>182</y>
     </hint>
    </hints>
@@ -6541,7 +6485,7 @@ p, li { white-space: pre-wrap; }
      <y>236</y>
     </hint>
     <hint type="destinationlabel">
-     <x>955</x>
+     <x>579</x>
      <y>266</y>
     </hint>
    </hints>
@@ -6553,11 +6497,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>158</y>
+     <x>539</x>
+     <y>156</y>
     </hint>
     <hint type="destinationlabel">
-     <x>741</x>
+     <x>579</x>
      <y>159</y>
     </hint>
    </hints>
@@ -6569,11 +6513,11 @@ p, li { white-space: pre-wrap; }
    <slot>setProjectModified()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>396</x>
-     <y>184</y>
+     <x>539</x>
+     <y>183</y>
     </hint>
     <hint type="destinationlabel">
-     <x>773</x>
+     <x>579</x>
      <y>209</y>
     </hint>
    </hints>
@@ -6605,7 +6549,7 @@ p, li { white-space: pre-wrap; }
      <y>236</y>
     </hint>
     <hint type="destinationlabel">
-     <x>650</x>
+     <x>579</x>
      <y>239</y>
     </hint>
    </hints>
@@ -6621,7 +6565,7 @@ p, li { white-space: pre-wrap; }
      <y>422</y>
     </hint>
     <hint type="destinationlabel">
-     <x>584</x>
+     <x>579</x>
      <y>447</y>
     </hint>
    </hints>
@@ -6637,8 +6581,104 @@ p, li { white-space: pre-wrap; }
      <y>222</y>
     </hint>
     <hint type="destinationlabel">
-     <x>582</x>
+     <x>579</x>
      <y>294</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_Help</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>helpHandler()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>464</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>121</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton_About</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>aboutHandler()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>534</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>573</x>
+     <y>14</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_NewProject</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>newProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>31</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>178</x>
+     <y>10</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_OpenProject</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>openProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>167</x>
+     <y>39</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>480</x>
+     <y>-6</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_SaveProject</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>saveProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>278</x>
+     <y>36</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>577</x>
+     <y>608</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_SaveAsProject</sender>
+   <signal>clicked()</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>saveAsProject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>362</x>
+     <y>32</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>579</x>
+     <y>92</y>
     </hint>
    </hints>
   </connection>
@@ -6713,5 +6753,7 @@ p, li { white-space: pre-wrap; }
   <slot>setProjectModified()</slot>
   <slot>plotWrapper()</slot>
   <slot>canvasHandler()</slot>
+  <slot>helpHandler()</slot>
+  <slot>aboutHandler()</slot>
  </slots>
 </ui>
