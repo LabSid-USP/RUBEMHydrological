@@ -5,12 +5,12 @@
 [general]
 name=RUBEM Hydrological
 qgisMinimumVersion=3.0
-description=This plugin uses Rainfall rUnoff Balance Enhanced Model (a distributed hydrological model) to calculate monthly flows with changes in land use over time.
+description=Distributed hydrological model for water balance
 version=1.3.2
-author=Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos LabSid-PHA-EPUSP
+author=LabSid-PHA-EPUSP
 email=rubem.hydrological@labsid.eng.br
 
-about=RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the Rainfall rUnoff Balance Enhanced Model algorithm, which is an improved model of balance between rain and runoff. The distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017). The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the Department of Hydraulic and Environmental Engineering, of the Polytechnic School of USP, who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.
+about=This plugin uses Rainfall rUnoff Balance Enhanced Model to calculate monthly water balance (runoff, aquifer recharge, canopy interception and Base flow) with capabilities to consider changes in LULC over the time.
 
 tracker=https://github.com/LabSid-USP/RUBEMHydrological/issues
 repository=https://github.com/LabSid-USP/RUBEMHydrological
@@ -20,7 +20,14 @@ repository=https://github.com/LabSid-USP/RUBEMHydrological
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog=New project manipulation buttons added; Tool tips and What's this tips added for most interface elements; Nomenclature changed to hydrology jargon; Fixed the bug that prevented the execution of more than 20 steps; Correction of the error that prevented the alteration of the read dates of a project in the interface; Updates the configuration dictionary to meet the new version of RUBEM; Minor fixes and other improvements.
+changelog=Version 1.3.2:
+    - New project manipulation buttons added; 
+    - Tool tips and What's this tips added; 
+    - Nomenclature changed; 
+    - Fixed error when executing the model; 
+    - Fixed error when loading dates of a project;
+    - Add new RUBEM configuration schema;
+    - Minor fixes and other improvements.
 
 # Tags are comma separated with spaces allowed
 tags=hydrological model,remote sensing,grid,hydrology,pcraster,water,catchment
