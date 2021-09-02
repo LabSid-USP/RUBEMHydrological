@@ -273,7 +273,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             "ETa [mm]": "Etp",
             "Lateral Flow [mm]": "Lf",
             "Recharge [mm]": "Rec",
-            "Saturates Zone Storage [mm]": "Ssat",
+            "Soil Moisture Content [mm]": "Ssat",
         }
 
         # TODO: Reorganize information in dictionaries
@@ -285,7 +285,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             "ETa [mm]": "outEtp",
             "Lateral Flow [mm]": "outLf",
             "Recharge [mm]": "outRec",
-            "Saturated Zone Storage [mm]": "outSsat",
+            "Soil Moisture Content [mm]": "outSsat",
         }
 
         # TODO: Reorganize information in dictionaries. Preferably use this format.
@@ -342,7 +342,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             },
             "outSsat": {
                 "plot": {
-                    "title": "Saturated Zone Storage",
+                    "title": "Soil Moisture Content",
                     "x_label": "Time Steps [month]",
                     "y_label": "Value [mm]",
                 },
