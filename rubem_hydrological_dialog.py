@@ -706,6 +706,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.btn_Sample.setEnabled(True)
             self.label_SelectSample.setEnabled(True)
         else:
+            self.lineEdt_Sample.clear()
             self.lineEdt_Sample.setEnabled(False)
             self.btn_Sample.setEnabled(False)
             self.label_SelectSample.setEnabled(False)
