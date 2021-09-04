@@ -1969,7 +1969,9 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
 
-                if os.listdir(self.config.get("FILES", "output")):
+                if os.path.exists(self.config.get("FILES", "output")) and os.listdir(
+                    self.config.get("FILES", "output")
+                ):
                     self.tab_Results.setEnabled(True)
                     self.populateMapSeriesTree()
                     self.populateTimeSeriesTree()
