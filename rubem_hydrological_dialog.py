@@ -545,18 +545,24 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             [type]: [description]
         """
         emptyFields = []
-        for element in self.uiDirPathDict.values():
+        for key, element in self.uiDirPathDict.items():
             lineEdit, _ = element
             if not lineEdit.text() or not os.path.exists(lineEdit.text()):
                 lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
-                emptyFields.append(lineEdit)
+                emptyFields.append(key)
 
         # for lineEdit in self.findChildren(QLineEdit):
-        for element in self.uiFilePathDict.values():
+        for key, element in self.uiFilePathDict.items():
             lineEdit, _, _ = element
             if not lineEdit.text() or not os.path.exists(lineEdit.text()):
                 lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
-                emptyFields.append(lineEdit)
+                emptyFields.append(key)
+
+        if "samples" in emptyFields and not self.config.getboolean(
+            "GENERATE_FILE", "genTss"
+        ):
+            emptyFields.remove("samples")
+            self.lineEdt_Sample.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
         if emptyFields:
             self.bar.pushMessage(
