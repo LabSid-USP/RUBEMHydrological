@@ -370,7 +370,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-210</y>
+            <y>0</y>
             <width>509</width>
             <height>728</height>
            </rect>
@@ -542,7 +542,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>Raster map with topographic ground elevation in meters.</string>
                   </property>
                   <property name="text">
-                   <string>Select DEM MAP file</string>
+                   <string>Select DEM MAP file [masl]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_Dem</cstring>
@@ -629,7 +629,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>Raster map with topographic ground elevation in meters.</string>
                   </property>
                   <property name="text">
-                   <string>Select DEM TIFF file</string>
+                   <string>Select DEM TIFF file [masl]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_DemTif</cstring>
@@ -736,7 +736,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This is a *.map file (PCRaster boolean format) that defines the mask used to select the area to simulate in the model.</string>
                   </property>
                   <property name="text">
-                   <string>Select Clone MAP file</string>
+                   <string>Select Clone MAP file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_Clone</cstring>
@@ -807,7 +807,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This file is a nominal map with unique Ids for cells identified as being a location where time-series output is required. Non-station cells have a value of -9999.</string>
                   </property>
                   <property name="text">
-                   <string>Select Station Locations file</string>
+                   <string>Select Station Locations file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_Sample</cstring>
@@ -1365,7 +1365,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-237</y>
+            <y>0</y>
             <width>509</width>
             <height>755</height>
            </rect>
@@ -1404,7 +1404,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        <string>Path to map that represents the soil classes of the study area, the number of classes are defined by user and are related to hydraulic properties.</string>
                       </property>
                       <property name="text">
-                       <string>Select Soil MAP file</string>
+                       <string>Select Soil MAP file [-]</string>
                       </property>
                       <property name="buddy">
                        <cstring>btn_SoilMap</cstring>
@@ -1480,7 +1480,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
 </string>
                       </property>
                       <property name="text">
-                       <string>Select Bulk Density file</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Bulk Density file [g/cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="buddy">
                        <cstring>btn_DensityDg</cstring>
@@ -1557,7 +1557,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        <string>This file is a *.txt or *.csv file with values, representing the saturated hydraulic conductivity for each soil class.</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Saturated Hydraulic Conductivity (K&lt;span style=&quot; vertical-align:sub;&quot;&gt;SAT&lt;/span&gt;) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Saturated Hydraulic Conductivity (K&lt;span style=&quot; vertical-align:sub;&quot;&gt;SAT&lt;/span&gt;) file [mm/month]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="buddy">
                        <cstring>btn_HydraulicConductivityKr</cstring>
@@ -1632,7 +1632,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        <string>This file is a *.txt or *.csv file with values, representing the field capacity water content (θ)y for each soil class.</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Field Capacity ( θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;FC&lt;/span&gt;) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Field Capacity ( θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;FC&lt;/span&gt;) file [θ (cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;/cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;)]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="buddy">
                        <cstring>btn_FieldCapacityCC</cstring>
@@ -1707,7 +1707,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        <string>This file is a *.txt or *.csv file with values, representing the Wilting Point (θwp) for each soil class.</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Wilting Point (θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;WP&lt;/span&gt;) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Wilting Point (θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;WP&lt;/span&gt;) file [θ (cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;/cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;)]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="buddy">
                        <cstring>btn_WiltingPointWP</cstring>
@@ -1782,7 +1782,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        <string>This file is a *.txt or *.csv file with values, representing the saturated content for each soil class.</string>
                       </property>
                       <property name="text">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Saturated Content (θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;SAT&lt;/span&gt;) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Saturated Content (θ&lt;span style=&quot; vertical-align:sub;&quot;&gt;SAT&lt;/span&gt;) file [θ (cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;/cm&lt;span style=&quot; vertical-align:super;&quot;&gt;3&lt;/span&gt;)]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="buddy">
                        <cstring>btn_Saturation</cstring>
@@ -1857,7 +1857,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                        <string>This file is a *.txt or *.csv file with values, representing the depth rootzone for each soil class.</string>
                       </property>
                       <property name="text">
-                       <string>Select Depth Rootzone file</string>
+                       <string>Select Depth Rootzone file [cm]</string>
                       </property>
                       <property name="buddy">
                        <cstring>btn_RootZoneThickNessZr</cstring>
@@ -2233,7 +2233,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-494</y>
+            <y>0</y>
             <width>509</width>
             <height>1012</height>
            </rect>
@@ -2255,7 +2255,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
 </string>
              </property>
              <property name="title">
-              <string>Select Land Use MAP series</string>
+              <string>Select Land Use MAP series [-]</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_3">
               <item row="0" column="0">
@@ -2340,7 +2340,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>Path to file *.001. The folder must contain the maps that represent the mean monthly Normalized Difference Vegetation Index (NDVI), where each map represents the value of the variable at an individual time step.If some *.00* is missing it will be used the previous step map.</string>
                   </property>
                   <property name="text">
-                   <string>Select monthly NDVI MAP series</string>
+                   <string>Select monthly NDVI MAP series [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_NDVISeries</cstring>
@@ -2451,7 +2451,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This file is a scalar pcraster map with values for each cell, representing the maximum value of NDVI in the historic series available for the cell. </string>
                   </property>
                   <property name="text">
-                   <string>Select maximum NDVI MAP file</string>
+                   <string>Select maximum NDVI MAP file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_NDVIMax</cstring>
@@ -2490,7 +2490,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This file is a scalar pcraster map with values for each cell, representing the minimum value of NDVI in the historic series available for the cell.</string>
                   </property>
                   <property name="text">
-                   <string>Select minimum NDVI MAP file</string>
+                   <string>Select minimum NDVI MAP file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_NDVIMin</cstring>
@@ -2570,7 +2570,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This file is a *.txt or *.csv file with values, representing the fraction of impervious surface area for each land use class.</string>
                   </property>
                   <property name="text">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Impervious Area Fraction (ai) file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Impervious Area Fraction (ai) file [-]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_a_i</cstring>
@@ -2645,7 +2645,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This file is a *.txt or *.csv file with values, representing the fraction of open-water area for each land use class.</string>
                   </property>
                   <property name="text">
-                   <string>Select Open Water Area Fraction (ao) file</string>
+                   <string>Select Open Water Area Fraction (ao) file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_a_o</cstring>
@@ -2720,7 +2720,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This file is a *.txt or *.csv file with values, representing the fraction of bare soil area for each land use class.</string>
                   </property>
                   <property name="text">
-                   <string>Select Bare Soil Area Fraction (as) file</string>
+                   <string>Select Bare Soil Area Fraction (as) file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_a_s</cstring>
@@ -2831,7 +2831,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This file is a *.txt or *.csv file with values, representing the fraction of vegetated area for each land use class.</string>
                   </property>
                   <property name="text">
-                   <string>Select Vegetated Area Fraction (av) file</string>
+                   <string>Select Vegetated Area Fraction (av) file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_a_v</cstring>
@@ -2852,7 +2852,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
               <string>This file is a *.txt or *.csv file with values, representing the Manning Roughness coefficient for each land use class.</string>
              </property>
              <property name="title">
-              <string>Select Manning file</string>
+              <string>Select Manning file [-]</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_12">
               <item>
@@ -2923,7 +2923,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>This file is a *.txt or *.csv file with values, representing the maximum value of the crop coefficient for each land use class.</string>
                   </property>
                   <property name="text">
-                   <string>Select the Kc maximum file</string>
+                   <string>Select the Kc maximum file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_KcMax</cstring>
@@ -3034,7 +3034,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                    <string>Values of minimum crop coefficient for each land use class.</string>
                   </property>
                   <property name="text">
-                   <string>Select the Kc minimum file</string>
+                   <string>Select the Kc minimum file [-]</string>
                   </property>
                   <property name="buddy">
                    <cstring>btn_KcMin</cstring>
@@ -3368,7 +3368,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                  <string>Path to file *.001. The folder must contain the maps that represent the mean monthly rainfall, where each map represents the value of the variable at an individual time step.</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Monthly Rainfall (P&lt;span style=&quot; vertical-align:sub;&quot;&gt;M&lt;/span&gt;) MAP series&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Monthly Rainfall (P&lt;span style=&quot; vertical-align:sub;&quot;&gt;M&lt;/span&gt;) MAP series [mm/month]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="buddy">
                  <cstring>btn_Precipitation</cstring>
@@ -3449,7 +3449,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                  <string>Path to file *.001. The folder must contain the maps that represent the mean monthly potential evapotranspiration, where each map represents the value of the variable at an individual time step.</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Monthly Potential Evapotranspiration (ET&lt;span style=&quot; vertical-align:sub;&quot;&gt;P &lt;/span&gt;) MAP series&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Monthly Potential Evapotranspiration (ET&lt;span style=&quot; vertical-align:sub;&quot;&gt;P &lt;/span&gt;) MAP series [mm/month]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="buddy">
                  <cstring>btn_Evapotranspiration</cstring>
@@ -3524,7 +3524,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                  <string>Path to file .001 that represents the monthly Class A Pan Coefficient  map-series data input for the entire simulation period.</string>
                 </property>
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Class A Pan Coefficient (K&lt;span style=&quot; vertical-align:sub;&quot;&gt;P&lt;/span&gt;) MAP series&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select Class A Pan Coefficient (K&lt;span style=&quot; vertical-align:sub;&quot;&gt;P&lt;/span&gt;) MAP series [-]&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                 <property name="buddy">
                  <cstring>btn_PanCoefficientKp</cstring>
@@ -3600,7 +3600,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
 </string>
                 </property>
                 <property name="text">
-                 <string>Select Rainy Days file</string>
+                 <string>Select Rainy Days file [days/month]</string>
                 </property>
                 <property name="buddy">
                  <cstring>btn_RainyDays</cstring>
