@@ -119,10 +119,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config = configparser.ConfigParser()
         self.config.read_dict(defaultConfigSchema)
 
-        self.pushButton_SaveProject.setDisabled(True)
-        self.pushButton_SaveAsProject.setDisabled(True)
-        self.tabWidget.setDisabled(True)
-        self.tab_Results.setDisabled(True)
+        self.initialGuiState()
 
         self.hasCurrentProject = False
         self.hasProjectBeenModified = False
@@ -350,6 +347,22 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 },
             },
         }
+
+    # TODO: Add docstring information and comments
+    def initialGuiState(self):
+        self.pushButton_SaveProject.setDisabled(True)
+        self.pushButton_SaveAsProject.setDisabled(True)
+        self.tabWidget.setDisabled(True)
+        self.tabWidget.setCurrentIndex(0)
+        self.tab_Results.setDisabled(True)
+
+    # TODO: Add docstring information and comments
+    def closeEvent(self, event):
+
+        self.newProject(supressed=True)
+        self.initialGuiState()
+
+        event.accept()
 
     # TODO: Add docstring information and comments
     def helpHandler(self):
@@ -1886,7 +1899,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         else:
             self.setWindowTitle(projectTitle + " — RUBEM Hydrological")
 
-    def newProject(self):
+    def newProject(self, supressed=False):
         """[summary].
 
         :Slot signal: clicked
@@ -1914,10 +1927,12 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
             self.updateGUIFromConfig()
             self.projectFilePath = None
             self.updateWindowTitle("Untitled project")
-            self.saveAsProject(isNewProject=True)
+            if not supressed:
+                self.saveAsProject(isNewProject=True)
             self.pushButton_SaveProject.setEnabled(True)
             self.pushButton_SaveAsProject.setEnabled(True)
             self.tabWidget.setEnabled(True)
+            self.hasProjectBeenModified = False
 
         # Check if there is already a current project and it has been
         # modified then ask to save it
