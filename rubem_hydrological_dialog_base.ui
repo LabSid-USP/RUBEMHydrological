@@ -370,7 +370,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-210</y>
             <width>509</width>
             <height>728</height>
            </rect>
@@ -1365,7 +1365,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-178</y>
+            <y>-237</y>
             <width>509</width>
             <height>755</height>
            </rect>
@@ -2233,7 +2233,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>0</y>
+            <y>-494</y>
             <width>509</width>
             <height>1012</height>
            </rect>
@@ -3707,7 +3707,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ f ≤ 1&lt;/p&gt;&lt;p&gt;Preferred Flow Direction: &lt;/p&gt;&lt;p&gt;If f = 1.0 is 100% horizontal;&lt;/p&gt;&lt;p&gt;If f = 0  is 100% vertical flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="decimals">
-                     <number>2</number>
+                     <number>3</number>
                     </property>
                     <property name="minimum">
                      <double>0.010000000000000</double>
@@ -3771,7 +3771,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      <bool>false</bool>
                     </property>
                     <property name="decimals">
-                     <number>2</number>
+                     <number>3</number>
                     </property>
                     <property name="minimum">
                      <double>0.010000000000000</double>
@@ -3893,7 +3893,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;0.01 ≤ b ≤ 1&lt;/p&gt;&lt;p&gt;Reflects the effect of rainfall intensity on the rainfall excess coefficient. &lt;/p&gt;&lt;p&gt;The value is higher for low rainfall intensities resulting in less surface runoff, and approaches to one for high rainfall intensities. &lt;/p&gt;&lt;p&gt;If b = 1, a linear relationship is assumed between rainfall excess and soil moisture.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="decimals">
-                     <number>2</number>
+                     <number>3</number>
                     </property>
                     <property name="minimum">
                      <double>0.010000000000000</double>
@@ -3957,7 +3957,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      <bool>false</bool>
                     </property>
                     <property name="decimals">
-                     <number>2</number>
+                     <number>3</number>
                     </property>
                     <property name="minimum">
                      <double>0.010000000000000</double>
@@ -4021,7 +4021,7 @@ QScrollArea &gt; QWidget &gt; QScrollBar { background: 2; }</string>
                      <string> mm</string>
                     </property>
                     <property name="decimals">
-                     <number>2</number>
+                     <number>3</number>
                     </property>
                     <property name="minimum">
                      <double>1.000000000000000</double>
