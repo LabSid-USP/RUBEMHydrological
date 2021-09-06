@@ -360,9 +360,12 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     def closeEvent(self, event):
 
         self.newProject(supressed=True)
-        self.initialGuiState()
 
-        event.accept()
+        if self.projectFilePath:
+            event.ignore()
+        else:
+            self.initialGuiState()
+            event.accept()
 
     # TODO: Add docstring information and comments
     def helpHandler(self):
