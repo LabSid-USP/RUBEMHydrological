@@ -27,7 +27,7 @@ __date__ = "2021-05-19"
 __version__ = "1.3.2"
 
 defaultConfigSchema = {
-    "SIM_TIME": {"start": "01/01/2000", "end": "01/02/2000"},
+    "SIM_TIME": {"start": "01/01/1900", "end": "01/02/1900"},
     "FILES": {
         "input": "",
         "output": "",
