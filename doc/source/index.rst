@@ -6,6 +6,10 @@
 Welcome to RUBEM Hydrological's documentation!
 ===============================================
 
+.. image:: https://readthedocs.org/projects/rubem-hydrological/badge/?version=latest
+   :target: https://rubem-hydrological.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
 RUBEM Hydrological is a QGIS plugin that uses `Rainfall rUnoff Balance Enhanced Model <https://github.com/LabSid-USP/RUBEM#readme>`_ to calculate monthly water balance (runoff, aquifer recharge, canopy interception and Base flow) with capabilities to consider changes in LULC over the time.
 
 ..  youtube:: 715KzOsr6M4

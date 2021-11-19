@@ -1,3 +1,6 @@
+<!-- PROJECT SHIELDS -->
+[![Documentation Status][readthedocs-shield]][readthedocs-url]
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -129,3 +132,7 @@ In any of our communication channels please abide by the [RUBEM Hydrological Cod
 * [Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos](http://labsid.eng.br/Contato.aspx)
 * [Departamento de Engenharia Hidráulica e Ambiental da Escola Politécnica da Universidade de São Paulo](http://www.pha.poli.usp.br/)
 * [Fundo Patrimonial Amigos da Poli](https://www.amigosdapoli.com.br/)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+[readthedocs-shield]: https://readthedocs.org/projects/rubem-hydrological/badge/?version=latest
+[readthedocs-url]: https://rubem-hydrological.readthedocs.io/en/latest/?badge=latest
