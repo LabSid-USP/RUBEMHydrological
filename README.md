@@ -53,7 +53,7 @@
 
 <!--
 <p align="center">
-  <img width="373" height="456" src="https://user-images.githubusercontent.com/70075435/120209930-9a0b7800-c205-11eb-8289-8148d0b62db1.png">
+  <img width="373" height="456" src="">
 </p>
 -->
 
