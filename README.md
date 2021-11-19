@@ -2,10 +2,10 @@
 <br />
 <p align="center">
   <a href="https://github.com/LabSid-USP/RUBEMHydrological">
-    <img src="/images/icon.png" alt="Logo" width="120" height="120">
+    <img src="/images/icon.png" alt="Logo" width="160" height="160">
   </a>
 
-  <h3 align="center">RUBEM Hydrological</h3>
+  <h2 align="center">RUBEM Hydrological</h2>
 
   <p align="center">
     QGIS plugin that uses <b>R</b>ainfall r<b>U</b>noff <b>B</b>alance <b>E</b>nhanced <b>M</b>odel (a distributed hydrological model) to calculate monthly flows with changes in land use over time
@@ -57,7 +57,7 @@
 </p>
 -->
 
-RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the [Rainfall rUnoff Balance Enhanced Model (RUBEM)](https://github.com/LabSid-USP/RUBEM#readme) algorithm, which is an improved model of balance between rain and runoff.
+RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the [**Rainfall rUnoff Balance Enhanced Model (RUBEM)**](https://github.com/LabSid-USP/RUBEM#readme) algorithm, which is an improved model of balance between rain and runoff.
 
 RUBEM provides a powerful distributed hydrologic model for spatial and temporal representation of hydrological processes such as rainfall, land use and ground elevation. The model is based on equations that represent the physical processes of the hydrological cycle, with the flexibility to study a wide range of applications, including impacts of changes in climate and land use. Furthermore, the model presents resolution flexible spatial, inputs are raster-type files taken from remote sensing data and operates with a reduced number of calibration parameters.
 
