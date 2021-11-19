@@ -1,0 +1,1695 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File Formats &mdash; RUBEM Hydrological 1.3.2-alpha documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Datasets" href="datasets.html" />
+    <link rel="prev" title="Tutorials" href="tutorials.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/banner.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">File Formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#input-file-formats">Input File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mask-of-catchment-clone-raster">Mask of Catchment (Clone) raster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#digital-elevation-map-dem-raster">Digital Elevation Map (DEM) raster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#digital-elevation-map-dem-raster-tiff">Digital Elevation Map (DEM) raster (TIFF)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#potential-evapotranspiration-et-sub-p-sub-raster-series">Potential Evapotranspiration (<span class="raw-html">ET<sub>P</sub></span>) raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rainfall-p-sub-m-sub-raster-series">Rainfall (<span class="raw-html">P<sub>M</sub></span>) raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#normalized-difference-vegetation-index-ndvi-raster-series">Normalized Difference Vegetation Index (NDVI) raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-a-pan-coefficient-k-sub-p-sub-raster-series">Class A Pan Coefficient (<span class="raw-html">K<sub>P</sub></span>) raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#land-use-raster-series">Land Use raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#soil-raster">Soil raster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stations-samples-raster">Stations (samples) raster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maximum-ndvi-raster">Maximum NDVI raster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minimum-ndvi-raster">Minimum NDVI raster</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monthly-rainy-days-table">Monthly Rainy Days table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#impervious-area-fraction-ai-table">Impervious Area Fraction (ai) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#open-water-area-fraction-ao-table">Open Water Area Fraction (ao) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bare-soil-area-fraction-as-table">Bare Soil Area Fraction (as) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#vegetated-area-fraction-av-table">Vegetated Area Fraction (av) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manning-s-roughness-coefficient-table">Manning’s Roughness Coefficient table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bulk-density-table">Bulk Density table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saturated-hydraulic-conductivity-k-sub-sat-sub-table">Saturated Hydraulic Conductivity (<span class="raw-html">K<sub>SAT</sub></span>) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#field-capacity-sub-fc-sub-table">Field Capacity (<span class="raw-html">θ<sub>FC</sub></span>) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#saturated-content-sub-sat-sub-table">Saturated Content (<span class="raw-html">θ<sub>SAT</sub></span>) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wilting-point-sub-wp-sub-table">Wilting Point (<span class="raw-html">θ<sub>WP</sub></span>) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#depth-rootzone-table">Depth Rootzone table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#minimum-crop-coefficient-k-sub-c-sub-min-sub-sub-table">Minimum Crop Coefficient (<span class="raw-html">K<sub>C<sub>MIN</sub></sub></span>) table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maximum-crop-coefficient-k-sub-c-sub-max-sub-sub-table">Maximum Crop Coefficient (<span class="raw-html">K<sub>C<sub>MAX</sub></sub></span>) table</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#output-file-formats">Output File Formats</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#total-interception-raster-series">Total Interception raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#baseflow-raster-series">Baseflow raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#surface-runoff-raster-series">Surface Runoff raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#actual-evapotranspiration-raster-series">Actual Evapotranspiration raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lateral-flow-raster-series">Lateral Flow raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recharge-raster-series">Recharge raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#soil-moisture-content-raster-series">Soil Moisture Content raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#total-runoff-raster-series">Total Runoff raster series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#total-interception-table">Total Interception table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#baseflow-table">Baseflow table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#surface-runoff-table">Surface Runoff table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#actual-evapotranspiration-table">Actual Evapotranspiration table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lateral-flow-table">Lateral Flow table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#recharge-table">Recharge table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#soil-moisture-content-table">Soil Moisture Content table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#total-runoff-table">Total Runoff table</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RUBEM Hydrological</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>File Formats</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/fileformats.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-formats">
+<h1>File Formats<a class="headerlink" href="#file-formats" title="Permalink to this headline"></a>
+</h1>
+<section id="input-file-formats">
+<h2>Input File Formats<a class="headerlink" href="#input-file-formats" title="Permalink to this headline"></a>
+</h2>
+<section id="mask-of-catchment-clone-raster">
+<h3>Mask of Catchment (Clone) raster<a class="headerlink" href="#mask-of-catchment-clone-raster" title="Permalink to this headline"></a>
+</h3>
+<p>This file is the result of pre-processing the corresponding TIFF/GeoTIFF raster file through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.map</span></code> raster file.</p></li>
+<li><p>Unit: boolean</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PCRASTER_VALUESCALE</span></code> = <code class="docutils literal notranslate"><span class="pre">VS_boolean</span></code></p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>It depends on the result of rasterization of the study area. The clone resolution depends on the availability of the DEM resolution and has as content the simulated basin.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="digital-elevation-map-dem-raster">
+<h3>Digital Elevation Map (DEM) raster<a class="headerlink" href="#digital-elevation-map-dem-raster" title="Permalink to this headline"></a>
+</h3>
+<p>This file is the result of pre-processing the corresponding TIFF/GeoTIFF raster file through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.map</span></code> raster file.</p></li>
+<li><p>Unit: Scalar</p></li>
+<li>
+<p>Restrictions:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PCRASTER_VALUESCALE</span></code> = <code class="docutils literal notranslate"><span class="pre">VS_SCALAR</span></code>;</p></li>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="digital-elevation-map-dem-raster-tiff">
+<h3>Digital Elevation Map (DEM) raster (TIFF)<a class="headerlink" href="#digital-elevation-map-dem-raster-tiff" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.tif</span></code> raster file.</p></li>
+<li><p>Unit: Scalar</p></li>
+<li><p>Restriction:</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="potential-evapotranspiration-et-sub-p-sub-raster-series">
+<h3>Potential Evapotranspiration (<span class="raw-html">ET<sub>P</sub></span>) raster series<a class="headerlink" href="#potential-evapotranspiration-et-sub-p-sub-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>These files are the result of pre-processing the TIFF/GeoTIFF raster file series through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">etp00000.001</span></code> raster map series file.</p></li>
+<li><p>Unit: mm/month</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map;</p></li>
+<li><p>Each month of the historical series corresponds to a <span class="raw-html">ET<sub>P</sub></span> file.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of Potential Evapotranspiration are mandatory.</p>
+<p>A map-series in PCRaster always starts with the <code class="file docutils literal notranslate"><span class="pre">*.001</span></code> extension, corresponding with the star date of your model simulation period.</p>
+<p>The format of each individual forcing file should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes. <a class="reference external" href="https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT">Related PCRaster documentation</a>.</p>
+</div>
+</section>
+<section id="rainfall-p-sub-m-sub-raster-series">
+<h3>Rainfall (<span class="raw-html">P<sub>M</sub></span>) raster series<a class="headerlink" href="#rainfall-p-sub-m-sub-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>These files are the result of pre-processing the TIFF/GeoTIFF raster file series through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">prec0000.001</span></code> raster map series file.</p></li>
+<li><p>Unit: mm/month</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map;</p></li>
+<li><p>Each month of the historical series corresponds to a rainfall file.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of rainfall are mandatory.</p>
+<p>A map-series in PCRaster always starts with the <code class="file docutils literal notranslate"><span class="pre">*.001</span></code> extension, corresponding with the star date of your model simulation period.</p>
+<p>The format of each individual forcing file should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes. <a class="reference external" href="https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT">Related PCRaster documentation</a>.</p>
+</div>
+</section>
+<section id="normalized-difference-vegetation-index-ndvi-raster-series">
+<h3>Normalized Difference Vegetation Index (NDVI) raster series<a class="headerlink" href="#normalized-difference-vegetation-index-ndvi-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>These files are the result of pre-processing the TIFF/GeoTIFF raster file series through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">ndvi0000.001</span></code> raster map series file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map;</p></li>
+<li><p>Each month of the historical series corresponds to a NDVI file.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of NDVI are mandatory.</p>
+<p>A map-series in PCRaster always starts with the <code class="file docutils literal notranslate"><span class="pre">*.001</span></code> extension, corresponding with the star date of your model simulation period.</p>
+<p>The format of each individual forcing file should have eight characters before the dot, and 3 characters after the dot.The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes. <a class="reference external" href="https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT">Related PCRaster documentation</a>.</p>
+</div>
+</section>
+<section id="class-a-pan-coefficient-k-sub-p-sub-raster-series">
+<h3>Class A Pan Coefficient (<span class="raw-html">K<sub>P</sub></span>) raster series<a class="headerlink" href="#class-a-pan-coefficient-k-sub-p-sub-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>These files are the result of pre-processing the TIFF/GeoTIFF raster file series through PCRASTER library.</p>
+<p><span class="raw-html">K<sub>P</sub></span> is interpolated by kriging of weather stations.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">kp000000.001</span></code> raster map series file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map;</p></li>
+<li><p>Each month of the historical series corresponds to a <span class="raw-html">K<sub>P</sub></span> file.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of Kp are mandatory.</p>
+<p>A map-series in PCRaster always starts with the <code class="file docutils literal notranslate"><span class="pre">*.001</span></code> extension, corresponding with the star date of your model simulation period.</p>
+<p>The format of each individual forcing file should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes. <a class="reference external" href="https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT">Related PCRaster documentation</a>.</p>
+</div>
+</section>
+<section id="land-use-raster-series">
+<h3>Land Use raster series<a class="headerlink" href="#land-use-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>These files are the result of pre-processing the TIFF/GeoTIFF raster file series through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">cob00000.001</span></code> raster map series file.</p></li>
+<li><p>Unit: Nominal</p></li>
+<li>
+<p>Restrictions:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PCRASTER_VALUESCALE</span></code> = <code class="docutils literal notranslate"><span class="pre">VS_NOMINAL</span></code>;</p></li>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map;</p></li>
+<li><p>A cover file is required for each timestep of the historical series.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of land use are mandatory.</p>
+<p>A map-series in PCRaster always starts with the <code class="file docutils literal notranslate"><span class="pre">*.001</span></code> extension, corresponding with the star date of your model simulation period.</p>
+<p>The format of each individual forcing file should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes. <a class="reference external" href="https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT">Related PCRaster documentation</a>.</p>
+</div>
+</section>
+<section id="soil-raster">
+<h3>Soil raster<a class="headerlink" href="#soil-raster" title="Permalink to this headline"></a>
+</h3>
+<p>This file is the result of pre-processing the corresponding TIFF/GeoTIFF raster file through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.map</span></code> raster file.</p></li>
+<li><p>Unit: Nominal</p></li>
+<li>
+<p>Restrictions:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PCRASTER_VALUESCALE</span></code> = <code class="docutils literal notranslate"><span class="pre">VS_NOMINAL</span></code>;</p></li>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="stations-samples-raster">
+<h3>Stations (samples) raster<a class="headerlink" href="#stations-samples-raster" title="Permalink to this headline"></a>
+</h3>
+<p>This file is the result of pre-processing the corresponding TIFF/GeoTIFF raster file through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.map</span></code> raster file.</p></li>
+<li><p>Unit: Nominal</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PCRASTER_VALUESCALE</span></code> = <code class="docutils literal notranslate"><span class="pre">VS_NOMINAL</span></code></p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="maximum-ndvi-raster">
+<h3>Maximum NDVI raster<a class="headerlink" href="#maximum-ndvi-raster" title="Permalink to this headline"></a>
+</h3>
+<p>This file is the result of pre-processing the corresponding TIFF/GeoTIFF raster file through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.map</span></code> raster file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restrictions:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PCRASTER_VALUESCALE</span></code> = <code class="docutils literal notranslate"><span class="pre">VS_SCALAR</span></code>;</p></li>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="minimum-ndvi-raster">
+<h3>Minimum NDVI raster<a class="headerlink" href="#minimum-ndvi-raster" title="Permalink to this headline"></a>
+</h3>
+<p>This file is the result of pre-processing the corresponding TIFF/GeoTIFF raster file through PCRASTER library.</p>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.map</span></code> raster file.</p></li>
+<li><p>Unit:Dimensionless</p></li>
+<li>
+<p>Restrictions:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">PCRASTER_VALUESCALE</span></code> = <code class="docutils literal notranslate"><span class="pre">VS_SCALAR</span></code>;</p></li>
+<li><p>The file cannot contain a missing value for each pixel that is <code class="docutils literal notranslate"><span class="pre">True</span></code> (has a boolean 1 value) on the mask map.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="monthly-rainy-days-table">
+<h3>Monthly Rainy Days table<a class="headerlink" href="#monthly-rainy-days-table" title="Permalink to this headline"></a>
+</h3>
+<ul>
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: rainy days/month</p></li>
+<li>
+<p>Restriction:</p>
+<ul class="simple">
+<li><p>12 values, one for each month (mean value historic serie)</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<blockquote>
+<div>
+<p>Rows = 12;
+Columns = 2.</p>
+</div>
+</blockquote>
+</li>
+</ul>
+<table class="docutils align-default" id="id5">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id5" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Month Number</p></th>
+<th class="head"><p>Rainy Days</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-12&gt;</p></td>
+<td><p>Int &lt;1-31&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="impervious-area-fraction-ai-table">
+<h3>Impervious Area Fraction (ai) table<a class="headerlink" href="#impervious-area-fraction-ai-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(a_i + a_o + a_s + a_v = 1\)</span></p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id6">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id6" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Coverage Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="open-water-area-fraction-ao-table">
+<h3>Open Water Area Fraction (ao) table<a class="headerlink" href="#open-water-area-fraction-ao-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(a_i + a_o + a_s + a_v = 1\)</span></p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id7">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id7" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Coverage Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bare-soil-area-fraction-as-table">
+<h3>Bare Soil Area Fraction (as) table<a class="headerlink" href="#bare-soil-area-fraction-as-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(a_i + a_o + a_s + a_v = 1\)</span></p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id8">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id8" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Coverage Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vegetated-area-fraction-av-table">
+<h3>Vegetated Area Fraction (av) table<a class="headerlink" href="#vegetated-area-fraction-av-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(a_i + a_o + a_s + a_v = 1\)</span></p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id9">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id9" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Coverage Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="manning-s-roughness-coefficient-table">
+<h3>Manning’s Roughness Coefficient table<a class="headerlink" href="#manning-s-roughness-coefficient-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>One value for each soil class.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id10">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id10" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Coverage Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bulk-density-table">
+<h3>Bulk Density table<a class="headerlink" href="#bulk-density-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: <span class="raw-html">g/cm<sup>3</sup></span></p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>One value for each soil class.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id11">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id11" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Soil Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="saturated-hydraulic-conductivity-k-sub-sat-sub-table">
+<h3>Saturated Hydraulic Conductivity (<span class="raw-html">K<sub>SAT</sub></span>) table<a class="headerlink" href="#saturated-hydraulic-conductivity-k-sub-sat-sub-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: mm/month</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>One value for each soil class.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id12">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id12" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Soil Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="field-capacity-sub-fc-sub-table">
+<h3>Field Capacity (<span class="raw-html">θ<sub>FC</sub></span>) table<a class="headerlink" href="#field-capacity-sub-fc-sub-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: <span class="raw-html">θ (cm<sup>3</sup>/cm<sup>3</sup>)</span></p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>One value for each soil class.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id13">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id13" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Soil Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="saturated-content-sub-sat-sub-table">
+<h3>Saturated Content (<span class="raw-html">θ<sub>SAT</sub></span>) table<a class="headerlink" href="#saturated-content-sub-sat-sub-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: <span class="raw-html">θ (cm<sup>3</sup>/cm<sup>3</sup>)</span></p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>One value for each soil class.</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id14">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id14" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Soil Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="wilting-point-sub-wp-sub-table">
+<h3>Wilting Point (<span class="raw-html">θ<sub>WP</sub></span>) table<a class="headerlink" href="#wilting-point-sub-wp-sub-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: <span class="raw-html">θ (cm<sup>3</sup>/cm<sup>3</sup>)</span></p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>One value for each soil class..</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id15">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id15" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Soil Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="depth-rootzone-table">
+<h3>Depth Rootzone table<a class="headerlink" href="#depth-rootzone-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: cm</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p>One value for each soil class..</p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id16">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id16" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Soil Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="minimum-crop-coefficient-k-sub-c-sub-min-sub-sub-table">
+<h3>Minimum Crop Coefficient (<span class="raw-html">K<sub>C<sub>MIN</sub></sub></span>) table<a class="headerlink" href="#minimum-crop-coefficient-k-sub-c-sub-min-sub-sub-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(K_{C_{MAX}} &gt; K_{C_{MIN}}\)</span></p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id17">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id17" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Coverage Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="maximum-crop-coefficient-k-sub-c-sub-max-sub-sub-table">
+<h3>Maximum Crop Coefficient (<span class="raw-html">K<sub>C<sub>MAX</sub></sub></span>) table<a class="headerlink" href="#maximum-crop-coefficient-k-sub-c-sub-max-sub-sub-table" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p>Filetype: <code class="file docutils literal notranslate"><span class="pre">*.txt</span></code> or <code class="file docutils literal notranslate"><span class="pre">*.csv</span></code> file.</p></li>
+<li><p>Unit: Dimensionless</p></li>
+<li>
+<p>Restriction:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(K_{C_{MAX}} &gt; K_{C_{MIN}}\)</span></p></li>
+</ul>
+</li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows =  Number of land use classes;</p></li>
+<li><p>Columns = 2.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id18">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id18" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Coverage Type</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>Int &lt;1-*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="output-file-formats">
+<h2>Output File Formats<a class="headerlink" href="#output-file-formats" title="Permalink to this headline"></a>
+</h2>
+<section id="total-interception-raster-series">
+<h3>Total Interception raster series<a class="headerlink" href="#total-interception-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Total Interception (ITP) [mm]  in raster format for all simulation period for each pixel of <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: itp00000.001 raster map series file.</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="baseflow-raster-series">
+<h3>Baseflow raster series<a class="headerlink" href="#baseflow-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of  Baseflow (BFW) [mm]  in raster format for all simulation period or for each pixel of <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: bfw00000.001 raster map series file.</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="surface-runoff-raster-series">
+<h3>Surface Runoff raster series<a class="headerlink" href="#surface-runoff-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of  Surface runoff (SRN) [mm] in raster format for all simulation period or for each pixel of <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: srn00000.001 raster map series file.</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="actual-evapotranspiration-raster-series">
+<h3>Actual Evapotranspiration raster series<a class="headerlink" href="#actual-evapotranspiration-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Actual Evapotranspiration (ETA) [mm] in raster format for all simulation period or for each pixel of <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: eta00000.001 raster map series file.</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="lateral-flow-raster-series">
+<h3>Lateral Flow raster series<a class="headerlink" href="#lateral-flow-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Lateral Flow (LFW) [mm] in raster format for all simulation period for each pixel of <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: lfw00000.001 raster map series file.</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="recharge-raster-series">
+<h3>Recharge raster series<a class="headerlink" href="#recharge-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Recharge (REC) [mm] in raster format for all simulation period or for each pixel of <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: rec00000.001 raster map series file.</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="soil-moisture-content-raster-series">
+<h3>Soil Moisture Content raster series<a class="headerlink" href="#soil-moisture-content-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Soil Moisture Content (SMC) [mm] in raster format for all simulation period or for each pixel of <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: smc00000.001 raster map series file.</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="total-runoff-raster-series">
+<h3>Total Runoff raster series<a class="headerlink" href="#total-runoff-raster-series" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Total Runoff [<span class="raw-html">m<sup>3</sup>s<sup>-1</sup></span>] in raster format for all simulation period for each pixel of <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: rnf00000.001 raster map series file.</p></li>
+<li><p>Unit: <span class="raw-html">m<sup>3</sup>s<sup>-1</sup></span></p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone rows</span></a>;</p></li>
+<li><p>Columns = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone columns</span></a>;</p></li>
+<li><p>Cell Size = <a class="reference internal" href="#mask-of-catchment-clone-raster"><span class="std std-ref">clone cell size</span></a>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="total-interception-table">
+<h3>Total Interception table<a class="headerlink" href="#total-interception-table" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting values of Total Interception (ITP) [mm] in table format for all simulation period for each sampling station present in <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: *.csv</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = number of time steps;</p></li>
+<li><p>Columns = number of sampling stations from the station map.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id19">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id19" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Time Step</p></th>
+<th class="head"><p>Station #1</p></th>
+<th class="head"><p>Station #2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Station #N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>1</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even">
+<td><p>N</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="baseflow-table">
+<h3>Baseflow table<a class="headerlink" href="#baseflow-table" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of  Baseflow (BFW) [mm] in table format for all simulation period for each sampling station present in <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: *.csv</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = number of time steps;</p></li>
+<li><p>Columns = number of sampling stations from the station map.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id20">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id20" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Time Step</p></th>
+<th class="head"><p>Station #1</p></th>
+<th class="head"><p>Station #2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Station #N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>1</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even">
+<td><p>N</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="surface-runoff-table">
+<h3>Surface Runoff table<a class="headerlink" href="#surface-runoff-table" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of  Surface runoff (SRN) [mm] in table format for all simulation period for each sampling station present in <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: *.csv</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = number of time steps;</p></li>
+<li><p>Columns = number of sampling stations from the station map.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id21">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id21" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Time Step</p></th>
+<th class="head"><p>Station #1</p></th>
+<th class="head"><p>Station #2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Station #N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>1</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even">
+<td><p>N</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="actual-evapotranspiration-table">
+<h3>Actual Evapotranspiration table<a class="headerlink" href="#actual-evapotranspiration-table" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Actual Evapotranspiration (ETA) [mm] in table format for all simulation period for each sampling station present in <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: *.csv</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = number of time steps;</p></li>
+<li><p>Columns = number of sampling stations from the station map.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id22">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id22" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Time Step</p></th>
+<th class="head"><p>Station #1</p></th>
+<th class="head"><p>Station #2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Station #N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>1</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even">
+<td><p>N</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="lateral-flow-table">
+<h3>Lateral Flow table<a class="headerlink" href="#lateral-flow-table" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Lateral Flow (LFW) [mm] in table format for all simulation period for each sampling station present in <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: *.csv</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = number of time steps;</p></li>
+<li><p>Columns = number of sampling stations from the station map.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id23">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id23" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Time Step</p></th>
+<th class="head"><p>Station #1</p></th>
+<th class="head"><p>Station #2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Station #N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>1</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even">
+<td><p>N</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="recharge-table">
+<h3>Recharge table<a class="headerlink" href="#recharge-table" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Recharge (REC) [mm] in table format for all simulation period for each sampling station present in <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: *.csv</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = number of time steps;</p></li>
+<li><p>Columns = number of sampling stations from the station map.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id24">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id24" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Time Step</p></th>
+<th class="head"><p>Station #1</p></th>
+<th class="head"><p>Station #2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Station #N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>1</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even">
+<td><p>N</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="soil-moisture-content-table">
+<h3>Soil Moisture Content table<a class="headerlink" href="#soil-moisture-content-table" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Soil Moisture Content (SMC) [mm] in table format for all simulation period for each sampling station present in <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: *.csv</p></li>
+<li><p>Unit: mm</p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = number of time steps;</p></li>
+<li><p>Columns = number of sampling stations from the station map.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id25">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id25" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Time Step</p></th>
+<th class="head"><p>Station #1</p></th>
+<th class="head"><p>Station #2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Station #N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>1</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even">
+<td><p>N</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="total-runoff-table">
+<h3>Total Runoff table<a class="headerlink" href="#total-runoff-table" title="Permalink to this headline"></a>
+</h3>
+<p>Resulting maps of Total Runoff [<span class="raw-html">m<sup>3</sup>s<sup>-1</sup></span>] in table format for all simulation period for each sampling station present in <a class="reference internal" href="#stations-samples-raster"><span class="std std-ref">stations map</span></a>.</p>
+<ul class="simple">
+<li><p>Filetype: *.csv</p></li>
+<li><p>Unit: <span class="raw-html">m<sup>3</sup>s<sup>-1</sup></span></p></li>
+<li>
+<p>Dimensions:</p>
+<ul>
+<li><p>Rows = number of time steps;</p></li>
+<li><p>Columns = number of sampling stations from the station map.</p></li>
+</ul>
+</li>
+</ul>
+<table class="docutils align-default" id="id26">
+<caption>
+<span class="caption-text">Basic file structure:</span><a class="headerlink" href="#id26" title="Permalink to this table"></a>
+</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="row-odd">
+<th class="head"><p>Time Step</p></th>
+<th class="head"><p>Station #1</p></th>
+<th class="head"><p>Station #2</p></th>
+<th class="head"><p>…</p></th>
+<th class="head"><p>Station #N</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even">
+<td><p>1</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+<tr class="row-odd">
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+<td><p>…</p></td>
+</tr>
+<tr class="row-even">
+<td><p>N</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+<td><p>…</p></td>
+<td><p>Float &lt;*&gt;</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tutorials.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="datasets.html" class="btn btn-neutral float-right" title="Datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos LabSid-PHA-EPUSP &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

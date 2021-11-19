@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Guide &mdash; RUBEM Hydrological 1.3.2-alpha documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html">
+            <img src="_static/banner.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.3.2
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#running-rubem-hydrological">Running RUBEM Hydrological</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#menu-strip">Menu Strip</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#project">Project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#help">Help</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#settings-tab">Settings tab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#project-directories">Project Directories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-general-settings">Model General Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#grid">Grid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulation-period">Simulation Period</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#soil-tab">Soil tab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#soil-parameters">Soil Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-soil-conditions">Initial Soil Conditions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#land-use-tab">Land Use tab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#normalized-difference-vegetation-index-ndvi">Normalized Difference Vegetation Index (NDVI)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#area-fractions">Area Fractions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crop-coefficient-kc">Crop Coefficient (K<sub>C</sub>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fraction-photosynthetically-active-radiation-fpar">Fraction Photosynthetically Active Radiation (FPAR)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#climate-tab">Climate tab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#climate-data-series">Climate Data Series</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters-tab">Parameters tab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#model-parameters">Model Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#weight-factors">Weight Factors</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#run-tab">Run tab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generate-files">Generate Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#results-tab">Results tab</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#map-series-results">Map-series Results</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#time-series-results">Time-series Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fileformats.html">File Formats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-of-conduct.html">Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="support.html">Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="team.html">Team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RUBEM Hydrological</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>User Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/userguide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this headline"></a>
+</h1>
+<section id="running-rubem-hydrological">
+<h2>Running RUBEM Hydrological<a class="headerlink" href="#running-rubem-hydrological" title="Permalink to this headline"></a>
+</h2>
+<p>When running RUBEM Hydrological, you will see a dialog with project management buttons, help information, plugin information at the top, and tabs with text fields. Each text field contains a tooltip inside it in grayed-out text that will disappear when you start typing text into it. There is also a tool tip containing help information that will appear when you hover over each text field:</p>
+<img alt="Plugin main window." src="_images/1-settings1.png">
+<p>The descriptions give you a hint about what is required for each field. Also, in the upper right field of the window’s title bar there is a question mark button that triggers the “What’s this” mode, point the mouse pointer to any element to get more information about it. The following sections describe the required and optional parameters in greater detail.</p>
+</section>
+<section id="menu-strip">
+<h2>Menu Strip<a class="headerlink" href="#menu-strip" title="Permalink to this headline"></a>
+</h2>
+<img alt="Plugin menu strip detail." src="_images/1-menu.png">
+<section id="project">
+<h3>Project<a class="headerlink" href="#project" title="Permalink to this headline"></a>
+</h3>
+<p>The Project buttons provides access and exit points for project files:</p>
+<ul class="simple">
+<li><p><strong>New</strong>: Create a New project file from scratch;</p></li>
+<li><p><strong>Open</strong>: Open a project from a file;</p></li>
+<li><p><strong>Save</strong>: Save a project in .ini and .qgs file formats;</p></li>
+<li><p><strong>Save As…</strong>: Save a project in .ini and .qgs file formats in another location and/or with another filename.</p></li>
+</ul>
+</section>
+<section id="help">
+<h3>Help<a class="headerlink" href="#help" title="Permalink to this headline"></a>
+</h3>
+<p>The Help buttons provides access points for:</p>
+<ul class="simple">
+<li><p><strong>Help Content</strong>: Open offline help content in a web browser;</p></li>
+<li><p><strong>About information</strong>: Open a window with information about the plugin.</p></li>
+</ul>
+</section>
+</section>
+<section id="settings-tab">
+<h2>Settings tab<a class="headerlink" href="#settings-tab" title="Permalink to this headline"></a>
+</h2>
+<a class="reference internal image-reference" href="_images/1-settings2.png"><img alt="Plugin Settings tab." src="_images/1-settings2.png" style="width: 600px;"></a>
+<section id="project-directories">
+<h3>Project Directories<a class="headerlink" href="#project-directories" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>Data Input Directory</strong>: Mandatory path to database folder. Must be a valid path to an existing directory;</p></li>
+<li><p><strong>Data Output Directory</strong>: Mandatory path to output folder. Must be a valid path to an existing empty directory.</p></li>
+</ul>
+</section>
+<section id="model-general-settings">
+<h3>Model General Settings<a class="headerlink" href="#model-general-settings" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>Digital Elevation Map (DEM)</strong>: Mandatory path to Digital Elevation Map (DEM) file [masl] in *.map format. This map contains topographic ground elevation in meters. Must be a valid file path to a *.map raster file;</p></li>
+<li><p><strong>Digital Elevation Map (DEM)</strong>: Mandatory path to Digital Elevation Map (DEM) file [masl] in TIF format. This map contains topographic ground elevation in meters. Must be a valid file path to a TIF raster file;</p></li>
+<li><p><strong>Mask of Catchment (Clone)</strong>: Mandatory path to Mask of Catchment (Clone) file in *.map format. This map defines the basin area to simulate in the model. Must be a valid file path to a *.map (PCRaster boolean format) raster file;</p></li>
+<li><p><strong>Export Results to Station Locations</strong>: Optional, If enabled, export time series data of selected output variables (*.csv files) for each valid pixel in stations maps. A station location map file must be defined;</p></li>
+<li><p><strong>Stations Locations (Samples)</strong>: Mandatory if <code class="docutils literal notranslate"><span class="pre">Export</span> <span class="pre">Results</span> <span class="pre">to</span> <span class="pre">Station</span> <span class="pre">Locations</span></code> is enabled. Path to Stations file in *.map and nominal format. This file is a nominal map with unique Ids for cells identified as being a location where time-series output is required. Non-station cells have a value of -9999. Must be a valid path to an existing *.map file.</p></li>
+</ul>
+</section>
+<section id="grid">
+<h3>Grid<a class="headerlink" href="#grid" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>Grid</strong>: Mandatory cell dimension value in meters. Value has to correspond to pixel resolution of the dataset’s maps.</p></li>
+</ul>
+</section>
+<section id="simulation-period">
+<h3>Simulation Period<a class="headerlink" href="#simulation-period" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>Start Date</strong>: Mandatory date of the first time step of the simulation scenario (month and year of the start period of simulation scenario);</p></li>
+<li><p><strong>End Date</strong>: Mandatory date of the last time step of the simulation scenario (month and year of the last period of simulation scenario).</p></li>
+</ul>
+<p>Both dates must be valid and fall within between the time period of the dataset input time scale. End date must be greater than the start date.</p>
+</section>
+</section>
+<section id="soil-tab">
+<h2>Soil tab<a class="headerlink" href="#soil-tab" title="Permalink to this headline"></a>
+</h2>
+<a class="reference internal image-reference" href="_images/2-solo1.png"><img alt="Plugin Soil tab." src="_images/2-solo1.png" style="width: 600px;"></a>
+<section id="soil-parameters">
+<h3>Soil Parameters<a class="headerlink" href="#soil-parameters" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>Soil Map</strong>: Mandatory path to Soil map in *.map and nominal format. It represents the soil classes of the study area, the number of classes are defined by the user and are related to hydraulic properties. Must be a valid path to an existing *.map file.</p></li>
+<li><p><strong>Bulk Density</strong>: Mandatory path to a tabular file with values <span class="raw-html">[g/cm<sup>3</sup>]</span> of Bulk density for each soil class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><span class="raw-html"><strong>Saturated Hydraulic Conductivity (K<sub>SAT</sub>)</strong></span>: Mandatory path to a tabular file with values [mm/month] of saturated hydraulic conductivity for each soil class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><span class="raw-html"><strong>Field Capacity (θ<sub>FC</sub>)</strong></span>: Mandatory path to a tabular file with values <span class="raw-html">[θ (cm<sup>3</sup>/cm<sup>3</sup>)]</span> of field capacity water content (θ) for each soil class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><span class="raw-html"><strong>Wilting Point (θ<sub>WP</sub>)</strong></span>: Mandatory path to a tabular file with values <span class="raw-html">[θ (cm<sup>3</sup>/cm<sup>3</sup>)]</span> of Wilting Point for each soil class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><span class="raw-html"><strong>Saturated Content (θ<sub>SAT</sub>)</strong></span>: Mandatory path to a tabular file with values <span class="raw-html">[θ (cm<sup>3</sup>/cm<sup>3</sup>)]</span> of saturated content for each soil class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><strong>Depth Rootzone</strong>: Mandatory path to a tabular file with values [cm] of depth rootzone for each soil class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+</ul>
+</section>
+<section id="initial-soil-conditions">
+<h3>Initial Soil Conditions<a class="headerlink" href="#initial-soil-conditions" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>Initial Baseflow</strong>: Mandatory float value [mm] representing the baseflow at the beginning  of the simulation. It can be set by the rate of the flow in [L3T] and the grid cell dimension [L].</p></li>
+<li><p><strong>Baseflow Threshold</strong>: Mandatory float value [mm] representing te minimum water store in the saturated zone for generating Baseflow. It can be set by the rate of the monthly mean flow in [L3T] (from stream gauge) and the grid cell dimension [L] at dry season.</p></li>
+<li><p><span class="raw-html"><strong>Initial Soil Moisture Content (θ<sub>INI</sub>)</strong></span>: Mandatory float value <span class="raw-html">[θ (cm<sup>3</sup>/cm<sup>3</sup>)]</span> representing the Rootzone Soil Moisture Content value at the beginning of the simulation.</p></li>
+<li><p><span class="raw-html"><strong>Initial Saturated Zone Storage (S<sub>SAT</sub>)</strong></span>: Mandatory Saturated zone Moisture Content value [mm] at the beginning of the simulation. To generate Baseflow at the initial step this value must be greater than the baseflow threshold.</p></li>
+</ul>
+</section>
+</section>
+<section id="land-use-tab">
+<h2>Land Use tab<a class="headerlink" href="#land-use-tab" title="Permalink to this headline"></a>
+</h2>
+<a class="reference internal image-reference" href="_images/3-landuse1.png"><img alt="Plugin Land Use tab." src="_images/3-landuse1.png" style="width: 600px;"></a>
+<ul class="simple">
+<li><p><strong>Land Use Map-series</strong>: Mandatory path to Land use map-series format  (something like <cite>luc00000.001</cite>). The directory containing this file must contain the maps that represent the mean monthly LUC, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing *.001 MAP file.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of land use are mandatory.</p>
+<p>A map-series in PCRaster always starts with the *.001 extension, corresponding with the start date of your model simulation period. According to <a class="reference external" href="https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT">PCRaster documentation</a> the name of each of the files in the series should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes.</p>
+</div>
+<ul class="simple">
+<li><p><strong>Manning’s Roughness Coefficient</strong>: Mandatory path to a tabular file with values of Manning’s roughness coefficient for each land use class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><span class="raw-html"><strong>Maximum Leaf Area Index (LAI<sub>MAX</sub>)</strong></span>: Mandatory maximum float value [dimensionless quantity] that characterizes plant canopies. It is defined as the one-sided green leaf area per unit ground surface area.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[1 \leq LAI_{MAX} \leq 12\]</div>
+<ul class="simple">
+<li><p><span class="raw-html"><strong>Impervious Area Interception (I<sub>I</sub>)</strong></span>: Mandatory float value [mm] that represents the rainfall interception in impervious areas.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[1 &lt; I_I &lt; 3\]</div>
+<section id="normalized-difference-vegetation-index-ndvi">
+<h3>Normalized Difference Vegetation Index (NDVI)<a class="headerlink" href="#normalized-difference-vegetation-index-ndvi" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>NDVI Map-series</strong>: Mandatory path to the first file of the monthly Normalized Difference Vegetation Index (NDVI) map-series format (something like <cite>ndvi0000.001</cite>). The directory containing this file must contain the maps that represent the mean monthly NDVI, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing *.001 MAP file.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of NDVI are mandatory.</p>
+<p>A map-series in PCRaster always starts with the *.001 extension, corresponding with the start date of your model simulation period. According to <a class="reference external" href="https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT">PCRaster documentation</a> the name of each of the files in the series should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes.</p>
+</div>
+<ul class="simple">
+<li><p><strong>Maximum NDVI Map</strong>: Mandatory path to maximum NDVI file in *.map format. This file is a scalar pcraster map with values for each cell, representing the maximum value of NDVI in the historic series available for the cell. Must be a valid path to an existing *.map file.</p></li>
+<li><p><strong>Minimum NDVI Map</strong>: Mandatory path to minimum NDVI file in *.map format. This file is a scalar pcraster map with values for each cell, representing the minimum value of NDVI in the historic series available for the cell. Must be a valid path to an existing *.map file.</p></li>
+</ul>
+</section>
+<section id="area-fractions">
+<h3>Area Fractions<a class="headerlink" href="#area-fractions" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>Impervious Area Fraction (ai)</strong>: Mandatory path to file with values of fraction of impervious surface area for each land use class. This file is a *.txt or *.csv file with values, representing the fraction of impervious surface area for each land use class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><strong>Open Water Area Fraction (ao)</strong>: Mandatory path to file with values of fraction of open-water area for each land use class. This file is a *.txt or *.csv file with values, representing the fraction of open-water area for each land use class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><strong>Bare Soil Area Fraction (as)</strong>: Mandatory path to file with values of fraction of bare soil area for each land use class. This file is a *.txt or *.csv file with values, representing the fraction of bare soil area for each land use class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><strong>Vegetated Area Fraction (av)</strong>: Mandatory path to file with values of fraction of vegetated area for each land use class. This file is a *.txt or *.csv file with values, representing the fraction of vegetated area for each land use class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+</ul>
+</section>
+<section id="crop-coefficient-kc">
+<h3>Crop Coefficient (K<sub>C</sub>)<a class="headerlink" href="#crop-coefficient-kc" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><span class="raw-html"><strong>Maximum (K<sub>C</sub>)</strong></span>: Mandatory path to a tabular file with values of maximum crop coefficient for each land use class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+<li><p><span class="raw-html"><strong>Minimum (K<sub>C</sub>)</strong></span>: Mandatory path to a tabular file with values of minimum crop coefficient for each land use class. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+</ul>
+</section>
+<section id="fraction-photosynthetically-active-radiation-fpar">
+<h3>Fraction Photosynthetically Active Radiation (FPAR)<a class="headerlink" href="#fraction-photosynthetically-active-radiation-fpar" title="Permalink to this headline"></a>
+</h3>
+<div class="math notranslate nohighlight">
+\[0 \leq FPAR_{MAX} \leq 1\]</div>
+<div class="math notranslate nohighlight">
+\[FPAR_{MAX} &gt; FPAR_{MIN}\]</div>
+<ul class="simple">
+<li><p><strong>Maximum FPAR</strong>: Mandatory maximum float value [dimensionless quantity] of fraction photosynthetically active radiation. This parameter is related to the maximum Leaf Area Index and allows to calculate de canopy storage.</p></li>
+<li><p><strong>Minimum FPAR</strong>: Mandatory minimum float value [dimensionless quantity] of fraction photosynthetically active radiation. This parameter is related to the minimum Leaf Area Index and allows to calculate canopy storage.</p></li>
+</ul>
+</section>
+</section>
+<section id="climate-tab">
+<h2>Climate tab<a class="headerlink" href="#climate-tab" title="Permalink to this headline"></a>
+</h2>
+<a class="reference internal image-reference" href="_images/4-climate1.png"><img alt="Plugin Climate tab." src="_images/4-climate1.png" style="width: 600px;"></a>
+<section id="climate-data-series">
+<h3>Climate Data Series<a class="headerlink" href="#climate-data-series" title="Permalink to this headline"></a>
+</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of rainfall/<span class="raw-html">ET<sub>P</sub></span>/<span class="raw-html">K<sub>P</sub></span> are mandatory.</p>
+<p>A map-series in PCRaster always starts with the *.001 extension, corresponding with the start date of your model simulation period. According to <a class="reference external" href="https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT">PCRaster documentation</a> the name of each of the files in the series should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes.</p>
+</div>
+<ul class="simple">
+<li><p><span class="raw-html"><strong>Monthly Rainfall (P<sub>M</sub>)</strong></span>: Mandatory path to the first file [mm/month] of the Monthly Rainfall map-series format (something like <cite>pm000000.001</cite>). The directory containing this file must contain the maps that represent the mean monthly <span class="raw-html">P<sub>M</sub></span>, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing *.001 MAP file.</p></li>
+<li><p><span class="raw-html"><strong>Monthly Potential Evapotranspiration (ET<sub>P</sub>)</strong></span>: Mandatory path to the first file [mm/month] of the Monthly Potential Evapotranspiration map-series format (something like <cite>etp00000.001</cite>). The directory containing this file must contain the maps that represent the mean monthly <span class="raw-html">ET<sub>P</sub></span>, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing *.001 MAP file.</p></li>
+<li><p><span class="raw-html"><strong>Class A Pan Coefficient (K<sub>P</sub>)</strong></span>: Mandatory path to the first file of the Class A Pan Coefficient map-series format (something like <cite>kp000000.001</cite>). The directory containing this file must contain the maps that represent the mean monthly <span class="raw-html">K<sub>P</sub></span>, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing *.001 MAP file.</p></li>
+<li><p><strong>Monthly Rainy Days</strong>: Mandatory path to a tabular file [days/month] with values representing the mean value of rainy days for each month of the simulation period. Must be a valid path to an existing *.txt or *.csv file.</p></li>
+</ul>
+</section>
+</section>
+<section id="parameters-tab">
+<h2>Parameters tab<a class="headerlink" href="#parameters-tab" title="Permalink to this headline"></a>
+</h2>
+<img alt="Plugin Parameters tab." src="_images/5-parameters.png">
+<section id="model-parameters">
+<h3>Model Parameters<a class="headerlink" href="#model-parameters" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><strong>Interception Parameter (α)</strong>: Mandatory float value [dimensionless quantity] that affects the daily interception threshold that depends on land use.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[0.01 \leq \alpha \leq 10\]</div>
+<p>As surface runoff is directly related to interception an optimal value can be obtained by calibration surface runoff against direct runoff separated from streamflow observations.</p>
+<ul class="simple">
+<li><p><strong>Rainfall Intensity Coefficient (b)</strong>: Mandatory float exponent value [dimensionless quantity]  that represents the effect of rainfall intensity in the runoff.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[0.01 \leq b \leq 1\]</div>
+<p>The value is higher for low rainfall intensities resulting in less surface runoff, and approaches to one for high rainfall intensities. If <span class="math notranslate nohighlight">\(b = 1\)</span>, a linear relationship is assumed between rainfall excess and soil moisture.</p>
+<ul class="simple">
+<li><p><strong>Regional Consecutive Dryness Level (RCD)</strong>: Mandatory float value [mm] that incorporates the intensity of rain and the number of consecutive days in runoff calculation.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[0 \leq RCD \leq 10\]</div>
+<p>Where <span class="math notranslate nohighlight">\(RCD = 1.0\)</span> can be used for very heavy or torrential rainfall and more than 10 consecutive rainy days/month, and <span class="math notranslate nohighlight">\(RCD = 10.0\)</span> for low regional intensity rainfall less than 2 consecutive rainy days per month.</p>
+<ul class="simple">
+<li><p><strong>Flow Direction Factor (f)</strong>: Mandatory float value [dimensionless quantity] used to partition the flow out of the root zone between interflow and flow to the saturated zone.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[0.01 \leq f \leq 1\]</div>
+<p>Where <span class="math notranslate nohighlight">\(f = 1.0\)</span> corresponds to a 100% horizontal flow direction, and <span class="math notranslate nohighlight">\(f = 0\)</span> corresponds to a 100% vertical flow direction.</p>
+<ul class="simple">
+<li><p><span class="raw-html"><strong>Baseflow Recession Coefficient (α<sub>GW</sub>)</strong></span>: Mandatory float value [dimensionless quantity] that relates the baseflow response to changes in groundwater recharge.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[0.01 \leq \alpha_{GW} \leq 1\]</div>
+<p>Lower values for <span class="math notranslate nohighlight">\(\alpha_{GW}\)</span> therefore correspond to areas that respond slowly to groundwater recharge, whereas higher values indicate areas that have a rapid response to groundwater recharge.</p>
+<ul class="simple">
+<li><p><strong>Flow Recession Coefficient (x)</strong>: Mandatory float value [dimensionless quantity] that incorporates a flow delay in the accumulated amount of water that flows out of the cell into its neighboring downstream cell.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[0 \leq x \leq 1\]</div>
+<p>Where <span class="math notranslate nohighlight">\(x \approx 0\)</span> corresponds to a fast responding catchment, and <span class="math notranslate nohighlight">\(x \approx 1\)</span> corresponds to a slow responding catchment.</p>
+</section>
+<section id="weight-factors">
+<h3>Weight Factors<a class="headerlink" href="#weight-factors" title="Permalink to this headline"></a>
+</h3>
+<ul class="simple">
+<li><p><span class="raw-html"><strong>Land Use Factor Weight (w<sub>1</sub>)</strong></span>: Mandatory float value [dimensionless quantity] that contributes to the calculation of permeables areas runoff, and is related to Manning coefficient for each land use class. It measures the effect of the land use in the potential runoff produced.</p></li>
+<li><p><span class="raw-html"><strong>Soil Factor Weigh (w<sub>2</sub>)</strong></span>: Mandatory float value [dimensionless quantity] that contributes to the calculation of permeables area runoff, and is related to wilting points for each soil class. It measures the effect of the soil class in the potential runoff produced.</p></li>
+<li><p><span class="raw-html"><strong>Slope Factor Weight (w<sub>3</sub>)</strong></span>: Mandatory float value [dimensionless quantity] that contributes to the calculation of permeables areas runoff, and is related to pixel slope. It measures the effect of the slope in the potential runoff produced.</p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(w_1\)</span>, <span class="math notranslate nohighlight">\(w_2\)</span> and <span class="math notranslate nohighlight">\(w_3\)</span> are the weight factors for the three components contributing to the runoff coefficient for permeable areas, used in surface runoff formulation. Their sum must be equal to 1.</p>
+<div class="math notranslate nohighlight">
+\[w_1 + w_2 + w_3 = 1\]</div>
+</section>
+</section>
+<section id="run-tab">
+<h2>Run tab<a class="headerlink" href="#run-tab" title="Permalink to this headline"></a>
+</h2>
+<img alt="Plugin Run tab." src="_images/6-run2.png">
+<section id="generate-files">
+<h3>Generate Files<a class="headerlink" href="#generate-files" title="Permalink to this headline"></a>
+</h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>At least one of the checkboxes that enable the generation of raster series of output variables must be enabled.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">Export</span> <span class="pre">Results</span> <span class="pre">to</span> <span class="pre">Station</span> <span class="pre">Locations</span></code> option is enabled and a valid <code class="docutils literal notranslate"><span class="pre">Stations</span> <span class="pre">Locations</span> <span class="pre">(Samples)</span></code> raster is provided, a *.csv file will be generated for each of the enabled variables with the respective data of the values of each station for each one of the months of the simulation period.</p>
+</div>
+<ul class="simple">
+<li><p><strong>Total Interception</strong>: Optional boolean value. If enabled, this option allows to generate or not the results maps of Total Interception (ITP) [mm]  in raster format for all simulation period and/or *.csv for each pixel of the station’s map.</p></li>
+<li><p><strong>Baseflow</strong>: Optional boolean value. If enabled, this option allows to generate or not the results maps of  Baseflow (BFW) [mm]  in raster format for all simulation period or *.csv for each pixel of the station’s map.</p></li>
+<li><p><strong>Surface Runoff</strong>: Optional boolean value. If enabled, this option allows to generate or not the results maps of  Surface runoff (SRN) [mm] in raster format for all simulation period or *.csv for each pixel of the station’s map.</p></li>
+<li><p><strong>Actual Evapotranspiration</strong>: Optional boolean value. This option allows to generate or not the results maps of Actual Evapotranspiration (ETA) [mm] in raster format for all simulation period or *.csv for each pixel of the station’s map.</p></li>
+<li><p><strong>Lateral Flow</strong>: Optional boolean value. This option allows to generate or not the resulting maps of Lateral Flow (LFW) [mm] in raster format for all simulation period or .csv for each pixel of the station’s map.</p></li>
+<li><p><strong>Recharge</strong>: Optional boolean value. This option allows to generate or not the results maps of Recharge (REC) [mm] in raster format for all simulation period or *.csv for each pixel of the station’s map.</p></li>
+<li><p><strong>Soil Moisture Content</strong>: Optional boolean value. This option allows to generate or not the results maps of Soil Moisture Content (SMC) [mm] in raster format for all simulation period or *.csv for each pixel of the station’s map.</p></li>
+<li><p><strong>Total Runoff</strong>: This option allows to generate or not the results maps of Total Runoff [<span class="raw-html">m<sup>3</sup>s<sup>-1</sup></span>] in raster format for all simulation period or *.csv for each pixel of the station’s map.</p></li>
+</ul>
+</section>
+</section>
+<section id="results-tab">
+<h2>Results tab<a class="headerlink" href="#results-tab" title="Permalink to this headline"></a>
+</h2>
+<img alt="Plugin Results tab." src="_images/7-results2.png">
+<section id="map-series-results">
+<h3>Map-series Results<a class="headerlink" href="#map-series-results" title="Permalink to this headline"></a>
+</h3>
+<p>The raster series preview box filters the generated raster files by the name of the related variable. At each execution of the model or when opening a project that has a directory with results of previous executions of the model, the list is updated.</p>
+<p>Click on the output variable name to expand the branch and view the list of rasters generated by the model. Double-click on any branch item to view raster results in the QGIS window for each step of the simulation period.</p>
+<img alt="Results tab showing the insertion of a raster of the series generated by the model in the QGIS window." src="_images/7-results3.png">
+</section>
+<section id="time-series-results">
+<h3>Time-series Results<a class="headerlink" href="#time-series-results" title="Permalink to this headline"></a>
+</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This preview box works only if the <code class="docutils literal notranslate"><span class="pre">Export</span> <span class="pre">Results</span> <span class="pre">to</span> <span class="pre">Station</span> <span class="pre">Locations</span></code> option is enabled and a valid <code class="docutils literal notranslate"><span class="pre">Stations</span> <span class="pre">Locations</span> <span class="pre">(Samples)</span></code> raster is provided before running the model.</p>
+</div>
+<p>The time series preview box filters the generated *.csv files by the name of the related variable. At each execution of the model or when opening a project that has a directory with results of previous executions of the model, the list is updated.</p>
+<p>Click on the output variable name to expand the branch and view the list of time series generated by the model. Double-click on any item in the branch to view a graph with the evolution of values for each fluviometric station during the simulation period.</p>
+<img alt="Results tab displaying the creation of a graph from the selected time series." src="_images/7-results4.png">
+</section>
+</section>
+</section>
+
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos LabSid-PHA-EPUSP &amp; contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
