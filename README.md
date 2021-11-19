@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/LabSid-USP/RUBEMHydrological">
-    <img src="https://github.com/LabSid-USP/RUBEMHydrological/blob/develop/images/icon.png" alt="Logo" width="120" height="120">
+    <img src="/images/icon.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">RUBEM Hydrological</h3>
