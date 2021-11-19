@@ -19,13 +19,6 @@
 
 """RUBEM Hydrological plugin graph plot code."""
 
-__author__ = "LabSid PHA EPUSP"
-__email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
-__license__ = "GPL"
-__date__ = "2021-05-19"
-__version__ = "1.3.2"
-
 import matplotlib
 
 matplotlib.use("Qt5Agg")
@@ -45,7 +38,7 @@ sty_cycle = ls_cycle + color_cycle + lw_cycle
 # TODO: Add docstring information and comments
 def plotTimeSeriesData(sourceFile, plotDict, startDate, endDate):
 
-    df = pd.read_csv(sourceFile, sep=';', index_col=0)
+    df = pd.read_csv(sourceFile, sep=";", index_col=0)
 
     dateList = pd.date_range(
         datetime.datetime.strptime(startDate, "%d/%m/%Y"),

@@ -19,13 +19,6 @@
 
 """RUBEM Hydrological plugin thread workers code."""
 
-__author__ = "LabSid PHA EPUSP"
-__email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
-__license__ = "GPL"
-__date__ = "2021-05-19"
-__version__ = "1.3.2"
-
 from subprocess import PIPE, Popen, TimeoutExpired
 
 try:
@@ -57,11 +50,7 @@ class RUBEMStandaloneWorker(QObject):
     def run(self):
         """[summary]."""
         self.process = Popen(
-            self.command,
-            shell=True,
-            encoding="latin-1",
-            stdout=PIPE,
-            stderr=PIPE
+            self.command, shell=True, encoding="latin-1", stdout=PIPE, stderr=PIPE
         )
         try:
             outs, errs = self.process.communicate(timeout=150)
