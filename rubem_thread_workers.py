@@ -19,13 +19,6 @@
 
 """RUBEM Hydrological plugin thread workers code."""
 
-__author__ = "LabSid PHA EPUSP"
-__email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
-__license__ = "GPL"
-__date__ = "2021-05-19"
-__version__ = "1.3.2"
-
 from subprocess import PIPE, Popen, TimeoutExpired
 
 try:
@@ -34,6 +27,8 @@ except ImportError:
     from PyQt5.QtCore import QObject, pyqtSignal
 
 # Create RUBEM standalone worker class
+
+
 class RUBEMStandaloneWorker(QObject):
     """[summary].
 
@@ -58,7 +53,6 @@ class RUBEMStandaloneWorker(QObject):
             self.command, shell=True, encoding="latin-1", stdout=PIPE, stderr=PIPE
         )
         try:
-            # TODO: Verificar se o processo parou de responder, mas nao matar se ainda estiver funcionando
             outs, errs = self.process.communicate(timeout=150)
         except TimeoutExpired:
             self.killed = True

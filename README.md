@@ -2,10 +2,10 @@
 <br />
 <p align="center">
   <a href="https://github.com/LabSid-USP/RUBEMHydrological">
-    <img src="https://github.com/LabSid-USP/RUBEMHydrological/blob/main/images/icon.png" alt="Logo" width="120" height="120">
+    <img src="/images/icon.png" alt="Logo" width="160" height="160">
   </a>
 
-  <h3 align="center">RUBEM Hydrological</h3>
+  <h2 align="center">RUBEM Hydrological</h2>
 
   <p align="center">
     QGIS plugin that uses <b>R</b>ainfall r<b>U</b>noff <b>B</b>alance <b>E</b>nhanced <b>M</b>odel (a distributed hydrological model) to calculate monthly flows with changes in land use over time
@@ -13,7 +13,7 @@
     <a href="https://github.com/LabSid-USP/RUBEMHydrological"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/LabSid-USP/RUBEMHydrological">View Demo</a>
+    <a href="https://www.youtube.com/playlist?list=PL3Wazcs1VbKlM6N4Q8A8Pry7Aoug9v-Fl">View Demo</a>
     ·
     <a href="https://github.com/LabSid-USP/RUBEMHydrological/issues">Report Bug</a>
     ·
@@ -55,14 +55,11 @@
 <p align="center">
   <img width="373" height="456" src="">
 </p>
- -->
- 
-RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the [Rainfall rUnoff Balance Enhanced Model](https://github.com/LabSid-USP/RUBEM#readme) algorithm, which is an improved model of balance between rain and runoff.
+-->
 
-The distributed hydrological model for transforming precipitation into total flow is based on equations that represent the physical processes of the hydrological cycle, with spatial distribution defined in a grid and monthly time scale. The model was developed based on classic concepts of hydrological processes and equations based mainly on the formulations of the SPHY (TERINK et al., 2015), WEAP (YATES et al., 2005) and WetSpass-M (ABDOLLAHI et al., 2017).
+RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the [**Rainfall rUnoff Balance Enhanced Model (RUBEM)**](https://github.com/LabSid-USP/RUBEM#readme) algorithm, which is an improved model of balance between rain and runoff.
 
-The name is a posthumous tribute to Professor Rubem La Laina Porto, dean of the [Department of Hydraulic and Environmental Engineering](http://www.pha.poli.usp.br/), of the [Escola Politécnica of the University of São Paulo](https://www.poli.usp.br/), who dedicated his professional life to the study, development and practices in hydrological sciences, contributing to the improvement of the state of art and training of students and professionals working in the area.
-
+RUBEM provides a powerful distributed hydrologic model for spatial and temporal representation of hydrological processes such as rainfall, land use and ground elevation. The model is based on equations that represent the physical processes of the hydrological cycle, with the flexibility to study a wide range of applications, including impacts of changes in climate and land use. Furthermore, the model presents resolution flexible spatial, inputs are raster-type files taken from remote sensing data and operates with a reduced number of calibration parameters.
 
 
 <!-- GETTING STARTED -->
@@ -72,38 +69,25 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-* QGIS 3.16.7 'Hannover' long-term release or newer
+* [**QGIS 3.22**](https://qgis.org) or newer;
+* [**PCRaster Processing Provider**](https://jvdkwast.github.io/qgis-processing-pcraster/).
 
 ### Installation
 
-1. Download the repo branch as zip;
-2. Open QGIS `Plugins`->`Install plugin from zip file`;
-
-  Or 
-
-1. Clone the repo
-   ```sh
-   git clone https://github.com/LabSid-USP/RUBEMHydrological.git
-   ```
-2. Copy the repo folder to QGIS plugin directory 
-   
-   Windows:
-   ```powershell
-   Xcopy /E /I C:\RUBEMHydrological %APPDATA%\QGIS\QGIS3\profiles\default\python\plugins\RUBEMHydrological
-   ```
-   GNU/Linux:
-   ```sh
-   cp -R /RUBEMHydrological /home/USER/.local/share/QGIS/QGIS3/profiles/default/python/plugins/RUBEMHydrological 
-   ```
-
+1. Download the latest release zip file from the [releases page](https://github.com/LabSid-USP/RUBEMHydrological/releases);
+2. Open QGIS and go to the `Plugin` menu;
+3. Choose `Manage and Install Plugins...`;
+4. Choose `Install from ZIP`;
+5. Choose the downloaded zip file;
+6. Click `Install Plugin`;
+7. The successful message will show if the RUBEM Hydrological is installed.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+To locate and start the plugin in the QGIS GUI use the submenu of the `Plugins` menu (`Plugins -> RUBEM Hydrological -> RUBEM Hydrological`).
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
+Walk through the [basic tutorial](https://github.com/LabSid-USP/RUBEMHydrological), check out the rest of the [documentation](https://github.com/LabSid-USP/RUBEMHydrological), and [ask questions](https://forms.gle/JmxWKoXh4C29V2rD8) if you run into trouble.
 
 
 <!-- ROADMAP -->
@@ -116,28 +100,27 @@ See the [open issues](https://github.com/LabSid-USP/RUBEMHydrological/issues) fo
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**. See [`CONTRIBUTING.md`](https://github.com/LabSid-USP/RUBEMHydrological/blob/main/CONTRIBUTING.md) for more information.
 
 
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the GPLv3 License. See `LICENSE` for more information.
+Distributed under the GPLv3 License. See [`LICENSE.md`](https://github.com/LabSid-USP/RUBEMHydrological/blob/main/LICENSE.md) for more information.
 
 
 
 <!-- CONTACT -->
 ## Contact
 
-Project Link: [https://github.com/LabSid-USP/RUBEMHydrological](https://github.com/LabSid-USP/RUBEMHydrological)
+In any of our communication channels please abide by the [RUBEM Hydrological Code of Conduct](https://github.com/LabSid-USP/RUBEMHydrological). In summary, being friendly and patient, considerate, respectful, and careful in your choice of words.
 
+- Contact us at: [rubem.hydrological@labsid.eng.br](mailto:rubem.hydrological@labsid.eng.br)
+
+- Support Form: [https://forms.gle/JmxWKoXh4C29V2rD8](https://forms.gle/JmxWKoXh4C29V2rD8)
+
+- Project Link: [https://github.com/LabSid-USP/RUBEMHydrological](https://github.com/LabSid-USP/RUBEMHydrological)
 
 
 <!-- ACKNOWLEDGEMENTS -->

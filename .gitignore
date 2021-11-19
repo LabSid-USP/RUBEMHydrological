@@ -73,6 +73,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+help/build/
+help/source/_build/
 
 # PyBuilder
 target/
@@ -120,6 +122,9 @@ venv.bak/
 # Visual Studio Code project settings
 .vscode
 
+# JetBrains PyCharm project settings
+.idea
+
 # Rope project settings
 .ropeproject
 
@@ -133,3 +138,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+

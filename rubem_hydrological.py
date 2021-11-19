@@ -22,13 +22,6 @@
 Contains all the information about the actions of the plugin and the main code.
 """
 
-__author__ = "LabSid PHA EPUSP"
-__email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
-__license__ = "GPL"
-__date__ = "2021-05-19"
-__version__ = "1.3.2"
-
 import os
 
 try:
@@ -37,13 +30,18 @@ try:
     from qgis.PyQt.QtWidgets import QAction
 except ImportError:
     from PyQt5.QtCore import QCoreApplication, QSettings, Qt, QTranslator
-    from PyQt5.QtGui import QIcon
+    from PyQt5.QtGui import QIcon, QGuiApplication
     from PyQt5.QtWidgets import QAction
 
 try:
     from .rubem_hydrological_dialog import RUBEMHydrologicalDialog
 except ImportError:
     from rubem_hydrological_dialog import RUBEMHydrologicalDialog
+
+
+# QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
+QCoreApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
 
 class RUBEMHydrological:
@@ -188,9 +186,10 @@ class RUBEMHydrological:
 
     def run(self):
         """Run method that performs all the real work."""
-        # Create the dialog with elements (after translation) and keep reference
-        # Only create GUI ONCE in callback, so that it will only load when the plugin is started
-        if self.first_start == True:
+        # Create the dialog with elements (after translation) and keep ref
+        # Only create GUI ONCE in callback, so that it will only load when the
+        # plugin is started
+        if self.first_start:
             self.first_start = False
             self.dlg = RUBEMHydrologicalDialog(self.iface)
 
@@ -201,8 +200,10 @@ class RUBEMHydrological:
             | Qt.WindowContextHelpButtonHint
             | Qt.WindowCloseButtonHint
         )
+
         # show the dialog
         self.dlg.show()
+        self.dlg.adjustSize()
         # Run the dialog event loop
         result = self.dlg.exec_()
         # See if OK was pressed
