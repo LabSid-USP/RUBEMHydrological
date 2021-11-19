@@ -28,8 +28,9 @@ __author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
 __copyright__ = "Copyright 2021, LabSid PHA EPUSP"
 __license__ = "GPL"
-__date__ = "2021-05-19"
-__version__ = "1.3.2"
+__date__ = "2021-11-19"
+__version__ = "1.11.0"
+__release__ = __version__ + "-alpha"
 
 
 def classFactory(iface):
