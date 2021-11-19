@@ -22,13 +22,6 @@
 Contains all the information about the actions of the plugin and the main code.
 """
 
-__author__ = "LabSid PHA EPUSP"
-__email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
-__license__ = "GPL"
-__date__ = "2021-05-19"
-__version__ = "1.3.2"
-
 import os
 
 try:

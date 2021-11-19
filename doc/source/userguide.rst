@@ -1,0 +1,396 @@
+User Guide
+==========
+
+.. role:: raw-html(raw)
+   :format: html
+
+Running RUBEM Hydrological
+--------------------------
+
+When running RUBEM Hydrological, you will see a dialog with project management buttons, help information, plugin information at the top, and tabs with text fields. Each text field contains a tooltip inside it in grayed-out text that will disappear when you start typing text into it. There is also a tool tip containing help information that will appear when you hover over each text field:
+
+.. image:: _static/screenshots/1-settings1.png
+   :align: center   
+   :alt: Plugin main window.
+
+----------
+
+The descriptions give you a hint about what is required for each field. Also, in the upper right corner of the window's title bar there is a question mark button that triggers the `"What's this"` mode, placing the mouse pointer to any element to get more information about it. 
+
+The following sections describe the required and optional parameters in greater detail.
+
+Menu Strip
+----------
+
+.. image:: _static/screenshots/1-menu.png
+   :align: center
+   :alt: Plugin menu strip detail.
+
+
+Project
+^^^^^^^
+
+The Project buttons provides access and exit points for project files:
+
+- **New**: Create a New project file from scratch;
+
+- **Open**: Open a project from a file;
+
+- **Save**: Save a project in .ini and .qgs file formats;
+
+- **Save As...**: Save a project in .ini and .qgs file formats in another location and/or with another filename.
+
+Help
+^^^^
+
+The Help buttons provides access points for:
+
+- **Help Content**: Open help content in a web browser;
+
+- **About information**: Open a window with information about the plugin.
+
+Settings tab
+------------
+
+.. image:: _static/screenshots/1-settings2.png
+   :width: 450
+   :align: center
+   :alt: Plugin Settings tab.
+
+----------
+
+Project Directories
+^^^^^^^^^^^^^^^^^^^
+
+- **Data Input Directory**: Mandatory path to database folder. Must be a valid path to an existing directory;
+
+- **Data Output Directory**: Mandatory path to output folder. Must be a valid path to an existing empty directory.
+
+Model General Settings
+^^^^^^^^^^^^^^^^^^^^^^
+
+- **Digital Elevation Map (DEM)**: Mandatory path to Digital Elevation Map (DEM) file [masl] in :file:`*.map` format. This map contains topographic ground elevation in meters. Must be a valid file path to a :file:`*.map` raster file;
+
+- **Digital Elevation Map (DEM)**: Mandatory path to Digital Elevation Map (DEM) file [masl] in TIF format. This map contains topographic ground elevation in meters. Must be a valid file path to a TIF raster file;
+
+- **Mask of Catchment (Clone)**: Mandatory path to Mask of Catchment (Clone) file in :file:`*.map` format. This map defines the basin area to simulate in the model. Must be a valid file path to a :file:`*.map` (PCRaster boolean format) raster file;
+
+- **Export Results to Station Locations**: Optional, if enabled, export time series data of selected output variables (:file:`*.csv` files) for each valid pixel in stations maps. A map of the location of gauging stations must be defined;
+
+- **Stations Locations (Samples)**: Mandatory if ``Export Results to Station Locations`` is enabled. Path to Stations file in :file:`*.map` and nominal format. This file is a nominal map with unique Ids for cells identified as being a location where time-series output is required. Non-station cells have a value of -9999. Must be a valid path to an existing :file:`*.map` file.
+
+
+Grid
+^^^^^
+
+- **Grid**: Mandatory cell dimension value in meters. Value has to correspond to pixel resolution of the dataset's maps.
+
+Simulation Period
+^^^^^^^^^^^^^^^^^
+
+- **Start Date**: Mandatory date of the first time step of the simulation scenario (month and year of the start period of simulation scenario);
+
+- **End Date**: Mandatory date of the last time step of the simulation scenario (month and year of the last period of simulation scenario).
+
+------
+
+   Both dates must be valid and fall within between the time period of the dataset input time scale. End date must be greater than the start date.
+
+
+Soil tab
+---------
+
+.. image:: _static/screenshots/2-solo1.png
+   :width: 450
+   :align: center
+   :alt: Plugin Soil tab.
+
+----------
+
+Soil Parameters
+^^^^^^^^^^^^^^^
+
+- **Soil Map**: Mandatory path to Soil map in :file:`*.map` and nominal format. It represents the soil classes of the study area, the number of classes are defined by the user and are related to hydraulic properties. Must be a valid path to an existing :file:`*.map` file.
+
+- **Bulk Density**: Mandatory path to a tabular file with values :raw-html:`[g/cm<sup>3</sup>]` of Bulk density for each soil class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+
+- :raw-html:`<strong>Saturated Hydraulic Conductivity (K<sub>SAT</sub>)</strong>`: Mandatory path to a tabular file with values [mm/month] of saturated hydraulic conductivity for each soil class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- :raw-html:`<strong>Field Capacity (θ<sub>FC</sub>)</strong>`: Mandatory path to a tabular file with values :raw-html:`[θ (cm<sup>3</sup>/cm<sup>3</sup>)]` of field capacity water content (θ) for each soil class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- :raw-html:`<strong>Wilting Point (θ<sub>WP</sub>)</strong>`: Mandatory path to a tabular file with values :raw-html:`[θ (cm<sup>3</sup>/cm<sup>3</sup>)]` of Wilting Point for each soil class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- :raw-html:`<strong>Saturated Content (θ<sub>SAT</sub>)</strong>`: Mandatory path to a tabular file with values :raw-html:`[θ (cm<sup>3</sup>/cm<sup>3</sup>)]` of saturated content for each soil class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- **Depth Rootzone**: Mandatory path to a tabular file with values [cm] of depth rootzone for each soil class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+
+Initial Soil Conditions
+^^^^^^^^^^^^^^^^^^^^^^^
+
+- **Initial Baseflow**: Mandatory float value [mm] representing the baseflow at the beginning  of the simulation. It can be set by the rate of the flow in [L3T] and the grid cell dimension [L].
+
+- **Baseflow Threshold**: Mandatory float value [mm] representing the minimum water store in the saturated zone for generating Baseflow. It can be set by the rate of the monthly mean flow in [L3T] (from stream gauge) and the grid cell dimension [L] at dry season.
+
+- :raw-html:`<strong>Initial Soil Moisture Content (θ<sub>INI</sub>)</strong>`: Mandatory float value :raw-html:`[θ (cm<sup>3</sup>/cm<sup>3</sup>)]` representing the Rootzone Soil Moisture Content value at the beginning of the simulation.
+
+- :raw-html:`<strong>Initial Saturated Zone Storage (S<sub>SAT</sub>)</strong>`: Mandatory Saturated zone Moisture Content value [mm] at the beginning of the simulation. To generate Baseflow at the initial step this value must be greater than the baseflow threshold.
+
+Land Use tab
+------------
+
+.. image:: _static/screenshots/3-landuse1.png
+   :width: 450
+   :align: center
+   :alt: Plugin Land Use tab.
+
+----------
+
+- **Land Use Map-series**: Mandatory path to the first file of the Land Use map-series format  (something like :file:`luc00000.001`). The directory containing this file must contain the maps that represent the mean monthly LUC, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing :file:`*.001` PCRaster map file.
+
+
+.. note::
+   
+   The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of land use are mandatory. 
+   
+   A map-series in PCRaster always starts with the :file:`*.001` extension, corresponding with the start date of your model simulation period. According to `PCRaster documentation <https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT>`_ the name of each of the files in the series should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes.
+
+- **Manning's Roughness Coefficient**: Mandatory path to a tabular file with values of Manning's roughness coefficient for each land use class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- :raw-html:`<strong>Maximum Leaf Area Index (LAI<sub>MAX</sub>)</strong>`: Mandatory maximum float value [dimensionless quantity] that characterizes plant canopies. It is defined as the one-sided green leaf area per unit ground surface area. 
+
+.. math:: 1 \leq LAI_{MAX} \leq 12
+
+- :raw-html:`<strong>Impervious Area Interception (I<sub>I</sub>)</strong>`: Mandatory float value [mm] that represents the rainfall interception in impervious areas.
+
+.. math:: 1 < I_I < 3
+
+Normalized Difference Vegetation Index (NDVI)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- **NDVI Map-series**: Mandatory path to the first file of the monthly Normalized Difference Vegetation Index (NDVI) map-series format (something like :file:`ndvi0000.001`). The directory containing this file must contain the maps that represent the mean monthly NDVI, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing :file:`*.001` PCRaster map file.
+
+.. note::
+   
+   The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of NDVI are mandatory. 
+   
+   A map-series in PCRaster always starts with the :file:`*.001` extension, corresponding with the start date of your model simulation period. According to `PCRaster documentation <https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT>`_ the name of each of the files in the series should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes.
+
+- **Maximum NDVI Map**: Mandatory path to maximum NDVI file in :file:`*.map` format. This file is a scalar PCRaster map with values for each cell, representing the maximum value of NDVI in the historic series available for the cell. Must be a valid path to an existing :file:`*.map` file.
+
+- **Minimum NDVI Map**: Mandatory path to minimum NDVI file in :file:`*.map` format. This file is a scalar PCRaster map with values for each cell, representing the minimum value of NDVI in the historic series available for the cell. Must be a valid path to an existing :file:`*.map` file.
+
+Area Fractions
+^^^^^^^^^^^^^^
+
+- **Impervious Area Fraction** :raw-html:`<strong>(a<sub>i</sub>)</strong>`: Mandatory path to file with values of fraction of impervious surface area for each land use class. This file is a :file:`*.txt` or :file:`*.csv` file with values, representing the fraction of impervious surface area for each land use class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- **Open Water Area Fraction** :raw-html:`<strong>(a<sub>o</sub>)</strong>`: Mandatory path to file with values of fraction of open-water area for each land use class. This file is a :file:`*.txt` or :file:`*.csv` file with values, representing the fraction of open-water area for each land use class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- **Bare Soil Area Fraction** :raw-html:`<strong>(a<sub>s</sub>)</strong>`: Mandatory path to file with values of fraction of bare soil area for each land use class. This file is a :file:`*.txt` or :file:`*.csv` file with values, representing the fraction of bare soil area for each land use class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- **Vegetated Area Fraction** :raw-html:`<strong>(a<sub>v</sub>)</strong>`: Mandatory path to file with values of fraction of vegetated area for each land use class. This file is a :file:`*.txt` or :file:`*.csv` file with values, representing the fraction of vegetated area for each land use class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+
+Crop Coefficient (K\ :sub:`C`\)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- :raw-html:`<strong>Maximum (K<sub>C</sub>)</strong>`: Mandatory path to a tabular file with values of maximum crop coefficient for each land use class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+- :raw-html:`<strong>Minimum (K<sub>C</sub>)</strong>`: Mandatory path to a tabular file with values of minimum crop coefficient for each land use class. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+Fraction Photosynthetically Active Radiation (FPAR)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. math:: 0 \leq FPAR_{MAX} \leq 1
+
+.. math:: FPAR_{MAX} > FPAR_{MIN}
+
+- **Maximum FPAR**: Mandatory maximum float value [dimensionless quantity] of fraction photosynthetically active radiation. This parameter is related to the maximum Leaf Area Index and allows to calculate de canopy storage.
+
+
+- **Minimum FPAR**: Mandatory minimum float value [dimensionless quantity] of fraction photosynthetically active radiation. This parameter is related to the minimum Leaf Area Index and allows to calculate canopy storage.
+
+
+Climate tab
+------------
+
+.. image:: _static/screenshots/4-climate1.png
+   :width: 450
+   :align: center
+   :alt: Plugin Climate tab.
+
+----------
+
+Climate Data Series
+^^^^^^^^^^^^^^^^^^^
+
+.. note::
+   
+   The map-series consists of a spatial map for each time-step in the model. This means if the model has 100 monthly time-steps, 100 maps of rainfall/:raw-html:`ET<sub>P</sub>`/:raw-html:`K<sub>P</sub>` are mandatory.
+   
+   A map-series in PCRaster always starts with the :file:`*.001` extension, corresponding with the start date of your model simulation period. According to `PCRaster documentation <https://pcraster.geo.uu.nl/pcraster/4.3.1/documentation/python_modelling_framework/PCRasterPythonFramework.html#pcraster.framework.frameworkBase.generateNameT>`_ the name of each of the files in the series should have eight characters before the dot, and 3 characters after the dot. The name of each map starts with a prefix, and ends with the number of the time step. All characters in between are filled with zeroes.
+
+- :raw-html:`<strong>Monthly Rainfall (P<sub>M</sub>)</strong>`: Mandatory path to the first file [mm/month] of the Monthly Rainfall map-series format (something like :file:`pm000000.001`). The directory containing this file must contain the maps that represent the mean monthly :raw-html:`P<sub>M</sub>`, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing :file:`*.001` PCRaster map file.
+
+
+- :raw-html:`<strong>Monthly Potential Evapotranspiration (ET<sub>P</sub>)</strong>`: Mandatory path to the first file [mm/month] of the Monthly Potential Evapotranspiration map-series format (something like :file:`etp00000.001`). The directory containing this file must contain the maps that represent the mean monthly :raw-html:`ET<sub>P</sub>`, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing :file:`*.001` PCRaster map file.
+
+
+- :raw-html:`<strong>Class A Pan Coefficient (K<sub>P</sub>)</strong>`: Mandatory path to the first file of the Class A Pan Coefficient map-series format (something like :file:`kp000000.001`). The directory containing this file must contain the maps that represent the mean monthly :raw-html:`K<sub>P</sub>`, where each map represents the value of the variable at an individual time step. If any raster file from the time series is missing, the raster file from the previous step will be used instead. Must be a valid path to an existing :file:`*.001` PCRaster map file.
+
+
+- **Monthly Rainy Days**: Mandatory path to a tabular file [days/month] with values representing the mean value of rainy days for each month of the simulation period. Must be a valid path to an existing :file:`*.txt` or :file:`*.csv` file.
+
+Parameters tab
+--------------
+
+.. image:: _static/screenshots/5-parameters.png
+   :align: center
+   :width: 450
+   :alt: Plugin Parameters tab.
+
+----------
+
+Model Parameters
+^^^^^^^^^^^^^^^^
+
+- **Interception Parameter (α)**: Mandatory float value [dimensionless quantity] that affects the daily interception threshold that depends on land use.
+
+.. math:: 0.01 \leq \alpha \leq 10 
+
+------
+
+   As surface runoff is directly related to interception an optimal value can be obtained by calibration surface runoff against direct runoff separated from streamflow observations.
+
+- **Rainfall Intensity Coefficient (b)**: Mandatory float exponent value [dimensionless quantity]  that represents the effect of rainfall intensity in the runoff.
+
+.. math:: 0.01 \leq b \leq 1
+
+------
+
+   The value is higher for low rainfall intensities resulting in less surface runoff, and approaches to one for high rainfall intensities. If :math:`b = 1`, a linear relationship is assumed between rainfall excess and soil moisture.
+
+
+- **Regional Consecutive Dryness Level (RCD)**: Mandatory float value [mm] that incorporates the intensity of rain and the number of consecutive days in runoff calculation.
+
+.. math:: 0 \leq RCD \leq 10
+
+------
+
+   Where :math:`RCD = 1.0` can be used for very heavy or torrential rainfall and more than 10 consecutive rainy days/month, and :math:`RCD = 10.0` for low regional intensity rainfall less than 2 consecutive rainy days per month.
+
+- **Flow Direction Factor (f)**: Mandatory float value [dimensionless quantity] used to partition the flow out of the root zone between interflow and flow to the saturated zone.
+
+.. math:: 0.01 \leq f \leq 1
+
+------
+
+   Where :math:`f = 1.0` corresponds to a 100% horizontal flow direction, and :math:`f = 0` corresponds to a 100% vertical flow direction.
+
+- :raw-html:`<strong>Baseflow Recession Coefficient (α<sub>GW</sub>)</strong>`: Mandatory float value [dimensionless quantity] that relates the baseflow response to changes in groundwater recharge. 
+
+.. math:: 0.01 \leq \alpha_{GW} \leq 1
+
+------
+
+   Lower values for :math:`\alpha_{GW}` therefore correspond to areas that respond slowly to groundwater recharge, whereas higher values indicate areas that have a rapid response to groundwater recharge.
+
+
+- **Flow Recession Coefficient (x)**: Mandatory float value [dimensionless quantity] that incorporates a flow delay in the accumulated amount of water that flows out of the cell into its neighboring downstream cell.
+
+.. math:: 0 \leq x \leq 1
+
+------
+
+   Where :math:`x \approx 0` corresponds to a fast responding catchment, and :math:`x \approx 1` corresponds to a slow responding catchment.
+
+Weight Factors
+^^^^^^^^^^^^^^
+
+- :raw-html:`<strong>Land Use Factor Weight (w<sub>1</sub>)</strong>`: Mandatory float value [dimensionless quantity] that contributes to the calculation of permeables areas runoff, and is related to Manning coefficient for each land use class. It measures the effect of the land use in the potential runoff produced. 
+
+- :raw-html:`<strong>Soil Factor Weigh (w<sub>2</sub>)</strong>`: Mandatory float value [dimensionless quantity] that contributes to the calculation of permeables area runoff, and is related to wilting points for each soil class. It measures the effect of the soil class in the potential runoff produced.
+
+- :raw-html:`<strong>Slope Factor Weight (w<sub>3</sub>)</strong>`: Mandatory float value [dimensionless quantity] that contributes to the calculation of permeables areas runoff, and is related to pixel slope. It measures the effect of the slope in the potential runoff produced.
+
+------
+
+   :math:`w_1`, :math:`w_2` and :math:`w_3` are the weight factors for the three components contributing to the runoff coefficient for permeable areas, used in surface runoff formulation. Their sum must be equal to 1.
+
+.. math:: w_1 + w_2 + w_3 = 1 
+
+Run tab
+-------
+
+.. image:: _static/screenshots/6-run2.png
+   :align: center
+   :width: 450
+   :alt: Plugin Run tab.
+
+----------
+
+Generate Files
+^^^^^^^^^^^^^^
+
+.. warning::
+   At least one of the checkboxes that enable the generation of raster series of output variables must be enabled.
+
+.. note::
+   If ``Export Results to Station Locations`` option is enabled and a valid ``Stations Locations (Samples)`` raster is provided, a :file:`*.csv` file will be generated for each of the enabled options. The :file:`*.csv` file is structured as follows: each row represents a time step and each column represents a measurement station, and the cell data represents the value of the respective pixel in the selected raster map.
+
+- **Total Interception**: Optional boolean value. If enabled, this option allows the generation of Total Interception (ITP) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Baseflow**: Optional boolean value. If enabled, this option allows the generation of  Baseflow (BFW) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Surface Runoff**: Optional boolean value. If enabled, this option allows the generation of  Surface runoff (SRN) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Actual Evapotranspiration**: Optional boolean value. If enabled, this option allows the generation of Actual Evapotranspiration (ETA) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Lateral Flow**: Optional boolean value. If enabled, this option allows to generate  the resulting maps of Lateral Flow (LFW) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Recharge**: Optional boolean value. If enabled, this option allows the generation of Recharge (REC) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Soil Moisture Content**: Optional boolean value. If enabled, this option allows the generation of Soil Moisture Content (SMC) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Total Runoff**: Optional boolean value. If enabled, this option allows the generation of Total Runoff [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] result maps in raster format for each of the time steps included in the simulation period.
+
+Results tab
+-----------
+
+.. image:: _static/screenshots/7-results2.png
+   :align: center
+   :width: 450
+   :alt: Plugin Results tab.
+
+----------
+
+Map-series Results
+^^^^^^^^^^^^^^^^^^^
+
+The raster series preview box filters the generated raster files by the related variable name. The listing is updated at each model run or when opening a project that has results from previous model runs.
+
+Click on the output variable name to expand the branch and view the list of rasters generated by the model. Double-click on any branch item to view raster results in the QGIS window for each step of the simulation period.
+
+.. image:: _static/screenshots/7-results3.png
+   :align: center
+   :width: 700
+   :alt: Results tab showing the insertion of a raster of the series generated by the model in the QGIS window.
+
+----------
+
+Time-series Results
+^^^^^^^^^^^^^^^^^^^
+
+.. note::
+   This preview box works only if the ``Export Results to Station Locations`` option is enabled and a valid ``Stations Locations (Samples)`` raster is provided before running the model.
+
+The time series preview box filters the generated :file:`*.csv` files by the name of the related variable. The listing is updated at each model run or when opening a project that has results from previous model runs.
+
+Click on the output variable name to expand the branch and view the list of time series generated by the model. Double-click on any item in the branch to view a graph with the evolution of values for each fluviometric station during the simulation period.
+
+.. image:: _static/screenshots/7-results4.png
+   :align: center
+   :width: 600
+   :alt: Results tab displaying the creation of a graph from the selected time series.

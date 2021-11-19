@@ -19,13 +19,6 @@
 
 """RUBEM Hydrological plugin user input validation code."""
 
-__author__ = "LabSid PHA EPUSP"
-__email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
-__license__ = "GPL"
-__date__ = "2021-05-19"
-__version__ = "1.3.2"
-
 from os.path import isdir, isfile
 
 try:
