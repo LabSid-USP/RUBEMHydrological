@@ -1,5 +1,0 @@
-Tutorial
-========
-
-A minimal example
------------------
