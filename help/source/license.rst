@@ -23,9 +23,17 @@ Copyright (C) 2020-2021 Laboratório de Sistemas de Suporte a Decisões em Engen
 
 Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the section entitled "GNU Free Documentation License".
 
+.. _cite-us:
+
 Citation
 --------
 
-Please consider citing the following paper when using RUBEM Hydrological:
+Please consider citing the following **paper** when using Rainfall rUnoff Balance Enhanced Model (RUBEM):
 
-> [authors], [year]. [title]. [journal]. [doiurl]
+.. important::
+
+    There is an original paper under evaluation with the RUBEM Hydrological model application and validation. As soon as the paper gets the publication we will update the citation reference.
+
+Please consider citing the **datasets** when using them:
+
+`Méllo, A. V., L. M. O. Olivos, C. Billerbeck, S. S. Marcellini, W. D. Vichete, D. M. Pasetti, L. M. d. Silva, G. A. d. S. Soares, J. R. B. Tercini (2021). Rainfall-Runoff Balance Enhanced Model Applied to Tropical Hydrology, HydroShare, http://www.hydroshare.org/resource/6f3670b8cd944e7ea72e03d1b9ca928f`
