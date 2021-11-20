@@ -13,7 +13,7 @@
   <p align="center">
     QGIS plugin that uses <b>R</b>ainfall r<b>U</b>noff <b>B</b>alance <b>E</b>nhanced <b>M</b>odel (a distributed hydrological model) to calculate monthly flows with changes in land use over time
     <br />
-    <a href="https://github.com/LabSid-USP/RUBEMHydrological"><strong>Explore the docs »</strong></a>
+    <a href="https://rubem-hydrological.readthedocs.io"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://www.youtube.com/playlist?list=PL3Wazcs1VbKlM6N4Q8A8Pry7Aoug9v-Fl">View Demo</a>
