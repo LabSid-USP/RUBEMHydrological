@@ -183,5 +183,3 @@ In this section, a video example of application of the model in the Brazilian ba
 
 ..  youtube:: R8CcLSkLj0Q
     :width: 100%
-
----------
