@@ -26,8 +26,8 @@ How is RUBEM Hydrological licensed?
 
 RUBEM Hydrological is licensed by the `General Public Licence (GPL) v3 <https://github.com/LabSid-USP/RUBEMHydrological/blob/main/LICENSE.md>`__. The GPL v3 is a strong copyleft license that allows any copy or modification of the original code must also be released under the GPL v3. In other words, you can take the GPL 3 code, add to it or make major changes, then distribute your version.
 
-<QGIS Plugin X> does <feature Y> – why doesn't  Hydrological?
-``````````````````````````````````````````````````````````````
+<QGIS Plugin X> does <feature Y> – why doesn't RUBEM Hydrological?
+```````````````````````````````````````````````````````````````````
 
 RUBEM Hydrological provides a tool to facilitate the use of the RUBEM model in a free GIS environment. RUBEM provides a powerful distributed hydrologic model for spatial and temporal representation of hydrological processes such as rainfall, land use and ground elevation. The model is based on equations that represent the physical processes of the hydrological cycle, with the flexibility to study a wide range of applications, including impacts of changes in climate and land use. Furthermore, the model presents resolution flexible spatial, inputs are raster-type files taken from remote sensing data and operates with a reduced number of calibration parameters.
 
