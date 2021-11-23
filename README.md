@@ -8,7 +8,7 @@
     <img src="/images/icon.png" alt="Logo" width="160" height="160">
   </a>
 
-  <h2 align="center">RUBEM Hydrological</h2>
+  <h2 align="center"><b>RUBEM</b> Hydrological</h2>
 
   <p align="center">
     QGIS plugin that uses <b>R</b>ainfall r<b>U</b>noff <b>B</b>alance <b>E</b>nhanced <b>M</b>odel (a distributed hydrological model) to calculate monthly flows with changes in land use over time
