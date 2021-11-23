@@ -10,7 +10,7 @@ The plugin requires the user to have the latest version of QGIS 3 installed. The
 From the repository
 -------------------
 
-If you would like to get the latest code of the plugin, you can install it directly from the `repository <https://github.com/LabSid-USP/RUBEMHydrological>`__. 
+If you would like to get the latest code of the plugin, you can download it directly from the `repository <https://github.com/LabSid-USP/RUBEMHydrological>`__. 
 
 1. Download the latest release zip file from the `releases page <https://github.com/LabSid-USP/RUBEMHydrological/releases>`__;
 2. Open QGIS and go to the ``Plugin`` menu;
