@@ -1,5 +1,12 @@
 <!-- PROJECT SHIELDS -->
 [![Documentation Status][readthedocs-shield]][readthedocs-url]
+[![Contributors][contributors-shield]][contributors-url]
+[![GitHub Commit Activity][commit-activity-shield]][commit-activity-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![LabSid YouTube Channel][youtube-shield]][youtube-url]
+<!-- [![GPL v3 License][license-shield]][license-url] -->
 
 <!-- PROJECT LOGO -->
 <br />
@@ -136,3 +143,17 @@ In any of our communication channels please abide by the [RUBEM Hydrological Cod
 <!-- MARKDOWN LINKS & IMAGES -->
 [readthedocs-shield]: https://readthedocs.org/projects/rubem-hydrological/badge/?version=latest
 [readthedocs-url]: https://rubem-hydrological.readthedocs.io/en/latest/?badge=latest
+[contributors-shield]: https://img.shields.io/github/contributors/LabSid-USP/RUBEMHydrological
+[contributors-url]: https://github.com/LabSid-USP/RUBEMHydrological/graphs/contributors
+[commit-activity-shield]: https://img.shields.io/github/commit-activity/m/LabSid-USP/RUBEMHydrological
+[commit-activity-url]: https://github.com/LabSid-USP/RUBEMHydrological/pulse
+[forks-shield]: https://img.shields.io/github/forks/LabSid-USP/RUBEMHydrological
+[forks-url]: https://github.com/LabSid-USP/RUBEMHydrological/network/members
+[stars-shield]: https://img.shields.io/github/stars/LabSid-USP/RUBEMHydrological
+[stars-url]: https://github.com/LabSid-USP/RUBEMHydrological/stargazers
+[issues-shield]: https://img.shields.io/github/issues/LabSid-USP/RUBEMHydrological
+[issues-url]: https://github.com/LabSid-USP/RUBEMHydrological/issues
+[license-shield]: https://img.shields.io/github/license/LabSid-USP/RUBEMHydrological
+[license-url]: https://github.com/LabSid-USP/RUBEMHydrological/blob/master/LICENSE.md
+[youtube-shield]: https://img.shields.io/youtube/channel/subscribers/UCZOGKRCW5mQOY9_w8L7lKJg
+[youtube-url]: https://www.youtube.com/user/labsidengbr
