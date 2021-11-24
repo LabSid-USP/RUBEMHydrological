@@ -283,56 +283,56 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         # TODO: Reorganize information in dictionaries. Preferably use this format.
         # ? Should this dictionary be here or in another specific location?
         self.timeSeriesDict = {
-            "outRun": {
+            "tss_rnf": {
                 "plot": {
                     "title": "Total Runoff",
                     "x_label": "Time Steps [month]",
                     "y_label": "Value [m³/s]",
                 },
             },
-            "outInt": {
+            "tss_itp": {
                 "plot": {
                     "title": "Interception",
                     "x_label": "Time Steps [month]",
                     "y_label": "Value [mm]",
                 },
             },
-            "outBflow": {
+            "tss_bfw": {
                 "plot": {
                     "title": "Baseflow",
                     "x_label": "Time Steps [month]",
                     "y_label": "Value [mm]",
                 },
             },
-            "outSfRun": {
+            "tss_srn": {
                 "plot": {
                     "title": "Surface Runoff",
                     "x_label": "Time Steps [month]",
                     "y_label": "Value [mm]",
                 },
             },
-            "outEtp": {
+            "tss_eta": {
                 "plot": {
                     "title": "Actual Evapotranspiration",
                     "x_label": "Time Steps [month]",
                     "y_label": "Value [mm]",
                 },
             },
-            "outLf": {
+            "tss_lfw": {
                 "plot": {
                     "title": "Lateral Flow",
                     "x_label": "Time Steps [month]",
                     "y_label": "Value [mm]",
                 },
             },
-            "outRec": {
+            "tss_rec": {
                 "plot": {
                     "title": "Recharge",
                     "x_label": "Time Steps [month]",
                     "y_label": "Value [mm]",
                 },
             },
-            "outSsat": {
+            "tss_smc": {
                 "plot": {
                     "title": "Soil Moisture Content",
                     "x_label": "Time Steps [month]",
