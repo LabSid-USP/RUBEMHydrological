@@ -20,18 +20,7 @@ repository=https://github.com/LabSid-USP/RUBEMHydrological
 
 hasProcessingProvider=no
 # Uncomment the following line and add your changelog:
-changelog=Version 1.11.0:
-    - Show project name in window title bar;
-    - GUI shows empty form fields;
-    - Add model results preview tab;
-    - Fix wrong behavior of paths filling;
-    - Fix issue in the file lists on the results preview tab;
-    - Add current project check in QGIS;
-    - Check that the output directory is empty;
-    - Add button to trigger user help documentation;
-    - Add help documentation pages;
-    - Change nomenclature to the standard defined by RUBEM;
-    - Minor fixes and other improvements.       
+# changelog=
 
 # Tags are comma separated with spaces allowed
 tags=hydrological model,remote sensing,grid,hydrology,pcraster,water,catchment
