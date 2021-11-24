@@ -67,6 +67,8 @@
 </p>
 -->
 
+[![RUBEM Hydrological Screen Shot][product-screenshot]](https://rubem-hydrological.readthedocs.io/)
+
 RUBEM Hydrological is a QGIS plugin that assists in the configuration and execution of the [**Rainfall rUnoff Balance Enhanced Model (RUBEM)**](https://github.com/LabSid-USP/RUBEM#readme) algorithm, which is an improved model of balance between rain and runoff.
 
 RUBEM provides a powerful distributed hydrologic model for spatial and temporal representation of hydrological processes such as rainfall, land use and ground elevation. The model is based on equations that represent the physical processes of the hydrological cycle, with the flexibility to study a wide range of applications, including impacts of changes in climate and land use. Furthermore, the model presents resolution flexible spatial, inputs are raster-type files taken from remote sensing data and operates with a reduced number of calibration parameters.
@@ -157,3 +159,4 @@ In any of our communication channels please abide by the [RUBEM Hydrological Cod
 [license-url]: https://github.com/LabSid-USP/RUBEMHydrological/blob/master/LICENSE.md
 [youtube-shield]: https://img.shields.io/youtube/channel/subscribers/UCZOGKRCW5mQOY9_w8L7lKJg
 [youtube-url]: https://www.youtube.com/user/labsidengbr
+[product-screenshot]: images/screenshot.png
