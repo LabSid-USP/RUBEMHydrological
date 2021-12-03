@@ -10,8 +10,10 @@ assignees: ''
 Provide a general summary of your changes in the _Title_ above.
 
 **Checklist:**
-* [ ] Have you followed the guidelines in our Contributing document?
-* [ ] Have you checked to ensure there aren't other open Pull Requests for the same update/change?
+- [ ] Have you followed the guidelines in our Contributing document?
+- [ ] Have you checked to ensure there aren't other open Pull Requests for the same update/change?
+- [ ] Added **tests** for changed code.
+- [ ] Updated **documentation** for changed code.
 
 **Description**
 
