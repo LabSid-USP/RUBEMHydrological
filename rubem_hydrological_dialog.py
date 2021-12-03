@@ -35,10 +35,8 @@ from qgis.core import (
 
 from qgis.gui import QgsMapToolEmitPoint, QgsMessageBar
 
-from qgis.utils import showPluginHelp
-
 try:
-    from qgis.PyQt.QtCore import Qt, QDate, QThread, QModelIndex
+    from qgis.PyQt.QtCore import Qt, QDate, QThread, QModelIndex, QUrl
     from qgis.PyQt.QtWidgets import (
         QDialog,
         QFileDialog,
@@ -49,9 +47,9 @@ try:
         QDateEdit,
         QSizePolicy,
     )
-    from qgis.PyQt.QtGui import QStandardItemModel
+    from qgis.PyQt.QtGui import QStandardItemModel, QDesktopServices
 except ImportError:
-    from PyQt5.QtCore import Qt, QDate, QThread, QModelIndex
+    from PyQt5.QtCore import Qt, QDate, QThread, QModelIndex, QUrl
     from PyQt5.QtWidgets import (
         QDialog,
         QFileDialog,
@@ -62,7 +60,7 @@ except ImportError:
         QDateEdit,
         QSizePolicy,
     )
-    from PyQt5.QtGui import QStandardItemModel
+    from PyQt5.QtGui import QStandardItemModel, QDesktopServices
 
 try:
     from .rubem_config import defaultConfigSchema
@@ -362,8 +360,8 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # TODO: Add docstring information and comments
     def helpHandler(self):
-        helpIndexPath = os.path.join(self.plugin_dir, "help/build/html/index")
-        showPluginHelp(filename=helpIndexPath)
+        QDesktopServices.openUrl(QUrl("https://rubem-hydrological.readthedocs.io/"))
+        
 
     # TODO: Add docstring information and comments
     def aboutHandler(self):
