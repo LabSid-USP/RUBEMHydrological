@@ -1,12 +1,3 @@
----
-name: Pull request
-about: Collaborate with us to improve the project
-title: ''
-labels: 
-assignees: ''
-
----
-
 Provide a general summary of your changes in the _Title_ above.
 
 **Checklist:**
