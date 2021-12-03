@@ -367,7 +367,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
 
     # TODO: Add docstring information and comments
     def aboutHandler(self):
-        helpAboutPath = os.path.join(self.plugin_dir, "help/about.html")
+        helpAboutPath = os.path.join(self.plugin_dir, "doc/about.html")
         with open(helpAboutPath, "r") as aboutContent:
             QMessageBox.about(self, "About RUBEM Hydrological", aboutContent.read())
 
