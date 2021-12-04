@@ -102,7 +102,13 @@ Getting Help
 Where can I go to get help?
 ````````````````````````````
 
-Can you check the help in the Plugin, the documentation of the model, send email to the support team or check the git repository.
+You can get help by hitting the help button in the plugin window. You might also find the answers you are looking for in our documentation guides and tutorials. These provide step-by-step solutions to common user requirements. Check if anyone else had the same question/problem in `our repository issues <https://github.com/LabSid-USP/RUBEMHydrological/issues>`__.
+
+If you still have questions, fill out the `support form <https://forms.gle/JmxWKoXh4C29V2rD8>`__ or `sending us an email <mailto:rubem.hydrological+support@labsid.eng.br>`__ 
+
+.. note::
+
+    In any of our communication channels please abide by the :doc:`RUBEM Hydrological Code of Conduct </code-of-conduct>`. In summary, being friendly and patient, considerate, respectful, and careful in your choice of words.
 
 I think I've found a bug! What should I do?
 ```````````````````````````````````````````

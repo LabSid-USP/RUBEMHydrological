@@ -1,100 +1,48 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-<html>
+<h1><strong>RUBEM</strong> Hydrological</h1>
+<h3>Version 1.11.15-alpha</h3>
 
-<body style=" font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;">
-    <p align="left"
-        style=" margin-top:12px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;">
-        <span style=" font-size:8pt;">RUBEM Hydrological uses
-        </span><a href="https://github.com/LabSid-USP/RUBEM#readme"><span
-                style=" font-size:8pt; text-decoration: underline; color:#0000ff;">Rainfall rUnoff Balance Enhanced
-                Model</span></a><span style=" font-size:8pt;"> to calculate monthly water balance (runoff, aquifer
-            recharge, canopy interception and Base flow) with capabilities to consider changes in LULC over the
-            time.</span>
-    </p>
-    <p align="left"
-        style=" margin-top:0px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;">
-        <a href="https://github.com/LabSid-USP/RUBEMHydrological#readme"><span
-                style=" font-size:8pt; font-weight:600; text-decoration: underline; color:#0000ff;">View
-                Demo</span></a><span style=" font-size:8pt; font-weight:600;"> · </span><a
-            href="https://github.com/LabSid-USP/RUBEMHydrological/issues"><span
-                style=" font-size:8pt; font-weight:600; text-decoration: underline; color:#0000ff;">Report
-                Bug</span></a><span style=" font-size:8pt; font-weight:600;"> · </span><a
-            href="https://github.com/LabSid-USP/RUBEMHydrological/issues"><span
-                style=" font-size:8pt; font-weight:600; text-decoration: underline; color:#0000ff;">Request
-                Feature</span></a>
-    </p>
-    <p align="left"
-        style=" margin-top:16px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;">
-        <span style=" font-size:8pt; font-weight:600;">Development/Research team</span>
-    </p>
-    <table border="0"
-        style=" border-style:none; margin-top:0px; margin-bottom:0px; margin-left:46px; margin-right:46px;"
-        cellspacing="0" cellpadding="10">
-        <tr>
-            <td style=" vertical-align:middle;">
-                <p align="center"
-                    style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-                    <a href="http://labsid.eng.br/Contato.aspx"><img src=":/imgBase/images/labsid.png" width="169"
-                            height="44" style="vertical-align: middle;" /></a>
-                </p>
-            </td>
-            <td style=" vertical-align:bottom;">
-                <p align="center"
-                    style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-                    <a href="https://www.poli.usp.br/"><img src=":/imgBase/images/epusp.png" width="155"
-                            height="139" /></a>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style=" vertical-align:top;">
-                <p align="center"
-                    style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-                    <span style=" font-size:8pt;">Laboratory of Decision Support Systems Applied to Environmental and
-                        Water Resources Engineering</span>
-                </p>
+<p><a href="https://rubem-hydrological.readthedocs.io/en/latest/changelog.html">Release
+                notes</a> &middot; <a href="https://rubem-hydrological.readthedocs.io/en/latest/license.html">Licenses
+                information</a></p>
 
-            </td>
-            <td style=" vertical-align:top;">
-                <p align="center"
-                    style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-                    <span style=" font-size:8pt;">Department of Hydraulic and Environmental Engineering at the Escola
-                        Politécnica of the University of São Paulo</span>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style=" vertical-align:bottom;">
-                <p align="center"
-                    style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-                    <a href="https://www.amigosdapoli.com.br/"><img src=":/imgBase/images/adp.png" width="220"
-                            height="124" /></a>
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" style=" vertical-align:top;">
-                <p align="center"
-                    style=" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">
-                    <span style=" font-size:8pt;">Patrimonial Fund Amigos da Poli</span>
-                </p>
-            </td>
-        </tr>
-    </table>
-    <p align="left"
-        style=" margin-top:12px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;">
-        <span style=" font-size:8pt;">LabSid-PHA-USP thanks the support of the Patrimonial Fund Amigos da Poli for the
-            adaptation of the RUBEM methodology in Plugin format for QGIS.</span>
-    </p>
-    <p align="left"
-        style=" margin-top:12px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;">
-        <span style=" font-size:9pt;">Version 1.3.2</span>
-    </p>
-    <p align="left"
-        style=" margin-top:12px; margin-bottom:12px; margin-left:10px; margin-right:10px; -qt-block-indent:0; text-indent:0px;">
-        <span style=" font-size:9pt;">© 2020-2021 </span><a href="http://labsid.eng.br/Contato.aspx"><span
-                style=" font-size:9pt; text-decoration: underline; color:#0000ff;">LabSid</span></a>
-    </p>
-</body>
+<p>RUBEM Hydrological uses <a href="https://github.com/LabSid-USP/RUBEM#readme"><strong>R</strong>ainfall
+                r<strong>U</strong>noff <strong>B</strong>alance <strong>E</strong>nhanced
+                <strong>M</strong>odel</a>&nbsp;(RUBEM) to calculate monthly water balance (runoff, aquifer recharge,
+        canopy
+        interception and Base flow) with capabilities to consider changes in LULC over the time.</p>
 
-</html>
+<p><a href="https://rubem-hydrological.readthedocs.io/">Explore the Docs</a> &middot; <a
+                href="https://www.youtube.com/playlist?list=PL3Wazcs1VbKlM6N4Q8A8Pry7Aoug9v-Fl">View Demo</a> &middot;
+        <a href="https://github.com/LabSid-USP/RUBEMHydrological/issues">Report Bug</a>
+</p>
+
+<h4>Development/Research team</h4>
+
+<table align="center" border="0" cellpadding="1" cellspacing="1">
+        <tbody>
+                <tr>
+                        <td style="text-align:center; vertical-align:middle"><img alt=""
+                                        src=":/imgBase/images/labsid.png" width="110" /></td>
+                        <td style="text-align:center; vertical-align:middle"><img alt=""
+                                        src=":/imgBase/images/epusp.png" width="110" /></td>
+                        <td style="text-align:center; vertical-align:middle"><img alt="" src=":/imgBase/images/adp.png"
+                                        width="122" /></td>
+                </tr>
+                <tr>
+                        <td style="text-align:center"><span style="font-size:12px">Laboratory of Decision Support
+                                        Systems Applied to
+                                        Environmental and Water Resources Engineering</span></td>
+                        <td style="text-align:center"><span style="font-size:12px">Department of Hydraulic and
+                                        Environmental
+                                        Engineering at the Escola Polit&eacute;cnica of the University of S&atilde;o
+                                        Paulo</span></td>
+                        <td style="text-align:center"><span style="font-size:12px">Fundo Patrimonial Amigos da
+                                        Poli</span></td>
+                </tr>
+        </tbody>
+</table>
+
+<p>LabSid-PHA-USP thanks the support of the Fundo Patrimoial Amigos da Poli in the development of the QGIS plugin for
+        the distributed hydrological model RUBEM.</p>
+
+<p>&copy; 2020-2021 <a href="http://labsid.eng.br/Contato.aspx">LabSid</a></p>

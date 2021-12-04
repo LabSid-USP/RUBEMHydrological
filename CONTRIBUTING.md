@@ -22,7 +22,7 @@ If you have found a bug in the RUBEM Hydrological software (or any other erroneo
 
 Well-written bug reports are incredibly helpful. However, there’s a certain amount of overhead involved in working with any bug tracking system so your help in keeping our issue tracker as useful as possible is appreciated. In particular:
 
-- Do read the [FAQ](https://github.com/LabSid-USP/RUBEMHydrological) to see if your issue might be a well-known question;
+- Do read the [FAQ](https://rubem-hydrological.readthedocs.io/en/latest/faq.html) to see if your issue might be a well-known question;
 
 - Do ask on our [support form](https://forms.gle/JmxWKoXh4C29V2rD8) first if you're not sure if what you're seeing is a bug;
 

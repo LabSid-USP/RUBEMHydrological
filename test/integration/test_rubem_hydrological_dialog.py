@@ -15,9 +15,10 @@ __copyright__ = "Copyright 2021, LabSid"
 import unittest
 from test.utilities import get_qgis_app
 
-from qgis.PyQt.QtWidgets import QDialog, QDialogButtonBox
+from qgis.PyQt.QtWidgets import QApplication, QDialog, QDialogButtonBox
 
-from rubem_hydrological_dialog import RUBEMHydrologicalDialog
+from plugin.dialog import RUBEMHydrologicalDialog
+
 
 QGIS_APP = get_qgis_app()
 
@@ -27,6 +28,7 @@ class RUBEMHydrologicalDialogTest(unittest.TestCase):
 
     def setUp(self):
         """Runs before each test."""
+        self.app = QApplication([])
         self.dialog = RUBEMHydrologicalDialog(None)
 
     def tearDown(self):

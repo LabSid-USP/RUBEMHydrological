@@ -4,13 +4,13 @@ Tutorials
 Alto Iguaçu River Basin Minimal Example
 ---------------------------------------
 
-In this section an example of application of the model in the Brazilian basin of the Alto Iguaçu river is presented. For this case study you need to download the respective required dataset which is available on the datasets page. :doc:`datasets page </datasets>`.
+In this section an example of application of the model in the Brazilian basin of the Alto Iguaçu river is presented. For this case study you need to download the respective required dataset which is available on the :doc:`datasets page </datasets>`.
 
 For this example, we will set up the RUBEM model for ten years: 2000 to 2009. For this period, we will set up a 500 x 500 m spatial resolution (grid cell size). All maps used in this tutorial are in the WGS 84 ESPG 2346 projection. In this tutorial, each step to set up the model is discussed. 
 
 
-Create new project
-```````````````````
+Create a new project
+`````````````````````
 
 Click ``New`` and save your new project in the downloaded dataset directory. Name the project :file:`Iguazu.ini` or another appropriate filename. Then, in the section ``Project Directories`` select the dataset directory as ``input directory`` and a preference folder directory as ``output directory``
  

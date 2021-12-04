@@ -24,15 +24,6 @@ Also, QGIS requires that this file contains a `classFactory()` function,\n
 which is called when the plugin gets loaded into QGIS.
 """
 
-__author__ = "LabSid PHA EPUSP"
-__email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
-__license__ = "GPL"
-__date__ = "2021-11-19"
-__version__ = "1.11.0"
-__release__ = __version__ + "-alpha"
-
-
 def classFactory(iface):
     """Call when the plugin gets loaded into QGIS.
 
@@ -44,8 +35,8 @@ def classFactory(iface):
     :rtype: class
     """
     try:
-        from .rubem_hydrological import RUBEMHydrological
+        from .plugin.core import RUBEMHydrological
     except ImportError:
-        from rubem_hydrological import RUBEMHydrological
+        from plugin.core import RUBEMHydrological
 
     return RUBEMHydrological(iface)
