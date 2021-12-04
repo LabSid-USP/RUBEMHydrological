@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="imgBase">
+    <file>images/banner.png</file>
+    <file>images/icon.png</file>
+    <file>images/adp.png</file>
+    <file>images/labsid.png</file>
+    <file>images/epusp.png</file>
+  </qresource>
+  <qresource prefix="iconMenu">
+    <file>images/qgis-default-theme/pluginNew.svg</file>
+    <file>images/qgis-default-theme/mActionFileNew.svg</file>
+    <file>images/qgis-default-theme/mActionFileOpen.svg</file>
+    <file>images/qgis-default-theme/mActionFileSave.svg</file>
+    <file>images/qgis-default-theme/mActionFileSaveAs.svg</file>
+    <file>images/qgis-default-theme/mActionHelpContents.svg</file>
+  </qresource>
+</RCC>
