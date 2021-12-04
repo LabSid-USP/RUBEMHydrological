@@ -5,6 +5,19 @@ This is the list of changes to RUBEM Hydrological between each release. For full
 
 For a list of known issues and their fixes, visit the `Github issues page <https://github.com/LabSid-USP/RUBEMHydrological/issues>`_.
 
+Version 1.11.15-alpha
+----------------------
+
+**Date**: December 03, 2021
+
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Configure Read the Docs service (`#96 <https://github.com/LabSid-USP/RUBEMHydrological/pull/96>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix typos (`#101 <https://github.com/LabSid-USP/RUBEMHydrological/pull/101>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix metadata file (`#104 <https://github.com/LabSid-USP/RUBEMHydrological/pull/104>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when generating a graphic (`#105 <https://github.com/LabSid-USP/RUBEMHydrological/pull/105>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when opening help doc (`#111 <https://github.com/LabSid-USP/RUBEMHydrological/pull/111>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when opening about info (`#110 <https://github.com/LabSid-USP/RUBEMHydrological/pull/110>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Perform project refactoring tasks (`#115 <https://github.com/LabSid-USP/RUBEMHydrological/pull/115>`_);
+
 Version 1.11.0-alpha
 --------------------
 
