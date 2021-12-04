@@ -34,9 +34,9 @@ except ImportError:
     from PyQt5.QtWidgets import QAction
 
 try:
-    from .rubem_hydrological_dialog import RUBEMHydrologicalDialog
+    from .dialog import RUBEMHydrologicalDialog
 except ImportError:
-    from rubem_hydrological_dialog import RUBEMHydrologicalDialog
+    from dialog import RUBEMHydrologicalDialog
 
 
 # QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
