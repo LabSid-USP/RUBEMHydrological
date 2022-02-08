@@ -1,3 +1,8 @@
+try:
+    from ..utils.series import splitDirFilePrefix
+except ImportError:
+    from utils.series import splitDirFilePrefix
+
 # Climate tab
 def setPrecipitationSeriesFilePath(self):
     """Define the project's Precipitation folder file.
@@ -12,7 +17,7 @@ def setPrecipitationSeriesFilePath(self):
         caption="Select Rainfall Series File", filter="(*.001);;All Files(*)"
     )
     if filePath:
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+        tmpDir, tmpPrefix = splitDirFilePrefix(filePath)
         self.config.set("DIRECTORIES", "prec", tmpDir)
         self.config.set("FILENAME_PREFIXES", "prec_prefix", tmpPrefix)
         self.lineEdt_Precipitation.setText(filePath)
@@ -32,7 +37,7 @@ def setEvapotranspirationSeriesFilePath(self):
         filter="(*.001);;All Files(*)",
     )
     if filePath:
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+        tmpDir, tmpPrefix = splitDirFilePrefix(filePath)
         self.config.set("DIRECTORIES", "etp", tmpDir)
         self.config.set("FILENAME_PREFIXES", "etp_prefix", tmpPrefix)
         self.lineEdt_EvapoTranspiration.setText(filePath)
@@ -52,7 +57,7 @@ def setKpSeriesFilePath(self):
         filter="(*.001);;All Files(*)",
     )
     if filePath:
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+        tmpDir, tmpPrefix = splitDirFilePrefix(filePath)
         self.config.set("DIRECTORIES", "kp", tmpDir)
         self.config.set("FILENAME_PREFIXES", "kp_prefix", tmpPrefix)
         self.lineEdt_PanCoefficientKp.setText(filePath)

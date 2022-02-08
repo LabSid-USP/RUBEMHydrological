@@ -16,7 +16,10 @@ except ImportError:
 def setRunState(self):
     """Invoke the model's standalone executable including the configuration file generated from user input as an argument in the CLI."""
     # Use the standalone executable file of the model present in the plugin's root directory
-    self.modelFilePath = os.path.join(self.plugin_dir, "rubem", "rubem.exe")
+    self.modelFilePath = os.path.join(
+        self.plugin_dir, os.pardir, os.pardir, "rubem", "rubem.exe"
+    )
+    # raise Exception(self.modelFilePath)
 
     if self.hasFilledAllFields():
         self.updateConfigFromGUI()
