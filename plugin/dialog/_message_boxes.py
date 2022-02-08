@@ -35,7 +35,7 @@ def getUserRetQGISCurProj(self):
         QMessageBox.Ok | QMessageBox.Cancel,
         QMessageBox.Ok,
     )
-    return responseS
+    return response
 
 
 def getUserRetDirNotEmpty(self):
