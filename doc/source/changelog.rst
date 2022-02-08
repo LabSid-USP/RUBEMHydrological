@@ -5,11 +5,12 @@ This is the list of changes to RUBEM Hydrological between each release. For full
 
 For a list of known issues and their fixes, visit the `Github issues page <https://github.com/LabSid-USP/RUBEMHydrological/issues>`_.
 
-Version 1.11.16-alpha
+Version 1.11.17-alpha
 ----------------------
 
 **Date**: February 08, 2022
 
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when trying to cancel window closure (`#96 <https://github.com/LabSid-USP/RUBEMHydrological/pull/123>`_);
 - `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when load the first file of any map-series data (`#96 <https://github.com/LabSid-USP/RUBEMHydrological/pull/120>`_);
 
 
