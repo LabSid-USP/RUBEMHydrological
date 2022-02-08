@@ -1,4 +1,4 @@
-Copyright (C) 2021 LabSid PHA EPUSP. All rights reserved.
+Copyright (C) 2021-2022 LabSid PHA EPUSP. All rights reserved.
 
 RUBEM Hydrological is provided by the copyright holders "as is", without warranty 
 of any kind, expressed or implied, including but not limited to the warranties of
@@ -179,7 +179,7 @@ change which third party tools are used.
 
 > PyQt - Python bindings for the Qt cross platform application toolkit
 > 
-> Copyright (C) 2021  Riverbank Computing Limited.
+> Copyright (C) 2021-2022  Riverbank Computing Limited.
 > 
 > This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 > 
