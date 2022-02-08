@@ -23,8 +23,8 @@ __author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
 __copyright__ = "Copyright 2021, LabSid PHA EPUSP"
 __license__ = "GPL"
-__date__ = "2021-12-03"
-__version__ = "1.11.15"
+__date__ = "2022-02-08"
+__version__ = "1.11.16"
 __release__ = __version__ + "-alpha"
 
 # RUBEM Hydrological documentation build configuration file, created by
