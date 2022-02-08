@@ -1,3 +1,8 @@
+try:
+    from ..utils.series import splitDirFilePrefix
+except ImportError:
+    from utils.series import splitDirFilePrefix
+
 # Land Use tab
 # Land Use Series
 def setLandUseSeriesFilePath(self):
@@ -13,7 +18,7 @@ def setLandUseSeriesFilePath(self):
         caption="Select Land Use Series File", filter="(*.001);;All Files(*)"
     )
     if filePath:
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+        tmpDir, tmpPrefix = splitDirFilePrefix(filePath)
         self.config.set("DIRECTORIES", "landuse", tmpDir)
         self.config.set("FILENAME_PREFIXES", "landuse_prefix", tmpPrefix)
         self.lineEdt_LandUseSeries.setText(filePath)
@@ -33,7 +38,7 @@ def setNDVISeriesFilePath(self):
         caption="Select NDVI Series File", filter="(*.001);;All Files(*)"
     )
     if filePath:
-        tmpDir, tmpPrefix = self.splitDirFilePrefix(filePath)
+        tmpDir, tmpPrefix = splitDirFilePrefix(filePath)
         self.config.set("DIRECTORIES", "ndvi", tmpDir)
         self.config.set("FILENAME_PREFIXES", "ndvi_prefix", tmpPrefix)
         self.lineEdt_NDVISeries.setText(filePath)
