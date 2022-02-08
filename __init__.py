@@ -1,6 +1,6 @@
 # coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
-# Copyright (C) 2021 LabSid PHA EPUSP
+# Copyright (C) 2021-2022 LabSid PHA EPUSP
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@ This file is required by Python’s import system.
 Also, QGIS requires that this file contains a `classFactory()` function,\n
 which is called when the plugin gets loaded into QGIS.
 """
+
 
 def classFactory(iface):
     """Call when the plugin gets loaded into QGIS.
