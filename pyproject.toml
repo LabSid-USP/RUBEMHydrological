@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "RUBEM Hydrological"
-version = "1.11.17"
+version = "1.12.1"
 description = "Rainfall rUnoff Balance Enhanced Model (RUBEM) distributed hydrological model QGIS plugin to calculate monthly flows with changes in land use over time."
 authors = ["LabSid PHA EPUSP <rubem.hydrological@labsid.eng.br>"]
 license = "GPL v3"
