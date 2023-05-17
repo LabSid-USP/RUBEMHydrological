@@ -1,6 +1,6 @@
 # coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
-# Copyright (C) 2021-2022 LabSid PHA EPUSP
+# Copyright (C) 2021-2023 LabSid PHA EPUSP
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,11 +21,11 @@
 
 __author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021, LabSid PHA EPUSP"
+__copyright__ = "Copyright 2021-2023, LabSid PHA EPUSP"
 __license__ = "GPL"
-__date__ = "2022-02-08"
-__version__ = "1.11.17"
-__release__ = __version__ + "-alpha"
+__date__ = "2023-05-17"
+__version__ = "1.12.1"
+__release__ = __version__ + "-beta.1"
 
 # RUBEM Hydrological documentation build configuration file, created by
 # sphinx-quickstart on Sun Feb 12 17:11:03 2012.
@@ -86,7 +86,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "RUBEM Hydrological"
-copyright = "2021, Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos LabSid-PHA-EPUSP & contributors"
+copyright = "2021-2023, Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos LabSid-PHA-EPUSP & contributors"
 author = "Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos (LabSid) PHA-EPUSP & contributors"
 
 # The version info for the project you're documenting, acts as replacement for

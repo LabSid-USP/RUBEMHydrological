@@ -5,13 +5,21 @@ This is the list of changes to RUBEM Hydrological between each release. For full
 
 For a list of known issues and their fixes, visit the `Github issues page <https://github.com/LabSid-USP/RUBEMHydrological/issues>`_.
 
+Version 1.12.1-beta.1
+----------------------
+
+**Date**: May 17, 2023
+
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Add Paraíba do Sul dataset (`#127 <https://github.com/LabSid-USP/RUBEMHydrological/pull/127>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix execution and error handling for external executable (`#129 <https://github.com/LabSid-USP/RUBEMHydrological/pull/129>`_);
+
 Version 1.11.17-alpha
 ----------------------
 
 **Date**: February 08, 2022
 
-- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when trying to cancel window closure (`#96 <https://github.com/LabSid-USP/RUBEMHydrological/pull/123>`_);
-- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when load the first file of any map-series data (`#96 <https://github.com/LabSid-USP/RUBEMHydrological/pull/120>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when trying to cancel window closure (`#123 <https://github.com/LabSid-USP/RUBEMHydrological/pull/123>`_);
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix problem when load the first file of any map-series data (`#120 <https://github.com/LabSid-USP/RUBEMHydrological/pull/120>`_);
 
 
 Version 1.11.15-alpha
