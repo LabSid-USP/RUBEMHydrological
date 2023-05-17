@@ -19,53 +19,47 @@
 
 """RUBEM Hydrological plugin thread workers code."""
 
-from subprocess import PIPE, Popen, TimeoutExpired
-
-try:
-    from qgis.PyQt.QtCore import QObject, pyqtSignal
-except ImportError:
-    from PyQt5.QtCore import QObject, pyqtSignal
-
-# Create RUBEM standalone worker class
-
+from qgis.core import QgsMessageLog
+from qgis.PyQt.QtCore import QObject, pyqtSignal, QProcess
 
 class RUBEMStandaloneWorker(QObject):
-    """[summary].
-
-    :param QObject: [description]
-    :type QObject: [type]
-    """
-
     def __init__(self, command):
-        """[summary].
-
-        :param command: [description]
-        :type command: [type]
-        """
-        QObject.__init__(self)
+        super().__init__()
         self.command = command
-        self.killed = False
-        self.process = None
+        self.process = QProcess()
+        self.process.readyReadStandardOutput.connect(self.handle_stdout)
+        self.process.readyReadStandardError.connect(self.handle_stderr)
+        self.process.finished.connect(self.handle_finished)
 
     def run(self):
-        """[summary]."""
-        self.process = Popen(
-            self.command, shell=True, encoding="latin-1", stdout=PIPE, stderr=PIPE
-        )
-        try:
-            outs, errs = self.process.communicate(timeout=150)
-        except TimeoutExpired:
-            self.killed = True
-            self.process.kill()
-            outs, errs = self.process.communicate()
+        self.process.start(self.command[0], self.command[1:])
 
-        self.progress.emit(100)
-        self.finished.emit(outs + errs)
+    def handle_stdout(self):
+        while self.process.canReadLine():
+            data = self.process.readLine().data().decode().strip()
+            
+            if data: 
+                self.logUpdated.emit(data)
+                
+                if "##" in data:
+                    parts = data.split(" ")
+                    current_cycle = int(parts[-3])
+                    total_cycles = int(parts[-1])
+                    progress = int((current_cycle / total_cycles) * 100)
+                    self.progress.emit(progress)
+
+    def handle_stderr(self):
+        data = self.process.readAllStandardError().data().decode().strip()
+        if data: 
+            self.errorUpdated.emit(data)
+
+    def handle_finished(self, exit_code, exit_status):
+        self.finished.emit(exit_code)
 
     def kill(self):
-        """[summary]."""
-        self.killed = True
         self.process.kill()
 
-    finished = pyqtSignal(str)
+    logUpdated = pyqtSignal(str)
+    errorUpdated = pyqtSignal(str)
+    finished = pyqtSignal(int)
     progress = pyqtSignal(int)
