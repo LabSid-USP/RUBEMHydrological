@@ -6,7 +6,7 @@
 name=RUBEM Hydrological
 qgisMinimumVersion=3.0
 description=Distributed hydrological model for water balance
-version=1.12.1
+version=1.12.2
 author=LabSid-PHA-EPUSP
 email=rubem.hydrological@labsid.eng.br
 
