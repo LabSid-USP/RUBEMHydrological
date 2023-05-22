@@ -5,6 +5,13 @@ This is the list of changes to RUBEM Hydrological between each release. For full
 
 For a list of known issues and their fixes, visit the `Github issues page <https://github.com/LabSid-USP/RUBEMHydrological/issues>`_.
 
+Version 1.12.2-beta.2
+----------------------
+
+**Date**: May 22, 2023
+
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix Results tab not being activated upon completion of standalone executable (`#132 <https://github.com/LabSid-USP/RUBEMHydrological/pull/132>`_);
+
 Version 1.12.1-beta.1
 ----------------------
 
