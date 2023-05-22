@@ -182,7 +182,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         setSoilMoistureGenerateFile,
     )
     from ._tab_results import populateMapSeriesTree, populateTimeSeriesTree
-    from ._worker import setRunState, reportExecutionLog, reportProgress, runLongTask
+    from ._worker import setRunState, reportExecutionLog, reportProgress, runLongTask, handleFinished
     from ._graph_plot import plotTimeSeriesData, plotWrapper
     from ._map_canvas import canvasHandler
     from ._help_info import aboutHandler, helpHandler

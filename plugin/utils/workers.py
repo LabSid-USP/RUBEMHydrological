@@ -19,7 +19,6 @@
 
 """RUBEM Hydrological plugin thread workers code."""
 
-from qgis.core import QgsMessageLog
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QProcess
 
 class RUBEMStandaloneWorker(QObject):
@@ -33,6 +32,7 @@ class RUBEMStandaloneWorker(QObject):
 
     def run(self):
         self.process.start(self.command[0], self.command[1:])
+        self.process.waitForStarted()
 
     def handle_stdout(self):
         while self.process.canReadLine():
@@ -53,8 +53,11 @@ class RUBEMStandaloneWorker(QObject):
         if data: 
             self.errorUpdated.emit(data)
 
-    def handle_finished(self, exit_code, exit_status):
-        self.finished.emit(exit_code)
+    def handle_finished(self, exit_code):
+        if (exit_code == QProcess.NormalExit):
+            self.finished.emit(0)
+        else:
+            self.finished.emit(1)
 
     def kill(self):
         self.process.kill()

@@ -1,4 +1,5 @@
 import os
+from textwrap import dedent
 
 from qgis.core import Qgis, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
@@ -56,17 +57,22 @@ def handleFinished(self, exit_code):
         self.populateTimeSeriesTree()
         QgsMessageLog.logMessage("RUBEM execution finished successfully!", "RUBEM Hydrological", level=Qgis.Success)        
     else:
-        self.textBrowser_log.append("\n# RUBEM execution finished with errors.")
-        self.textBrowser_log.append("\n# Check the log for more details.")
-        self.textBrowser_log.append("\n# If you need help, visit http://rubem-hydrological.rtfd.io/")
+        self.textBrowser_log.append(dedent("""\n
+            # RUBEM execution finished with errors!
+            # Check the log for more details.
+            # If you need help, visit http://rubem-hydrological.rtfd.io/"""
+        ))
+        self.progressBar.setStyleSheet("QProgressBar::chunk ""{""background-color: red;""}")
         QgsMessageLog.logMessage("RUBEM execution finished with errors.", "RUBEM Hydrological", level=Qgis.Critical)
 
 def runLongTask(self):
     """Configure QProcess."""
+    self.progressBar.setStyleSheet("")
     self.progressBar.setRange(0, 100)
     self.worker = RUBEMStandaloneWorker(self.command)
     self.worker.logUpdated.connect(self.reportExecutionLog)
     self.worker.errorUpdated.connect(self.reportExecutionLog)
+    self.worker.finished.connect(self.handleFinished)
     self.worker.finished.connect(self.worker.deleteLater)
     self.worker.progress.connect(self.reportProgress)   
     self.worker.finished.connect(lambda: self.btn_Run.setEnabled(True))
