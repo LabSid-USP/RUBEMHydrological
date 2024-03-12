@@ -1,0 +1,3 @@
+[submodule "models/rubem"]
+	path = models/rubem
+	url = https://github.com/LabSid-USP/RUBEM.git
