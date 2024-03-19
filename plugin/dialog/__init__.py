@@ -1,6 +1,6 @@
 # coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
-# Copyright (C) 2021-2023 LabSid PHA EPUSP
+# Copyright (C) 2021-2024 LabSid PHA EPUSP
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -182,7 +182,13 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         setSoilMoistureGenerateFile,
     )
     from ._tab_results import populateMapSeriesTree, populateTimeSeriesTree
-    from ._worker import setRunState, reportExecutionLog, reportProgress, runLongTask, handleFinished
+    from ._worker import (
+        setRunState,
+        reportExecutionLog,
+        reportProgress,
+        runLongTask,
+        handleFinished,
+    )
     from ._graph_plot import plotTimeSeriesData, plotWrapper
     from ._map_canvas import canvasHandler
     from ._help_info import aboutHandler, helpHandler

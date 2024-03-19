@@ -1,6 +1,6 @@
 # coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
-# Copyright (C) 2021-2023 LabSid PHA EPUSP
+# Copyright (C) 2021-2024 LabSid PHA EPUSP
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,11 +21,11 @@
 
 __author__ = "LabSid PHA EPUSP"
 __email__ = "rubem.hydrological@labsid.eng.br"
-__copyright__ = "Copyright 2021-2023, LabSid PHA EPUSP"
+__copyright__ = "Copyright 2021-2024, LabSid PHA EPUSP"
 __license__ = "GPL"
-__date__ = "2023-05-22"
-__version__ = "1.12.2"
-__release__ = __version__ + "-beta.2"
+__date__ = "2024-03-19"
+__version__ = "1.12.3"
+__release__ = __version__ + "-beta.3"
 
 # RUBEM Hydrological documentation build configuration file, created by
 # sphinx-quickstart on Sun Feb 12 17:11:03 2012.
@@ -68,9 +68,7 @@ extensions = [
 
 email_automode = True
 
-mathjax_path = (
-    "https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
-)
+mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -86,7 +84,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "RUBEM Hydrological"
-copyright = "2021-2023, Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos LabSid-PHA-EPUSP & contributors"
+copyright = "2021-2024, Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos LabSid-PHA-EPUSP & contributors"
 author = "Laboratório de Sistemas de Suporte a Decisões Aplicados à Engenharia Ambiental e de Recursos Hídricos (LabSid) PHA-EPUSP & contributors"
 
 # The version info for the project you're documenting, acts as replacement for
