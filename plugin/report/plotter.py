@@ -35,6 +35,7 @@ lw_cycle = cycler(lw=[1, 2, 1, 2, 1])
 # mk_cycle = cycler(marker=['.', ',', 'o', 'v','^'])
 sty_cycle = ls_cycle + color_cycle + lw_cycle
 
+
 # TODO: Add docstring information and comments
 def plotTimeSeriesData(sourceFile, plotDict, startDate, endDate):
 
@@ -57,13 +58,11 @@ def plotTimeSeriesData(sourceFile, plotDict, startDate, endDate):
     ax.set_prop_cycle(sty_cycle)
 
     for col in df.columns.difference(["Dates"]):
-        ax.plot(df["Dates"], df[col], label=col)
+        ax.plot(df["Dates"].to_numpy(), df[col].to_numpy(), label=col)
 
     ax.xaxis.set_tick_params(which="major", size=10, width=2, direction="in", top="on")
     ax.xaxis.set_tick_params(which="minor", size=7, width=2, direction="in", top="on")
-    ax.yaxis.set_tick_params(
-        which="major", size=10, width=2, direction="in", right="on"
-    )
+    ax.yaxis.set_tick_params(which="major", size=10, width=2, direction="in", right="on")
     ax.yaxis.set_tick_params(which="minor", size=7, width=2, direction="in", right="on")
     plt.xticks(rotation=45)
     plt.grid(True, which="both")
