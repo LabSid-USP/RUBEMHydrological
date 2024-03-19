@@ -1,6 +1,6 @@
 # coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
-# Copyright (C) 2021-2023 LabSid PHA EPUSP
+# Copyright (C) 2021-2024 LabSid PHA EPUSP
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 
 from qgis.PyQt.QtCore import QObject, pyqtSignal, QProcess
 
+
 class RUBEMStandaloneWorker(QObject):
     def __init__(self, command):
         super().__init__()
@@ -37,10 +38,10 @@ class RUBEMStandaloneWorker(QObject):
     def handle_stdout(self):
         while self.process.canReadLine():
             data = self.process.readLine().data().decode().strip()
-            
-            if data: 
+
+            if data:
                 self.logUpdated.emit(data)
-                
+
                 if "##" in data:
                     parts = data.split(" ")
                     current_cycle = int(parts[-3])
@@ -50,11 +51,11 @@ class RUBEMStandaloneWorker(QObject):
 
     def handle_stderr(self):
         data = self.process.readAllStandardError().data().decode().strip()
-        if data: 
+        if data:
             self.errorUpdated.emit(data)
 
     def handle_finished(self, exit_code):
-        if (exit_code == QProcess.NormalExit):
+        if exit_code == QProcess.NormalExit:
             self.finished.emit(0)
         else:
             self.finished.emit(1)

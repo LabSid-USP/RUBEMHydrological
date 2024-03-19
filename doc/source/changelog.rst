@@ -5,6 +5,13 @@ This is the list of changes to RUBEM Hydrological between each release. For full
 
 For a list of known issues and their fixes, visit the `Github issues page <https://github.com/LabSid-USP/RUBEMHydrological/issues>`_.
 
+Version 1.12.3-beta.3
+----------------------
+
+**Date**: March 19, 2024
+
+- `@soaressgabriel <https://github.com/soaressgabriel>`_: Fix ``plotTimeSeriesData`` function to use numpy arrays for plotting (`#136 <https://github.com/LabSid-USP/RUBEMHydrological/pull/136>`_);
+
 Version 1.12.2-beta.2
 ----------------------
 

@@ -1,4 +1,4 @@
-Copyright (C) 2021-2023 LabSid PHA EPUSP. All rights reserved.
+Copyright (C) 2021-2024 LabSid PHA EPUSP. All rights reserved.
 
 RUBEM Hydrological is provided by the copyright holders "as is", without warranty 
 of any kind, expressed or implied, including but not limited to the warranties of
