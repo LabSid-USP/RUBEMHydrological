@@ -51,7 +51,7 @@ def test_demtif_is_renamed_and_comma_decimal_writes_nothing(tmp_path: Path) -> N
 
     parser.set("CALIBRATION", "alpha", "4,5")
     destination = tmp_path / "basin.rubem.json"
-    with pytest.raises(ValueError, match="decimal separator"):
+    with pytest.raises(ValueError, match="CALIBRATION.alpha"):
         write_legacy_json(parser, destination)
     assert not destination.exists()
 
@@ -99,7 +99,7 @@ def test_iso_date_is_rejected() -> None:
     """Legacy JSON keeps DD/MM/YYYY and refuses an ISO date."""
     parser = _project()
     parser.set("SIM_TIME", "start", "1900-01-01")
-    with pytest.raises(ValueError, match="DD/MM/YYYY"):
+    with pytest.raises(ValueError, match="%d/%m/%Y"):
         legacy_json_document(parser)
 
 

@@ -12,15 +12,12 @@ import json
 import os
 import tempfile
 from configparser import ConfigParser
-from datetime import datetime
 from pathlib import Path
 
 try:
     from .schemas import defaultConfigSchema
 except ImportError:
     from schemas import defaultConfigSchema
-
-_DATE_FORMAT = "%d/%m/%Y"
 
 # Plugin keys that are not model fields. ``demtif`` is renamed, not dropped.
 _RENAMES = {("RASTERS", "demtif"): "georeference"}
@@ -63,44 +60,6 @@ _DEFAULTS: dict[tuple[str, str], object] = {
     ("CONSTANTS", "lai_max_from_table"): False,
     ("GENERATE_FILE", "arn"): False,
     ("RASTER_FILE_FORMAT", "no_data_value"): -9999.0,
-}
-
-_DATES = {("SIM_TIME", "start"), ("SIM_TIME", "end"), ("SIM_TIME", "alignment")}
-_BOOLS = {
-    ("CONSTANTS", "lai_max_from_table"),
-    ("GENERATE_FILE", "itp"),
-    ("GENERATE_FILE", "bfw"),
-    ("GENERATE_FILE", "srn"),
-    ("GENERATE_FILE", "eta"),
-    ("GENERATE_FILE", "lfw"),
-    ("GENERATE_FILE", "rec"),
-    ("GENERATE_FILE", "smc"),
-    ("GENERATE_FILE", "rnf"),
-    ("GENERATE_FILE", "arn"),
-    ("GENERATE_FILE", "tss"),
-    ("RASTER_FILE_FORMAT", "map_raster_series"),
-    ("RASTER_FILE_FORMAT", "tiff_raster_series"),
-}
-_FLOATS = {
-    ("GRID", "grid"),
-    ("CALIBRATION", "alpha"),
-    ("CALIBRATION", "b"),
-    ("CALIBRATION", "w_1"),
-    ("CALIBRATION", "w_2"),
-    ("CALIBRATION", "w_3"),
-    ("CALIBRATION", "rcd"),
-    ("CALIBRATION", "f"),
-    ("CALIBRATION", "alpha_gw"),
-    ("CALIBRATION", "x"),
-    ("INITIAL_SOIL_CONDITIONS", "t_ini"),
-    ("INITIAL_SOIL_CONDITIONS", "bfw_ini"),
-    ("INITIAL_SOIL_CONDITIONS", "bfw_lim"),
-    ("INITIAL_SOIL_CONDITIONS", "s_sat_ini"),
-    ("CONSTANTS", "fpar_max"),
-    ("CONSTANTS", "fpar_min"),
-    ("CONSTANTS", "lai_max"),
-    ("CONSTANTS", "i_imp"),
-    ("RASTER_FILE_FORMAT", "no_data_value"),
 }
 
 _ORDER: tuple[tuple[str, tuple[str, ...]], ...] = (
@@ -174,25 +133,8 @@ def legacy_json_document(
     """
     diagnostics: list[str] = []
     normalized = _normalize(config, diagnostics)
-    document: dict[str, dict[str, object]] = {}
-    for section, keys in _ORDER:
-        present = normalized.get(section, {})
-        body: dict[str, object] = {}
-        for key in keys:
-            label = f"{section}.{key}"
-            pair = (section, key)
-            if key in present:
-                body[key] = _convert(pair, present[key], label)
-            elif pair in _DEFAULTS:
-                body[key] = _DEFAULTS[pair]
-            elif pair in _OPTIONAL_PATHS:
-                continue
-            else:
-                raise ValueError(f"Missing {label}")
-            if pair in _OPTIONAL_PATHS and body.get(key) in ("", None):
-                del body[key]
-        document[section] = body
-    return document, diagnostics
+    draft = _draft_from_normalized(normalized)
+    return _canonical(draft), diagnostics
 
 
 def config_from_legacy_document(document: dict[str, object]) -> ConfigParser:
@@ -212,6 +154,7 @@ def config_from_legacy_document(document: dict[str, object]) -> ConfigParser:
         )
     parser = ConfigParser()
     parser.read_dict(defaultConfigSchema)
+    document = _canonical(_prepare_loaded_document(document))
     for section, keys in _ORDER:
         body = document.get(section, {})
         if not isinstance(body, dict):
@@ -296,17 +239,72 @@ def _normalize(
     return normalized
 
 
-def _convert(pair: tuple[str, str], raw: str, label: str) -> object:
-    """Convert one raw INI value to the JSON type RUBEM expects."""
-    if pair in _OPTIONAL_PATHS and raw.strip() == "":
-        return ""
-    if pair in _DATES:
-        return _parse_date(raw, label)
-    if pair in _BOOLS:
-        return _parse_bool(raw, label)
-    if pair in _FLOATS:
-        return _parse_float(raw, label)
-    return raw
+def _draft_from_normalized(
+    normalized: dict[str, dict[str, str]],
+) -> dict[str, dict[str, object]]:
+    """Build the object the RUBEM pydantic model validates.
+
+    Values stay in the spelling the dialog stored. The model coerces dates,
+    numbers and booleans. Empty optional paths are left out so the model
+    applies its own defaults.
+    """
+    draft: dict[str, dict[str, object]] = {}
+    for section, keys in _ORDER:
+        present = normalized.get(section, {})
+        body: dict[str, object] = {}
+        for key in keys:
+            pair = (section, key)
+            if key in present:
+                raw = present[key]
+                if pair in _OPTIONAL_PATHS and raw.strip() == "":
+                    continue
+                body[key] = raw
+            elif pair in _DEFAULTS:
+                body[key] = _DEFAULTS[pair]
+        draft[section] = body
+    return draft
+
+
+def _prepare_loaded_document(document: dict[str, object]) -> dict[str, object]:
+    """Rename plugin spellings before the model sees a loaded JSON object."""
+    prepared: dict[str, object] = {}
+    for section, body in document.items():
+        if not isinstance(body, dict):
+            prepared[section] = body
+            continue
+        upper = str(section).upper()
+        cleaned: dict[str, object] = {}
+        for key, value in body.items():
+            folded = str(key).lower()
+            if (upper, folded) in _OMIT:
+                continue
+            folded = _RENAMES.get(
+                (upper, folded), _ALIASES.get((upper, folded), folded)
+            )
+            cleaned[folded] = value
+        prepared[upper] = cleaned
+    return prepared
+
+
+def _canonical(draft: dict[str, object]) -> dict[str, dict[str, object]]:
+    """Validate ``draft`` with the submodule's legacy pydantic model."""
+    try:
+        from ..dependencies import ensure_pydantic
+        from ..engine import ensure_submodule_on_path
+    except ImportError:
+        from dependencies import ensure_pydantic
+        from engine import ensure_submodule_on_path
+
+    ensure_pydantic()
+    ensure_submodule_on_path()
+    from pydantic import ValidationError
+    from rubem.configuration.model_configuration_file import ModelConfigurationFile
+
+    try:
+        model = ModelConfigurationFile.model_validate(draft)
+    except ValidationError as exc:
+        raise ValueError(str(exc)) from exc
+    return model.model_dump(by_alias=True, exclude_none=True)
 
 
 def _as_ini_text(value: object) -> str:
@@ -318,34 +316,3 @@ def _as_ini_text(value: object) -> str:
     if isinstance(value, float):
         return f"{value:.3f}"
     return str(value)
-
-
-def _parse_date(raw: str, label: str) -> str:
-    text = raw.strip()
-    try:
-        datetime.strptime(text, _DATE_FORMAT)
-    except ValueError as exc:
-        raise ValueError(f"{label} must be DD/MM/YYYY, got {raw!r}") from exc
-    return text
-
-
-def _parse_bool(raw: str, label: str) -> bool:
-    text = raw.strip().lower()
-    if text in {"yes", "true", "t", "1"}:
-        return True
-    if text in {"no", "false", "f", "0"}:
-        return False
-    raise ValueError(f"{label} must be a boolean, got {raw!r}")
-
-
-def _parse_float(raw: str, label: str) -> float:
-    text = raw.strip()
-    if "," in text:
-        raise ValueError(f"{label} must use a '.' decimal separator, got {raw!r}")
-    try:
-        number = float(text)
-    except ValueError as exc:
-        raise ValueError(f"{label} is not a decimal number, got {raw!r}") from exc
-    if number != number or number in (float("inf"), float("-inf")):
-        raise ValueError(f"{label} must be finite, got {raw!r}")
-    return number

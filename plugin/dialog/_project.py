@@ -6,6 +6,11 @@ from qgis.PyQt.QtCore import QDate
 from qgis.PyQt.QtWidgets import QFileDialog, QMessageBox
 
 try:
+    from ..dependencies import PydanticUnavailable, ensure_pydantic
+except ImportError:
+    from dependencies import PydanticUnavailable, ensure_pydantic
+
+try:
     from ..validation.legacy_json import read_legacy_json, write_legacy_json
     from ..validation.schemas import defaultConfigSchema
     from ..utils.series import getFirstFileNameMapSeries, splitDirFilePrefix
@@ -15,6 +20,35 @@ except ImportError:
     from utils.series import getFirstFileNameMapSeries, splitDirFilePrefix
 
 _PROJECT_FILTER = "RUBEM project (*.json)"
+
+
+def _with_pydantic(self, action):
+    """Run ``action``, offering to install Pydantic once if it is missing."""
+    try:
+        return action()
+    except PydanticUnavailable as exc:
+        answer = QMessageBox.question(
+            self,
+            "RUBEM Hydrological",
+            str(exc) + "\n\nInstall it into an isolated environment?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+            QMessageBox.StandardButton.Yes,
+        )
+        if answer != QMessageBox.StandardButton.Yes:
+            self.textBrowser_log.append(str(exc))
+            raise
+        ensure_pydantic(install=True)
+        return action()
+
+
+def _write_project(self, selected_file_path):
+    """Validate and write the project with the submodule's pydantic model."""
+    _with_pydantic(self, lambda: write_legacy_json(self.config, selected_file_path))
+
+
+def _read_project(self, config_file_path):
+    """Read a project and validate it with the submodule's pydantic model."""
+    return _with_pydantic(self, lambda: read_legacy_json(config_file_path))
 
 
 def newProject(self, supressed=False):
@@ -189,7 +223,7 @@ def saveProject(self, filePath=None, caption=None):
         """
         if not selectedFilePath.lower().endswith(".json"):
             selectedFilePath += ".json"
-        write_legacy_json(self.config, selectedFilePath)
+        _write_project(self, selectedFilePath)
 
         self.qgisProject = QgsProject.instance()
         self.qgisProject.write(os.path.splitext(selectedFilePath)[0] + ".qgs")
@@ -475,7 +509,7 @@ def loadConfigFromFile(self, configFilePath):
         self.textBrowser_log.append("Project files are the JSON RUBEM reads.")
         return
 
-    self.config = read_legacy_json(configFilePath)
+    self.config = _read_project(self, configFilePath)
 
     self.updateGUIFromConfig()
     self.textBrowser_log.append("Configurations loaded")

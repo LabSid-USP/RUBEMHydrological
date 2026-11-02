@@ -17,6 +17,14 @@ from plugin.engine import (
 
 
 @pytest.mark.unit
+def test_installed_pydantic_satisfies_the_submodule_pin() -> None:
+    """A usable Pydantic does not trigger another install."""
+    from plugin.dependencies import ensure_pydantic
+
+    ensure_pydantic()
+
+
+@pytest.mark.unit
 def test_submodule_path_is_the_pinned_checkout() -> None:
     """The runner looks at external/rubem-model and nowhere else."""
     path = submodule_path()
