@@ -1,62 +1,114 @@
-"""Locate the RUBEM process without baking a deploy path into the source.
+"""Run RUBEM from the git submodule inside this repository.
 
-`RUBEM_EXECUTABLE` and `RUBEM_PYTHON` are orthogonal environment variables, as
-`https://12factor.net/config`_ requires. The hydrological project is a JSON
-file, not this deploy config. The model is a separate process: its environment
-does not inherit the QGIS library paths.
+The model is not an executable shipped beside the plugin. ``external/rubem-model``
+is the pinned source, and :meth:`rubem.api.Model.run_isolated` is the supported
+way to run it without leaving PCRaster's process-wide clone inside QGIS.
+
+PCRaster itself is not a pip package. The PCRaster Tools plugin
+(https://plugins.qgis.org/plugins/pcraster_tools/) is the QGIS integration, and
+its manual requires PCRaster in the same environment as QGIS. The release
+published on 2025-05-27 (0.4.0) declares ``qgisMaximumVersion`` 3.99, so QGIS
+4.2 cannot install that package from the official repository.
 """
 
 from __future__ import annotations
 
-import os
-import shutil
+import sys
+from pathlib import Path
 
-# QGIS activation exports these. Leaving them in the child makes the model use
-# QGIS's GDAL, PROJ and Python instead of its own.
-_QGIS_PROCESS_KEYS = (
-    "PYTHONPATH",
-    "PYTHONHOME",
-    "GDAL_DATA",
-    "GDAL_DRIVER_PATH",
-    "PROJ_DATA",
-    "PROJ_LIB",
-    "QT_PLUGIN_PATH",
-    "QGIS_PREFIX_PATH",
-    "GEOTIFF_CSV",
-    "PDAL_DRIVER_PATH",
-)
+PCRASTER_TOOLS_ID = "pcraster_tools"
+PCRASTER_TOOLS_NAME = "PCRaster Tools"
+PCRASTER_TOOLS_URL = "https://plugins.qgis.org/plugins/pcraster_tools/"
+PCRASTER_TOOLS_MANUAL = "https://jvdkwast.github.io/qgis-processing-pcraster/"
 
 
-def command_prefix(environ: dict[str, str] | None = None) -> list[str]:
-    """Return the argv prefix that invokes ``rubem``.
+def submodule_path() -> Path:
+    """Return the RUBEM checkout pinned next to this plugin.
 
-    :param environ: Environment to read. Defaults to :data:`os.environ`.
-    :returns: ``[executable]`` or ``[python, "-m", "rubem"]``.
-    :raises FileNotFoundError: Neither variable is set and ``rubem`` is not on
-        ``PATH``.
+    :returns: ``<plugin root>/external/rubem-model``.
     """
-    env = os.environ if environ is None else environ
-    executable = env.get("RUBEM_EXECUTABLE", "").strip()
-    if executable:
-        return [executable]
-    python = env.get("RUBEM_PYTHON", "").strip()
-    if python:
-        return [python, "-m", "rubem"]
-    found = shutil.which("rubem", path=env.get("PATH"))
-    if found:
-        return [found]
-    raise FileNotFoundError(
-        "RUBEM is not configured. Set RUBEM_EXECUTABLE to the rubem program "
-        "or RUBEM_PYTHON to the interpreter of a RUBEM environment."
+    return Path(__file__).resolve().parents[1] / "external" / "rubem-model"
+
+
+def ensure_submodule_on_path(root: Path | None = None) -> Path:
+    """Put the submodule on ``sys.path`` so ``import rubem`` resolves to it.
+
+    :param root: Override the checkout, used by tests.
+    :raises FileNotFoundError: The checkout has no ``rubem/api.py``.
+    """
+    path = submodule_path() if root is None else Path(root)
+    api = path / "rubem" / "api.py"
+    if not api.is_file():
+        raise FileNotFoundError(
+            f"The RUBEM submodule is not available at {path}. "
+            "Initialize it with 'git submodule update --init external/rubem-model'."
+        )
+    entry = str(path)
+    if entry not in sys.path:
+        sys.path.insert(0, entry)
+    return path
+
+
+def pcraster_tools_message() -> str:
+    """Explain the missing PCRaster Tools plugin without offering to pip-install it."""
+    return (
+        f"{PCRASTER_TOOLS_NAME} is not active. RUBEM's PCRaster operations come "
+        f"from that plugin ({PCRASTER_TOOLS_URL}). Its manual is {PCRASTER_TOOLS_MANUAL}. "
+        "The package published as 0.4.0 declares QGIS <= 3.99, so QGIS 4 does not "
+        "install that release. This plugin does not download or pip-install it."
     )
 
 
-def child_environment(environ: dict[str, str] | None = None) -> dict[str, str]:
-    """Copy ``environ`` without the variables QGIS injects into this process.
+def assert_pcraster_tools(active_ids: list[str]) -> None:
+    """Require the PCRaster Tools plugin directory to be active.
 
-    :param environ: Environment to copy. Defaults to :data:`os.environ`.
+    :param active_ids: Directory names from ``qgis.utils.active_plugins``.
+    :raises RuntimeError: The plugin is not in that list.
     """
-    env = dict(os.environ if environ is None else environ)
-    for key in _QGIS_PROCESS_KEYS:
-        env.pop(key, None)
-    return env
+    if PCRASTER_TOOLS_ID not in active_ids:
+        raise RuntimeError(pcraster_tools_message())
+
+
+def qgis_active_plugin_ids() -> list[str]:
+    """Return the directory ids of plugins QGIS has loaded."""
+    try:
+        from qgis.utils import active_plugins
+    except Exception:
+        return []
+    return list(active_plugins)
+
+
+def assert_ready(active_ids: list[str] | None = None) -> Path:
+    """Check the submodule, the PCRaster Tools plugin, and the native imports.
+
+    :param active_ids: Plugin directory ids. Defaults to the live QGIS list.
+    :raises FileNotFoundError: The submodule is missing.
+    :raises RuntimeError: PCRaster Tools is not active.
+    :raises ImportError: ``pcraster`` or GDAL cannot be imported.
+    """
+    root = ensure_submodule_on_path()
+    assert_pcraster_tools(
+        qgis_active_plugin_ids() if active_ids is None else active_ids
+    )
+    from rubem._deps import missing_runtime_deps, runtime_deps_message
+
+    missing = missing_runtime_deps()
+    if missing:
+        raise ImportError(runtime_deps_message(missing))
+    return root
+
+
+def run_project(config_path: str) -> str:
+    """Run one project through the submodule API, outside the QGIS process.
+
+    :param config_path: Legacy JSON project written by the dialog.
+    :returns: A one-line description of the run result.
+    :raises ImportError: PCRaster or GDAL is missing.
+    :raises RuntimeError: PCRaster Tools is not active, or the isolated
+        subprocess dies.
+    """
+    assert_ready()
+    from rubem.api import Model
+
+    result = Model.from_file(config_path).run_isolated()
+    return f"RUBEM wrote {result.output_directory}"

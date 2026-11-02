@@ -25,8 +25,7 @@ Contains all the information about the actions of the plugin and the main code.
 import os
 
 from qgis.PyQt.QtCore import QCoreApplication, QSettings, Qt, QTranslator
-from qgis.PyQt.QtGui import QIcon
-from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtGui import QAction, QIcon
 
 try:
     from .dialog import RUBEMHydrologicalDialog

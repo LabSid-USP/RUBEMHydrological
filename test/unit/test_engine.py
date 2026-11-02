@@ -1,53 +1,50 @@
-"""Deploy configuration for the RUBEM process lives in the environment."""
+"""The model comes from the submodule, not from an executable path."""
 
 from __future__ import annotations
 
+from pathlib import Path
+
 import pytest
 
-from plugin.engine import child_environment, command_prefix
+from plugin.engine import (
+    PCRASTER_TOOLS_ID,
+    assert_pcraster_tools,
+    assert_ready,
+    ensure_submodule_on_path,
+    pcraster_tools_message,
+    submodule_path,
+)
 
 
 @pytest.mark.unit
-def test_executable_env_wins_over_python_and_path() -> None:
-    """``RUBEM_EXECUTABLE`` is its own variable, not a named environment."""
-    prefix = command_prefix(
-        {
-            "RUBEM_EXECUTABLE": "/opt/rubem/bin/rubem",
-            "RUBEM_PYTHON": "/opt/rubem/bin/python",
-            "PATH": "/usr/bin",
-        }
-    )
-    assert prefix == ["/opt/rubem/bin/rubem"]
+def test_submodule_path_is_the_pinned_checkout() -> None:
+    """The runner looks at external/rubem-model and nowhere else."""
+    path = submodule_path()
+    assert path.name == "rubem-model"
+    assert path.parent.name == "external"
+    assert (path / "rubem" / "api.py").is_file()
 
 
 @pytest.mark.unit
-def test_python_env_uses_the_module_entry_point() -> None:
-    """``RUBEM_PYTHON`` launches ``python -m rubem``."""
-    prefix = command_prefix({"RUBEM_PYTHON": "/opt/rubem/bin/python", "PATH": ""})
-    assert prefix == ["/opt/rubem/bin/python", "-m", "rubem"]
+def test_missing_submodule_is_reported(tmp_path: Path) -> None:
+    """A checkout without the package is not treated as an installed command."""
+    with pytest.raises(FileNotFoundError, match="git submodule update --init"):
+        ensure_submodule_on_path(tmp_path)
 
 
 @pytest.mark.unit
-def test_missing_engine_names_the_variables() -> None:
-    """An unconfigured deploy fails before a project file is involved."""
-    with pytest.raises(FileNotFoundError, match="RUBEM_EXECUTABLE"):
-        command_prefix({"PATH": ""})
+def test_inactive_pcraster_tools_names_the_plugin_and_refuses_pip() -> None:
+    """The message points at the QGIS plugin and does not offer pip."""
+    with pytest.raises(RuntimeError, match="PCRaster Tools") as exc:
+        assert_pcraster_tools([])
+    text = str(exc.value)
+    assert PCRASTER_TOOLS_ID in pcraster_tools_message() or "plugins.qgis.org" in text
+    assert "pip" in text
+    assert "3.99" in text
 
 
 @pytest.mark.unit
-def test_child_environment_drops_qgis_library_paths() -> None:
-    """The model process does not inherit QGIS's GDAL or Python path."""
-    env = child_environment(
-        {
-            "PATH": "/usr/bin",
-            "PYTHONPATH": "/qgis/python",
-            "GDAL_DATA": "/qgis/gdal",
-            "PROJ_DATA": "/qgis/proj",
-            "HOME": "/home/user",
-        }
-    )
-    assert env["PATH"] == "/usr/bin"
-    assert env["HOME"] == "/home/user"
-    assert "PYTHONPATH" not in env
-    assert "GDAL_DATA" not in env
-    assert "PROJ_DATA" not in env
+def test_ready_check_reaches_the_native_import_after_the_plugin() -> None:
+    """With the plugin id present, the next failure is the missing pcraster module."""
+    with pytest.raises(ImportError, match="pcraster"):
+        assert_ready([PCRASTER_TOOLS_ID])

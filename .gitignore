@@ -1,5 +1,5 @@
-# Packaged rubem.exe drop-in at the repository root. The model source
-# is the external/rubem-model submodule, which this rule must not match.
+# Nothing in the plugin reads a binary from this directory. The model source
+# is the external/rubem-model submodule.
 /rubem/
 
 # Qt for Python

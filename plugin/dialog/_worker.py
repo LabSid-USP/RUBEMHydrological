@@ -5,31 +5,25 @@ from qgis.core import Qgis, QgsMessageLog
 from qgis.PyQt.QtWidgets import QMessageBox
 
 try:
-    from ..utils.workers import RUBEMStandaloneWorker
+    from ..engine import assert_ready
+    from ..utils.workers import RUBEMModelWorker
 except ImportError:
-    from utils.workers import RUBEMStandaloneWorker
+    from engine import assert_ready
+    from utils.workers import RUBEMModelWorker
 
 
 def setRunState(self):
-    """Invoke the model's standalone executable including the configuration file generated from user input as an argument in the CLI."""
-    # Use the standalone executable file of the model present in the plugin's root directory
+    """Run the saved JSON project through the RUBEM submodule."""
     try:
-        from ..engine import command_prefix
-    except ImportError:
-        from engine import command_prefix
-
-    try:
-        prefix = command_prefix()
-    except FileNotFoundError as exc:
+        assert_ready()
+    except (FileNotFoundError, RuntimeError, ImportError) as exc:
+        self.textBrowser_log.append(f"\n# {exc}")
         QgsMessageLog.logMessage(str(exc), "RUBEM Hydrological", level=Qgis.Critical)
-        raise
+        return
 
     if self.hasFilledAllFields():
         self.updateConfigFromGUI()
         self.saveProject(self.projectFilePath)
-
-        # Make command list available to execution thread
-        self.command = [*prefix, "run", "--configfile", self.projectFilePath]
 
         # Output directory contains files, ask user before proceeding
         if os.listdir(self.config.get("DIRECTORIES", "output")):
@@ -57,6 +51,8 @@ def reportProgress(self, n):
 
 def handleFinished(self, exit_code):
     """Handle the exit code of the execution thread."""
+    self.progressBar.setRange(0, 100)
+    self.progressBar.setValue(100 if exit_code == 0 else 0)
     if exit_code == 0:
         self.textBrowser_log.append("\n# RUBEM execution finished successfully!")
         self.tab_Results.setEnabled(True)
@@ -83,16 +79,15 @@ def handleFinished(self, exit_code):
 
 
 def runLongTask(self):
-    """Configure QProcess."""
+    """Start the submodule run and leave the progress bar indeterminate."""
     self.progressBar.setStyleSheet("")
-    self.progressBar.setRange(0, 100)
-    self.worker = RUBEMStandaloneWorker(self.command)
+    self.progressBar.setRange(0, 0)
+    self.worker = RUBEMModelWorker(self.projectFilePath)
     self.worker.logUpdated.connect(self.reportExecutionLog)
     self.worker.errorUpdated.connect(self.reportExecutionLog)
-    self.worker.finished.connect(self.handleFinished)
-    self.worker.finished.connect(self.worker.deleteLater)
-    self.worker.progress.connect(self.reportProgress)
-    self.worker.finished.connect(lambda: self.btn_Run.setEnabled(True))
+    self.worker.runFinished.connect(self.handleFinished)
+    self.worker.runFinished.connect(lambda: self.btn_Run.setEnabled(True))
+    self.worker.thread.finished.connect(self.worker.deleteLater)
     self.btn_Cancel.clicked.connect(lambda: self.progressBar.setValue(0))
     self.btn_Cancel.clicked.connect(lambda: self.textBrowser_log.clear())
     self.btn_Cancel.clicked.connect(self.worker.kill)

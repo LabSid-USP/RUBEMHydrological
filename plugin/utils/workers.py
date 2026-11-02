@@ -1,79 +1,64 @@
-# coding=utf-8
-# RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
-# Copyright (C) 2021-2024 LabSid PHA EPUSP
+"""Background run of the RUBEM submodule.
 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
+The worker does not start an external program. It calls
+:func:`plugin.engine.run_project`, which uses ``Model.run_isolated`` so
+PCRaster's process-wide clone stays out of the QGIS process.
+"""
 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-#
-# Contact: rubem.hydrological@labsid.eng.br
-
-"""RUBEM Hydrological plugin thread workers code."""
-
-from qgis.PyQt.QtCore import QObject, QProcess, QProcessEnvironment, pyqtSignal
+from qgis.PyQt.QtCore import QObject, QThread, pyqtSignal
 
 try:
-    from ..engine import child_environment
+    from ..engine import run_project
 except ImportError:
-    from engine import child_environment
+    from engine import run_project
 
 
-class RUBEMStandaloneWorker(QObject):
-    def __init__(self, command):
-        super().__init__()
-        self.command = command
-        self.process = QProcess()
-        self.process.readyReadStandardOutput.connect(self.handle_stdout)
-        self.process.readyReadStandardError.connect(self.handle_stderr)
-        self.process.finished.connect(self.handle_finished)
-
-    def run(self):
-        environment = QProcessEnvironment()
-        for key, value in child_environment().items():
-            environment.insert(key, value)
-        self.process.setProcessEnvironment(environment)
-        self.process.start(self.command[0], self.command[1:])
-
-    def handle_stdout(self):
-        while self.process.canReadLine():
-            data = self.process.readLine().data().decode().strip()
-
-            if data:
-                self.logUpdated.emit(data)
-
-                if "##" in data:
-                    parts = data.split(" ")
-                    try:
-                        current_cycle = int(parts[-3])
-                        total_cycles = int(parts[-1])
-                    except (ValueError, IndexError):
-                        continue
-                    if total_cycles:
-                        self.progress.emit(int((current_cycle / total_cycles) * 100))
-
-    def handle_stderr(self):
-        data = self.process.readAllStandardError().data().decode().strip()
-        if data:
-            self.errorUpdated.emit(data)
-
-    def handle_finished(self, exit_code, exit_status):
-        """Emit ``0`` only when the process exits normally with code zero."""
-        normal = exit_status == QProcess.ExitStatus.NormalExit and exit_code == 0
-        self.finished.emit(0 if normal else exit_code or 1)
-
-    def kill(self):
-        self.process.kill()
+class RUBEMModelWorker(QObject):
+    """Run one JSON project on a ``QThread`` and report through signals."""
 
     logUpdated = pyqtSignal(str)
     errorUpdated = pyqtSignal(str)
-    finished = pyqtSignal(int)
-    progress = pyqtSignal(int)
+    runFinished = pyqtSignal(int)
+
+    def __init__(self, config_path, runner=None):
+        """Store the project path.
+
+        :param config_path: JSON file the dialog just saved.
+        :param runner: Callable used instead of :func:`run_project` in tests.
+        """
+        super().__init__()
+        self._config_path = config_path
+        self._runner = run_project if runner is None else runner
+        self._thread = QThread()
+        self.moveToThread(self._thread)
+        self._thread.started.connect(self._execute)
+
+    def run(self):
+        """Start the thread. The call returns before the model finishes."""
+        self._thread.start()
+
+    def _execute(self):
+        """Invoke the runner on the worker thread."""
+        try:
+            self.logUpdated.emit(str(self._runner(self._config_path)))
+            self.runFinished.emit(0)
+        except Exception as exc:
+            self.errorUpdated.emit(str(exc))
+            self.runFinished.emit(1)
+        finally:
+            self._thread.quit()
+
+    def kill(self):
+        """Report that an isolated run cannot be cancelled from this button.
+
+        ``Model.run_isolated`` owns the subprocess. Terminating this thread
+        would leave that process running without a parent to observe it.
+        """
+        self.errorUpdated.emit(
+            "This run uses RUBEM's isolated process. The cancel button does not stop it."
+        )
+
+    @property
+    def thread(self):
+        """The thread ``run`` starts."""
+        return self._thread
