@@ -1,8 +1,8 @@
-# Notas da camada v2 (rascunho, fora do carregamento)
+# v2 layer notes (draft, not on the QGIS load path)
 
-`__init__.py::classFactory` ainda importa `plugin.core`. Os módulos descritos abaixo não abrem o diálogo no QGIS 3.44 nem no QGIS 4. O projeto do plugin continua em INI; o RUBEM `main` executa JSON. Este arquivo registra o rascunho, não uma 2.0.0 pronta.
+`__init__.py::classFactory` still imports `plugin.core`. The modules described below do not open the dialog on QGIS 3.44 or QGIS 4. The plugin project remains an INI file. RUBEM main runs JSON. `plugin/validation/legacy_json.py` can write that JSON. Run does not call it yet. This file records the draft. Version 2.0.0 is not finished.
 
-## O que o rascunho contém
+## What the draft contains
 
 ## ✅ O Que Foi Implementado
 

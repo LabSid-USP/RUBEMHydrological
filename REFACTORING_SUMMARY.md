@@ -1,10 +1,10 @@
-# RUBEM Hydrological - Refatoração para Python 3.13+ e QGIS 3.44+
+# RUBEM Hydrological draft notes for Python 3.13 and QGIS 3.44
 
-O texto abaixo descreve um rascunho que o QGIS ainda não carrega. `classFactory` importa `plugin.core`. A interface continua sendo `plugin/gui/core.ui`.
+The text below describes a draft that QGIS does not load. `classFactory` imports `plugin.core`. The interface remains `plugin/gui/core.ui`.
 
-## Resumo Executivo
+## Executive summary
 
-Há um rascunho de módulos novos ao lado do plugin que o QGIS carrega. Este documento descreve esses arquivos. A 2.0.0 não está fechada.
+New modules sit beside the plugin QGIS loads. This document describes those files. Version 2.0.0 is not finished.
 
 ## Versão
 

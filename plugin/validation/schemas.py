@@ -95,6 +95,7 @@ defaultConfigSchema = {
         "rec": "False",
         "smc": "False",
         "rnf": "False",
+        "arn": "False",
         "tss": "False",
     },
     "RASTER_FILE_FORMAT": {"map_raster_series": "True", "tiff_raster_series": "True"},

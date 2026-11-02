@@ -1,10 +1,10 @@
 # MVC Implementation Summary
 
-A view do plugin é o diálogo do Qt Designer (`plugin/gui/core.ui`). As classes em `plugin/views/` não substituem esse diálogo e não estão no caminho de `classFactory`.
+The plugin view is the Qt Designer dialog (`plugin/gui/core.ui`). Classes under `plugin/views/` do not replace that dialog and are not on the `classFactory` path.
 
-## Visão Geral
+## Overview
 
-O rascunho abaixo separa arquivos em models, views, controllers e services. O diálogo real e os signals do Qt continuam em `plugin/dialog/`.
+The draft below splits files into models, views, controllers and services. The live dialog and its Qt signals stay in `plugin/dialog/`.
 
 ## Estrutura Criada
 

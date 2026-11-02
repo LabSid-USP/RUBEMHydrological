@@ -22,20 +22,15 @@ repository=https://github.com/LabSid-USP/RUBEMHydrological
 
 hasProcessingProvider=no
 changelog=
-    2.0.0 - Major refactoring for QGIS 3.44+ and Python 3.13+
-        * Modernized codebase with type hints and better error handling
-        * Improved performance and memory management
-        * Enhanced UI responsiveness with async operations
-        * Better configuration management with Pydantic
-        * Comprehensive test suite with pytest
-        * Full documentation with Sphinx
+    2.0.0 - Work in progress for QGIS 3.44 and QGIS 4
+        * Project files remain INI
+        * A run against RUBEM main must export legacy JSON; that export is not wired to Run yet
     1.12.3 - Previous stable release
 
 # Tags are comma separated with spaces allowed
 tags=hydrological model,remote sensing,grid,hydrology,pcraster,water,catchment,water balance,runoff,LULC
 
 homepage=https://github.com/LabSid-USP/RUBEMHydrological/#readme
-category=Plugins
 icon=images/icon.png
 
 # experimental flag
@@ -53,7 +48,4 @@ category=Raster
 
 # If the plugin can run on QGIS Server.
 server=False
-
-# Python version requirement
-python_minimum_version=3.13
 
