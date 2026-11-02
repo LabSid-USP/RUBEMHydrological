@@ -1,224 +1,77 @@
-# Agent Instructions for RUBEM Hydrological
+# RUBEM Hydrological
 
-## Project Overview
+QGIS plugin (QGIS 3.44+, Python 3.13+ per `metadata.txt`) that turns user input into a config file for the RUBEM distributed hydrological model, runs the model's standalone executable and plots what it writes. The plugin contains no hydrology itself.
 
-**RUBEM Hydrological** is a QGIS 3 plugin that assists in configuration and execution of the Rainfall rUnoff Balance Enhanced Model (RUBEM), a distributed hydrological model for calculating monthly water flows with changes in land use over time. The plugin provides a GUI interface for setting up model parameters, running simulations, and visualizing results.
+Two generations of code coexist: the v1 dialog path, which is what QGIS actually loads, and a v2 layer (pydantic + MVC) that is scaffolding not yet wired in. Check `__init__.py::classFactory` before assuming v2 is live.
 
-### Repository Details
-- **Type**: QGIS Python Plugin
-- **Language**: Python (3.9+)
-- **Framework**: QGIS 3.22+ with PyQt5/qgis.PyQt
-- **License**: GPLv3
-- **Size**: ~140 files, primarily Python modules
-- **Version**: 1.12.3 (as of metadata.txt)
+## Commands
 
-## Critical Architecture & Layout
-
-### Main Plugin Structure
-```
-├── __init__.py                    # Plugin entry point with classFactory()
-├── metadata.txt                   # QGIS plugin metadata (version, min QGIS version)
-├── pyproject.toml                 # Poetry config (Python 3.9+)
-├── plugin/                        # Core plugin code
-│   ├── __version__.py            # Version info
-│   ├── core.py                   # Main RUBEMHydrological class, plugin initialization
-│   ├── dialog/                   # UI logic modules
-│   │   ├── __init__.py          # RUBEMHydrologicalDialog class
-│   │   ├── _tab_*.py            # Tab-specific handlers (settings, soil, climate, etc.)
-│   │   ├── _worker.py           # Background task execution
-│   │   └── _*.py                # Helper modules (validation, plotting, etc.)
-│   ├── gui/                     # UI resources
-│   │   ├── core.ui              # Qt Designer UI file
-│   │   ├── generated/           # GENERATED FILES - DO NOT EDIT
-│   │   │   ├── core_ui.py      # Generated from core.ui via pyuic5
-│   │   │   └── resources_rc.py # Generated from resources.qrc via pyrcc5
-│   │   └── resources/
-│   │       └── resources.qrc    # Qt resource file for images/icons
-│   ├── validation/              # Input validation schemas and validators
-│   ├── report/                  # Plotting and visualization
-│   └── utils/                   # Utility functions (raster, series, workers)
-├── test/                        # Test suite (unittest-based)
-│   ├── integration/             # Integration tests (require QGIS)
-│   └── unit/                    # Unit tests
-├── doc/                         # Sphinx documentation
-└── images/                      # Plugin icons and screenshots
-```
-
-### Key Files
-- **Entry Point**: `__init__.py` contains `classFactory(iface)` required by QGIS
-- **Main Class**: `plugin/core.py::RUBEMHydrological` - plugin lifecycle
-- **Dialog**: `plugin/dialog/__init__.py::RUBEMHydrologicalDialog` - main window
-- **Config Schema**: `plugin/validation/schemas.py::defaultConfigSchema` - configuration structure
-
-### Dependencies
-- **Runtime**: QGIS 3.22+, PCRaster Processing Provider plugin
-- **GUI**: PyQt5 or qgis.PyQt (imports try qgis.PyQt first, fallback to PyQt5)
-- **Testing**: QGIS API (tests fail without QGIS environment)
-- **Documentation**: Sphinx, sphinx-rtd-theme, sphinxcontrib-email, sphinxcontrib-youtube
-
-## Build & Validation Steps
-
-### Environment Setup
-
-**CRITICAL**: This is a QGIS plugin and requires QGIS to be installed for testing. Standard Python environments will NOT work for integration tests.
-
-1. **For Documentation Only**: Install doc dependencies
-   ```bash
-   # Install Sphinx and extensions
-   pip install Sphinx sphinx-rtd-theme sphinxcontrib-email sphinxcontrib-youtube
-   ```
-
-2. **For Testing**: Requires full QGIS installation with Python bindings
-   - Tests import `qgis.core`, `qgis.gui`, `qgis.PyQt` which are only available in QGIS Python environment
-   - Running `python -m unittest discover` outside QGIS will fail with `ModuleNotFoundError: No module named 'qgis'`
-
-### Building Documentation
-
-**ALWAYS use the Python module approach** (not `make` directly) to ensure correct Python environment:
+Every test module imports `qgis` (through `test/__init__.py`), so tests need an interpreter where `qgis` is importable: QGIS's own Python, or a venv created with `--system-site-packages` on top of it. Run pytest as `python -m pytest` from the repo root, which puts the root on `sys.path` so `import plugin` resolves; bare `pytest` fails at collection.
 
 ```bash
-cd doc
-python -m sphinx -b html source build/html
-```
+# Unit tests (pytest, marked `unit`). --no-cov skips the htmlcov/ + coverage.xml that pyproject addopts generate
+python -m pytest test/unit -m unit --no-cov
+python -m pytest test/unit/test_exceptions.py::TestRUBEMException --no-cov   # single class or test
 
-**Expected Result**: Build succeeds with "build succeeded" message. HTML output in `doc/build/html/`.
+# Integration tests: legacy unittest classes with no pytest markers, so `pytest -m integration` (as in ci.yml) selects none
+QT_QPA_PLATFORM=offscreen python -m unittest discover -s test/integration -p 'test*.py'
+QT_QPA_PLATFORM=offscreen python -m unittest test.integration.test_init      # single module
 
-**Common Issues**: 
-- Error "sphinx-build: No such file or directory" → Install Sphinx first
-- Missing extensions → Install all packages from `doc/requirements.txt`
+# Lint / format / types (mirrors .github/workflows/ci.yml)
+ruff check .
+black --check .
+mypy plugin/ --ignore-missing-imports
+pre-commit run --all-files
 
-### Testing
+# Docs (CI builds with -W, so warnings fail); Read the Docs installs doc/requirements.txt
+cd doc && python -m sphinx -b html source build/html -W
 
-**Unit Tests** (test/unit/):
-```bash
-python -m unittest discover -s test/unit -p 'test*.py'
-```
-
-**Integration Tests** (test/integration/):
-**DO NOT RUN** these outside a QGIS environment. They require:
-- Full QGIS installation with Python bindings
-- QGIS Python environment activated
-- Will fail with `ModuleNotFoundError: No module named 'qgis'` in standard Python
-
-**Test Status**: Only `test/integration/test_init.py::test_read_init` passes in standard Python. All other integration tests require QGIS.
-
-### UI Regeneration (GENERATED FILES)
-
-**NEVER manually edit** `plugin/gui/generated/core_ui.py` or `plugin/gui/generated/resources_rc.py`. These are generated:
-
-```bash
-# Regenerate UI Python code from Qt Designer file
+# Regenerate Qt output after editing plugin/gui/core.ui or plugin/gui/resources/resources.qrc
 pyuic5 plugin/gui/core.ui -o plugin/gui/generated/core_ui.py
-
-# Regenerate resources from .qrc file
 pyrcc5 plugin/gui/resources/resources.qrc -o plugin/gui/generated/resources_rc.py
 ```
 
-**Only regenerate if**:
-- Modified `plugin/gui/core.ui` in Qt Designer
-- Modified `plugin/gui/resources/resources.qrc`
+- Never edit `plugin/gui/generated/` by hand. The pre-commit black, ruff and mypy hooks skip it, but in `pyproject.toml` only black (and coverage) excludes it, so direct `ruff check .` and `mypy plugin/` runs still scan it.
+- The integration tests are legacy plugin-template tests and several fail on current setups (for example `test_rubem_hydrological_dialog.py` expects a `button_box` widget the dialog does not define). Compare against the base branch before treating a failure as a regression.
+- Known CI gap: the `test-unit` job installs only Poetry dependencies, without QGIS, while `test/__init__.py` imports `qgis`; the `test-integration` job runs `pytest -m integration`, which selects nothing.
+- Python tooling is configured in `pyproject.toml` (ruff, black, mypy, pytest). Mark every new unit test `@pytest.mark.unit`, or `-m unit` (as in ci.yml) skips it; `--strict-markers` rejects markers not registered there.
 
-## Development Workflow
+## Workflow
 
-### Making Code Changes
+- Per `CONTRIBUTING.md`, anything beyond a trivial fix starts with an issue and a branch named after it, for example `fix/135-csv-file-visualization-error-in-qgis-plugin`. Fill in `.github/pull_request_template.md` when opening a PR.
+- Commit subjects: the `commitizen` hook in `.pre-commit-config.yaml` enforces Conventional Commits, but only after `pre-commit install --hook-type commit-msg`. History before 2.0 uses plain imperative subjects (`Fix #128`).
+- Version bump: `cz bump` rewrites `pyproject.toml`, `plugin/__version__.py` and `metadata.txt` together and updates `CHANGELOG.md`. `doc/source/conf.py` keeps its own `__version__`/`__release__` and is not touched, so update it by hand.
+- User-facing changes also need the matching `.rst` page in `doc/source/` updated.
+- The plugin must work on Linux, macOS and Windows: build paths with `os.path.join` or `pathlib`.
 
-1. **Update Plugin Version**: Modify both `plugin/__version__.py` and `metadata.txt` consistently
-2. **UI Changes**: Edit `core.ui` in Qt Designer, then regenerate Python code
-3. **Validation**: Check `plugin/validation/schemas.py` for configuration schema if adding new fields
-4. **Documentation**: Update corresponding `.rst` files in `doc/source/` if changing user-facing features
+## v1 architecture (the live plugin)
 
-### Cross-Platform Compatibility
+**Load path:** `__init__.py::classFactory` → `plugin/core.py::RUBEMHydrological` (toolbar action, menu, translator) → `plugin/dialog/__init__.py::RUBEMHydrologicalDialog` (a `QDialog` mixed with the generated `Ui_RUBEMHydrological`).
 
-The plugin must work on **Linux, Mac, and Windows**. Key considerations:
-- Use `os.path.join()` for paths, never hardcode separators
-- Qt/PyQt handles most platform differences
-- Test file dialogs work correctly on each platform
+**Dialog methods are spread across modules.** The class body of `RUBEMHydrologicalDialog` imports module-level functions from `plugin/dialog/_*.py` (`from ._tab_climate import ...`, `from ._project import ...`), which binds them as methods. Every function in those modules takes `self` = the dialog and reaches widgets by their Qt Designer object names (`self.textBrowser_log`, `self.progressBar`, ...). To add a handler, write it in the matching `_tab_*.py` / `_*.py` and add its name to the import list in the class body.
 
-### Configuration Files
+**Config is the contract with the model.** `self.config` is a `configparser.ConfigParser` seeded from `plugin/validation/schemas.py::defaultConfigSchema`. `_project.py` round-trips it: `updateConfigFromGUI()` writes widgets into the config, `updateGUIFromConfig()` does the reverse, and `saveProject()` writes `<name>.ini` plus a sibling `<name>.qgs`. The model executable reads that INI's section and key names, so renaming one breaks model runs, not just the GUI. New fields start in `defaultConfigSchema`.
 
-Plugin configuration uses Python's `configparser` with schema defined in `plugin/validation/schemas.py::defaultConfigSchema`. Contains sections:
-- `SIM_TIME`: Simulation period
-- `DIRECTORIES`: Input/output paths
-- `FILENAME_PREFIXES`: File naming patterns
-- `RASTERS`: Spatial input files
-- `TABLES`: Tabular input files
-- `CALIBRATION`: Model parameters
-- `GENERATE_FILE`: Output flags
-- `RASTER_FILE_FORMAT`: Output format options
+**Execution:** `dialog/_worker.py::setRunState` builds `[<repo-root>/rubem/rubem.exe, "--configfile", <project.ini>]`. The path climbs two levels from `plugin/dialog/`, `rubem/` is gitignored, and the executable is supplied at packaging time. Without it, Run raises `FileNotFoundError`. `utils/workers.py::RUBEMStandaloneWorker` runs the command in a `QProcess` and parses stdout for progress and log text.
 
-## Validation Pipeline
+**Results:** `_tab_results.py` finds output files by the names in `_mappings.py` and lists them in tree views. `report/plotter.py` plots time series (matplotlib/pandas) and `utils/raster.py` reads rasters through GDAL.
 
-### Pre-Checkin Requirements
+**Imports:** `plugin/` has no `__init__.py`, and QGIS imports the plugin under whatever its install folder is named. v1 modules therefore use relative imports with a bare-name fallback, and Qt through `qgis.PyQt` with a `PyQt5` fallback:
 
-From `.github/pull_request_template.md`:
-- [ ] Follow CONTRIBUTING.md guidelines
-- [ ] No duplicate PRs
-- [ ] Add tests for changes
-- [ ] Update documentation for changes
-- [ ] Ensure cross-platform compatibility
-
-### No CI/CD Pipeline
-
-**IMPORTANT**: This repository has NO automated CI/CD workflows (no `.github/workflows/` directory). All testing and validation must be done manually before submitting PRs.
-
-### Documentation Build Validation
-
-Always verify documentation builds without errors:
-```bash
-cd doc && python -m sphinx -b html source build/html
-```
-
-Check for warnings/errors in output. Documentation should build cleanly.
-
-### Code Style
-
-The codebase has numerous TODOs for missing docstrings. When adding new functions:
-- Follow existing docstring format (Google style)
-- Include type hints where present
-- Add descriptive comments for complex logic
-
-## Common Patterns & Conventions
-
-### Import Pattern
-All modules try QGIS imports first, fallback to direct PyQt5:
 ```python
 try:
-    from qgis.PyQt.QtCore import Qt
-    from qgis.PyQt.QtWidgets import QDialog
+    from ..utils.series import splitDirFilePrefix
 except ImportError:
-    from PyQt5.QtCore import Qt
-    from PyQt5.QtWidgets import QDialog
+    from utils.series import splitDirFilePrefix
 ```
 
-### Module Organization
-Dialog functionality is split across modules in `plugin/dialog/`:
-- `_tab_*.py`: Tab-specific logic
-- `_*.py`: Cross-cutting concerns (validation, plotting, messages)
-- All imported in `__init__.py` as methods of `RUBEMHydrologicalDialog`
+**Docstrings:** v1 modules use reST (`:param x:`) and v2 modules use Google style. Use the style of the module you are editing.
 
-### File Paths
-Plugin uses absolute paths internally. GUI helpers in `plugin/dialog/_file_dir_dialogs.py` provide directory/file selection dialogs.
+## v2 layer (scaffolding, not wired in)
 
-## Limitations & Known Issues
+The v2 layer is `plugin/{models,services,controllers,views,workers}/`, `plugin/core_refactored.py`, `plugin/exceptions.py` and `plugin/logging.py`. Its design is written up in `DEVELOPMENT.md`, `MIGRATION.md` and `MVC_IMPLEMENTATION.md`. These points aren't obvious from those docs:
 
-1. **Testing Limitations**: Integration tests cannot run outside QGIS environment
-2. **Generated Files**: `plugin/gui/generated/*` must be regenerated after UI changes
-3. **Documentation Dependencies**: Requires custom Sphinx extensions (email, youtube)
-4. **No Automated CI**: Manual validation required for all changes
-5. **QGIS Version**: Minimum QGIS 3.22, experimental flag set in metadata
-6. **External Dependency**: Requires PCRaster Processing Provider plugin
-
-## Trust These Instructions
-
-When working with this repository:
-1. **Do NOT try to run integration tests** unless in QGIS Python environment
-2. **Do NOT edit generated files** in `plugin/gui/generated/`
-3. **Always rebuild documentation** after changing `.rst` files
-4. **Update both version files** when bumping versions
-5. **Only search for additional information** if these instructions are incomplete or proven incorrect
-
-For questions not covered here, check:
-- `doc/source/` RST files for user-facing documentation
-- `CONTRIBUTING.md` for contribution guidelines
-- `README.md` for general project info
-- Code comments for implementation details
+- Nothing on the QGIS load path imports it. `classFactory` still loads `plugin/core.py`, and `MainController` has no caller outside `plugin/controllers/`.
+- It uses absolute `from plugin.X import ...`. That resolves under `python -m pytest` from the repo root but not when QGIS loads the package by folder name. Wiring it in means switching to the v1 relative-import pattern.
+- `plugin/models::RUBEMConfig` (pydantic) uses different field names from `defaultConfigSchema`'s INI sections and keys, and `_transform_ini_dict` / `to_ini_file` are stubs. The two config systems are not interchangeable. The INI is still what the model consumes.
+- It depends on pydantic / pydantic-settings, which the v1 load path has never needed.
