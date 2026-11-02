@@ -78,6 +78,13 @@ def handleFinished(self, exit_code):
         )
 
 
+def explainCancel(self):
+    """Tell the user, on the GUI thread, that this run is not cancellable."""
+    self.textBrowser_log.append(
+        "\n# This run cannot be cancelled. RUBEM finishes in its own process."
+    )
+
+
 def runLongTask(self):
     """Start the submodule run and leave the progress bar indeterminate."""
     self.progressBar.setStyleSheet("")
@@ -88,8 +95,8 @@ def runLongTask(self):
     self.worker.runFinished.connect(self.handleFinished)
     self.worker.runFinished.connect(lambda: self.btn_Run.setEnabled(True))
     self.worker.thread.finished.connect(self.worker.deleteLater)
-    self.btn_Cancel.clicked.connect(lambda: self.progressBar.setValue(0))
-    self.btn_Cancel.clicked.connect(lambda: self.textBrowser_log.clear())
-    self.btn_Cancel.clicked.connect(self.worker.kill)
+    if not getattr(self, "_cancel_explained", False):
+        self.btn_Cancel.clicked.connect(self.explainCancel)
+        self._cancel_explained = True
     self.btn_Run.setEnabled(False)
     self.worker.run()

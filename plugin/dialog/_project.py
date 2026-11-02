@@ -2,7 +2,7 @@ import os
 
 from qgis.core import QgsProject
 
-from qgis.PyQt.QtCore import QDate
+from qgis.PyQt.QtCore import QDate, QThread, pyqtSignal
 from qgis.PyQt.QtWidgets import QFileDialog, QMessageBox
 
 try:
@@ -22,33 +22,113 @@ except ImportError:
 _PROJECT_FILTER = "RUBEM project (*.json)"
 
 
-def _with_pydantic(self, action):
-    """Run ``action``, offering to install Pydantic once if it is missing."""
+def _spin_text(self, spin, section, option):
+    """Keep a stored decimal when the widget only repeats its own rounding."""
+    shown = spin.value()
     try:
-        return action()
-    except PydanticUnavailable as exc:
-        answer = QMessageBox.question(
-            self,
-            "RUBEM Hydrological",
-            str(exc) + "\n\nInstall it into an isolated environment?",
-            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
-            QMessageBox.StandardButton.Yes,
-        )
-        if answer != QMessageBox.StandardButton.Yes:
-            self.textBrowser_log.append(str(exc))
-            raise
-        ensure_pydantic(install=True)
-        return action()
+        stored_value = self.config.getfloat(section, option)
+        stored_text = self.config.get(section, option)
+    except Exception:
+        return repr(shown)
+    tolerance = 0.5 * (10 ** (-spin.decimals()))
+    if abs(stored_value - shown) <= tolerance:
+        return stored_text
+    return repr(shown)
 
 
-def _write_project(self, selected_file_path):
+def _apply_series(self, text, directory_key, prefix_key):
+    """Update a series directory without erasing a prefix the widget does not show."""
+    tmp_path, tmp_prefix = splitDirFilePrefix(text)
+    stored = self.config.get("FILENAME_PREFIXES", prefix_key, fallback="")
+    if tmp_prefix == "" and stored:
+        tmp_prefix = stored
+    self.config.set("DIRECTORIES", directory_key, tmp_path)
+    self.config.set("FILENAME_PREFIXES", prefix_key, tmp_prefix)
+
+
+class _PydanticInstallThread(QThread):
+    """Install Pydantic off the GUI thread."""
+
+    succeeded = pyqtSignal()
+    failed = pyqtSignal(str)
+
+    def run(self):
+        try:
+            ensure_pydantic(install=True)
+        except Exception as exc:
+            self.failed.emit(str(exc))
+        else:
+            self.succeeded.emit()
+
+
+def _prompt_pydantic_install(self, exc, retry):
+    """Ask once, then install off the GUI thread and call ``retry``."""
+    if getattr(self, "_pydantic_installing", False):
+        return None
+    answer = QMessageBox.question(
+        self,
+        "RUBEM Hydrological",
+        str(exc) + "\n\nInstall it into an isolated environment?",
+        QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+        QMessageBox.StandardButton.Yes,
+    )
+    if answer != QMessageBox.StandardButton.Yes:
+        self.textBrowser_log.append(str(exc))
+        return None
+    self._pydantic_installing = True
+    worker = _PydanticInstallThread()
+
+    def finished_ok():
+        self._pydantic_installing = False
+        self.textBrowser_log.append("Pydantic is available.")
+        retry()
+
+    def finished_badly(message):
+        self._pydantic_installing = False
+        self.textBrowser_log.append(message)
+
+    worker.succeeded.connect(finished_ok)
+    worker.failed.connect(finished_badly)
+    worker.finished.connect(worker.deleteLater)
+    self._pydantic_worker = worker
+    worker.start()
+    return None
+
+
+def _write_project(self, selected_file_path, after=None):
     """Validate and write the project with the submodule's pydantic model."""
-    _with_pydantic(self, lambda: write_legacy_json(self.config, selected_file_path))
+
+    def write():
+        write_legacy_json(self.config, selected_file_path)
+        return True
+
+    try:
+        return write()
+    except PydanticUnavailable as exc:
+
+        def retry():
+            if write() and after is not None:
+                after()
+
+        return _prompt_pydantic_install(self, exc, retry)
 
 
-def _read_project(self, config_file_path):
+def _read_project(self, config_file_path, after=None):
     """Read a project and validate it with the submodule's pydantic model."""
-    return _with_pydantic(self, lambda: read_legacy_json(config_file_path))
+
+    def read():
+        return read_legacy_json(config_file_path)
+
+    try:
+        return read()
+    except PydanticUnavailable as exc:
+
+        def retry():
+            loaded = read()
+            if loaded is not None and after is not None:
+                after(loaded)
+
+        return _prompt_pydantic_install(self, exc, retry)
 
 
 def newProject(self, supressed=False):
@@ -136,25 +216,31 @@ def openProject(self):
                 else:
                     return None
 
-            self.textBrowser_log.clear()
-            self.projectFilePath = filePath
-            self.hasCurrentProject = True
-            self.loadConfigFromFile(self.projectFilePath)
-            self.updateGUIFromConfig()
-            self.pushButton_SaveProject.setEnabled(True)
-            self.pushButton_SaveAsProject.setEnabled(True)
-            self.tabWidget.setEnabled(True)
+            def apply_loaded(loaded):
+                self.textBrowser_log.clear()
+                self.config = loaded
+                self.projectFilePath = filePath
+                self.hasCurrentProject = True
+                self.updateGUIFromConfig()
+                self.pushButton_SaveProject.setEnabled(True)
+                self.pushButton_SaveAsProject.setEnabled(True)
+                self.tabWidget.setEnabled(True)
+                output = self.config.get("DIRECTORIES", "output")
+                if os.path.exists(output) and os.listdir(output):
+                    self.tab_Results.setEnabled(True)
+                    self.populateMapSeriesTree()
+                    self.populateTimeSeriesTree()
+                self.qgisProject.read(os.path.splitext(filePath)[0] + ".qgs")
+                self.updateWindowTitle()
 
-            if os.path.exists(self.config.get("DIRECTORIES", "output")) and os.listdir(
-                self.config.get("DIRECTORIES", "output")
-            ):
-                self.tab_Results.setEnabled(True)
-                self.populateMapSeriesTree()
-                self.populateTimeSeriesTree()
-
-            # TODO: Check if QGIS project file exist
-            self.qgisProject.read(os.path.splitext(self.projectFilePath)[0] + ".qgs")
-            self.updateWindowTitle()
+            try:
+                loaded = _read_project(self, filePath, after=apply_loaded)
+            except (OSError, ValueError, RuntimeError) as exc:
+                self.textBrowser_log.append(str(exc))
+                return
+            if loaded is None:
+                return
+            apply_loaded(loaded)
 
     # Check if there is already a current project and it has been
     # modified then ask to save it
@@ -223,17 +309,19 @@ def saveProject(self, filePath=None, caption=None):
         """
         if not selectedFilePath.lower().endswith(".json"):
             selectedFilePath += ".json"
-        _write_project(self, selectedFilePath)
 
-        self.qgisProject = QgsProject.instance()
-        self.qgisProject.write(os.path.splitext(selectedFilePath)[0] + ".qgs")
+        def finish_save():
+            self.qgisProject = QgsProject.instance()
+            self.qgisProject.write(os.path.splitext(selectedFilePath)[0] + ".qgs")
+            self.textBrowser_log.append("Project file saved in " + selectedFilePath)
+            self.hasCurrentProject = True
+            self.hasProjectBeenModified = False
+            self.projectFilePath = selectedFilePath
+            self.updateWindowTitle()
 
-        self.textBrowser_log.append("Project file saved in " + selectedFilePath)
-
-        self.hasCurrentProject = True
-        self.hasProjectBeenModified = False
-        self.projectFilePath = selectedFilePath
-        self.updateWindowTitle()
+        if _write_project(self, selectedFilePath, after=finish_save) is None:
+            return
+        finish_save()
 
     # Ask user for project file path
     # --> Call this function without any arguments
@@ -333,7 +421,9 @@ def updateConfigFromGUI(self):
         self.config.set("RASTERS", "samples", self.lineEdt_Sample.text())
 
     # Grid Size
-    self.config.set("GRID", "grid", str(self.doubleSpinBox_GridSize.value()))
+    self.config.set(
+        "GRID", "grid", _spin_text(self, self.doubleSpinBox_GridSize, "GRID", "grid")
+    )
 
     # Simulation Period
     self.config.set(
@@ -356,33 +446,42 @@ def updateConfigFromGUI(self):
     self.config.set(
         "INITIAL_SOIL_CONDITIONS",
         "T_ini",
-        str(self.doubleSpinBox_InitialSoilMoisture.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_InitialSoilMoisture,
+            "INITIAL_SOIL_CONDITIONS",
+            "T_ini",
+        ),
     )
     self.config.set(
         "INITIAL_SOIL_CONDITIONS",
         "bfw_ini",
-        str(self.doubleSpinBox_BaseFlowInitial.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_BaseFlowInitial,
+            "INITIAL_SOIL_CONDITIONS",
+            "bfw_ini",
+        ),
     )
     self.config.set(
         "INITIAL_SOIL_CONDITIONS",
         "bfw_lim",
-        str(self.doubleSpinBox_BaseFlowLimit.value()),
+        _spin_text(
+            self, self.doubleSpinBox_BaseFlowLimit, "INITIAL_SOIL_CONDITIONS", "bfw_lim"
+        ),
     )
     self.config.set(
         "INITIAL_SOIL_CONDITIONS",
         "S_sat_ini",
-        str(self.doubleSpinBox_TusInitial.value()),
+        _spin_text(
+            self, self.doubleSpinBox_TusInitial, "INITIAL_SOIL_CONDITIONS", "S_sat_ini"
+        ),
     )
 
     # Land Use tab
     # Land Use Series
-    tmpPath, tmpPrefix = splitDirFilePrefix(self.lineEdt_LandUseSeries.text())
-    self.config.set("DIRECTORIES", "landuse", tmpPath)
-    self.config.set("FILENAME_PREFIXES", "landuse_prefix", tmpPrefix)
-
-    tmpPath, tmpPrefix = splitDirFilePrefix(self.lineEdt_NDVISeries.text())
-    self.config.set("DIRECTORIES", "ndvi", tmpPath)
-    self.config.set("FILENAME_PREFIXES", "ndvi_prefix", tmpPrefix)
+    _apply_series(self, self.lineEdt_LandUseSeries.text(), "landuse", "landuse_prefix")
+    _apply_series(self, self.lineEdt_NDVISeries.text(), "ndvi", "ndvi_prefix")
 
     self.config.set("RASTERS", "ndvi_max", self.lineEdt_NDVIMax.text())
     self.config.set("RASTERS", "ndvi_min", self.lineEdt_NDVIMin.text())
@@ -401,73 +500,110 @@ def updateConfigFromGUI(self):
     self.config.set("TABLES", "K_c_min", self.lineEdt_KcMin.text())
 
     # Fpar
-    self.config.set("CONSTANTS", "fpar_max", str(self.doubleSpinBox_FparMax.value()))
-    self.config.set("CONSTANTS", "fpar_min", str(self.doubleSpinBox_FparMin.value()))
+    self.config.set(
+        "CONSTANTS",
+        "fpar_max",
+        _spin_text(self, self.doubleSpinBox_FparMax, "CONSTANTS", "fpar_max"),
+    )
+    self.config.set(
+        "CONSTANTS",
+        "fpar_min",
+        _spin_text(self, self.doubleSpinBox_FparMin, "CONSTANTS", "fpar_min"),
+    )
 
     # Interception
-    self.config.set("CONSTANTS", "i_imp", str(self.doubleSpinBox_Interception.value()))
+    self.config.set(
+        "CONSTANTS",
+        "i_imp",
+        _spin_text(self, self.doubleSpinBox_Interception, "CONSTANTS", "i_imp"),
+    )
 
     # Leaf Area Index
     self.config.set(
-        "CONSTANTS", "lai_max", str(self.doubleSpinBox_LeafAreaIndexMax.value())
+        "CONSTANTS",
+        "lai_max",
+        _spin_text(self, self.doubleSpinBox_LeafAreaIndexMax, "CONSTANTS", "lai_max"),
     )
 
     # Climate tab
-    tmpPath, tmpPrefix = splitDirFilePrefix(self.lineEdt_Precipitation.text())
-    self.config.set("DIRECTORIES", "prec", tmpPath)
-    self.config.set("FILENAME_PREFIXES", "prec_prefix", tmpPrefix)
-
-    tmpPath, tmpPrefix = splitDirFilePrefix(self.lineEdt_EvapoTranspiration.text())
-    self.config.set("DIRECTORIES", "etp", tmpPath)
-    self.config.set("FILENAME_PREFIXES", "etp_prefix", tmpPrefix)
-
-    tmpPath, tmpPrefix = splitDirFilePrefix(self.lineEdt_PanCoefficientKp.text())
-    self.config.set("DIRECTORIES", "kp", tmpPath)
-    self.config.set("FILENAME_PREFIXES", "kp_prefix", tmpPrefix)
+    _apply_series(self, self.lineEdt_Precipitation.text(), "prec", "prec_prefix")
+    _apply_series(self, self.lineEdt_EvapoTranspiration.text(), "etp", "etp_prefix")
+    _apply_series(self, self.lineEdt_PanCoefficientKp.text(), "kp", "kp_prefix")
 
     self.config.set("TABLES", "rainydays", self.lineEdt_RainyDays.text())
 
     # Parameters tab
     # Model Parameters
-    self.config.set("CALIBRATION", "b", str(self.doubleSpinBox_ExponentCh.value()))
-    self.config.set("CALIBRATION", "x", str(self.doubleSpinBox_DelayFactor.value()))
+    self.config.set(
+        "CALIBRATION",
+        "b",
+        _spin_text(self, self.doubleSpinBox_ExponentCh, "CALIBRATION", "b"),
+    )
+    self.config.set(
+        "CALIBRATION",
+        "x",
+        _spin_text(self, self.doubleSpinBox_DelayFactor, "CALIBRATION", "x"),
+    )
 
     self.config.set(
         "CALIBRATION",
         "rcd",
-        str(self.doubleSpinBox_RegionalConsecutiveDrynessLevel.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_RegionalConsecutiveDrynessLevel,
+            "CALIBRATION",
+            "rcd",
+        ),
     )
     self.config.set(
         "CALIBRATION",
         "alpha_gw",
-        str(self.doubleSpinBox_DelayCoefficientBaseFlow.value()),
+        _spin_text(
+            self, self.doubleSpinBox_DelayCoefficientBaseFlow, "CALIBRATION", "alpha_gw"
+        ),
     )
     self.config.set(
         "CALIBRATION",
         "f",
-        str(self.doubleSpinBox_PartitioningCoefficientRelatedSoil.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_PartitioningCoefficientRelatedSoil,
+            "CALIBRATION",
+            "f",
+        ),
     )
     self.config.set(
         "CALIBRATION",
         "alpha",
-        str(self.doubleSpinBox_InterceptionCalibrationAlpha.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_InterceptionCalibrationAlpha,
+            "CALIBRATION",
+            "alpha",
+        ),
     )
 
     # Weight Factors
     self.config.set(
         "CALIBRATION",
         "w_1",
-        str(self.doubleSpinBox_ManningRelatedWeightFactor.value()),
+        _spin_text(
+            self, self.doubleSpinBox_ManningRelatedWeightFactor, "CALIBRATION", "w_1"
+        ),
     )
     self.config.set(
         "CALIBRATION",
         "w_2",
-        str(self.doubleSpinBox_SoilRelatedWeightFactor.value()),
+        _spin_text(
+            self, self.doubleSpinBox_SoilRelatedWeightFactor, "CALIBRATION", "w_2"
+        ),
     )
     self.config.set(
         "CALIBRATION",
         "w_3",
-        str(self.doubleSpinBox_SlopeRelatedWeightFactor.value()),
+        _spin_text(
+            self, self.doubleSpinBox_SlopeRelatedWeightFactor, "CALIBRATION", "w_3"
+        ),
     )
 
     # Run tab
@@ -648,15 +784,13 @@ def updateGUIFromConfig(self):
     )
 
     # Weight Factors
-    self.doubleSpinBox_ManningRelatedWeightFactor.setValue(
-        self.config.getfloat("CALIBRATION", "w_1")
-    )
-    self.doubleSpinBox_SoilRelatedWeightFactor.setValue(
-        self.config.getfloat("CALIBRATION", "w_2")
-    )
-    self.doubleSpinBox_SlopeRelatedWeightFactor.setValue(
-        self.config.getfloat("CALIBRATION", "w_3")
-    )
+    for spin, option in (
+        (self.doubleSpinBox_ManningRelatedWeightFactor, "w_1"),
+        (self.doubleSpinBox_SoilRelatedWeightFactor, "w_2"),
+        (self.doubleSpinBox_SlopeRelatedWeightFactor, "w_3"),
+    ):
+        spin.setDecimals(10)
+        spin.setValue(self.config.getfloat("CALIBRATION", option))
 
     # Run tab
     # Generate Files

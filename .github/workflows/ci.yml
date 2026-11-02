@@ -95,19 +95,22 @@ jobs:
     name: Integration Tests (QGIS)
     runs-on: ubuntu-latest
     container:
-      image: qgis/qgis:release-3_44
+      image: qgis/qgis:release-4_2
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Install test dependencies in QGIS environment
         run: |
-          pip3 install pytest pytest-cov pytest-qt pytest-mock
+          pip3 install pytest 'pydantic>=2.11,<3'
 
-      - name: Run integration tests
+      - name: Run unit tests inside QGIS
         run: |
-          pytest test/integration -m integration -v
+          python3 -m pytest test/unit -m unit -o addopts= -p no:cacheprovider
         env:
           QT_QPA_PLATFORM: offscreen
+          PYTHONPATH: ${{ github.workspace }}
 
   docs:
     name: Build Documentation

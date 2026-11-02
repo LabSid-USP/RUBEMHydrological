@@ -17,6 +17,34 @@ from plugin.engine import (
 
 
 @pytest.mark.unit
+def test_pydantic_requirement_rejects_version_3() -> None:
+    """The upper bound is exclusive, matching the submodule pin."""
+    from plugin.dependencies import pydantic_version_is_supported
+
+    assert pydantic_version_is_supported("2.11.0")
+    assert pydantic_version_is_supported("2.14.1")
+    assert not pydantic_version_is_supported("2.10.9")
+    assert not pydantic_version_is_supported("3.0.0")
+
+
+@pytest.mark.unit
+def test_archive_uses_one_root_and_keeps_runtime_files() -> None:
+    """The zip layout matches the directory QGIS imports."""
+    from scripts.build_plugin import ARCHIVE_ROOT, archive_member, iter_plugin_files
+
+    root = Path(__file__).resolve().parents[2]
+    assert archive_member(root, root / "metadata.txt") == f"{ARCHIVE_ROOT}/metadata.txt"
+    assert (
+        archive_member(root, root / "plugin" / "engine.py")
+        == f"{ARCHIVE_ROOT}/plugin/engine.py"
+    )
+    names = {archive_member(root, path) for path in iter_plugin_files(root)}
+    assert f"{ARCHIVE_ROOT}/plugin/gui/generated/resources.rcc" in names
+    assert f"{ARCHIVE_ROOT}/external/rubem-model/rubem/api.py" in names
+    assert all(name.startswith(f"{ARCHIVE_ROOT}/") for name in names)
+
+
+@pytest.mark.unit
 def test_installed_pydantic_satisfies_the_submodule_pin() -> None:
     """A usable Pydantic does not trigger another install."""
     from plugin.dependencies import ensure_pydantic
@@ -52,7 +80,7 @@ def test_inactive_pcraster_tools_names_the_plugin_and_refuses_pip() -> None:
 
 
 @pytest.mark.unit
-def test_ready_check_reaches_the_native_import_after_the_plugin() -> None:
-    """With the plugin id present, the next failure is the missing pcraster module."""
+def test_ready_check_requires_native_pcraster_not_the_processing_plugin() -> None:
+    """QGIS 4 cannot install PCRaster Tools 0.4.0, so the gate is the import."""
     with pytest.raises(ImportError, match="pcraster"):
-        assert_ready([PCRASTER_TOOLS_ID])
+        assert_ready()

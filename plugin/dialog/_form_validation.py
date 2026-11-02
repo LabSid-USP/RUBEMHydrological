@@ -1,3 +1,4 @@
+import math
 import os
 
 from qgis.core import Qgis
@@ -6,6 +7,7 @@ try:
     from ..validation.validators import *
 except ImportError:
     from validation.validators import *
+
 
 # TODO: Add docstring information and comments
 def hasFilledAllFields(self):
@@ -16,6 +18,9 @@ def hasFilledAllFields(self):
     """
     emptyFields = []
     for key, element in self.uiDirPathDict.items():
+        # The model JSON has no input directory. The widget is optional.
+        if key == "input":
+            continue
         lineEdit, _ = element
         if not lineEdit.text() or not os.path.exists(lineEdit.text()):
             lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
@@ -65,12 +70,12 @@ def hasFilledAllFields(self):
         self.groupBox_SimulationPeriod.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
     hasAreaFractionAddUpTo1 = True
-    if (
-        not self.doubleSpinBox_ManningRelatedWeightFactor.value()
+    weight_sum = (
+        self.doubleSpinBox_ManningRelatedWeightFactor.value()
         + self.doubleSpinBox_SoilRelatedWeightFactor.value()
         + self.doubleSpinBox_SlopeRelatedWeightFactor.value()
-        == 1
-    ):
+    )
+    if not math.isclose(weight_sum, 1.0, abs_tol=1e-6):
         hasAreaFractionAddUpTo1 = False
         self.groupBox_WeightFactors.setStyleSheet(INVALID_LABEL_STYLESHEET)
         self.bar.pushMessage(

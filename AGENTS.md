@@ -27,11 +27,13 @@ pre-commit run --all-files
 cd doc && python -m sphinx -b html source build/html -W
 
 # Regenerate Qt output after editing plugin/gui/core.ui or plugin/gui/resources/resources.qrc
-pyuic5 plugin/gui/core.ui -o plugin/gui/generated/core_ui.py
-pyrcc5 plugin/gui/resources/resources.qrc -o plugin/gui/generated/resources_rc.py
+# pyuic6 comes from the QGIS 4 environment. The resource file is binary because
+# Qt 6's Python rcc emits PySide6, and this plugin loads resources with PyQt6.
+pyuic6 plugin/gui/core.ui -o plugin/gui/generated/core_ui.py
+rcc --binary plugin/gui/resources/resources.qrc -o plugin/gui/generated/resources.rcc
 ```
 
-- Never edit `plugin/gui/generated/` by hand. The pre-commit black, ruff and mypy hooks skip it, but in `pyproject.toml` only black (and coverage) excludes it, so direct `ruff check .` and `mypy plugin/` runs still scan it.
+- Never edit `plugin/gui/generated/` by hand. Ruff and Black exclude that directory in `pyproject.toml`.
 - The integration tests are legacy plugin-template tests and several fail on current setups (for example `test_rubem_hydrological_dialog.py` expects a `button_box` widget the dialog does not define). Compare against the base branch before treating a failure as a regression.
 - Known CI gap: the `test-unit` job installs only Poetry dependencies, without QGIS, while `test/__init__.py` imports `qgis`; the `test-integration` job runs `pytest -m integration`, which selects nothing.
 - Python tooling is configured in `pyproject.toml` (ruff, black, mypy, pytest). Mark every new unit test `@pytest.mark.unit`, or `-m unit` (as in ci.yml) skips it; `--strict-markers` rejects markers not registered there.
@@ -52,7 +54,7 @@ pyrcc5 plugin/gui/resources/resources.qrc -o plugin/gui/generated/resources_rc.p
 
 **Project file.** The dialog keeps values in a `ConfigParser` seeded from `plugin/validation/schemas.py::defaultConfigSchema`. `saveProject()` writes the legacy JSON document RUBEM `main` accepts (uppercase sections, no `version` field) and a sibling `<name>.qgs`. `RASTERS.demtif` in the dialog is `RASTERS.georeference` in that JSON. `DIRECTORIES.input` stays in the dialog and is omitted from the file. Format 1.0 (`version` present) is a different document and `read_legacy_json` rejects it. The model checkout is part of the codebase (the submodule), not a path stored in the environment (`https://12factor.net/codebase`). `plugin/validation/legacy_json.py` validates that document with the submodule's pydantic model `ModelConfigurationFile`. Pydantic `>=2.11,<3` is the same requirement as the submodule. When the QGIS interpreter does not have it, saving or opening a project asks before installing that one package into an isolated environment.
 
-**Execution:** `dialog/_worker.py::setRunState` calls `plugin/engine.py`, which imports the pinned submodule `external/rubem-model` and runs `rubem.api.Model.from_file(...).run_isolated()`. There is no `rubem` executable and no `RUBEM_EXECUTABLE` setting. `run_isolated` exists because PCRaster's clone is process-wide and must not be set inside the QGIS process that also hosts PCRaster Tools. The metadata dependency is `PCRaster Tools` (`pcraster_tools`). The release 0.4.0 on plugins.qgis.org declares QGIS <= 3.99, so QGIS 4.2 will not install that package. PCRaster is a conda/OSGeo4W library, not a pip dependency, and the plugin does not install it. Plugin updates stay with the QGIS plugin manager.
+**Execution:** `dialog/_worker.py::setRunState` calls `plugin/engine.py`, which imports the pinned submodule `external/rubem-model` and runs `rubem.api.Model.from_file(...).run_isolated()`. There is no `rubem` executable. The run is gated on importing native `pcraster` and GDAL. The PCRaster Tools processing plugin, release 0.4.0, declares QGIS <= 3.99, so it is not a `plugin_dependencies` entry for this QGIS 4 plugin. PCRaster is a conda or OSGeo4W library, not a pip package. Plugin updates stay with the QGIS plugin manager. Cancel explains that the isolated process is not stopped.
 
 **Results:** `_tab_results.py` finds output files by the names in `_mappings.py` and lists them in tree views. `report/plotter.py` plots time series (matplotlib/pandas) and `utils/raster.py` reads rasters through GDAL.
 
@@ -74,4 +76,4 @@ The v2 layer is `plugin/{models,services,controllers,views,workers}/`, `plugin/c
 - Nothing on the QGIS load path imports it. `classFactory` still loads `plugin/core.py`, and `MainController` has no caller outside `plugin/controllers/`.
 - It uses absolute `from plugin.X import ...`. That resolves under `python -m pytest` from the repo root but not when QGIS loads the package by folder name. Wiring it in means switching to the v1 relative-import pattern.
 - `plugin/models::RUBEMConfig` (pydantic) uses different field names from `defaultConfigSchema`'s INI sections and keys, and `_transform_ini_dict` / `to_ini_file` are stubs. Do not treat it as the project document or as the JSON the model runs. Its calibration bounds (for example `alpha <= 1`) disagree with the live default `4.500`.
-- It depends on pydantic / pydantic-settings, which the v1 load path has never needed.
+- The live save and open path validates the project with the submodule's pydantic model. `plugin/models::RUBEMConfig` is not that model.

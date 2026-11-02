@@ -137,7 +137,9 @@ def legacy_json_document(
     return _canonical(draft), diagnostics
 
 
-def config_from_legacy_document(document: dict[str, object]) -> ConfigParser:
+def config_from_legacy_document(
+    document: dict[str, object], base_dir: Path | str | None = None
+) -> ConfigParser:
     """Load a legacy JSON object into the parser the dialog edits.
 
     :param document: Parsed JSON object.
@@ -164,12 +166,23 @@ def config_from_legacy_document(document: dict[str, object]) -> ConfigParser:
             if key not in allowed:
                 continue
             target = "demtif" if section == "RASTERS" and key == "georeference" else key
-            parser.set(section, target, _as_ini_text(value))
+            parser.set(
+                section,
+                target,
+                _as_ini_text(
+                    value,
+                    base_dir=base_dir,
+                    resolve=section in {"DIRECTORIES", "RASTERS", "TABLES"},
+                ),
+            )
     return parser
 
 
 def read_legacy_json(path: Path | str) -> ConfigParser:
     """Read a project file written by :func:`write_legacy_json`.
+
+    Relative paths are resolved against the JSON file's directory so the
+    dialog can see them. The file on disk is not rewritten here.
 
     :param path: Path to the JSON project.
     :raises ValueError: The file is not legacy JSON.
@@ -177,7 +190,7 @@ def read_legacy_json(path: Path | str) -> ConfigParser:
     source = Path(path)
     with source.open(encoding="utf-8") as handle:
         document = json.load(handle)
-    return config_from_legacy_document(document)
+    return config_from_legacy_document(document, base_dir=source.parent)
 
 
 def write_legacy_json(config: ConfigParser, destination: Path | str) -> list[str]:
@@ -226,10 +239,9 @@ def _normalize(
                 continue
             key = _RENAMES.get((upper, key), _ALIASES.get((upper, key), key))
             if key in found and found[key] != raw:
-                diagnostics.append(
-                    f"Kept {upper}.{key}={found[key]!r} and ignored {option}={raw!r}"
+                raise ValueError(
+                    f"Conflicting values for {upper}.{key}: {found[key]!r} and {raw!r}"
                 )
-                continue
             found[key] = raw
         unknown = sorted(key for key in found if key not in _ALLOWED[upper])
         for key in unknown:
@@ -281,6 +293,11 @@ def _prepare_loaded_document(document: dict[str, object]) -> dict[str, object]:
             folded = _RENAMES.get(
                 (upper, folded), _ALIASES.get((upper, folded), folded)
             )
+            if folded in cleaned and cleaned[folded] != value:
+                raise ValueError(
+                    f"Conflicting values for {upper}.{folded}: "
+                    f"{cleaned[folded]!r} and {value!r}"
+                )
             cleaned[folded] = value
         prepared[upper] = cleaned
     return prepared
@@ -307,12 +324,15 @@ def _canonical(draft: dict[str, object]) -> dict[str, dict[str, object]]:
     return model.model_dump(by_alias=True, exclude_none=True)
 
 
-def _as_ini_text(value: object) -> str:
+def _as_ini_text(
+    value: object, *, base_dir: Path | str | None = None, resolve: bool = False
+) -> str:
     """Store a JSON value in the dialog parser."""
     if value is None:
         return ""
     if isinstance(value, bool):
         return "True" if value else "False"
-    if isinstance(value, float):
-        return f"{value:.3f}"
-    return str(value)
+    text = repr(value) if isinstance(value, float) else str(value)
+    if resolve and base_dir and text and not Path(text).is_absolute():
+        return str((Path(base_dir) / text).resolve())
+    return text

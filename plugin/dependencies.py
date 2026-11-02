@@ -27,13 +27,26 @@ class PydanticUnavailable(ImportError):
 def ensure_pydantic(*, install: bool = False) -> None:
     """Import a new enough Pydantic, optionally installing it first.
 
-    :param install: When true and the import fails, create the isolated
-        environment and install :data:`PYDANTIC_REQUIREMENT`.
-    :raises PydanticUnavailable: The package is missing and ``install`` is false.
+    An environment created earlier is put on ``sys.path`` before the import.
+    A Pydantic that is already imported and outside :data:`PYDANTIC_REQUIREMENT`
+    is not replaced: Python will keep serving the cached module.
+
+    :param install: When true and no compatible package can be imported, create
+        the isolated environment and install :data:`PYDANTIC_REQUIREMENT`.
+    :raises PydanticUnavailable: The package is missing, or an incompatible
+        copy is already loaded.
     :raises RuntimeError: The install was requested and pip failed.
     """
-    if _pydantic_is_usable():
+    _activate_existing_environment()
+    if _loaded_pydantic_status() == "ok":
         return
+    if _loaded_pydantic_status() == "incompatible":
+        raise PydanticUnavailable(
+            "This interpreter already loaded Pydantic "
+            f"{_loaded_version()}, which is outside {PYDANTIC_REQUIREMENT}. "
+            "Restart QGIS with a compatible installation. "
+            "This plugin will not replace a package that is already imported."
+        )
     if not install:
         raise PydanticUnavailable(
             "Pydantic "
@@ -42,9 +55,11 @@ def ensure_pydantic(*, install: bool = False) -> None:
             "The plugin can install it into an isolated environment."
         )
     _install_pydantic()
-    if not _pydantic_is_usable():
-        raise RuntimeError(
-            f"pip reported success but {PYDANTIC_REQUIREMENT} still does not import."
+    _activate_existing_environment()
+    if _loaded_pydantic_status() != "ok":
+        raise PydanticUnavailable(
+            f"Installed {PYDANTIC_REQUIREMENT}, but this process still cannot "
+            "import that version. Restart QGIS and open the project again."
         )
 
 
@@ -61,13 +76,10 @@ def dependency_environment() -> Path:
     return Path.home() / ".local" / "share" / "rubem-hydrological" / "python-deps"
 
 
-def _pydantic_is_usable() -> bool:
-    try:
-        import pydantic
-    except ImportError:
-        return False
+def pydantic_version_is_supported(version: str) -> bool:
+    """Return whether ``version`` is inside ``>=2.11,<3``."""
     numbers: list[int] = []
-    for piece in pydantic.__version__.split("."):
+    for piece in version.split("."):
         digits = ""
         for character in piece:
             if not character.isdigit():
@@ -76,7 +88,46 @@ def _pydantic_is_usable() -> bool:
         if not digits:
             break
         numbers.append(int(digits))
-    return tuple(numbers[:2]) >= (2, 11)
+    while len(numbers) < 3:
+        numbers.append(0)
+    major, minor, patch = numbers[:3]
+    return (major, minor, patch) >= (2, 11, 0) and major < 3
+
+
+def _loaded_version() -> str | None:
+    module = sys.modules.get("pydantic")
+    if module is None:
+        return None
+    return getattr(module, "__version__", None)
+
+
+def _loaded_pydantic_status() -> str:
+    """Return ``ok``, ``missing``, or ``incompatible`` for the loaded module.
+
+    When Pydantic is not yet imported, try to import it. A failed import is
+    ``missing``.
+    """
+    if "pydantic" not in sys.modules:
+        try:
+            import pydantic  # noqa: F401
+        except ImportError:
+            return "missing"
+    version = _loaded_version()
+    if version is None:
+        return "missing"
+    if pydantic_version_is_supported(version):
+        return "ok"
+    return "incompatible"
+
+
+def _activate_existing_environment() -> None:
+    """Add an already-created dependency environment to ``sys.path``."""
+    site = _site_packages(dependency_environment())
+    if not site.is_dir():
+        return
+    entry = str(site)
+    if entry not in sys.path:
+        sys.path.insert(0, entry)
 
 
 def _install_pydantic() -> None:

@@ -66,8 +66,13 @@ def test_json_project_round_trip_keeps_alpha_and_demtif(tmp_path: Path) -> None:
     write_legacy_json(parser, project)
     loaded = read_legacy_json(project)
     assert loaded.getfloat("CALIBRATION", "alpha") == 4.5
-    assert loaded.get("RASTERS", "demtif") == "dem/dem.tif"
-    assert "version" not in json.loads(project.read_text(encoding="utf-8"))
+    assert (
+        Path(loaded.get("RASTERS", "demtif"))
+        == (project.parent / "dem/dem.tif").resolve()
+    )
+    on_disk = json.loads(project.read_text(encoding="utf-8"))
+    assert on_disk["RASTERS"]["georeference"] == "dem/dem.tif"
+    assert "version" not in on_disk
 
 
 @pytest.mark.unit
@@ -134,6 +139,32 @@ def test_pinned_schema_accepts_the_document_when_pydantic_is_present() -> None:
     assert dumped["GENERATE_FILE"]["arn"] is False
     unknown = [record for record in records if "Unknown key" in record.getMessage()]
     assert unknown == []
+
+
+@pytest.mark.unit
+def test_float_text_keeps_more_than_three_decimals() -> None:
+    """Loading a project must not round scientific values to three places."""
+    from plugin.validation.legacy_json import _as_ini_text
+
+    parser = _project()
+    parser.set("CALIBRATION", "w_1", "0.3333333333")
+    parser.set("CALIBRATION", "w_2", "0.3333333333")
+    parser.set("CALIBRATION", "w_3", "0.3333333334")
+    document, _diagnostics = legacy_json_document(parser)
+    text = _as_ini_text(document["CALIBRATION"]["w_1"])
+    assert text.startswith("0.3333333333")
+    assert _as_ini_text(-0.0001) == "-0.0001"
+
+
+@pytest.mark.unit
+def test_conflicting_aliases_are_rejected() -> None:
+    """The plugin must not pick one of two values the model itself rejects."""
+    from plugin.validation.legacy_json import config_from_legacy_document
+
+    document, _diagnostics = legacy_json_document(_project())
+    document["CALIBRATION"]["beta"] = 0.9
+    with pytest.raises(ValueError, match="Conflicting values"):
+        config_from_legacy_document(document)
 
 
 @pytest.mark.unit

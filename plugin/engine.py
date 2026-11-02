@@ -13,6 +13,7 @@ published on 2025-05-27 (0.4.0) declares ``qgisMaximumVersion`` 3.99, so QGIS
 
 from __future__ import annotations
 
+import multiprocessing
 import sys
 from pathlib import Path
 
@@ -78,18 +79,17 @@ def qgis_active_plugin_ids() -> list[str]:
     return list(active_plugins)
 
 
-def assert_ready(active_ids: list[str] | None = None) -> Path:
-    """Check the submodule, the PCRaster Tools plugin, and the native imports.
+def assert_ready() -> Path:
+    """Check the submodule and the native ``pcraster`` and GDAL imports.
 
-    :param active_ids: Plugin directory ids. Defaults to the live QGIS list.
+    The published PCRaster Tools plugin declares QGIS <= 3.99, so a hard
+    dependency on it cannot be installed on QGIS 4. RUBEM imports the
+    ``pcraster`` module itself.
+
     :raises FileNotFoundError: The submodule is missing.
-    :raises RuntimeError: PCRaster Tools is not active.
     :raises ImportError: ``pcraster`` or GDAL cannot be imported.
     """
     root = ensure_submodule_on_path()
-    assert_pcraster_tools(
-        qgis_active_plugin_ids() if active_ids is None else active_ids
-    )
     from rubem._deps import missing_runtime_deps, runtime_deps_message
 
     missing = missing_runtime_deps()
@@ -98,16 +98,33 @@ def assert_ready(active_ids: list[str] | None = None) -> Path:
     return root
 
 
+def configure_spawn_executable() -> None:
+    """Point multiprocessing at a Python interpreter when QGIS is the host.
+
+    CPython documents ``multiprocessing.set_executable`` for programs embedded
+    in another executable. On Windows, QGIS has reported ``sys.executable`` as
+    the QGIS program rather than Python. This only switches when the current
+    executable is not named like Python and a sibling ``python3`` exists.
+    """
+    executable = Path(sys.executable)
+    if executable.name.lower().startswith("python"):
+        return
+    for candidate in (executable.with_name("python3"), executable.with_name("python")):
+        if candidate.is_file():
+            multiprocessing.set_executable(str(candidate))
+            return
+
+
 def run_project(config_path: str) -> str:
     """Run one project through the submodule API, outside the QGIS process.
 
     :param config_path: Legacy JSON project written by the dialog.
     :returns: A one-line description of the run result.
     :raises ImportError: PCRaster or GDAL is missing.
-    :raises RuntimeError: PCRaster Tools is not active, or the isolated
-        subprocess dies.
+    :raises RuntimeError: The isolated subprocess dies.
     """
     assert_ready()
+    configure_spawn_executable()
     from rubem.api import Model
 
     result = Model.from_file(config_path).run_isolated()
