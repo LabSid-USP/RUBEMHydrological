@@ -1,8 +1,10 @@
 # MVC Implementation Summary
 
+A view do plugin é o diálogo do Qt Designer (`plugin/gui/core.ui`). As classes em `plugin/views/` não substituem esse diálogo e não estão no caminho de `classFactory`.
+
 ## Visão Geral
 
-A implementação MVC (Model-View-Controller) para o plugin RUBEM Hydrological segue as melhores práticas modernas de desenvolvimento com PyQt5 e QGIS 3.44+.
+O rascunho abaixo separa arquivos em models, views, controllers e services. O diálogo real e os signals do Qt continuam em `plugin/dialog/`.
 
 ## Estrutura Criada
 

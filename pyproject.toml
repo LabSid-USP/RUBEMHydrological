@@ -57,6 +57,7 @@ build-backend = "poetry.core.masonry.api"
 line-length = 88
 target-version = "py313"
 extend-include = ["*.pyw"]
+extend-exclude = ["external/rubem-model", "plugin/gui/generated"]
 
 [tool.ruff.lint]
 select = [
@@ -90,10 +91,11 @@ extend-exclude = '''
   | \.mypy_cache
   | \.pytest_cache
   | \.ruff_cache
-  | \.venv
+  |     \.venv
   | build
   | dist
   | plugin/gui/generated
+  | external/rubem-model
 )/
 '''
 

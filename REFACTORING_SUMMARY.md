@@ -1,8 +1,10 @@
 # RUBEM Hydrological - Refatoração para Python 3.13+ e QGIS 3.44+
 
+O texto abaixo descreve um rascunho que o QGIS ainda não carrega. `classFactory` importa `plugin.core`. A interface continua sendo `plugin/gui/core.ui`.
+
 ## Resumo Executivo
 
-Foi realizada uma refatoração completa do plugin RUBEM Hydrological seguindo as melhores práticas modernas para desenvolvimento de plugins QGIS com Python 3.13+. Este documento descreve as mudanças implementadas e os benefícios obtidos.
+Há um rascunho de módulos novos ao lado do plugin que o QGIS carrega. Este documento descreve esses arquivos. A 2.0.0 não está fechada.
 
 ## Versão
 

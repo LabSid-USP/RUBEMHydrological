@@ -1,0 +1,4 @@
+[submodule "external/rubem-model"]
+	path = external/rubem-model
+	url = https://github.com/LabSid-USP/RUBEM.git
+	branch = main

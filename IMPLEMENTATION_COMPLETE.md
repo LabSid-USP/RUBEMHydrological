@@ -1,8 +1,8 @@
-# Implementação Concluída: RUBEM Hydrological v2.0
+# Notas da camada v2 (rascunho, fora do carregamento)
 
-## 🎉 Status: Refatoração Base Completa
+`__init__.py::classFactory` ainda importa `plugin.core`. Os módulos descritos abaixo não abrem o diálogo no QGIS 3.44 nem no QGIS 4. O projeto do plugin continua em INI; o RUBEM `main` executa JSON. Este arquivo registra o rascunho, não uma 2.0.0 pronta.
 
-A refatoração do plugin RUBEM Hydrological para Python 3.13+ e QGIS 3.44+ foi concluída com sucesso. Este documento resume o trabalho realizado.
+## O que o rascunho contém
 
 ## ✅ O Que Foi Implementado
 
