@@ -1,10 +1,7 @@
 import os
 from glob import glob
 
-try:
-    from qgis.PyQt.QtCore import Qt, QModelIndex
-except ImportError:
-    from PyQt5.QtCore import Qt, QModelIndex
+from qgis.PyQt.QtCore import Qt, QModelIndex
 
 try:
     from ..report.item import StandardItem

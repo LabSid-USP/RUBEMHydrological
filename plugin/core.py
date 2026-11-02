@@ -24,24 +24,14 @@ Contains all the information about the actions of the plugin and the main code.
 
 import os
 
-try:
-    from qgis.PyQt.QtCore import QCoreApplication, QSettings, Qt, QTranslator
-    from qgis.PyQt.QtGui import QIcon
-    from qgis.PyQt.QtWidgets import QAction
-except ImportError:
-    from PyQt5.QtCore import QCoreApplication, QSettings, Qt, QTranslator
-    from PyQt5.QtGui import QIcon, QGuiApplication
-    from PyQt5.QtWidgets import QAction
+from qgis.PyQt.QtCore import QCoreApplication, QSettings, Qt, QTranslator
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
 
 try:
     from .dialog import RUBEMHydrologicalDialog
 except ImportError:
     from dialog import RUBEMHydrologicalDialog
-
-
-# QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-QCoreApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
 
 class RUBEMHydrological:
@@ -60,7 +50,8 @@ class RUBEMHydrological:
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
-        locale = QSettings().value("locale/userLocale")[0:2]
+        locale_value = QSettings().value("locale/userLocale") or ""
+        locale = str(locale_value).replace("-", "_")[:2]
         locale_path = os.path.join(
             self.plugin_dir, "i18n", "RUBEMHydrological_{}.qm".format(locale)
         )
@@ -195,17 +186,17 @@ class RUBEMHydrological:
 
         # configure top window tile
         self.dlg.setWindowFlags(
-            Qt.WindowSystemMenuHint
-            | Qt.WindowTitleHint
-            | Qt.WindowContextHelpButtonHint
-            | Qt.WindowCloseButtonHint
+            Qt.WindowType.WindowSystemMenuHint
+            | Qt.WindowType.WindowTitleHint
+            | Qt.WindowType.WindowContextHelpButtonHint
+            | Qt.WindowType.WindowCloseButtonHint
         )
 
         # show the dialog
         self.dlg.show()
         self.dlg.adjustSize()
         # Run the dialog event loop
-        result = self.dlg.exec_()
+        result = self.dlg.exec()
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and

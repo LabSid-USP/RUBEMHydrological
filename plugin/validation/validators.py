@@ -21,10 +21,7 @@
 
 from os.path import isdir, isfile
 
-try:
-    from qgis.PyQt.QtGui import QValidator
-except ImportError:
-    from PyQt5.QtGui import QValidator
+from qgis.PyQt.QtGui import QValidator
 
 DEFAULT_STYLESHEET = ""
 
@@ -51,22 +48,22 @@ class DirectoryPathValidator(QValidator):
 
         if not input:
             self.lineEdit.setStyleSheet(ACCEPTABLE_LINEEDIT_STYLESHEET)
-            return QValidator.Acceptable, input, pos
+            return QValidator.State.Acceptable, input, pos
         # elif not exists(input):
         #     self.lineEdit.setStyleSheet(INVALID_STYLESHEET)
-        #     return QValidator.Invalid, input, pos
+        #     return QValidator.State.Invalid, input, pos
         elif isfile(input):
             self.lineEdit.setStyleSheet(INTERMEDIATE_LINEEDIT_STYLESHEET)
-            return QValidator.Intermediate, input, pos
+            return QValidator.State.Intermediate, input, pos
         elif isdir(input):
             self.lineEdit.setStyleSheet(ACCEPTABLE_LINEEDIT_STYLESHEET)
-            return QValidator.Acceptable, input, pos
+            return QValidator.State.Acceptable, input, pos
         elif input:
             self.lineEdit.setStyleSheet(INTERMEDIATE_LINEEDIT_STYLESHEET)
-            return QValidator.Intermediate, input, pos
+            return QValidator.State.Intermediate, input, pos
         else:
             self.lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
-            return QValidator.Invalid, input, pos
+            return QValidator.State.Invalid, input, pos
 
 
 class FilePathValidator(QValidator):
@@ -81,23 +78,23 @@ class FilePathValidator(QValidator):
         if not input:
             self.lineEdit.setStyleSheet(ACCEPTABLE_LINEEDIT_STYLESHEET)
             self.label.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
-            return QValidator.Acceptable, input, pos
+            return QValidator.State.Acceptable, input, pos
         # elif not exists(input):
         #     self.lineEdit.setStyleSheet(INVALID_STYLESHEET)
-        #     return QValidator.Invalid, input, pos
+        #     return QValidator.State.Invalid, input, pos
         elif isfile(input) and input.lower().endswith(self.extension):
             self.lineEdit.setStyleSheet(ACCEPTABLE_LINEEDIT_STYLESHEET)
             self.label.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
-            return QValidator.Intermediate, input, pos
+            return QValidator.State.Intermediate, input, pos
         elif isdir(input):
             self.lineEdit.setStyleSheet(INTERMEDIATE_LINEEDIT_STYLESHEET)
             self.label.setStyleSheet(INTERMEDIATE_LABEL_STYLESHEET)
-            return QValidator.Acceptable, input, pos
+            return QValidator.State.Acceptable, input, pos
         elif input:
             self.lineEdit.setStyleSheet(INTERMEDIATE_LINEEDIT_STYLESHEET)
             self.label.setStyleSheet(INTERMEDIATE_LABEL_STYLESHEET)
-            return QValidator.Intermediate, input, pos
+            return QValidator.State.Intermediate, input, pos
         else:
             self.lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
             self.label.setStyleSheet(INVALID_LABEL_STYLESHEET)
-            return QValidator.Invalid, input, pos
+            return QValidator.State.Invalid, input, pos

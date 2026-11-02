@@ -1,14 +1,9 @@
 import os
 from pathlib import Path
 
-try:
-    from qgis.PyQt.QtCore import QUrl
-    from qgis.PyQt.QtWidgets import QMessageBox
-    from qgis.PyQt.QtGui import QDesktopServices
-except:
-    from PyQt5.QtCore import QUrl
-    from PyQt5.QtWidgets import QMessageBox
-    from PyQt5.QtGui import QDesktopServices
+from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtWidgets import QMessageBox
 
 
 # TODO: Add docstring information and comments

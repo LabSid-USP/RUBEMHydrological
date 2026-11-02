@@ -1,9 +1,9 @@
-"""Export a plugin project to the legacy JSON RUBEM main accepts.
+"""Read and write the legacy JSON document RUBEM main accepts.
 
-The INI written by :meth:`saveProject` stays the project file. RUBEM ``main``
-rejects every suffix other than ``.json``. This module builds that legacy
-document (uppercase sections, no ``version`` field) with the standard library.
-Nothing on the Run path calls it yet.
+That document is the project file. It has uppercase sections and no ``version``
+field. RUBEM ``main`` also accepts format 1.0, which this editor does not
+modify. Relative paths stay as written, because RUBEM resolves them from the
+JSON file's directory.
 """
 
 from __future__ import annotations
@@ -14,6 +14,11 @@ import tempfile
 from configparser import ConfigParser
 from datetime import datetime
 from pathlib import Path
+
+try:
+    from .schemas import defaultConfigSchema
+except ImportError:
+    from schemas import defaultConfigSchema
 
 _DATE_FORMAT = "%d/%m/%Y"
 
@@ -190,13 +195,53 @@ def legacy_json_document(
     return document, diagnostics
 
 
+def config_from_legacy_document(document: dict[str, object]) -> ConfigParser:
+    """Load a legacy JSON object into the parser the dialog edits.
+
+    :param document: Parsed JSON object.
+    :returns: Parser seeded from the default project, with document values overlaid.
+    :raises ValueError: ``document`` is format 1.0 (it has a ``version`` field)
+        or is not an object of section objects.
+    """
+    if not isinstance(document, dict):
+        raise ValueError("RUBEM configuration JSON must be an object")
+    if "version" in document:
+        raise ValueError(
+            "Format 1.0 is a different RUBEM document. This plugin edits the "
+            "legacy JSON file, which has no version field."
+        )
+    parser = ConfigParser()
+    parser.read_dict(defaultConfigSchema)
+    for section, keys in _ORDER:
+        body = document.get(section, {})
+        if not isinstance(body, dict):
+            raise ValueError(f"{section} must be an object")
+        allowed = set(keys)
+        for key, value in body.items():
+            if key not in allowed:
+                continue
+            target = "demtif" if section == "RASTERS" and key == "georeference" else key
+            parser.set(section, target, _as_ini_text(value))
+    return parser
+
+
+def read_legacy_json(path: Path | str) -> ConfigParser:
+    """Read a project file written by :func:`write_legacy_json`.
+
+    :param path: Path to the JSON project.
+    :raises ValueError: The file is not legacy JSON.
+    """
+    source = Path(path)
+    with source.open(encoding="utf-8") as handle:
+        document = json.load(handle)
+    return config_from_legacy_document(document)
+
+
 def write_legacy_json(config: ConfigParser, destination: Path | str) -> list[str]:
     """Write ``destination`` as legacy JSON, replacing it only after a full dump.
 
     :param config: Project parser.
-    :param destination: Path of the ``.rubem.json`` file, normally beside the INI.
-        Relative paths inside the document are left unchanged, because RUBEM
-        resolves them from the JSON file's directory.
+    :param destination: Path of the JSON project.
     :returns: Diagnostics from :func:`legacy_json_document`.
     :raises ValueError: The project cannot be exported. ``destination`` is left
         untouched.
@@ -262,6 +307,17 @@ def _convert(pair: tuple[str, str], raw: str, label: str) -> object:
     if pair in _FLOATS:
         return _parse_float(raw, label)
     return raw
+
+
+def _as_ini_text(value: object) -> str:
+    """Store a JSON value in the dialog parser."""
+    if value is None:
+        return ""
+    if isinstance(value, bool):
+        return "True" if value else "False"
+    if isinstance(value, float):
+        return f"{value:.3f}"
+    return str(value)
 
 
 def _parse_date(raw: str, label: str) -> str:

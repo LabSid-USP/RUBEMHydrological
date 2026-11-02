@@ -7,10 +7,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-try:
-    from qgis.PyQt.QtCore import pyqtSignal
-except ImportError:
-    from PyQt5.QtCore import pyqtSignal
+from qgis.PyQt.QtCore import pyqtSignal
 
 from plugin.logging import get_logger
 from plugin.views import BaseView

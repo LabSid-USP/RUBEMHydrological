@@ -8,14 +8,11 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
 )
 
-try:
-    from qgis.PyQt.QtCore import Qt, QModelIndex
-except ImportError:
-    from PyQt5.QtCore import Qt, QModelIndex
+from qgis.PyQt.QtCore import Qt, QModelIndex
 
 # TODO: Add docstring information and comments
 def canvasHandler(self, index: QModelIndex):
-    if index.flags() & Qt.ItemIsSelectable:
+    if index.flags() & Qt.ItemFlag.ItemIsSelectable:
         rasterPath = os.path.join(
             self.config.get("DIRECTORIES", "output"), index.data()
         )

@@ -9,12 +9,8 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
-try:
-    from qgis.PyQt.QtCore import pyqtSignal, QObject
-    from qgis.PyQt.QtWidgets import QWidget
-except ImportError:
-    from PyQt5.QtCore import pyqtSignal, QObject
-    from PyQt5.QtWidgets import QWidget
+from qgis.PyQt.QtCore import pyqtSignal, QObject
+from qgis.PyQt.QtWidgets import QWidget
 
 from plugin.logging import get_logger
 

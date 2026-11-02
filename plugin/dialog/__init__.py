@@ -23,15 +23,9 @@ import configparser
 import os
 
 from qgis.gui import QgsMessageBar
-
-try:
-    from qgis.PyQt.QtCore import Qt
-    from qgis.PyQt.QtWidgets import QDialog, QSizePolicy
-    from qgis.PyQt.QtGui import QStandardItemModel
-except ImportError:
-    from PyQt5.QtCore import Qt
-    from PyQt5.QtWidgets import QDialog, QSizePolicy
-    from PyQt5.QtGui import QStandardItemModel
+from qgis.PyQt.QtCore import QResource, Qt
+from qgis.PyQt.QtGui import QStandardItemModel
+from qgis.PyQt.QtWidgets import QDialog, QSizePolicy
 
 try:
     from ..gui.generated.core_ui import Ui_RUBEMHydrological
@@ -60,12 +54,25 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         :type iface: [type]
         """
         QDialog.__init__(self)
+        resource = os.path.abspath(
+            os.path.join(
+                os.path.dirname(__file__), "..", "gui", "generated", "resources.rcc"
+            )
+        )
+        if not QResource.registerResource(resource):
+            raise RuntimeError(f"Could not register Qt resources: {resource}")
         self.setupUi(self)
         self.iface = iface
 
         self.bar = QgsMessageBar(self)
-        self.bar.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.layout().addWidget(self.bar, 1, Qt.AlignTop | Qt.AlignJustify)
+        self.bar.setSizePolicy(
+            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
+        )
+        self.layout().addWidget(
+            self.bar,
+            1,
+            Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignJustify,
+        )
 
         self.lastOpenedFile = None
         self.lastOpenedDirectory = None

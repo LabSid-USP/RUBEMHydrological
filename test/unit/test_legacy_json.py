@@ -9,7 +9,11 @@ from pathlib import Path
 
 import pytest
 
-from plugin.validation.legacy_json import legacy_json_document, write_legacy_json
+from plugin.validation.legacy_json import (
+    legacy_json_document,
+    read_legacy_json,
+    write_legacy_json,
+)
 from plugin.validation.schemas import defaultConfigSchema
 
 
@@ -53,24 +57,32 @@ def test_demtif_is_renamed_and_comma_decimal_writes_nothing(tmp_path: Path) -> N
 
 
 @pytest.mark.unit
-def test_ini_round_trip_keeps_alpha_and_unknown_project_key(tmp_path: Path) -> None:
-    """The project INI keeps values the exporter does not own."""
+def test_json_project_round_trip_keeps_alpha_and_demtif(tmp_path: Path) -> None:
+    """The file on disk is legacy JSON, and the dialog parser can read it back."""
     parser = _project()
     parser.set("CALIBRATION", "alpha", "4.500")
-    parser.set("CALIBRATION", "notes", "keep me")
-    project = tmp_path / "basin.ini"
-    with project.open("w", encoding="utf-8") as handle:
-        parser.write(handle)
+    parser.set("RASTERS", "demtif", "dem/dem.tif")
+    project = tmp_path / "basin.json"
+    write_legacy_json(parser, project)
+    loaded = read_legacy_json(project)
+    assert loaded.getfloat("CALIBRATION", "alpha") == 4.5
+    assert loaded.get("RASTERS", "demtif") == "dem/dem.tif"
+    assert "version" not in json.loads(project.read_text(encoding="utf-8"))
 
-    loaded = configparser.ConfigParser()
-    loaded.read(project, encoding="utf-8")
-    assert loaded.get("CALIBRATION", "alpha", raw=True) == "4.500"
-    assert loaded.get("CALIBRATION", "notes", raw=True) == "keep me"
 
-    document, diagnostics = legacy_json_document(loaded)
-    assert document["CALIBRATION"]["alpha"] == 4.5
-    assert "notes" not in document["CALIBRATION"]
-    assert any("CALIBRATION.notes" in note for note in diagnostics)
+@pytest.mark.unit
+@pytest.mark.unit
+def test_format_1_0_is_rejected() -> None:
+    """A versioned RUBEM document is not edited as if it were the legacy shape."""
+    from plugin.validation.legacy_json import config_from_legacy_document
+
+    with pytest.raises(ValueError, match="version"):
+        config_from_legacy_document(
+            {
+                "version": "1.0",
+                "SIM_TIME": {"start": "01/01/1900", "end": "01/02/1900"},
+            }
+        )
 
 
 @pytest.mark.unit

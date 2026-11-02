@@ -2,19 +2,19 @@ import os
 
 from qgis.core import QgsProject
 
-try:
-    from qgis.PyQt.QtCore import QDate
-    from qgis.PyQt.QtWidgets import QFileDialog, QMessageBox
-except ImportError:
-    from PyQt5.QtCore import QDate
-    from PyQt5.QtWidgets import QFileDialog, QMessageBox
+from qgis.PyQt.QtCore import QDate
+from qgis.PyQt.QtWidgets import QFileDialog, QMessageBox
 
 try:
+    from ..validation.legacy_json import read_legacy_json, write_legacy_json
     from ..validation.schemas import defaultConfigSchema
     from ..utils.series import getFirstFileNameMapSeries, splitDirFilePrefix
 except ImportError:
+    from validation.legacy_json import read_legacy_json, write_legacy_json
     from validation.schemas import defaultConfigSchema
     from utils.series import getFirstFileNameMapSeries, splitDirFilePrefix
+
+_PROJECT_FILTER = "RUBEM project (*.json)"
 
 
 def newProject(self, supressed=False):
@@ -34,7 +34,7 @@ def newProject(self, supressed=False):
         self.qgisProject = QgsProject.instance()
         if self.qgisProject.isDirty():
             response = self.getUserRetQGISCurProj()
-            if response == QMessageBox.Ok:
+            if response == QMessageBox.StandardButton.Ok:
                 # self.qgisProject.clear()
                 self.iface.newProject()
             else:
@@ -57,13 +57,13 @@ def newProject(self, supressed=False):
     if self.hasCurrentProject and self.hasProjectBeenModified:
         response = self.getUserRetSaveCurProj()
         # Save project before creating a new one
-        if response == QMessageBox.Save:
+        if response == QMessageBox.StandardButton.Save:
             self.saveProject()
             setupNewProject()
         # Don't save project before creating a new one
-        elif response == QMessageBox.Discard:
+        elif response == QMessageBox.StandardButton.Discard:
             setupNewProject()
-        elif response == QMessageBox.Cancel:
+        elif response == QMessageBox.StandardButton.Cancel:
             # User canceled saving the current project
             # and the creation of a new one
             return None
@@ -81,6 +81,7 @@ def openProject(self):
     :return: [description].
     :rtype: [type]
     """
+
     # TODO: docstring
     def setupOpenedProject():
         """[summary]."""
@@ -88,14 +89,14 @@ def openProject(self):
             self,
             caption="Open Project",
             directory=self.lastOpenedDirectory,
-            filter="Project (*.ini)",
+            filter=_PROJECT_FILTER,
         )
         if filePath:
 
             self.qgisProject = QgsProject.instance()
             if self.qgisProject.isDirty():
                 response = self.getUserRetQGISCurProj()
-                if response == QMessageBox.Ok:
+                if response == QMessageBox.StandardButton.Ok:
                     # self.qgisProject.clear()
                     self.iface.newProject()
                 else:
@@ -126,13 +127,13 @@ def openProject(self):
     if self.hasCurrentProject and self.hasProjectBeenModified:
         response = self.getUserRetSaveCurProj()
         # Save project before opening a project file
-        if response == QMessageBox.Save:
+        if response == QMessageBox.StandardButton.Save:
             self.saveProject()
             setupOpenedProject()
         # Don't save project before opening a project file
-        elif response == QMessageBox.Discard:
+        elif response == QMessageBox.StandardButton.Discard:
             setupOpenedProject()
-        elif response == QMessageBox.Cancel:
+        elif response == QMessageBox.StandardButton.Cancel:
             # User canceled saving the current project
             # and opening another project file
             return None
@@ -168,14 +169,14 @@ def saveProject(self, filePath=None, caption=None):
                 self,
                 caption=caption,
                 directory=self.lastOpenedDirectory,
-                filter="Project (*.ini)",
+                filter=_PROJECT_FILTER,
             )
         else:
             tmpFilePath, _ = QFileDialog.getSaveFileName(
                 self,
                 caption="Save project",
                 directory=self.lastOpenedDirectory,
-                filter="Project (*.ini)",
+                filter=_PROJECT_FILTER,
             )
         return tmpFilePath
 
@@ -186,9 +187,9 @@ def saveProject(self, filePath=None, caption=None):
         :param selectedFilePath: [description].
         :type selectedFilePath: [type]
         """
-        with open(selectedFilePath, "w") as configfile:
-            self.config.write(configfile)
-            configfile.close()
+        if not selectedFilePath.lower().endswith(".json"):
+            selectedFilePath += ".json"
+        write_legacy_json(self.config, selectedFilePath)
 
         self.qgisProject = QgsProject.instance()
         self.qgisProject.write(os.path.splitext(selectedFilePath)[0] + ".qgs")
@@ -470,9 +471,11 @@ def loadConfigFromFile(self, configFilePath):
         "Loading configurations from file " + configFilePath + " ..."
     )
 
-    with open(configFilePath, "r") as configfile:
-        self.config.read_file(configfile)
-        configfile.close()
+    if not str(configFilePath).lower().endswith(".json"):
+        self.textBrowser_log.append("Project files are the JSON RUBEM reads.")
+        return
+
+    self.config = read_legacy_json(configFilePath)
 
     self.updateGUIFromConfig()
     self.textBrowser_log.append("Configurations loaded")

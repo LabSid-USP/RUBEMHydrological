@@ -19,7 +19,12 @@
 
 """RUBEM Hydrological plugin thread workers code."""
 
-from qgis.PyQt.QtCore import QObject, pyqtSignal, QProcess
+from qgis.PyQt.QtCore import QObject, QProcess, QProcessEnvironment, pyqtSignal
+
+try:
+    from ..engine import child_environment
+except ImportError:
+    from engine import child_environment
 
 
 class RUBEMStandaloneWorker(QObject):
@@ -32,8 +37,11 @@ class RUBEMStandaloneWorker(QObject):
         self.process.finished.connect(self.handle_finished)
 
     def run(self):
+        environment = QProcessEnvironment()
+        for key, value in child_environment().items():
+            environment.insert(key, value)
+        self.process.setProcessEnvironment(environment)
         self.process.start(self.command[0], self.command[1:])
-        self.process.waitForStarted()
 
     def handle_stdout(self):
         while self.process.canReadLine():
@@ -44,21 +52,23 @@ class RUBEMStandaloneWorker(QObject):
 
                 if "##" in data:
                     parts = data.split(" ")
-                    current_cycle = int(parts[-3])
-                    total_cycles = int(parts[-1])
-                    progress = int((current_cycle / total_cycles) * 100)
-                    self.progress.emit(progress)
+                    try:
+                        current_cycle = int(parts[-3])
+                        total_cycles = int(parts[-1])
+                    except (ValueError, IndexError):
+                        continue
+                    if total_cycles:
+                        self.progress.emit(int((current_cycle / total_cycles) * 100))
 
     def handle_stderr(self):
         data = self.process.readAllStandardError().data().decode().strip()
         if data:
             self.errorUpdated.emit(data)
 
-    def handle_finished(self, exit_code):
-        if exit_code == QProcess.NormalExit:
-            self.finished.emit(0)
-        else:
-            self.finished.emit(1)
+    def handle_finished(self, exit_code, exit_status):
+        """Emit ``0`` only when the process exits normally with code zero."""
+        normal = exit_status == QProcess.ExitStatus.NormalExit and exit_code == 0
+        self.finished.emit(0 if normal else exit_code or 1)
 
     def kill(self):
         self.process.kill()

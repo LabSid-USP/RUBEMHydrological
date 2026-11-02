@@ -7,6 +7,6 @@ __license__ = "GPL-3.0-or-later"
 __date__ = "2025-01-07"
 __version__ = "2.0.0"
 __release__ = __version__
-__qgis_minimum_version__ = "3.44"
-__python_minimum_version__ = "3.13"
+__qgis_minimum_version__ = "4.0"
+__python_minimum_version__ = "3.13.16"
 

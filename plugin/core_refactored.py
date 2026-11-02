@@ -14,16 +14,10 @@ import os
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
-try:
-    from qgis.PyQt.QtCore import QCoreApplication, QSettings, QTranslator
-    from qgis.PyQt.QtGui import QIcon
-    from qgis.PyQt.QtWidgets import QAction
-    from qgis.core import QgsApplication
-except ImportError:
-    from PyQt5.QtCore import QCoreApplication, QSettings, QTranslator
-    from PyQt5.QtGui import QIcon
-    from PyQt5.QtWidgets import QAction
-    # QgsApplication won't be available outside QGIS
+from qgis.PyQt.QtCore import QCoreApplication, QSettings, QTranslator
+from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
+from qgis.core import QgsApplication
 
 from plugin.logging import get_logger, PluginLogger
 from plugin.exceptions import PluginInitializationError
@@ -278,7 +272,7 @@ class RUBEMHydrological:
             self.dlg.activateWindow()
 
             # Run the dialog event loop
-            result = self.dlg.exec_()
+            result = self.dlg.exec()
 
             if result:
                 logger.info("Dialog closed with OK")

@@ -1,9 +1,6 @@
 import os
 
-try:
-    from qgis.PyQt.QtWidgets import QMessageBox
-except ImportError:
-    from PyQt5.QtWidgets import QMessageBox
+from qgis.PyQt.QtWidgets import QMessageBox
 
 # Settings tab
 # Project Folder
@@ -33,7 +30,7 @@ def setOutputDirectoryPath(self):
             self.lineEdit_OutputFolder.setText(directoryPath)
         else:
             response = self.getUserRetDirNotEmpty()
-            if response == QMessageBox.Ok:
+            if response == QMessageBox.StandardButton.Ok:
                 self.config.set("DIRECTORIES", "output", directoryPath)
                 self.lineEdit_OutputFolder.setText(directoryPath)
 

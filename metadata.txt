@@ -5,8 +5,7 @@
 
 [general]
 name=RUBEM Hydrological
-qgisMinimumVersion=3.44
-qgisMaximumVersion=3.99
+qgisMinimumVersion=4.0
 description=Distributed hydrological model for water balance with LULC change support
 version=2.0.0
 author=LabSid-PHA-EPUSP
@@ -22,9 +21,9 @@ repository=https://github.com/LabSid-USP/RUBEMHydrological
 
 hasProcessingProvider=no
 changelog=
-    2.0.0 - Work in progress for QGIS 3.44 and QGIS 4
-        * Project files remain INI
-        * A run against RUBEM main must export legacy JSON; that export is not wired to Run yet
+    2.0.0 - QGIS 4 and the JSON document RUBEM reads
+        * Project files are legacy JSON with no version field
+        * Python 3.13.16, the interpreter shipped with QGIS 4.2
     1.12.3 - Previous stable release
 
 # Tags are comma separated with spaces allowed

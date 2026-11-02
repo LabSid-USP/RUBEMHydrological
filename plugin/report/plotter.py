@@ -21,7 +21,7 @@
 
 import matplotlib
 
-matplotlib.use("Qt5Agg")
+matplotlib.use("QtAgg")
 import matplotlib.pyplot as plt
 from cycler import cycler
 import pandas as pd

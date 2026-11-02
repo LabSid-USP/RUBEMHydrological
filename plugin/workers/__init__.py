@@ -1,7 +1,7 @@
 """Modern QThread workers for RUBEM Hydrological plugin.
 
 This module provides type-safe, signal-based workers for asynchronous
-operations following PyQt5 best practices.
+operations following PyQt6 best practices.
 """
 
 from __future__ import annotations
@@ -9,10 +9,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, Callable
 
-try:
-    from qgis.PyQt.QtCore import QThread, pyqtSignal
-except ImportError:
-    from PyQt5.QtCore import QThread, pyqtSignal
+from qgis.PyQt.QtCore import QThread, pyqtSignal
 
 from plugin.exceptions import ModelExecutionError, WorkerError
 from plugin.logging import get_logger
