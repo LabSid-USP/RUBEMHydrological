@@ -35,7 +35,7 @@ rcc --binary plugin/gui/resources/resources.qrc -o plugin/gui/generated/resource
 
 - Never edit `plugin/gui/generated/` by hand. Ruff and Black exclude that directory in `pyproject.toml`.
 - The integration tests are legacy plugin-template tests and several fail on current setups (for example `test_rubem_hydrological_dialog.py` expects a `button_box` widget the dialog does not define). Compare against the base branch before treating a failure as a regression.
-- Known CI gap: the `test-unit` job installs only Poetry dependencies, without QGIS, while `test/__init__.py` imports `qgis`; the `test-integration` job runs `pytest -m integration`, which selects nothing.
+- Known CI gap: the `test-unit` job installs only Poetry dependencies, without QGIS, while `test/__init__.py` imports `qgis`. The QGIS job uses `qgis/qgis:4.2`, checks out submodules, and runs `pytest test/unit -m unit`.
 - Python tooling is configured in `pyproject.toml` (ruff, black, mypy, pytest). Mark every new unit test `@pytest.mark.unit`, or `-m unit` (as in ci.yml) skips it; `--strict-markers` rejects markers not registered there.
 
 ## Workflow

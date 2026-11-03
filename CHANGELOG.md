@@ -10,11 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Modern Python Support**: Full support for Python 3.13+ with type hints throughout the codebase
-- **QGIS 3.44+ Compatibility**: Updated to work with latest QGIS LTR and features
-- **Pydantic Configuration**: Modern configuration management using Pydantic v2 for validation
-  - Support for INI, JSON, and TOML configuration formats
-  - Comprehensive validation with clear error messages
-  - Type-safe configuration access
+- **QGIS 4**: The plugin targets QGIS 4.2 and PyQt6
+- **Pydantic Configuration**: Project files are the legacy JSON document RUBEM reads, validated by the submodule's Pydantic model
+  - Pydantic ``>=2.11,<3``, the same requirement as the RUBEM submodule
+  - INI and TOML are not project formats
 - **Structured Logging**: Professional logging system with:
   - File rotation to prevent excessive disk usage
   - Integration with QGIS message log
@@ -54,7 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Organized dependencies into groups (dev, docs)
   - Updated all package versions
 - **Metadata Updates**:
-  - Minimum QGIS version: 3.44
+  - Minimum QGIS version: 4.0
   - Minimum Python version: 3.13
   - Updated plugin metadata with detailed changelog
   - Changed experimental flag to False
@@ -114,9 +113,9 @@ This was the last release before the major refactoring. See Git history for deta
 
 The plugin interface remains largely the same. However:
 
-1. **QGIS Version**: Ensure you're using QGIS 3.44 or later
+1. **QGIS Version**: Ensure you're using QGIS 4.2
 2. **Python Version**: QGIS installation must use Python 3.13+
-3. **Configuration**: Old `.ini` files are still supported but consider migrating to `.toml` format
+3. **Configuration**: Project files are the JSON document RUBEM reads. INI and TOML are not project formats.
 
 ### For Developers
 
@@ -132,7 +131,7 @@ If you've extended or modified the plugin:
 
 ### Breaking Changes
 
-- Minimum QGIS version increased from 3.0 to 3.44
+- Minimum QGIS version is 4.0
 - Minimum Python version increased from 3.9 to 3.13
 - Some internal APIs changed (see refactored modules)
 - Configuration schema structure changed (backwards compatible loader provided)

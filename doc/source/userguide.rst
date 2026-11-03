@@ -36,9 +36,9 @@ The Project buttons provides access and exit points for project files:
 
 - **Open**: Open a project from a file;
 
-- **Save**: Save a project in .ini and .qgs file formats;
+- **Save**: Save a project as the JSON file RUBEM reads, plus a ``.qgs`` file;
 
-- **Save As...**: Save a project in .ini and .qgs file formats in another location and/or with another filename.
+- **Save As...**: Save that JSON project and its ``.qgs`` file in another location and/or with another filename.
 
 Help
 ^^^^

@@ -15,7 +15,7 @@ This guide provides information for developers who want to contribute to or exte
 
 ### Prerequisites
 
-- **QGIS 3.44+** with Python 3.13+ bindings
+- **QGIS 4.2** with the Python 3.13 interpreter shipped by that QGIS
 - **Poetry** for dependency management
 - **Git** for version control
 - **Qt Designer** (optional, for UI editing)
@@ -308,10 +308,10 @@ After editing `.ui` files in Qt Designer:
 
 ```bash
 # Regenerate Python code from UI file
-pyuic5 plugin/gui/core.ui -o plugin/gui/generated/core_ui.py
+pyuic6 plugin/gui/core.ui -o plugin/gui/generated/core_ui.py
 
-# Regenerate resources
-pyrcc5 plugin/gui/resources/resources.qrc -o plugin/gui/generated/resources_rc.py
+# Regenerate resources as a binary Qt6 file. The Python rcc emits PySide6.
+rcc --binary plugin/gui/resources/resources.qrc -o plugin/gui/generated/resources.rcc
 ```
 
 **Important**: Never manually edit files in `plugin/gui/generated/`!

@@ -12,7 +12,7 @@ For this example, we will set up the RUBEM model for ten years: 2000 to 2009. Fo
 Create a new project
 `````````````````````
 
-Click ``New`` and save your new project in the downloaded dataset directory. Name the project :file:`Iguazu.ini` or another appropriate filename. Then, in the section ``Project Directories`` select the dataset directory as ``input directory`` and a preference folder directory as ``output directory``
+Click ``New`` and save your new project in the downloaded dataset directory. Name the project :file:`Iguazu.json` or another appropriate filename. The file is the JSON document RUBEM reads. Then, in the section ``Project Directories`` select the dataset directory as ``input directory`` and a preference folder directory as ``output directory``. The input directory is an editor aid and is not stored in that JSON file.
  
 .. _initial-settings:
 

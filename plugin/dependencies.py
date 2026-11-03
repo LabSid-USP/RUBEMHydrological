@@ -14,6 +14,8 @@ import logging
 import os
 import subprocess
 import sys
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as distribution_version
 from pathlib import Path
 
 PYDANTIC_REQUIREMENT = "pydantic>=2.11,<3"
@@ -37,16 +39,21 @@ def ensure_pydantic(*, install: bool = False) -> None:
         copy is already loaded.
     :raises RuntimeError: The install was requested and pip failed.
     """
-    _activate_existing_environment()
-    if _loaded_pydantic_status() == "ok":
+    if _cached_pydantic_status() == "ok":
         return
-    if _loaded_pydantic_status() == "incompatible":
+    if _cached_pydantic_status() == "incompatible":
         raise PydanticUnavailable(
             "This interpreter already loaded Pydantic "
             f"{_loaded_version()}, which is outside {PYDANTIC_REQUIREMENT}. "
             "Restart QGIS with a compatible installation. "
             "This plugin will not replace a package that is already imported."
         )
+    _activate_existing_environment()
+    found = _distribution_version()
+    if found and pydantic_version_is_supported(found):
+        import pydantic  # noqa: F401
+
+        return
     if not install:
         raise PydanticUnavailable(
             "Pydantic "
@@ -56,10 +63,17 @@ def ensure_pydantic(*, install: bool = False) -> None:
         )
     _install_pydantic()
     _activate_existing_environment()
-    if _loaded_pydantic_status() != "ok":
+    if "pydantic" in sys.modules and _cached_pydantic_status() != "ok":
         raise PydanticUnavailable(
-            f"Installed {PYDANTIC_REQUIREMENT}, but this process still cannot "
-            "import that version. Restart QGIS and open the project again."
+            f"Installed {PYDANTIC_REQUIREMENT}, but this process already "
+            "imported another Pydantic. Restart QGIS and open the project again."
+        )
+    import pydantic
+
+    if not pydantic_version_is_supported(pydantic.__version__):
+        raise PydanticUnavailable(
+            f"Installed {PYDANTIC_REQUIREMENT}, but imported "
+            f"{pydantic.__version__}. Restart QGIS and open the project again."
         )
 
 
@@ -101,23 +115,22 @@ def _loaded_version() -> str | None:
     return getattr(module, "__version__", None)
 
 
-def _loaded_pydantic_status() -> str:
-    """Return ``ok``, ``missing``, or ``incompatible`` for the loaded module.
-
-    When Pydantic is not yet imported, try to import it. A failed import is
-    ``missing``.
-    """
-    if "pydantic" not in sys.modules:
-        try:
-            import pydantic  # noqa: F401
-        except ImportError:
-            return "missing"
+def _cached_pydantic_status() -> str:
+    """Classify the Pydantic module only if it is already imported."""
     version = _loaded_version()
     if version is None:
         return "missing"
     if pydantic_version_is_supported(version):
         return "ok"
     return "incompatible"
+
+
+def _distribution_version() -> str | None:
+    """Return the installed Pydantic version without importing the module."""
+    try:
+        return distribution_version("pydantic")
+    except PackageNotFoundError:
+        return None
 
 
 def _activate_existing_environment() -> None:
@@ -166,7 +179,9 @@ def _site_packages(destination: Path) -> Path:
 
 
 def _run(command: list[str]) -> None:
-    completed = subprocess.run(command, check=False, capture_output=True, text=True)
+    completed = subprocess.run(
+        command, check=False, capture_output=True, text=True, timeout=300
+    )
     if completed.stdout:
         _LOGGER.info(completed.stdout.rstrip())
     if completed.returncode != 0:

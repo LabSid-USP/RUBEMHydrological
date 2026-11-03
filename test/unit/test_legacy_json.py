@@ -157,6 +157,39 @@ def test_float_text_keeps_more_than_three_decimals() -> None:
 
 
 @pytest.mark.unit
+def test_relative_directory_is_resolved_beside_the_json_file(tmp_path: Path) -> None:
+    """The dialog sees a relative series directory from the project file's folder."""
+    parser = _project()
+    parser.set("DIRECTORIES", "prec", "data/prec")
+    parser.set("FILENAME_PREFIXES", "prec_prefix", "pr")
+    project = tmp_path / "basin.json"
+    write_legacy_json(parser, project)
+    loaded = read_legacy_json(project)
+    assert (
+        Path(loaded.get("DIRECTORIES", "prec"))
+        == (tmp_path / "data" / "prec").resolve()
+    )
+    assert loaded.get("FILENAME_PREFIXES", "prec_prefix") == "pr"
+    assert (
+        json.loads(project.read_text(encoding="utf-8"))["DIRECTORIES"]["prec"]
+        == "data/prec"
+    )
+
+
+@pytest.mark.unit
+def test_directory_widget_does_not_erase_a_stored_prefix() -> None:
+    """A line edit that holds only the directory keeps the saved series prefix."""
+    from plugin.dialog._project import _apply_series
+
+    parser = _project()
+    parser.set("DIRECTORIES", "prec", "data/prec/")
+    parser.set("FILENAME_PREFIXES", "prec_prefix", "pr")
+    holder = type("Holder", (), {"config": parser})()
+    _apply_series(holder, "data/prec/", "prec", "prec_prefix")
+    assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "pr"
+
+
+@pytest.mark.unit
 def test_conflicting_aliases_are_rejected() -> None:
     """The plugin must not pick one of two values the model itself rejects."""
     from plugin.validation.legacy_json import config_from_legacy_document

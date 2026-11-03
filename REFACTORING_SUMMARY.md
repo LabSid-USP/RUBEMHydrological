@@ -1,4 +1,4 @@
-# RUBEM Hydrological draft notes for Python 3.13 and QGIS 3.44
+# RUBEM Hydrological draft notes for Python 3.13 and QGIS 4.2
 
 The text below describes a draft that QGIS does not load. `classFactory` imports `plugin.core`. The interface remains `plugin/gui/core.ui`.
 
@@ -9,7 +9,7 @@ New modules sit beside the plugin QGIS loads. This document describes those file
 ## Versão
 
 - **Versão Anterior**: 1.12.3 (Python 3.9+, QGIS 3.0+)
-- **Nova Versão**: 2.0.0 (Python 3.13+, QGIS 3.44+)
+- **Nova Versão**: 2.0.0 (Python 3.13.16, QGIS 4.2)
 
 ## Principais Mudanças Implementadas
 
@@ -24,7 +24,7 @@ New modules sit beside the plugin QGIS loads. This document describes those file
   - Commitizen para versionamento semântico
 
 - **`metadata.txt`**:
-  - Requisito QGIS mínimo: 3.44
+  - Requisito QGIS mínimo: 4.0
   - Requisito Python mínimo: 3.13
   - Experimental: False (plugin maduro)
   - Categoria correta: Raster
@@ -278,7 +278,7 @@ class RUBEMHydrological:
 ## Compatibilidade
 
 ### Requisitos Mínimos
-- **QGIS**: 3.44 ou superior
+- **QGIS**: 4.2
 - **Python**: 3.13 ou superior
 - **Sistema Operacional**: Linux, macOS, Windows
 

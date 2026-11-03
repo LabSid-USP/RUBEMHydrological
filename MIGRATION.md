@@ -17,7 +17,7 @@ This guide helps you migrate code, configurations, and workflows from RUBEM Hydr
 Version 2.0 introduces significant improvements but requires some migration effort:
 
 - **Python 3.9 → 3.13**: Modern Python features
-- **QGIS 3.0 → 3.44**: Latest QGIS LTR
+- **QGIS 3 → 4.2**: The plugin targets QGIS 4 and PyQt6
 - **ConfigParser → Pydantic**: Type-safe configuration
 - **print → logging**: Structured logging
 - **unittest → pytest**: Modern testing
@@ -35,7 +35,7 @@ QGIS >= 3.0
 **After (v2.0)**:
 ```
 Python >= 3.13
-QGIS >= 3.44
+QGIS >= 4.0
 ```
 
 **Action**: Ensure your QGIS installation uses Python 3.13+
@@ -125,7 +125,7 @@ logger.error(f"Error: {error_msg}")
    ```
 
 2. **Update QGIS**
-   - Install QGIS 3.44 or later
+   - Install QGIS 4.2
    - Verify Python version: Open QGIS Python Console and run:
      ```python
      import sys
@@ -139,7 +139,7 @@ logger.error(f"Error: {error_msg}")
    - Restart QGIS
 
 4. **Migrate Configurations** (optional)
-   - Old `.ini` files still work
+   - Project files are JSON. INI projects are not loaded.
    - Optionally convert to `.toml` for new features:
      ```python
      from plugin.models import RUBEMConfig
@@ -560,7 +560,7 @@ If you encounter issues during migration:
 
 Use this checklist to track your migration:
 
-- [ ] Updated QGIS to 3.44+
+- [ ] Updated QGIS to 4.2
 - [ ] Verified Python 3.13+ in QGIS
 - [ ] Backed up old plugin and data
 - [ ] Installed new plugin version

@@ -1,6 +1,6 @@
 # v2 layer notes (draft, not on the QGIS load path)
 
-`__init__.py::classFactory` still imports `plugin.core`. The modules described below do not open the dialog on QGIS 3.44 or QGIS 4. The plugin project remains an INI file. RUBEM main runs JSON. `plugin/validation/legacy_json.py` can write that JSON. Run does not call it yet. This file records the draft. Version 2.0.0 is not finished.
+`__init__.py::classFactory` still imports `plugin.core`. The live project file is the legacy JSON document RUBEM reads, validated by the submodule's Pydantic model. Run calls `Model.run_isolated()` and needs native `pcraster`, which this QGIS 4 environment does not ship. The notes below describe an earlier draft and are not a finished 2.0.0.
 
 ## What the draft contains
 

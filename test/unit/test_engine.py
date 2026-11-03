@@ -17,6 +17,33 @@ from plugin.engine import (
 
 
 @pytest.mark.unit
+def test_already_imported_old_pydantic_is_not_replaced(monkeypatch) -> None:
+    """An incompatible module already in memory is not hidden by another install."""
+    import sys
+    import types
+
+    from plugin.dependencies import PydanticUnavailable, ensure_pydantic
+
+    original = sys.modules.get("pydantic")
+    fake = types.ModuleType("pydantic")
+    fake.__version__ = "2.10.0"
+    sys.modules["pydantic"] = fake
+
+    def fail_if_called(*_args, **_kwargs):
+        raise AssertionError("pip must not run when Pydantic is already imported")
+
+    monkeypatch.setattr("plugin.dependencies.subprocess.run", fail_if_called)
+    try:
+        with pytest.raises(PydanticUnavailable, match="already loaded"):
+            ensure_pydantic(install=True)
+    finally:
+        if original is None:
+            sys.modules.pop("pydantic", None)
+        else:
+            sys.modules["pydantic"] = original
+
+
+@pytest.mark.unit
 def test_pydantic_requirement_rejects_version_3() -> None:
     """The upper bound is exclusive, matching the submodule pin."""
     from plugin.dependencies import pydantic_version_is_supported

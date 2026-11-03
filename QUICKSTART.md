@@ -5,8 +5,8 @@
 ### For Plugin Users
 
 ```bash
-# 1. Ensure QGIS 3.44+ is installed
-qgis --version  # Should show 3.44 or later
+# 1. Ensure QGIS 4.2 is installed
+qgis --version  # Should show 4.2 or later
 
 # 2. Verify Python version
 # Open QGIS Python Console and run:
@@ -142,7 +142,7 @@ docker run -v $(pwd):/plugin qgis/qgis:release-3_44 pytest /plugin/test/integrat
 ## 🎯 What's New in v2.0
 
 ✅ Python 3.13+ support  
-✅ QGIS 3.44+ compatibility  
+✅ QGIS 4.2 compatibility  
 ✅ Type hints everywhere  
 ✅ Pydantic configuration  
 ✅ Structured logging  

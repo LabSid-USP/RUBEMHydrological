@@ -54,6 +54,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -95,7 +97,7 @@ jobs:
     name: Integration Tests (QGIS)
     runs-on: ubuntu-latest
     container:
-      image: qgis/qgis:release-4_2
+      image: qgis/qgis:4.2
     steps:
       - uses: actions/checkout@v4
         with:
