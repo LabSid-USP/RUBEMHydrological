@@ -96,10 +96,19 @@ def _prompt_pydantic_install(self, exc, retry):
 
 
 def _write_project(self, selected_file_path, after=None):
-    """Validate and write the project with the submodule's pydantic model."""
+    """Validate and write the project with the submodule's pydantic model.
+
+    :return: True when the JSON file was written in this call, False when
+        the write failed, or None when it waits on a Pydantic install.
+    :rtype: bool or None
+    """
 
     def write():
-        write_legacy_json(self.config, selected_file_path)
+        try:
+            write_legacy_json(self.config, selected_file_path)
+        except (ValueError, OSError) as exc:
+            self.textBrowser_log.append(str(exc))
+            return False
         return True
 
     try:
@@ -207,16 +216,20 @@ def openProject(self):
         )
         if filePath:
 
-            self.qgisProject = QgsProject.instance()
-            if self.qgisProject.isDirty():
-                response = self.getUserRetQGISCurProj()
-                if response == QMessageBox.StandardButton.Ok:
+            def apply_loaded(loaded):
+                """Apply a project that was already read from JSON.
+
+                The QGIS project is cleared only after that read succeeded
+                and, when it is dirty, the user agreed to replace it.
+                """
+                self.qgisProject = QgsProject.instance()
+                if self.qgisProject.isDirty():
+                    response = self.getUserRetQGISCurProj()
+                    if response != QMessageBox.StandardButton.Ok:
+                        return None
                     # self.qgisProject.clear()
                     self.iface.newProject()
-                else:
-                    return None
 
-            def apply_loaded(loaded):
                 self.textBrowser_log.clear()
                 self.config = loaded
                 self.projectFilePath = filePath
@@ -262,7 +275,7 @@ def openProject(self):
         setupOpenedProject()
 
 
-def saveProject(self, filePath=None, caption=None):
+def saveProject(self, filePath=None, caption=None, after=None):
     """Save the values present in the configuration dictionary to a\n
         specified file.
 
@@ -273,8 +286,15 @@ def saveProject(self, filePath=None, caption=None):
     to None (slot).
     :type filePath: String, optional (slot)
 
-    :return: [description].
-    :rtype: [type]
+    :param after: Called only after a deferred Pydantic install writes
+        the JSON and ``finish_save`` runs. An immediate write does not
+        call it.
+    :type after: callable, optional
+
+    :return: True only after the JSON file was written and the project
+        state was updated in this call. False when the user cancels, the
+        write is deferred, or the write fails.
+    :rtype: bool
     """
 
     # TODO: docstring
@@ -319,9 +339,16 @@ def saveProject(self, filePath=None, caption=None):
             self.projectFilePath = selectedFilePath
             self.updateWindowTitle()
 
-        if _write_project(self, selectedFilePath, after=finish_save) is None:
-            return
+        def deferred_after():
+            finish_save()
+            if after is not None:
+                after()
+
+        written = _write_project(self, selectedFilePath, after=deferred_after)
+        if not written:
+            return False
         finish_save()
+        return True
 
     # Ask user for project file path
     # --> Call this function without any arguments
@@ -330,17 +357,15 @@ def saveProject(self, filePath=None, caption=None):
     if not filePath and not self.projectFilePath:
         retFilePath = setupFileDialog()
         # Check if the user has selected a path to the project file
-        if retFilePath:
-            setupProjectFileWrite(retFilePath)
-            self.projectFilePath = retFilePath
-        # If the user cancels the save exit without doing anything
-        return
+        if not retFilePath:
+            return False
+        return setupProjectFileWrite(retFilePath)
 
     # Save project with project file path already defined in object
     # instance
     # --> Clicking 'Save' in the GUI with a current project
     elif not filePath and self.projectFilePath and not caption:
-        setupProjectFileWrite(self.projectFilePath)
+        return setupProjectFileWrite(self.projectFilePath)
 
     # Ask the user where to save the project file as...
     # Only the saveAsProject() function sets the caption argument
@@ -350,17 +375,16 @@ def saveProject(self, filePath=None, caption=None):
     elif not filePath and self.projectFilePath and caption:
         retFilePath = setupFileDialog()
         # Check if the user has selected a path to the project file
-        if retFilePath:
-            setupProjectFileWrite(retFilePath)
-        # If the user cancels the save exit without doing anything
-        return
+        if not retFilePath:
+            return False
+        return setupProjectFileWrite(retFilePath)
 
     # Save the project using the filePath argument as the project file
     # path.
     # In this case it doesn't matter if self.projectFilePath is set or not
     # --> Call this function with filePath argument
     else:
-        setupProjectFileWrite(filePath)
+        return setupProjectFileWrite(filePath)
 
 
 def saveAsProject(self, isNewProject=False):

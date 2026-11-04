@@ -194,6 +194,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         reportExecutionLog,
         reportProgress,
         runLongTask,
+        explainCancel,
         handleFinished,
     )
     from ._graph_plot import plotTimeSeriesData, plotWrapper

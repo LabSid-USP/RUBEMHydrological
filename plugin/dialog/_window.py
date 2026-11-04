@@ -19,8 +19,22 @@ def initialGuiState(self):
     self.tab_Results.setDisabled(True)
 
 
-# TODO: Add docstring information and comments
 def closeEvent(self, event):
+    """Ignore close while a model worker thread is running.
+
+    The worker is not killed. Otherwise this still calls
+    ``newProject(supressed=True)`` and accepts the close only when that
+    leaves no project file.
+
+    :param event: Dialog close event.
+    :type event: QCloseEvent
+    """
+    worker = getattr(self, "worker", None)
+    thread = getattr(worker, "thread", None) if worker is not None else None
+    is_running = getattr(thread, "isRunning", None)
+    if callable(is_running) and is_running():
+        event.ignore()
+        return
 
     self.newProject(supressed=True)
 

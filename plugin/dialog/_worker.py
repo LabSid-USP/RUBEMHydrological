@@ -23,15 +23,25 @@ def setRunState(self):
 
     if self.hasFilledAllFields():
         self.updateConfigFromGUI()
-        self.saveProject(self.projectFilePath)
 
-        # Output directory contains files, ask user before proceeding
-        if os.listdir(self.config.get("DIRECTORIES", "output")):
-            if self.getUserRetDirNotEmpty() != QMessageBox.StandardButton.Ok:
+        def continue_run():
+            """Start the model after the JSON project is on disk."""
+            # Output directory contains files, ask user before proceeding
+            output = self.config.get("DIRECTORIES", "output")
+            if (
+                os.listdir(output)
+                and self.getUserRetDirNotEmpty() != QMessageBox.StandardButton.Ok
+            ):
                 return
 
-        self.textBrowser_log.append("\n# RUBEM execution started...")
-        self.runLongTask()
+            self.textBrowser_log.append("\n# RUBEM execution started...")
+            self.runLongTask()
+
+        # A deferred Pydantic install returns False. Run then continues
+        # only from the save retry, after that write succeeds.
+        if not self.saveProject(self.projectFilePath, after=continue_run):
+            return
+        continue_run()
 
 
 def reportExecutionLog(self, outputLog):
@@ -79,7 +89,13 @@ def handleFinished(self, exit_code):
 
 
 def explainCancel(self):
-    """Tell the user, on the GUI thread, that this run is not cancellable."""
+    """Tell the user, on the GUI thread, that this run is not cancellable.
+
+    The explanation is appended at most once for the current run.
+    """
+    if getattr(self, "_cancel_noted", False):
+        return
+    self._cancel_noted = True
     self.textBrowser_log.append(
         "\n# This run cannot be cancelled. RUBEM finishes in its own process."
     )
@@ -87,6 +103,7 @@ def explainCancel(self):
 
 def runLongTask(self):
     """Start the submodule run and leave the progress bar indeterminate."""
+    self._cancel_noted = False
     self.progressBar.setStyleSheet("")
     self.progressBar.setRange(0, 0)
     self.worker = RUBEMModelWorker(self.projectFilePath)
