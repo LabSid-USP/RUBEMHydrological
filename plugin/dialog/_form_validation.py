@@ -8,6 +8,11 @@ try:
 except ImportError:
     from validation.validators import *
 
+try:
+    from ._project import _spin_text
+except ImportError:
+    from _project import _spin_text
+
 
 # TODO: Add docstring information and comments
 def hasFilledAllFields(self):
@@ -36,6 +41,12 @@ def hasFilledAllFields(self):
     if "samples" in emptyFields and not self.config.getboolean("GENERATE_FILE", "tss"):
         emptyFields.remove("samples")
         self.lineEdt_Sample.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
+
+    # The georeference raster is optional in the model. An empty field is
+    # valid; a non-empty field pointing nowhere still is not.
+    if "demtif" in emptyFields and not self.lineEdt_DemTif.text().strip():
+        emptyFields.remove("demtif")
+        self.lineEdt_DemTif.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
     if emptyFields:
         self.bar.pushMessage(
@@ -70,11 +81,17 @@ def hasFilledAllFields(self):
         self.groupBox_SimulationPeriod.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
     hasAreaFractionAddUpTo1 = True
-    weight_sum = (
-        self.doubleSpinBox_ManningRelatedWeightFactor.value()
-        + self.doubleSpinBox_SoilRelatedWeightFactor.value()
-        + self.doubleSpinBox_SlopeRelatedWeightFactor.value()
-    )
+    weight_sum = 0.0
+    for spin, option in (
+        (self.doubleSpinBox_ManningRelatedWeightFactor, "w_1"),
+        (self.doubleSpinBox_SoilRelatedWeightFactor, "w_2"),
+        (self.doubleSpinBox_SlopeRelatedWeightFactor, "w_3"),
+    ):
+        # Sum the values that will be saved, not the widget's rounded 3-decimal display.
+        try:
+            weight_sum += float(_spin_text(self, spin, "CALIBRATION", option))
+        except (TypeError, ValueError):
+            weight_sum += spin.value()
     if not math.isclose(weight_sum, 1.0, abs_tol=1e-6):
         hasAreaFractionAddUpTo1 = False
         self.groupBox_WeightFactors.setStyleSheet(INVALID_LABEL_STYLESHEET)
@@ -194,6 +211,7 @@ def setupUserInputValidators(self):
         "Lf": self.checkBox_LateralFlowLf,
         "sfrun": self.checkBox_RunoffEsd,
         "runoff": self.checkBox_RunoffVazao,
+        "arn": self.checkBox_AccumulatedRunoffArn,
     }
 
     # self.uiSpinBoxDict = {

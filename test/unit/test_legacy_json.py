@@ -66,10 +66,7 @@ def test_json_project_round_trip_keeps_alpha_and_demtif(tmp_path: Path) -> None:
     write_legacy_json(parser, project)
     loaded = read_legacy_json(project)
     assert loaded.getfloat("CALIBRATION", "alpha") == 4.5
-    assert (
-        Path(loaded.get("RASTERS", "demtif"))
-        == (project.parent / "dem/dem.tif").resolve()
-    )
+    assert loaded.get("RASTERS", "demtif") == "dem/dem.tif"
     on_disk = json.loads(project.read_text(encoding="utf-8"))
     assert on_disk["RASTERS"]["georeference"] == "dem/dem.tif"
     assert "version" not in on_disk
@@ -157,18 +154,15 @@ def test_float_text_keeps_more_than_three_decimals() -> None:
 
 
 @pytest.mark.unit
-def test_relative_directory_is_resolved_beside_the_json_file(tmp_path: Path) -> None:
-    """The dialog sees a relative series directory from the project file's folder."""
+def test_relative_directory_is_kept_as_written(tmp_path: Path) -> None:
+    """The dialog parser stores relative paths exactly as the JSON file has them."""
     parser = _project()
     parser.set("DIRECTORIES", "prec", "data/prec")
     parser.set("FILENAME_PREFIXES", "prec_prefix", "pr")
     project = tmp_path / "basin.json"
     write_legacy_json(parser, project)
     loaded = read_legacy_json(project)
-    assert (
-        Path(loaded.get("DIRECTORIES", "prec"))
-        == (tmp_path / "data" / "prec").resolve()
-    )
+    assert loaded.get("DIRECTORIES", "prec") == "data/prec"
     assert loaded.get("FILENAME_PREFIXES", "prec_prefix") == "pr"
     assert (
         json.loads(project.read_text(encoding="utf-8"))["DIRECTORIES"]["prec"]
@@ -207,3 +201,52 @@ def test_written_file_is_the_document(tmp_path: Path) -> None:
     document, _diagnostics = legacy_json_document(_project())
     write_legacy_json(_project(), destination)
     assert json.loads(destination.read_text(encoding="utf-8")) == document
+
+
+@pytest.mark.unit
+def test_unknown_bool_token_is_rejected() -> None:
+    """A boolean token the model cannot read is an error, not a silent false."""
+    from plugin.validation.legacy_json import config_from_legacy_document
+
+    document, _diagnostics = legacy_json_document(_project())
+    document["GENERATE_FILE"]["arn"] = "maybe"
+    with pytest.raises(ValueError, match=r"GENERATE_FILE\.arn"):
+        config_from_legacy_document(document)
+
+
+@pytest.mark.unit
+def test_known_bool_tokens_are_accepted_on_load() -> None:
+    """Recognized yes/no spellings still load as booleans."""
+    from plugin.validation.legacy_json import config_from_legacy_document
+
+    document, _diagnostics = legacy_json_document(_project())
+    document["GENERATE_FILE"]["arn"] = "YES"
+    document["RASTER_FILE_FORMAT"]["map_raster_series"] = "0"
+    loaded = config_from_legacy_document(document)
+    assert loaded.getboolean("GENERATE_FILE", "arn") is True
+    assert loaded.getboolean("RASTER_FILE_FORMAT", "map_raster_series") is False
+
+
+@pytest.mark.unit
+def test_missing_arn_defaults_to_false_on_load() -> None:
+    """Files written before ``arn`` existed open with arn disabled."""
+    from plugin.validation.legacy_json import config_from_legacy_document
+
+    document, _diagnostics = legacy_json_document(_project())
+    del document["GENERATE_FILE"]["arn"]
+    loaded = config_from_legacy_document(document)
+    assert loaded.getboolean("GENERATE_FILE", "arn") is False
+
+
+@pytest.mark.unit
+def test_written_file_honors_umask(tmp_path: Path) -> None:
+    """The new JSON file is not forced to 0o600 by tempfile.mkstemp."""
+    import os
+    import stat
+
+    destination = tmp_path / "basin.json"
+    write_legacy_json(_project(), destination)
+    mode = stat.S_IMODE(os.stat(destination).st_mode)
+    current = os.umask(0)
+    os.umask(current)
+    assert mode == 0o666 & ~current

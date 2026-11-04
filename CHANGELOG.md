@@ -5,6 +5,24 @@ All notable changes to the RUBEM Hydrological plugin will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **Accumulated Total Runoff (ARN) output option**: new Generate Files checkbox for the ARN raster series, and a `tss_arn` time series when station time series generation is enabled. Wired end-to-end: dialog, project save/load, results listing and plotting.
+- **Boolean token validation**: project file booleans are validated before the RUBEM model loads them. Unknown tokens such as "maybe" are rejected with the offending `SECTION.key` in the message; documented tokens (yes/no/true/false/t/f/1/0, case-insensitive) and true booleans are accepted.
+- **Defaults on load**: missing model-required defaults (for example `GENERATE_FILE.arn`) are filled when a project file is loaded, so older files open correctly.
+
+### Changed
+
+- **JSON round-trip preserves relative paths**: loading a project stores relative paths exactly as written; RUBEM resolves them from the JSON file's directory instead of the dialog resolving them to absolute paths at load time.
+- **Total Runoff units corrected**: RNF and `tss_rnf` are labelled [mm] throughout the dialog and results views; Accumulated Total Runoff (ARN) is labelled [m³/s].
+- **Weight factor validation**: the weight-factor sum check uses the stored values that will be written to the project file, not the rounded 3-decimal widget display.
+- **DEM georeference is optional**: an empty DEM `.tif` field is valid; a non-empty path must still point to an existing file.
+- **Project file permissions**: project JSON written by the dialog honours the user's umask instead of being created read/write by owner only.
+- **CI**: unit tests run in the `qgis/qgis:4.2` container; the no-QGIS Poetry unit-test job was removed.
+- **Docs**: QGIS 4 is the prerequisite; the PCRaster Tools plugin is no longer required (PCRaster and GDAL are native libraries installed with OSGeo4W or conda); documentation version set to 2.0.0.
+
 ## [2.0.0] - 2025-01-07
 
 ### Added

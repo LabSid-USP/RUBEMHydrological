@@ -62,7 +62,7 @@ Settings tab
 Project Directories
 ^^^^^^^^^^^^^^^^^^^
 
-- **Data Input Directory**: Mandatory path to database folder. Must be a valid path to an existing directory;
+- **Data Input Directory**: Editor-only. This folder is used by the dialog to pick input files and is not stored in the project JSON file, which records each input file and series instead. The field can be left empty;
 
 - **Data Output Directory**: Mandatory path to output folder. Must be a valid path to an existing empty directory.
 
@@ -354,7 +354,9 @@ Generate Files
 
 - **Soil Moisture Content**: Optional boolean value. If enabled, this option allows the generation of Soil Moisture Content (SMC) [mm] result maps in raster format for each of the time steps included in the simulation period.
 
-- **Total Runoff**: Optional boolean value. If enabled, this option allows the generation of Total Runoff [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] result maps in raster format for each of the time steps included in the simulation period.
+- **Total Runoff**: Optional boolean value. If enabled, this option allows the generation of Total Runoff (RNF) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Accumulated Total Runoff**: Optional boolean value. If enabled, this option allows the generation of Accumulated Total Runoff (ARN) [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] result maps in raster format for each of the time steps included in the simulation period. When station time series generation is enabled, the accumulated total runoff time series is also written as ``tss_arn``.
 
 Results tab
 -----------

@@ -3,6 +3,11 @@ try:
 except ImportError:
     from utils.series import splitDirFilePrefix
 
+try:
+    from ._project import _spin_text
+except ImportError:
+    from _project import _spin_text
+
 # Land Use tab
 # Land Use Series
 def setLandUseSeriesFilePath(self):
@@ -212,7 +217,11 @@ def setFparMaximum(self):
     :Slot signal: editingFinished
     :Signal sender: doubleSpinBox_FparMax
     """
-    self.config.set("CONSTANTS", "fpar_max", str(self.doubleSpinBox_FparMax.value()))
+    self.config.set(
+        "CONSTANTS",
+        "fpar_max",
+        _spin_text(self, self.doubleSpinBox_FparMax, "CONSTANTS", "fpar_max"),
+    )
 
 
 def setFparMinimum(self):
@@ -221,7 +230,11 @@ def setFparMinimum(self):
     :Slot signal: editingFinished
     :Signal sender: doubleSpinBox_FparMin
     """
-    self.config.set("CONSTANTS", "fpar_min", str(self.doubleSpinBox_FparMin.value()))
+    self.config.set(
+        "CONSTANTS",
+        "fpar_min",
+        _spin_text(self, self.doubleSpinBox_FparMin, "CONSTANTS", "fpar_min"),
+    )
 
 
 # Interception
@@ -231,7 +244,11 @@ def setInterception(self):
     :Slot signal: editingFinished
     :Signal sender: doubleSpinBox_Interception
     """
-    self.config.set("CONSTANTS", "i_imp", str(self.doubleSpinBox_Interception.value()))
+    self.config.set(
+        "CONSTANTS",
+        "i_imp",
+        _spin_text(self, self.doubleSpinBox_Interception, "CONSTANTS", "i_imp"),
+    )
 
 
 # Leaf Area Index
@@ -242,5 +259,7 @@ def setLeafAreaIndexMaximum(self):
     :Signal sender: doubleSpinBox_LeafAreaIndexMax
     """
     self.config.set(
-        "CONSTANTS", "lai_max", str(self.doubleSpinBox_LeafAreaIndexMax.value())
+        "CONSTANTS",
+        "lai_max",
+        _spin_text(self, self.doubleSpinBox_LeafAreaIndexMax, "CONSTANTS", "lai_max"),
     )

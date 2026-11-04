@@ -68,16 +68,16 @@ A `step-by-step plugin installation video tutorial <https://www.youtube.com/watc
 What are RUBEM Hydrological's prerequisites?
 `````````````````````````````````````````````
 
-RUBEM Hydrological was developed to work on QGIS version 3.22 or higher. Typically, we will support a QGIS version up to and including the first RUBEM Hydrological LTS release whose support ends after support for that version of QGIS ends.
+RUBEM Hydrological was developed to work on QGIS version 4 or higher. Typically, we will support a QGIS version up to and including the first RUBEM Hydrological LTS release whose support ends after support for that version of QGIS ends.
 
 .. note::
 
-    RUBEM model relies on the `PCRaster Python Modelling Framework <https://pcraster.geo.uu.nl>`__, `NumPy <https://numpy.org/>`__ and `GDAL <https://gdal.org/>`__. The `PCRaster Processing Provider <https://github.com/jvdkwast/qgis-processing-pcraster>`__ must be installed in your QGIS Python environment, check out the `related documentation <https://jvdkwast.github.io/qgis-processing-pcraster/>`__ for more information.
+    RUBEM model relies on the `PCRaster Python Modelling Framework <https://pcraster.geo.uu.nl>`__, `NumPy <https://numpy.org/>`__ and `GDAL <https://gdal.org/>`__. These must be available in your QGIS Python environment. On Windows, use the OSGeo4W installer and select the PCRaster and GDAL packages; with conda, install them from conda-forge. PCRaster is a native library, not a QGIS plugin, so no PCRaster Tools plugin is required.
 
 What QGIS version can I use with RUBEM Hydrological?
 `````````````````````````````````````````````````````
 
-The latest version of QGIS 3 is recommended.
+The latest version of QGIS 4 is recommended.
 
 Should I use the stable version or development version?
 ````````````````````````````````````````````````````````

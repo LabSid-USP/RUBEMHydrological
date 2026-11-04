@@ -90,3 +90,15 @@ def setRunoffVazaoGenerateFile(self):
     :Signal sender: checkBox_RunoffVazao
     """
     self.config.set("GENERATE_FILE", "rnf", str(self.checkBox_RunoffVazao.isChecked()))
+
+
+def setAccumulatedRunoffArnGenerateFile(self):
+    """Define whether the Accumulated Runoff (ARN) file will be generated as
+        output from the model execution.
+
+    :Slot signal: checked
+    :Signal sender: checkBox_AccumulatedRunoffArn
+    """
+    self.config.set(
+        "GENERATE_FILE", "arn", str(self.checkBox_AccumulatedRunoffArn.isChecked())
+    )

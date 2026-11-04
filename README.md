@@ -81,8 +81,8 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-* [**QGIS 3.22**](https://qgis.org) or newer;
-* [**PCRaster Processing Provider**](https://jvdkwast.github.io/qgis-processing-pcraster/).
+* [**QGIS 4**](https://qgis.org) (4.2 recommended);
+* **PCRaster** and **GDAL** installed as native libraries in the QGIS Python environment, for example with the OSGeo4W installer or conda (``conda install -c conda-forge pcraster gdal``). They are not QGIS plugins, and no PCRaster Tools plugin is required.
 
 ### Installation
 

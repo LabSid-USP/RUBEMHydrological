@@ -1,7 +1,7 @@
 Installation
 ============
 
-The plugin requires the user to have the latest version of QGIS 3 installed. The user can download the latest version of RUBEM Hydrological from `GitHub <https://github.com/LabSid-USP/RUBEMHydrological/releases>`__ or directly from the Official QGIS Plugin repository.
+The plugin requires the user to have QGIS 4 installed (we recommend the latest QGIS 4.2 release). The user can download the latest version of RUBEM Hydrological from `GitHub <https://github.com/LabSid-USP/RUBEMHydrological/releases>`__ or directly from the Official QGIS Plugin repository.
 
 .. caution::
    
