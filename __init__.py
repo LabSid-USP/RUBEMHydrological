@@ -37,7 +37,18 @@ def classFactory(iface):
     """
     try:
         from .plugin.core import RUBEMHydrological
-    except ImportError:
+    except ImportError as exc:
+        # Only fall back to the absolute name when the relative import
+        # itself is unavailable. A failure inside the plugin (e.g. a
+        # missing third-party module) must keep its own message instead
+        # of surfacing as a missing plugin.core module.
+        if exc.name is not None and not (
+            exc.name == "plugin"
+            or exc.name == "plugin.core"
+            or exc.name.endswith(".plugin.core")
+            or exc.name.endswith(".plugin")
+        ):
+            raise
         from plugin.core import RUBEMHydrological
 
     return RUBEMHydrological(iface)

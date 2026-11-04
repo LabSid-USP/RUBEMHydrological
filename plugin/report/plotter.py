@@ -19,25 +19,23 @@
 
 """RUBEM Hydrological plugin graph plot code."""
 
-import matplotlib
-
-matplotlib.use("QtAgg")
-import matplotlib.pyplot as plt
-from cycler import cycler
-import pandas as pd
 import datetime
 
 font = {"weight": "normal", "size": 16}
 
-color_cycle = cycler(c=["r", "g", "b", "c", "k"])
-ls_cycle = cycler(ls=["-", "--", "-.", ":", "-"])
-lw_cycle = cycler(lw=[1, 2, 1, 2, 1])
-# mk_cycle = cycler(marker=['.', ',', 'o', 'v','^'])
-sty_cycle = ls_cycle + color_cycle + lw_cycle
-
-
 # TODO: Add docstring information and comments
 def plotTimeSeriesData(sourceFile, plotDict, startDate, endDate):
+    import matplotlib
+
+    matplotlib.use("QtAgg")
+    import matplotlib.pyplot as plt
+    import pandas as pd
+    from cycler import cycler
+
+    color_cycle = cycler(c=["r", "g", "b", "c", "k"])
+    ls_cycle = cycler(ls=["-", "--", "-.", ":", "-"])
+    lw_cycle = cycler(lw=[1, 2, 1, 2, 1])
+    sty_cycle = ls_cycle + color_cycle + lw_cycle
 
     df = pd.read_csv(sourceFile, sep=";", index_col=0)
 

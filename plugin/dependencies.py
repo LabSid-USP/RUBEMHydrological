@@ -1,9 +1,13 @@
 """Pure-Python packages the QGIS interpreter does not ship.
 
 PCRaster stays a native library of the QGIS environment. Pydantic is the
-schema library the RUBEM submodule already requires (``pydantic>=2.11,<3``).
-When it is missing, the plugin can install that one package into an isolated
-virtual environment after the user agrees. The install is ``python -m pip``
+schema library the RUBEM submodule already requires (``pydantic>=2.11,<3``);
+``humanize>=4`` and ``python-dateutil>=2`` are its other pure-Python
+requirements. When pydantic is missing, the plugin can install those packages
+into an isolated virtual environment after the user agrees. The environment
+is created with the interpreter from ``resolve_host_python`` (``sys.executable``
+can be QGIS itself), never by assuming the host executable is Python. The
+install is ``python -m pip``
 with a fixed argument list, and its output is kept on the logger
 ``rubem_hydrological.dependencies``.
 """
@@ -18,7 +22,19 @@ from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as distribution_version
 from pathlib import Path
 
+try:
+    from .engine import resolve_host_python
+except ImportError:
+    from engine import resolve_host_python
+
 PYDANTIC_REQUIREMENT = "pydantic>=2.11,<3"
+HUMANIZE_REQUIREMENT = "humanize>=4"
+DATEUTIL_REQUIREMENT = "python-dateutil>=2"
+ISOLATED_REQUIREMENTS = (
+    PYDANTIC_REQUIREMENT,
+    HUMANIZE_REQUIREMENT,
+    DATEUTIL_REQUIREMENT,
+)
 _LOGGER = logging.getLogger("rubem_hydrological.dependencies")
 
 
@@ -146,9 +162,17 @@ def _activate_existing_environment() -> None:
 def _install_pydantic() -> None:
     destination = dependency_environment()
     python = _venv_python(destination)
-    _LOGGER.info("Installing %s into %s", PYDANTIC_REQUIREMENT, destination)
+    _LOGGER.info("Installing %s into %s", ", ".join(ISOLATED_REQUIREMENTS), destination)
     if not python.is_file():
-        _run([sys.executable, "-m", "venv", str(destination)])
+        host_python = resolve_host_python()
+        if host_python is None:
+            raise RuntimeError(
+                "Could not find a Python interpreter to create the "
+                f"dependency environment at {destination}: sys.executable "
+                f"is {sys.executable!r} and no Python interpreter was found "
+                "under the interpreter prefixes or beside it."
+            )
+        _run([str(host_python), "-m", "venv", str(destination)])
     _run(
         [
             str(python),
@@ -156,7 +180,7 @@ def _install_pydantic() -> None:
             "pip",
             "install",
             "--disable-pip-version-check",
-            PYDANTIC_REQUIREMENT,
+            *ISOLATED_REQUIREMENTS,
         ]
     )
     site = _site_packages(destination)

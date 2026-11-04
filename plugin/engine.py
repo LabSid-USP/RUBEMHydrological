@@ -46,7 +46,7 @@ def ensure_submodule_on_path(root: Path | None = None) -> Path:
         )
     entry = str(path)
     if entry not in sys.path:
-        sys.path.insert(0, entry)
+        sys.path.append(entry)
     return path
 
 
@@ -84,10 +84,13 @@ def assert_ready() -> Path:
 
     The published PCRaster Tools plugin declares QGIS <= 3.99, so a hard
     dependency on it cannot be installed on QGIS 4. RUBEM imports the
-    ``pcraster`` module itself.
+    ``pcraster`` module itself. The submodule's pure-Python requirements
+    (``humanize`` and ``python-dateutil``) are checked after the native
+    ones, with the plugin's isolated dependency environment activated.
 
     :raises FileNotFoundError: The submodule is missing.
-    :raises ImportError: ``pcraster`` or GDAL cannot be imported.
+    :raises ImportError: ``pcraster``, GDAL, ``humanize`` or ``dateutil``
+        cannot be imported.
     """
     root = ensure_submodule_on_path()
     from rubem._deps import missing_runtime_deps, runtime_deps_message
@@ -95,7 +98,146 @@ def assert_ready() -> Path:
     missing = missing_runtime_deps()
     if missing:
         raise ImportError(runtime_deps_message(missing))
+    try:
+        try:
+            from .dependencies import _activate_existing_environment
+        except ImportError:
+            from dependencies import _activate_existing_environment
+
+        _activate_existing_environment()
+    except Exception:
+        pass
+    import importlib.util
+
+    missing_pure: list[str] = []
+    for module_name, requirement in (
+        ("humanize", "humanize"),
+        ("dateutil", "python-dateutil"),
+    ):
+        try:
+            found = importlib.util.find_spec(module_name) is not None
+        except (ImportError, ValueError):
+            found = False
+        if not found:
+            missing_pure.append(requirement)
+    if missing_pure:
+        raise ImportError(
+            "RUBEM cannot run because the following pure-Python dependencies "
+            f"are not installed: {', '.join(missing_pure)}. They are installed "
+            "with pydantic into the plugin's isolated dependency environment "
+            "when a project is opened or saved."
+        )
     return root
+
+
+def _looks_like_python(path: Path) -> bool:
+    return path.name.lower().startswith("python")
+
+
+def resolve_host_python(
+    *,
+    executable: str | Path | None = None,
+    base_executable: str | Path | None = None,
+    prefixes: list[str | Path] | tuple[str | Path, ...] | None = None,
+    platform: str | None = None,
+    version_info: tuple[int, int] | None = None,
+) -> Path | None:
+    """Find the host Python interpreter when QGIS, not Python, is ``sys.executable``.
+
+    Preference order: ``sys.executable`` itself when it is named like Python,
+    then interpreters under ``sys.exec_prefix`` / ``sys.prefix`` /
+    ``sys.base_prefix`` (so the interpreter that owns the running stdlib
+    wins), then ``sys._base_executable``, then siblings of the host
+    executable, then the OSGeo4W ``apps/Python<major><minor>`` layout
+    (other ``Python*`` globs after it) on Windows or
+    ``<host dir>/bin/python3`` elsewhere. Every candidate
+    after ``sys.executable`` itself must exist on disk; nothing is taken from
+    ``PATH``. The keyword arguments exist for tests and default to the running
+    interpreter's ``sys`` values.
+
+    :returns: The interpreter path, or ``None`` when no candidate exists.
+    """
+    platform_name = sys.platform if platform is None else platform
+    is_windows = platform_name == "win32"
+    major, minor = (
+        (sys.version_info[0], sys.version_info[1])
+        if version_info is None
+        else version_info
+    )
+
+    if executable is None:
+        executable = sys.executable
+    if not executable:
+        return None
+    executable = Path(executable)
+    if _looks_like_python(executable):
+        return executable
+
+    if base_executable is None:
+        base_executable = getattr(sys, "_base_executable", None)
+
+    if prefixes is None:
+        prefixes = [
+            value
+            for attr in ("exec_prefix", "prefix", "base_exec_prefix", "base_prefix")
+            if (value := getattr(sys, attr, None))
+        ]
+
+    candidates: list[Path] = []
+    seen: set[str] = set()
+
+    def add(candidate: Path) -> None:
+        key = str(candidate)
+        if key not in seen:
+            seen.add(key)
+            candidates.append(candidate)
+
+    # Prefix-derived interpreters first: they own the stdlib already in use.
+    seen_prefixes: set[str] = set()
+    for raw_prefix in prefixes:
+        prefix = Path(raw_prefix)
+        if str(prefix) in seen_prefixes:
+            continue
+        seen_prefixes.add(str(prefix))
+        if is_windows:
+            for name in ("python.exe", "python3.exe", "pythonw.exe"):
+                add(prefix / name)
+            add(prefix / "Scripts" / "python.exe")
+        else:
+            for name in ("python3", "python", f"python{major}.{minor}"):
+                add(prefix / "bin" / name)
+
+    if base_executable:
+        base_path = Path(base_executable)
+        if _looks_like_python(base_path):
+            add(base_path)
+
+    # Siblings of the host executable (e.g. python.exe beside qgis-bin.exe).
+    if is_windows:
+        for name in ("python.exe", "python3.exe", "pythonw.exe"):
+            add(executable.with_name(name))
+    else:
+        for name in ("python3", "python", f"python{major}.{minor}"):
+            add(executable.with_name(name))
+
+    # Layout-specific fallbacks (no PATH lookup).
+    if is_windows:
+        exact = f"Python{major}{minor}"
+        for base in (executable.parent.parent, executable.parent):
+            add(base / "apps" / exact / "python.exe")
+            for candidate in sorted((base / "apps").glob("Python*/python.exe")):
+                add(candidate)
+    else:
+        add(executable.parent / "bin" / "python3")
+        add(executable.parent / "bin" / "python")
+        add(executable.parent / "bin" / f"python{major}.{minor}")
+        if platform_name == "darwin":
+            # Contents/MacOS/bin/python3 in an app bundle; this is the
+            # ``executable.parent / bin`` candidate above when the host
+            # binary itself lives in Contents/MacOS.
+            add(executable.parent / "MacOS" / "bin" / "python3")
+
+    return next((c for c in candidates if c.is_file()), None)
 
 
 def configure_spawn_executable() -> None:
@@ -103,16 +245,13 @@ def configure_spawn_executable() -> None:
 
     CPython documents ``multiprocessing.set_executable`` for programs embedded
     in another executable. On Windows, QGIS has reported ``sys.executable`` as
-    the QGIS program rather than Python. This only switches when the current
-    executable is not named like Python and a sibling ``python3`` exists.
+    the QGIS program rather than Python. This switches to the interpreter
+    found by :func:`resolve_host_python`; when none is found, the spawn
+    executable is left unchanged.
     """
-    executable = Path(sys.executable)
-    if executable.name.lower().startswith("python"):
-        return
-    for candidate in (executable.with_name("python3"), executable.with_name("python")):
-        if candidate.is_file():
-            multiprocessing.set_executable(str(candidate))
-            return
+    executable = resolve_host_python()
+    if executable is not None and executable != Path(sys.executable):
+        multiprocessing.set_executable(str(executable))
 
 
 def run_project(config_path: str) -> str:

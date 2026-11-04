@@ -12,6 +12,7 @@ from plugin.engine import (
     assert_ready,
     ensure_submodule_on_path,
     pcraster_tools_message,
+    resolve_host_python,
     submodule_path,
 )
 
@@ -68,6 +69,7 @@ def test_archive_uses_one_root_and_keeps_runtime_files() -> None:
     names = {archive_member(root, path) for path in iter_plugin_files(root)}
     assert f"{ARCHIVE_ROOT}/plugin/gui/generated/resources.rcc" in names
     assert f"{ARCHIVE_ROOT}/external/rubem-model/rubem/api.py" in names
+    assert f"{ARCHIVE_ROOT}/external/rubem-model/rubem/appsettings.json" in names
     assert all(name.startswith(f"{ARCHIVE_ROOT}/") for name in names)
 
 
@@ -104,6 +106,74 @@ def test_inactive_pcraster_tools_names_the_plugin_and_refuses_pip() -> None:
     assert PCRASTER_TOOLS_ID in pcraster_tools_message() or "plugins.qgis.org" in text
     assert "pip" in text
     assert "3.99" in text
+
+
+@pytest.mark.unit
+def test_resolve_host_python_prefers_prefix_over_sibling(tmp_path: Path) -> None:
+    """The interpreter owning the stdlib prefix wins over a host sibling."""
+    prefix = tmp_path / "prefix"
+    prefix.mkdir()
+    (prefix / "python.exe").touch()
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    (bin_dir / "python.exe").touch()
+    found = resolve_host_python(
+        executable=bin_dir / "qgis-bin.exe",
+        base_executable="",
+        prefixes=[prefix],
+        platform="win32",
+        version_info=(3, 13),
+    )
+    assert found == prefix / "python.exe"
+
+
+@pytest.mark.unit
+def test_resolve_host_python_windows_osgeo_exact_version_first(
+    tmp_path: Path,
+) -> None:
+    """OSGeo4W apps/Python<major><minor> beats other Python* directories."""
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    for folder in ("Python312", "Python313"):
+        app = tmp_path / "apps" / folder
+        app.mkdir(parents=True)
+        (app / "python.exe").touch()
+    found = resolve_host_python(
+        executable=bin_dir / "qgis-bin.exe",
+        base_executable="",
+        prefixes=[],
+        platform="win32",
+        version_info=(3, 13),
+    )
+    assert found == tmp_path / "apps" / "Python313" / "python.exe"
+
+
+@pytest.mark.unit
+def test_resolve_host_python_posix_sibling_and_none(tmp_path: Path) -> None:
+    """A python3 sibling is used on POSIX; no candidate means None."""
+    bin_dir = tmp_path / "MacOS"
+    bin_dir.mkdir()
+    (bin_dir / "python3").touch()
+    found = resolve_host_python(
+        executable=bin_dir / "QGIS",
+        base_executable="",
+        prefixes=[],
+        platform="darwin",
+        version_info=(3, 13),
+    )
+    assert found == bin_dir / "python3"
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    assert (
+        resolve_host_python(
+            executable=empty / "qgis",
+            base_executable="",
+            prefixes=[],
+            platform="linux",
+            version_info=(3, 13),
+        )
+        is None
+    )
 
 
 @pytest.mark.unit

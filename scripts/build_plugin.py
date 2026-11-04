@@ -8,6 +8,7 @@ submodule therefore share the root ``rubem_hydrological``.
 
 from __future__ import annotations
 
+import fnmatch
 import os
 import zipfile
 from pathlib import Path
@@ -65,7 +66,11 @@ def iter_plugin_files(root: Path):
             dirnames[:] = [name for name in dirnames if name not in EXCLUDE_DIRS]
             for name in filenames:
                 path = Path(dirpath) / name
-                if path.suffix.lower() == ".py":
+                # Match the submodule's setuptools package-data
+                # (``rubem = ["appsettings*.json"]``) alongside its .py files.
+                if path.suffix.lower() == ".py" or fnmatch.fnmatch(
+                    name, "appsettings*.json"
+                ):
                     yield path
 
 

@@ -24,12 +24,20 @@ Contains all the information about the actions of the plugin and the main code.
 
 import os
 
-from qgis.PyQt.QtCore import QCoreApplication, QSettings, Qt, QTranslator
+from qgis.PyQt.QtCore import QCoreApplication, QResource, QSettings, Qt, QTranslator
 from qgis.PyQt.QtGui import QAction, QIcon
 
 try:
     from .dialog import RUBEMHydrologicalDialog
-except ImportError:
+except ImportError as _exc:
+    # Only fall back to the bare name when the relative import itself is
+    # unavailable. A failure inside the dialog (e.g. a missing third-party
+    # module) must keep its own message instead of surfacing as a missing
+    # dialog module.
+    if _exc.name is not None and not (
+        _exc.name == "dialog" or _exc.name.endswith(".dialog")
+    ):
+        raise
     from dialog import RUBEMHydrologicalDialog
 
 
@@ -62,6 +70,10 @@ class RUBEMHydrological:
 
         # Declare instance attributes
         self.actions = []
+        self._resources_registered = False
+        self._resources_path = os.path.join(
+            self.plugin_dir, "gui", "generated", "resources.rcc"
+        )
         self.menu = self.tr("&RUBEM Hydrological")
 
         # Check if plugin was started the first time in current QGIS session
@@ -157,6 +169,15 @@ class RUBEMHydrological:
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        # Register Qt resources before any QIcon is created from a
+        # ":/..." path. The dialog registers the same file again before
+        # setupUi as a secondary registration.
+        resource_path = getattr(self, "_resources_path", None) or os.path.join(
+            self.plugin_dir, "gui", "generated", "resources.rcc"
+        )
+        self._resources_path = resource_path
+        if QResource.registerResource(resource_path):
+            self._resources_registered = True
         icon_path = ":/imgBase/images/icon.png"
         self.add_action(
             icon_path,
@@ -173,6 +194,12 @@ class RUBEMHydrological:
         for action in self.actions:
             self.iface.removePluginMenu(self.tr("&RUBEM Hydrological"), action)
             self.iface.removeToolBarIcon(action)
+        if getattr(self, "_resources_registered", False):
+            QResource.unregisterResource(
+                getattr(self, "_resources_path", None)
+                or os.path.join(self.plugin_dir, "gui", "generated", "resources.rcc")
+            )
+            self._resources_registered = False
 
     def run(self):
         """Run method that performs all the real work."""
