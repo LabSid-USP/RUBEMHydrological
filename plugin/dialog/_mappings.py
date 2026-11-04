@@ -1,6 +1,6 @@
 # TODO: Reorganize information in dictionaries
 mapSeriesDictFileNames = {
-    "Runoff [m³/s]": "rnf",
+    "Runoff [mm]": "rnf",
     "Interception [mm]": "itp",
     "Baseflow [mm]": "bfw",
     "Surface Runoff [mm]": "srn",
@@ -8,11 +8,12 @@ mapSeriesDictFileNames = {
     "Lateral Flow [mm]": "lfw",
     "Recharge [mm]": "rec",
     "Soil Moisture Content [mm]": "smc",
+    "Accumulated Total Runoff [m³/s]": "arn",
 }
 
 # TODO: Reorganize information in dictionaries
 timeSeriesDictFileNames = {
-    "Runoff [m³/s]": "tss_rnf",
+    "Runoff [mm]": "tss_rnf",
     "Interception [mm]": "tss_itp",
     "Baseflow [mm]": "tss_bfw",
     "Surface Runoff [mm]": "tss_srn",
@@ -20,6 +21,7 @@ timeSeriesDictFileNames = {
     "Lateral Flow [mm]": "tss_lfw",
     "Recharge [mm]": "tss_rec",
     "Soil Moisture Content [mm]": "tss_smc",
+    "Accumulated Total Runoff [m³/s]": "tss_arn",
 }
 
 # TODO: Reorganize information in dictionaries. Preferably use this format.
@@ -28,6 +30,13 @@ timeSeriesDict = {
     "tss_rnf": {
         "plot": {
             "title": "Total Runoff",
+            "x_label": "Time Steps [month]",
+            "y_label": "Value [mm]",
+        },
+    },
+    "tss_arn": {
+        "plot": {
+            "title": "Accumulated Total Runoff",
             "x_label": "Time Steps [month]",
             "y_label": "Value [m³/s]",
         },

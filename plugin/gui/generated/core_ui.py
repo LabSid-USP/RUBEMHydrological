@@ -1623,6 +1623,14 @@ class Ui_RUBEMHydrological(object):
         self.checkBox_RunoffVazao.setSizePolicy(sizePolicy)
         self.checkBox_RunoffVazao.setObjectName("checkBox_RunoffVazao")
         self.gridLayout_32.addWidget(self.checkBox_RunoffVazao, 2, 1, 1, 1)
+        self.checkBox_AccumulatedRunoffArn = QtWidgets.QCheckBox(parent=self.groupBox_GenerateFiles)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.checkBox_AccumulatedRunoffArn.sizePolicy().hasHeightForWidth())
+        self.checkBox_AccumulatedRunoffArn.setSizePolicy(sizePolicy)
+        self.checkBox_AccumulatedRunoffArn.setObjectName("checkBox_AccumulatedRunoffArn")
+        self.gridLayout_32.addWidget(self.checkBox_AccumulatedRunoffArn, 4, 0, 1, 1)
         self.checkBox_RunoffEsd = QtWidgets.QCheckBox(parent=self.groupBox_GenerateFiles)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Minimum, QtWidgets.QSizePolicy.Policy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -1804,7 +1812,7 @@ class Ui_RUBEMHydrological(object):
         self.doubleSpinBox_ManningRelatedWeightFactor.editingFinished.connect(RUBEMHydrological.setManningRelatedWeightFactor) # type: ignore
         self.doubleSpinBox_SoilRelatedWeightFactor.editingFinished.connect(RUBEMHydrological.setSoilRelatedWeightFactor) # type: ignore
         self.doubleSpinBox_SlopeRelatedWeightFactor.editingFinished.connect(RUBEMHydrological.setSlopeRelatedWeightFactor) # type: ignore
-        self.checkBox_InterceptionInt.toggled['bool'].connect(RUBEMHydrological.setInterception) # type: ignore
+        self.checkBox_InterceptionInt.toggled['bool'].connect(RUBEMHydrological.setInterceptionGenerateFile) # type: ignore
         self.checkBox_InterceptionEb.toggled['bool'].connect(RUBEMHydrological.setInterceptionEbGenerateFile) # type: ignore
         self.checkBox_EvapotranspirationEvp.clicked.connect(RUBEMHydrological.setEvapotranspirationGenerateFile) # type: ignore
         self.checkBox_RechargeRec.toggled['bool'].connect(RUBEMHydrological.setRechargeGenerateFile) # type: ignore
@@ -1812,6 +1820,7 @@ class Ui_RUBEMHydrological(object):
         self.checkBox_LateralFlowLf.toggled['bool'].connect(RUBEMHydrological.setLateralFLowGenerateFile) # type: ignore
         self.checkBox_RunoffEsd.toggled['bool'].connect(RUBEMHydrological.setRunoffEsdGenerateFile) # type: ignore
         self.checkBox_RunoffVazao.toggled['bool'].connect(RUBEMHydrological.setRunoffVazaoGenerateFile) # type: ignore
+        self.checkBox_AccumulatedRunoffArn.toggled['bool'].connect(RUBEMHydrological.setAccumulatedRunoffArnGenerateFile) # type: ignore
         self.btn_Run.clicked.connect(RUBEMHydrological.setRunState) # type: ignore
         self.doubleSpinBox_InterceptionCalibrationAlpha.editingFinished.connect(RUBEMHydrological.setInterceptionCalibration) # type: ignore
         self.btn_DemTif.clicked.connect(RUBEMHydrological.setDEMTifFilePath) # type: ignore
@@ -1874,6 +1883,7 @@ class Ui_RUBEMHydrological(object):
         self.checkBox_RechargeRec.stateChanged['int'].connect(RUBEMHydrological.setProjectModified) # type: ignore
         self.checkBox_RunoffEsd.stateChanged['int'].connect(RUBEMHydrological.setProjectModified) # type: ignore
         self.checkBox_RunoffVazao.stateChanged['int'].connect(RUBEMHydrological.setProjectModified) # type: ignore
+        self.checkBox_AccumulatedRunoffArn.stateChanged['int'].connect(RUBEMHydrological.setProjectModified) # type: ignore
         self.checkBox_SoilMoistureTur.stateChanged['int'].connect(RUBEMHydrological.setProjectModified) # type: ignore
         self.treeView_TimeSeriesData.doubleClicked['QModelIndex'].connect(RUBEMHydrological.plotWrapper) # type: ignore
         self.treeView_MapSeriesData.doubleClicked['QModelIndex'].connect(RUBEMHydrological.canvasHandler) # type: ignore
@@ -1972,7 +1982,8 @@ class Ui_RUBEMHydrological(object):
         RUBEMHydrological.setTabOrder(self.checkBox_LateralFlowLf, self.checkBox_RunoffVazao)
         RUBEMHydrological.setTabOrder(self.checkBox_RunoffVazao, self.checkBox_EvapotranspirationEvp)
         RUBEMHydrological.setTabOrder(self.checkBox_EvapotranspirationEvp, self.checkBox_SoilMoistureTur)
-        RUBEMHydrological.setTabOrder(self.checkBox_SoilMoistureTur, self.textBrowser_log)
+        RUBEMHydrological.setTabOrder(self.checkBox_SoilMoistureTur, self.checkBox_AccumulatedRunoffArn)
+        RUBEMHydrological.setTabOrder(self.checkBox_AccumulatedRunoffArn, self.textBrowser_log)
         RUBEMHydrological.setTabOrder(self.textBrowser_log, self.btn_Run)
         RUBEMHydrological.setTabOrder(self.btn_Run, self.btn_Cancel)
 
@@ -2433,8 +2444,11 @@ class Ui_RUBEMHydrological(object):
         self.checkBox_LateralFlowLf.setWhatsThis(_translate("RUBEMHydrological", "This option allows to generate or not the resulting maps of Lateral Flow (LF) [mm] in raster format for all simulation period or .csv for each pixel of stations map."))
         self.checkBox_LateralFlowLf.setText(_translate("RUBEMHydrological", "Lateral Flow [mm]"))
         self.checkBox_RunoffVazao.setToolTip(_translate("RUBEMHydrological", "It enables the generation of raster files and/or tabular for Total Runoff data."))
-        self.checkBox_RunoffVazao.setWhatsThis(_translate("RUBEMHydrological", "This option allows to generate or not the results maps of Total Runoff [m<sup>3</sup>s<sup>-1</sup>] in raster format for all simulation period or .csv for each pixel of stations map."))
-        self.checkBox_RunoffVazao.setText(_translate("RUBEMHydrological", "Total Runoff [m³/s]"))
+        self.checkBox_RunoffVazao.setWhatsThis(_translate("RUBEMHydrological", "This option allows to generate or not the results maps of Total Runoff (RNF) [mm] in raster format for all simulation period or .csv for each pixel of stations map."))
+        self.checkBox_RunoffVazao.setText(_translate("RUBEMHydrological", "Total Runoff [mm]"))
+        self.checkBox_AccumulatedRunoffArn.setToolTip(_translate("RUBEMHydrological", "It enables the generation of raster files and/or tabular for Accumulated Total Runoff data."))
+        self.checkBox_AccumulatedRunoffArn.setWhatsThis(_translate("RUBEMHydrological", "This option allows to generate or not the results maps of Accumulated Total Runoff (ARN) [m<sup>3</sup>s<sup>-1</sup>] in raster format for all simulation period or .csv for each pixel of stations map."))
+        self.checkBox_AccumulatedRunoffArn.setText(_translate("RUBEMHydrological", "Accumulated Total Runoff [m³/s]"))
         self.checkBox_RunoffEsd.setToolTip(_translate("RUBEMHydrological", "It enables the generation of raster files and/or tabular for Surface Runoff data."))
         self.checkBox_RunoffEsd.setWhatsThis(_translate("RUBEMHydrological", "<html><head/><body><p>This option allows to generate or not the results maps of  Surface runoff (SR) [mm] in raster format for all simulation period or .csv for each pixel of stations map.</p></body></html>"))
         self.checkBox_RunoffEsd.setText(_translate("RUBEMHydrological", "Surface Runoff [mm]"))

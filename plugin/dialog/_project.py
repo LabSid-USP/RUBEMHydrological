@@ -650,6 +650,9 @@ def updateConfigFromGUI(self):
     )
     self.config.set("GENERATE_FILE", "srn", str(self.checkBox_RunoffEsd.isChecked()))
     self.config.set("GENERATE_FILE", "rnf", str(self.checkBox_RunoffVazao.isChecked()))
+    self.config.set(
+        "GENERATE_FILE", "arn", str(self.checkBox_AccumulatedRunoffArn.isChecked())
+    )
 
     self.textBrowser_log.append("Configuration updated with current values")
 
@@ -836,3 +839,6 @@ def updateGUIFromConfig(self):
     )
     self.checkBox_RunoffEsd.setChecked(self.config.getboolean("GENERATE_FILE", "srn"))
     self.checkBox_RunoffVazao.setChecked(self.config.getboolean("GENERATE_FILE", "rnf"))
+    self.checkBox_AccumulatedRunoffArn.setChecked(
+        self.config.getboolean("GENERATE_FILE", "arn")
+    )

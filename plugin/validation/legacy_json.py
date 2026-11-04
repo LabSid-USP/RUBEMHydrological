@@ -137,9 +137,7 @@ def legacy_json_document(
     return _canonical(draft), diagnostics
 
 
-def config_from_legacy_document(
-    document: dict[str, object], base_dir: Path | str | None = None
-) -> ConfigParser:
+def config_from_legacy_document(document: dict[str, object]) -> ConfigParser:
     """Load a legacy JSON object into the parser the dialog edits.
 
     :param document: Parsed JSON object.
@@ -156,7 +154,8 @@ def config_from_legacy_document(
         )
     parser = ConfigParser()
     parser.read_dict(defaultConfigSchema)
-    document = _canonical(_prepare_loaded_document(document))
+    prepared = _apply_defaults(_prepare_loaded_document(document))
+    document = _canonical(prepared)
     for section, keys in _ORDER:
         body = document.get(section, {})
         if not isinstance(body, dict):
@@ -166,23 +165,16 @@ def config_from_legacy_document(
             if key not in allowed:
                 continue
             target = "demtif" if section == "RASTERS" and key == "georeference" else key
-            parser.set(
-                section,
-                target,
-                _as_ini_text(
-                    value,
-                    base_dir=base_dir,
-                    resolve=section in {"DIRECTORIES", "RASTERS", "TABLES"},
-                ),
-            )
+            parser.set(section, target, _as_ini_text(value))
     return parser
 
 
 def read_legacy_json(path: Path | str) -> ConfigParser:
     """Read a project file written by :func:`write_legacy_json`.
 
-    Relative paths are resolved against the JSON file's directory so the
-    dialog can see them. The file on disk is not rewritten here.
+    Relative paths stay exactly as written, so RUBEM resolves them from the
+    JSON file's directory, as it does when the model reads the file. The
+    file on disk is not rewritten here.
 
     :param path: Path to the JSON project.
     :raises ValueError: The file is not legacy JSON.
@@ -190,7 +182,7 @@ def read_legacy_json(path: Path | str) -> ConfigParser:
     source = Path(path)
     with source.open(encoding="utf-8") as handle:
         document = json.load(handle)
-    return config_from_legacy_document(document, base_dir=source.parent)
+    return config_from_legacy_document(document)
 
 
 def write_legacy_json(config: ConfigParser, destination: Path | str) -> list[str]:
@@ -212,6 +204,7 @@ def write_legacy_json(config: ConfigParser, destination: Path | str) -> list[str
         with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
             json.dump(document, handle, indent=2, ensure_ascii=False)
             handle.write("\n")
+        _chmod_umask_friendly(temporary_name)
         os.replace(temporary_name, target)
     except Exception:
         if os.path.exists(temporary_name):
@@ -277,6 +270,74 @@ def _draft_from_normalized(
     return draft
 
 
+# Keys the RUBEM pydantic model reads as booleans, which the plugin checks
+# before validation. The model maps any unrecognized string to ``False``,
+# so the plugin rejects them here instead.
+_BOOL_KEYS: dict[str, tuple[str, ...]] = {
+    "CONSTANTS": ("lai_max_from_table",),
+    "GENERATE_FILE": ("itp", "bfw", "srn", "eta", "lfw", "rec", "smc", "rnf", "arn", "tss"),
+    "RASTER_FILE_FORMAT": ("map_raster_series", "tiff_raster_series"),
+}
+_TRUE_TOKENS = {"yes", "true", "t", "1"}
+_FALSE_TOKENS = {"no", "false", "f", "0"}
+
+
+def _apply_defaults(document: dict[str, object]) -> dict[str, object]:
+    """Fill the keys the plugin knows the model requires but older files omit."""
+    prepared: dict[str, object] = {}
+    for section, body in document.items():
+        prepared[section] = dict(body) if isinstance(body, dict) else body
+    for (section, key), default in _DEFAULTS.items():
+        body = prepared.get(section)
+        if body is None:
+            body = {}
+            prepared[section] = body
+        if isinstance(body, dict) and key not in body:
+            body[key] = default
+    return prepared
+
+
+def _reject_unknown_bool_tokens(draft: dict[str, object]) -> None:
+    """Raise ``ValueError`` for a boolean field whose token is not recognized."""
+    for section, keys in _BOOL_KEYS.items():
+        body = draft.get(section)
+        if not isinstance(body, dict):
+            continue
+        for key in keys:
+            if key not in body:
+                continue
+            value = body[key]
+            if isinstance(value, bool):
+                continue
+            if isinstance(value, str):
+                token = value.strip().lower()
+                if token in _TRUE_TOKENS or token in _FALSE_TOKENS:
+                    continue
+            raise ValueError(
+                f"{section}.{key} must be a boolean "
+                f"(yes/no, true/false, 1/0); got {value!r}"
+            )
+
+
+def _chmod_umask_friendly(path: str) -> None:
+    """Best-effort chmod of a new file to ``0o666 & ~umask``.
+
+    :func:`tempfile.mkstemp` creates files with mode ``0o600``. A project
+    file written for the modeller should follow the user's umask instead,
+    like the rest of the files the plugin creates. Never raises: the mode
+    is a convenience, not a correctness requirement.
+    """
+    try:
+        current = os.umask(0)
+        os.umask(current)
+    except OSError:
+        return
+    try:
+        os.chmod(path, 0o666 & ~current)
+    except OSError:
+        pass
+
+
 def _prepare_loaded_document(document: dict[str, object]) -> dict[str, object]:
     """Rename plugin spellings before the model sees a loaded JSON object."""
     prepared: dict[str, object] = {}
@@ -317,6 +378,7 @@ def _canonical(draft: dict[str, object]) -> dict[str, dict[str, object]]:
     from pydantic import ValidationError
     from rubem.configuration.model_configuration_file import ModelConfigurationFile
 
+    _reject_unknown_bool_tokens(draft)
     try:
         model = ModelConfigurationFile.model_validate(draft)
     except ValidationError as exc:
@@ -324,15 +386,10 @@ def _canonical(draft: dict[str, object]) -> dict[str, dict[str, object]]:
     return model.model_dump(by_alias=True, exclude_none=True)
 
 
-def _as_ini_text(
-    value: object, *, base_dir: Path | str | None = None, resolve: bool = False
-) -> str:
-    """Store a JSON value in the dialog parser."""
+def _as_ini_text(value: object) -> str:
+    """Store a JSON value in the dialog parser, keeping relative paths verbatim."""
     if value is None:
         return ""
     if isinstance(value, bool):
         return "True" if value else "False"
-    text = repr(value) if isinstance(value, float) else str(value)
-    if resolve and base_dir and text and not Path(text).is_absolute():
-        return str((Path(base_dir) / text).resolve())
-    return text
+    return repr(value) if isinstance(value, float) else str(value)

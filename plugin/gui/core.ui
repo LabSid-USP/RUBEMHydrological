@@ -4413,10 +4413,29 @@ p, li { white-space: pre-wrap; }
                  <string>It enables the generation of raster files and/or tabular for Total Runoff data.</string>
                 </property>
                 <property name="whatsThis">
-                 <string>This option allows to generate or not the results maps of Total Runoff [m&lt;sup&gt;3&lt;/sup&gt;s&lt;sup&gt;-1&lt;/sup&gt;] in raster format for all simulation period or .csv for each pixel of stations map.</string>
+                 <string>This option allows to generate or not the results maps of Total Runoff (RNF) [mm] in raster format for all simulation period or .csv for each pixel of stations map.</string>
                 </property>
                 <property name="text">
-                 <string>Total Runoff [m³/s]</string>
+                 <string>Total Runoff [mm]</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="0">
+               <widget class="QCheckBox" name="checkBox_AccumulatedRunoffArn">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="toolTip">
+                 <string>It enables the generation of raster files and/or tabular for Accumulated Total Runoff data.</string>
+                </property>
+                <property name="whatsThis">
+                 <string>This option allows to generate or not the results maps of Accumulated Total Runoff (ARN) [m&lt;sup&gt;3&lt;/sup&gt;s&lt;sup&gt;-1&lt;/sup&gt;] in raster format for all simulation period or .csv for each pixel of stations map.</string>
+                </property>
+                <property name="text">
+                 <string>Accumulated Total Runoff [m³/s]</string>
                 </property>
                </widget>
               </item>
@@ -4726,6 +4745,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>checkBox_RunoffVazao</tabstop>
   <tabstop>checkBox_EvapotranspirationEvp</tabstop>
   <tabstop>checkBox_SoilMoistureTur</tabstop>
+  <tabstop>checkBox_AccumulatedRunoffArn</tabstop>
   <tabstop>textBrowser_log</tabstop>
   <tabstop>btn_Run</tabstop>
   <tabstop>btn_Cancel</tabstop>
@@ -5442,7 +5462,7 @@ p, li { white-space: pre-wrap; }
    <sender>checkBox_InterceptionInt</sender>
    <signal>toggled(bool)</signal>
    <receiver>RUBEMHydrological</receiver>
-   <slot>setInterception()</slot>
+   <slot>setInterceptionGenerateFile()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>83</x>
@@ -5563,6 +5583,22 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>484</x>
      <y>26</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_AccumulatedRunoffArn</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setAccumulatedRunoffArnGenerateFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>396</x>
+     <y>262</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>484</x>
+     <y>52</y>
     </hint>
    </hints>
   </connection>
@@ -6559,6 +6595,22 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
+   <sender>checkBox_AccumulatedRunoffArn</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>RUBEMHydrological</receiver>
+   <slot>setProjectModified()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>396</x>
+     <y>262</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>579</x>
+     <y>266</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>checkBox_SoilMoistureTur</sender>
    <signal>stateChanged(int)</signal>
    <receiver>RUBEMHydrological</receiver>
@@ -6753,6 +6805,7 @@ p, li { white-space: pre-wrap; }
   <slot>setSlopeRelatedWeightFactor()</slot>
   <slot>setRegionalConsecutiveDrynessLevel()</slot>
   <slot>setRunoffVazaoGenerateFile()</slot>
+  <slot>setAccumulatedRunoffArnGenerateFile()</slot>
   <slot>setRunoffEsdGenerateFile()</slot>
   <slot>setLateralFLowGenerateFile()</slot>
   <slot>setSoilMoistureGenerateFile()</slot>

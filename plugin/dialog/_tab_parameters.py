@@ -1,3 +1,8 @@
+try:
+    from ._project import _spin_text
+except ImportError:
+    from _project import _spin_text
+
 # Parameters tab
 # Model Parameters
 def setExponentCh(self):
@@ -6,7 +11,16 @@ def setExponentCh(self):
     :Slot signal: editingFinished
     :Signal sender: doubleSpinBox_ExponentCh
     """
-    self.config.set("CALIBRATION", "b", str(self.doubleSpinBox_ExponentCh.value()))
+    self.config.set(
+        "CALIBRATION",
+        "b",
+        _spin_text(
+            self,
+            self.doubleSpinBox_ExponentCh,
+            "CALIBRATION",
+            "b",
+        ),
+    )
 
 
 def setDelayFactor(self):
@@ -15,7 +29,16 @@ def setDelayFactor(self):
     :Slot signal: editingFinished
     :Signal sender: doubleSpinBox_DelayFactor
     """
-    self.config.set("CALIBRATION", "x", str(self.doubleSpinBox_DelayFactor.value()))
+    self.config.set(
+        "CALIBRATION",
+        "x",
+        _spin_text(
+            self,
+            self.doubleSpinBox_DelayFactor,
+            "CALIBRATION",
+            "x",
+        ),
+    )
 
 
 def setRegionalConsecutiveDrynessLevel(self):
@@ -27,7 +50,12 @@ def setRegionalConsecutiveDrynessLevel(self):
     self.config.set(
         "CALIBRATION",
         "rcd",
-        str(self.doubleSpinBox_RegionalConsecutiveDrynessLevel.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_RegionalConsecutiveDrynessLevel,
+            "CALIBRATION",
+            "rcd",
+        ),
     )
 
 
@@ -40,7 +68,12 @@ def setDelayCoefficientBaseFlow(self):
     self.config.set(
         "CALIBRATION",
         "alpha_gw",
-        str(self.doubleSpinBox_DelayCoefficientBaseFlow.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_DelayCoefficientBaseFlow,
+            "CALIBRATION",
+            "alpha_gw",
+        ),
     )
 
 
@@ -53,7 +86,12 @@ def setPartitioningCoefficientRelated(self):
     self.config.set(
         "CALIBRATION",
         "f",
-        str(self.doubleSpinBox_PartitioningCoefficientRelatedSoil.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_PartitioningCoefficientRelatedSoil,
+            "CALIBRATION",
+            "f",
+        ),
     )
 
 
@@ -66,7 +104,12 @@ def setInterceptionCalibration(self):
     self.config.set(
         "CALIBRATION",
         "alpha",
-        str(self.doubleSpinBox_InterceptionCalibrationAlpha.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_InterceptionCalibrationAlpha,
+            "CALIBRATION",
+            "alpha",
+        ),
     )
 
 
@@ -80,7 +123,12 @@ def setManningRelatedWeightFactor(self):
     self.config.set(
         "CALIBRATION",
         "w_1",
-        str(self.doubleSpinBox_ManningRelatedWeightFactor.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_ManningRelatedWeightFactor,
+            "CALIBRATION",
+            "w_1",
+        ),
     )
 
 
@@ -93,7 +141,12 @@ def setSoilRelatedWeightFactor(self):
     self.config.set(
         "CALIBRATION",
         "w_2",
-        str(self.doubleSpinBox_SoilRelatedWeightFactor.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_SoilRelatedWeightFactor,
+            "CALIBRATION",
+            "w_2",
+        ),
     )
 
 
@@ -106,5 +159,10 @@ def setSlopeRelatedWeightFactor(self):
     self.config.set(
         "CALIBRATION",
         "w_3",
-        str(self.doubleSpinBox_SlopeRelatedWeightFactor.value()),
+        _spin_text(
+            self,
+            self.doubleSpinBox_SlopeRelatedWeightFactor,
+            "CALIBRATION",
+            "w_3",
+        ),
     )
