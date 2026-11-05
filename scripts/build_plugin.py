@@ -38,7 +38,13 @@ EXCLUDE_DIRS = {
 
 
 def archive_member(root: Path, path: Path) -> str:
-    """Return the zip path of ``path`` under the single plugin root."""
+    """Return the zip path of ``path`` under the single plugin root.
+
+    ``LICENSE.md`` is archived as ``LICENSE`` because plugins.qgis.org
+    rejects uploads that only ship ``LICENSE.md``.
+    """
+    if path.name == "LICENSE.md" and path.parent == root:
+        return f"{ARCHIVE_ROOT}/LICENSE"
     return f"{ARCHIVE_ROOT}/{path.relative_to(root).as_posix()}"
 
 
@@ -51,10 +57,16 @@ def iter_plugin_files(root: Path):
             path = Path(dirpath) / name
             if path.suffix.lower() in INCLUDE_SUFFIXES:
                 yield path
-    for name in ("metadata.txt", "__init__.py", "LICENSE.md", "CHANGELOG.md"):
+    for name in ("metadata.txt", "__init__.py", "CHANGELOG.md"):
         path = root / name
         if path.is_file():
             yield path
+    # Prefer a plain LICENSE file; fall back to LICENSE.md (zipped as LICENSE).
+    for name in ("LICENSE", "LICENSE.md"):
+        path = root / name
+        if path.is_file():
+            yield path
+            break
     i18n = root / "i18n"
     if i18n.is_dir():
         for path in i18n.rglob("*"):
