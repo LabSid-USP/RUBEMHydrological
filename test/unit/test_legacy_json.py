@@ -74,7 +74,6 @@ def test_json_project_round_trip_keeps_alpha_and_demtif(tmp_path: Path) -> None:
 
 
 @pytest.mark.unit
-@pytest.mark.unit
 def test_format_1_0_is_rejected() -> None:
     """A versioned RUBEM document is not edited as if it were the legacy shape."""
     from plugin.validation.legacy_json import config_from_legacy_document
@@ -210,6 +209,55 @@ def test_series_file_path_still_updates_directory_and_prefix() -> None:
     _apply_series(holder, "data/prec/rain00000.001", "prec", "prec_prefix")
     assert holder.config.get("DIRECTORIES", "prec") == "data/prec/"
     assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "rain"
+
+
+@pytest.mark.unit
+def test_split_dir_file_prefix_root_file_is_not_double_slash() -> None:
+    """``/rain00000.001`` must not yield ``//``, which bypasses the Save guard."""
+    from plugin.utils.series import splitDirFilePrefix
+
+    assert splitDirFilePrefix("/rain00000.001") == ("./", "rain")
+    assert splitDirFilePrefix("rain00000.001") == ("./", "rain")
+
+
+@pytest.mark.unit
+def test_apply_series_keeps_dotted_directory_as_directory() -> None:
+    """A non-existent ``data/prec.v2`` must not be split into prefix ``prec``."""
+    from plugin.dialog._project import _apply_series
+
+    parser = _project()
+    parser.set("DIRECTORIES", "prec", "")
+    parser.set("FILENAME_PREFIXES", "prec_prefix", "rain")
+    holder = type("Holder", (), {"config": parser, "projectFilePath": ""})()
+    _apply_series(holder, "data/prec.v2", "prec", "prec_prefix")
+    assert holder.config.get("DIRECTORIES", "prec") == "data/prec.v2"
+    assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "rain"
+
+
+@pytest.mark.unit
+def test_series_field_text_keeps_relative_directory_portable(tmp_path) -> None:
+    """Open+Save must not rewrite a relative series dir to an absolute map path."""
+    import configparser
+
+    from plugin.dialog._project import _series_field_text
+
+    series_dir = tmp_path / "data" / "prec"
+    series_dir.mkdir(parents=True)
+    (series_dir / "rain00000.001").write_text("x", encoding="utf-8")
+    parser = configparser.ConfigParser()
+    parser.add_section("FILENAME_PREFIXES")
+    parser.set("FILENAME_PREFIXES", "prec_prefix", "rain")
+    holder = type(
+        "Holder",
+        (),
+        {
+            "config": parser,
+            "projectFilePath": str(tmp_path / "basin.json"),
+        },
+    )()
+    shown = _series_field_text(holder, "data/prec", "prec_prefix")
+    assert shown == os.path.join("data/prec", "rain00000.001")
+    assert not os.path.isabs(shown)
 
 
 @pytest.mark.unit

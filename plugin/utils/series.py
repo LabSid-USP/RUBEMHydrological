@@ -17,7 +17,9 @@ def splitDirFilePrefix(filePath):
     """
     # Split directory path from file name with extension
     directoryPath, fileName = os.path.split(filePath)
-    if not directoryPath:
+    if not directoryPath or directoryPath in ("/", "\\"):
+        # Bare names and filesystem-root files both become ``./``, never
+        # ``/`` or ``//``, so Save cannot rewrite DIRECTORIES to the root.
         directoryPath = "."
     # Split extension from file name
     filePrefix, _ = os.path.splitext(fileName)

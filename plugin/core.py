@@ -65,14 +65,16 @@ class RUBEMHydrological:
             language = locale_full.split("_", 1)[0]
             if language and language != locale_full:
                 locale_candidates.append(language)
+        self.translator = None
         for locale in locale_candidates:
             locale_path = os.path.join(i18n_dir, f"RUBEMHydrological_{locale}.qm")
             if not os.path.exists(locale_path):
                 continue
-            self.translator = QTranslator()
-            if self.translator.load(locale_path):
+            translator = QTranslator()
+            if translator.load(locale_path):
+                self.translator = translator
                 QCoreApplication.installTranslator(self.translator)
-            break
+                break
 
         # Declare instance attributes
         self.actions = []

@@ -26,7 +26,7 @@ defaultConfigSchema = {
         "etp": "",
         "prec": "",
         "ndvi": "",
-        "Kp": "",
+        "kp": "",
         "landuse": "",
     },
     "FILENAME_PREFIXES": {

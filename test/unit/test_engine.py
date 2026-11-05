@@ -78,6 +78,11 @@ def test_archive_uses_one_root_and_keeps_runtime_files() -> None:
     assert f"{ARCHIVE_ROOT}/LICENSE.md" not in names
     assert f"{ARCHIVE_ROOT}/doc/about.html" in names
     assert all(name.startswith(f"{ARCHIVE_ROOT}/") for name in names)
+    from scripts.build_plugin import language_catalog_aliases
+
+    aliases = {alias for _src, alias in language_catalog_aliases(root, names)}
+    assert f"{ARCHIVE_ROOT}/i18n/RUBEMHydrological_pt.qm" in aliases
+    assert f"{ARCHIVE_ROOT}/i18n/RUBEMHydrological_en.qm" in aliases
 
 
 @pytest.mark.unit

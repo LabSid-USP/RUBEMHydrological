@@ -96,6 +96,25 @@ def iter_plugin_files(root: Path):
                     yield path
 
 
+def language_catalog_aliases(root: Path, written: set[str]) -> list[tuple[Path, str]]:
+    """Map ``xx_YY.qm`` catalogs to a ``xx.qm`` zip member when missing on disk.
+
+    ``plugin/core.py`` tries the two-letter language after the full locale.
+    """
+    aliases: list[tuple[Path, str]] = []
+    i18n = root / "i18n"
+    if not i18n.is_dir():
+        return aliases
+    for full in sorted(i18n.glob("RUBEMHydrological_*_*.qm")):
+        rest = full.stem[len("RUBEMHydrological_") :]
+        language = rest.split("_", 1)[0]
+        alias = f"{ARCHIVE_ROOT}/i18n/RUBEMHydrological_{language}.qm"
+        if alias in written or (i18n / f"RUBEMHydrological_{language}.qm").is_file():
+            continue
+        aliases.append((full, alias))
+    return aliases
+
+
 def build_plugin() -> None:
     """Write ``dist/rubem_hydrological.zip``."""
     root = Path(__file__).resolve().parent.parent
@@ -127,8 +146,14 @@ def build_plugin() -> None:
     if zip_path.exists():
         zip_path.unlink()
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as archive:
+        written: set[str] = set()
         for path in members:
-            archive.write(path, archive_member(root, path))
+            name = archive_member(root, path)
+            archive.write(path, name)
+            written.add(name)
+        for source, alias in language_catalog_aliases(root, written):
+            archive.write(source, alias)
+            written.add(alias)
     print(f"Package created: {zip_path}")
 
 

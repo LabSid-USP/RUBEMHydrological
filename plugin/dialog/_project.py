@@ -1,5 +1,6 @@
 import configparser
 import os
+import re
 
 from qgis.core import QgsProject
 from qgis.PyQt.QtCore import QDate, QThread, pyqtSignal
@@ -66,7 +67,14 @@ def _series_field_text(self, directory_value: str, prefix_key: str = "") -> str:
         if prefix_key:
             prefix = self.config.get("FILENAME_PREFIXES", prefix_key, fallback="")
         first = getFirstFileNameMapSeries(resolved, prefix=prefix)
-        return first if first else directory_value
+        if not first:
+            return directory_value
+        # Keep a relative stored dir portable: show
+        # ``data/prec/rain00000.001`` rather than an absolute map path that
+        # ``_apply_series`` would then persist as an absolute DIRECTORIES.
+        if not os.path.isabs(directory_value):
+            return os.path.join(directory_value, os.path.basename(first))
+        return first
     return directory_value
 
 
@@ -102,8 +110,18 @@ def _apply_series(self, text, directory_key, prefix_key):
     resolved = resolve_project_path(self, text)
     basename = os.path.basename(text.rstrip("/\\"))
     _, extension = os.path.splitext(basename)
+    # Map-series picks look like ``rain00000.001``. A non-existent path with
+    # a dotted final segment (``data/prec.v2``) is still a directory value.
+    looks_like_map = bool(re.fullmatch(r"[A-Za-z]+\d{5}\.\d+", basename))
     directory_only = (
-        text.endswith(("/", "\\")) or os.path.isdir(resolved) or extension == ""
+        text.endswith(("/", "\\"))
+        or os.path.isdir(resolved)
+        or extension == ""
+        or (
+            not looks_like_map
+            and not os.path.isfile(resolved)
+            and not os.path.isfile(text)
+        )
     )
     if directory_only:
         self.config.set("DIRECTORIES", directory_key, text)
