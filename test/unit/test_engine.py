@@ -8,6 +8,7 @@ import pytest
 
 from plugin.engine import (
     PCRASTER_TOOLS_ID,
+    PCRASTER_TOOLS_URL,
     assert_pcraster_tools,
     assert_ready,
     configure_spawn_executable,
@@ -132,7 +133,8 @@ def test_inactive_pcraster_tools_names_the_plugin_and_refuses_pip() -> None:
     with pytest.raises(RuntimeError, match="PCRaster Tools") as exc:
         assert_pcraster_tools([])
     text = str(exc.value)
-    assert PCRASTER_TOOLS_ID in pcraster_tools_message() or "plugins.qgis.org" in text
+    assert PCRASTER_TOOLS_ID in pcraster_tools_message()
+    assert PCRASTER_TOOLS_URL in text
     assert "pip" in text
     assert "3.99" in text
 

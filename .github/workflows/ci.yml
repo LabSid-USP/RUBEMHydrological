@@ -82,7 +82,7 @@ jobs:
         run: |
           # Image Python is PEP 668 managed; keep qgis via --system-site-packages.
           python3 -m venv --system-site-packages .venv-ci
-          .venv-ci/bin/pip install pytest 'pydantic>=2.11,<3' matplotlib pandas
+          .venv-ci/bin/pip install pytest 'pydantic>=2.11,<3' 'humanize>=4' 'python-dateutil>=2' matplotlib pandas
 
       - name: Run unit tests inside QGIS
         run: |
