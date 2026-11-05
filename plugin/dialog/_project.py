@@ -34,19 +34,19 @@ def _snapshot_config(config):
 def resolve_project_path(self, path: str) -> str:
     """Resolve a project-relative path against the open project file directory.
 
-    Absolute paths and paths that already exist relative to the process CWD
-    are returned unchanged. Otherwise, when a project file is open, a
-    sibling path under that directory is returned if it exists.
+    Absolute paths are returned unchanged. Relative paths follow the same
+    rule as RUBEM ``resolve_paths``: when a project file is open they are
+    anchored on that file's directory, not on the process working directory.
+    Without an open project file the path is left unchanged (CWD-relative).
     """
     if not path:
         return path
-    if os.path.isabs(path) or os.path.exists(path):
+    if os.path.isabs(path):
         return path
     project = getattr(self, "projectFilePath", None) or ""
     if not project:
         return path
-    candidate = os.path.normpath(os.path.join(os.path.dirname(project), path))
-    return candidate if os.path.exists(candidate) else path
+    return os.path.normpath(os.path.join(os.path.dirname(project), path))
 
 
 def _spin_text(self, spin, section, option):

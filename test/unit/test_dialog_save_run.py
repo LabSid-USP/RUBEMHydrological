@@ -551,6 +551,38 @@ def test_set_run_state_resolves_relative_output_against_project() -> None:
         dialog.runLongTask.assert_not_called()
 
 
+@pytest.mark.unit
+def test_resolve_project_path_anchors_on_project_not_cwd(tmp_path, monkeypatch) -> None:
+    """Relative paths match RUBEM: project directory wins over a CWD hit."""
+    project_dir = tmp_path / "project"
+    cwd_dir = tmp_path / "cwd"
+    project_dir.mkdir()
+    cwd_dir.mkdir()
+    (project_dir / "dem.map").write_text("project", encoding="utf-8")
+    (cwd_dir / "dem.map").write_text("cwd", encoding="utf-8")
+    monkeypatch.chdir(cwd_dir)
+    holder = SimpleNamespace(projectFilePath=str(project_dir / "basin.json"))
+    resolved = project.resolve_project_path(holder, "dem.map")
+    assert Path(resolved).resolve() == (project_dir / "dem.map").resolve()
+    assert Path(resolved).read_text(encoding="utf-8") == "project"
+
+
+@pytest.mark.unit
+def test_form_exists_rejects_cwd_only_relative_path(tmp_path, monkeypatch) -> None:
+    """Validation must not accept a relative path that exists only under CWD."""
+    from plugin.dialog import _form_validation as form
+
+    project_dir = tmp_path / "project"
+    cwd_dir = tmp_path / "cwd"
+    project_dir.mkdir()
+    cwd_dir.mkdir()
+    (cwd_dir / "soil.map").write_text("cwd", encoding="utf-8")
+    monkeypatch.chdir(cwd_dir)
+    dialog = _dialog()
+    dialog.projectFilePath = str(project_dir / "basin.json")
+    assert form._path_exists_for_project(dialog, "soil.map") is False
+
+
 def _assert_kept_output_does_not_run(dialog) -> None:
     dialog.runLongTask = MagicMock()
     dialog.getUserRetDirNotEmpty = lambda: worker.QMessageBox.StandardButton.Cancel
