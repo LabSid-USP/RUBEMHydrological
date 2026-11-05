@@ -71,6 +71,8 @@ def test_archive_uses_one_root_and_keeps_runtime_files() -> None:
     assert f"{ARCHIVE_ROOT}/plugin/gui/generated/resources.rcc" in names
     assert f"{ARCHIVE_ROOT}/external/rubem-model/rubem/api.py" in names
     assert f"{ARCHIVE_ROOT}/external/rubem-model/rubem/appsettings.json" in names
+    assert f"{ARCHIVE_ROOT}/i18n/RUBEMHydrological_en_US.qm" in names
+    assert f"{ARCHIVE_ROOT}/i18n/RUBEMHydrological_pt_BR.qm" in names
     assert all(name.startswith(f"{ARCHIVE_ROOT}/") for name in names)
 
 
@@ -80,6 +82,32 @@ def test_installed_pydantic_satisfies_the_submodule_pin() -> None:
     from plugin.dependencies import ensure_pydantic
 
     ensure_pydantic()
+
+
+@pytest.mark.unit
+def test_missing_runtime_extras_prompt_install_when_pydantic_ok(monkeypatch) -> None:
+    """Save/open can reach the install path when only humanize/dateutil are missing."""
+    from plugin.dependencies import PydanticUnavailable, ensure_pydantic
+
+    monkeypatch.setattr("plugin.dependencies._cached_pydantic_status", lambda: "ok")
+    monkeypatch.setattr(
+        "plugin.dependencies._activate_existing_environment", lambda: None
+    )
+    monkeypatch.setattr(
+        "plugin.dependencies._pure_python_modules_missing",
+        lambda: ["humanize", "dateutil"],
+    )
+    with pytest.raises(PydanticUnavailable, match="humanize"):
+        ensure_pydantic()
+
+    installs: list[bool] = []
+
+    def fake_ensure() -> None:
+        installs.append(True)
+
+    monkeypatch.setattr("plugin.dependencies._ensure_isolated_extras", fake_ensure)
+    ensure_pydantic(install=True)
+    assert installs == [True]
 
 
 @pytest.mark.unit

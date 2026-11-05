@@ -64,9 +64,32 @@ def _spin_text(self, spin, section, option):
 
 
 def _apply_series(self, text, directory_key, prefix_key):
-    """Update a series directory without erasing a prefix the widget does not show."""
-    tmp_path, tmp_prefix = splitDirFilePrefix(text)
+    """Update a series directory without erasing a prefix the widget does not show.
+
+    The climate/land-use line edits show either a selected series file
+    (``rain00000.001``) or only the directory when no map is found yet.
+    ``splitDirFilePrefix`` must not treat a bare directory such as
+    ``data/prec`` as parent ``data/`` plus prefix ``prec``.
+    """
+    text = (text or "").strip()
     stored = self.config.get("FILENAME_PREFIXES", prefix_key, fallback="")
+    if not text:
+        self.config.set("DIRECTORIES", directory_key, "")
+        self.config.set("FILENAME_PREFIXES", prefix_key, stored)
+        return
+
+    resolved = resolve_project_path(self, text)
+    basename = os.path.basename(text.rstrip("/\\"))
+    _, extension = os.path.splitext(basename)
+    directory_only = (
+        text.endswith(("/", "\\")) or os.path.isdir(resolved) or extension == ""
+    )
+    if directory_only:
+        self.config.set("DIRECTORIES", directory_key, text)
+        self.config.set("FILENAME_PREFIXES", prefix_key, stored)
+        return
+
+    tmp_path, tmp_prefix = splitDirFilePrefix(text)
     if tmp_prefix == "" and stored:
         tmp_prefix = stored
     self.config.set("DIRECTORIES", directory_key, tmp_path)

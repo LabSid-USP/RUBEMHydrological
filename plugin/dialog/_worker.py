@@ -7,7 +7,9 @@ from qgis.PyQt.QtWidgets import QMessageBox
 try:
     from ..engine import assert_ready
     from ..utils.workers import RUBEMModelWorker
+    from ._project import resolve_project_path
 except ImportError:
+    from _project import resolve_project_path
     from engine import assert_ready
     from utils.workers import RUBEMModelWorker
 
@@ -26,10 +28,15 @@ def setRunState(self):
 
         def continue_run():
             """Start the model after the JSON project is on disk."""
-            # Output directory contains files, ask user before proceeding
-            output = self.config.get("DIRECTORIES", "output")
+            # Output directory contains files, ask user before proceeding.
+            # Resolve against the project file so a relative DIRECTORIES.output
+            # is not read from the process working directory.
+            output = resolve_project_path(
+                self, self.config.get("DIRECTORIES", "output")
+            )
             if (
-                os.listdir(output)
+                os.path.isdir(output)
+                and os.listdir(output)
                 and self.getUserRetDirNotEmpty() != QMessageBox.StandardButton.Ok
             ):
                 return

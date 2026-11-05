@@ -184,6 +184,34 @@ def test_directory_widget_does_not_erase_a_stored_prefix() -> None:
 
 
 @pytest.mark.unit
+def test_relative_directory_without_slash_keeps_series_prefix() -> None:
+    """A bare relative directory must not become parent-dir + last-segment prefix."""
+    from plugin.dialog._project import _apply_series
+
+    parser = _project()
+    parser.set("DIRECTORIES", "prec", "data/prec")
+    parser.set("FILENAME_PREFIXES", "prec_prefix", "rain")
+    holder = type("Holder", (), {"config": parser, "projectFilePath": ""})()
+    _apply_series(holder, "data/prec", "prec", "prec_prefix")
+    assert holder.config.get("DIRECTORIES", "prec") == "data/prec"
+    assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "rain"
+
+
+@pytest.mark.unit
+def test_series_file_path_still_updates_directory_and_prefix() -> None:
+    """Selecting a map series file still stores its directory and alphabetic prefix."""
+    from plugin.dialog._project import _apply_series
+
+    parser = _project()
+    parser.set("DIRECTORIES", "prec", "")
+    parser.set("FILENAME_PREFIXES", "prec_prefix", "")
+    holder = type("Holder", (), {"config": parser, "projectFilePath": ""})()
+    _apply_series(holder, "data/prec/rain00000.001", "prec", "prec_prefix")
+    assert holder.config.get("DIRECTORIES", "prec") == "data/prec/"
+    assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "rain"
+
+
+@pytest.mark.unit
 def test_conflicting_aliases_are_rejected() -> None:
     """The plugin must not pick one of two values the model itself rejects."""
     from plugin.validation.legacy_json import config_from_legacy_document

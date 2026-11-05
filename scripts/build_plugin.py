@@ -55,6 +55,11 @@ def iter_plugin_files(root: Path):
         path = root / name
         if path.is_file():
             yield path
+    i18n = root / "i18n"
+    if i18n.is_dir():
+        for path in i18n.rglob("*"):
+            if path.is_file() and path.suffix.lower() in INCLUDE_SUFFIXES:
+                yield path
     images = root / "images"
     if images.is_dir():
         for path in images.rglob("*"):

@@ -56,8 +56,7 @@ def ensure_pydantic(*, install: bool = False) -> None:
     :raises RuntimeError: The install was requested and pip failed.
     """
     if _cached_pydantic_status() == "ok":
-        if install:
-            _ensure_isolated_extras()
+        _require_or_install_extras(install=install)
         return
     if _cached_pydantic_status() == "incompatible":
         raise PydanticUnavailable(
@@ -71,8 +70,7 @@ def ensure_pydantic(*, install: bool = False) -> None:
     if found and pydantic_version_is_supported(found):
         import pydantic  # noqa: F401
 
-        if install:
-            _ensure_isolated_extras()
+        _require_or_install_extras(install=install)
         return
     if not install:
         raise PydanticUnavailable(
@@ -110,6 +108,31 @@ def _pure_python_modules_missing() -> list[str]:
         if not found:
             missing.append(module_name)
     return missing
+
+
+def _require_or_install_extras(*, install: bool) -> None:
+    """Ensure humanize/dateutil are importable once Pydantic itself is usable.
+
+    Save and open call ``ensure_pydantic()`` without ``install=True``. When
+    Pydantic is already present but the extras are not, raise
+    :class:`PydanticUnavailable` so the dialog can offer the same isolated
+    install path that Run otherwise never reaches.
+    """
+    _activate_existing_environment()
+    missing = _pure_python_modules_missing()
+    if not missing:
+        return
+    if install:
+        _ensure_isolated_extras()
+        return
+    labels = ", ".join(
+        "python-dateutil" if name == "dateutil" else name for name in missing
+    )
+    raise PydanticUnavailable(
+        "RUBEM also needs "
+        f"{labels}. The plugin can install {', '.join(ISOLATED_REQUIREMENTS)} "
+        "into an isolated environment."
+    )
 
 
 def _ensure_isolated_extras() -> None:

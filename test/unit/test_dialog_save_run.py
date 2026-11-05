@@ -523,6 +523,34 @@ def test_set_run_state_stops_when_output_directory_is_kept() -> None:
         _assert_kept_output_does_not_run(dialog)
 
 
+@pytest.mark.unit
+def test_set_run_state_resolves_relative_output_against_project() -> None:
+    """A project-relative output directory is not read from the process CWD."""
+    dialog = _dialog()
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        output = root / "results"
+        output.mkdir()
+        (output / "old.map").write_text("x", encoding="utf-8")
+        dialog.config["DIRECTORIES"] = {"output": "results"}
+        dialog.projectFilePath = str(root / "basin.json")
+        dialog.runLongTask = MagicMock()
+        dialog.getUserRetDirNotEmpty = lambda: worker.QMessageBox.StandardButton.Cancel
+        with (
+            patch.object(worker, "assert_ready", return_value=None),
+            patch.object(
+                project, "write_legacy_json", lambda *_args, **_kwargs: ["ok"]
+            ),
+            patch.object(
+                project.QgsProject,
+                "instance",
+                return_value=_qgis_project(dirty=False),
+            ),
+        ):
+            worker.setRunState(dialog)
+        dialog.runLongTask.assert_not_called()
+
+
 def _assert_kept_output_does_not_run(dialog) -> None:
     dialog.runLongTask = MagicMock()
     dialog.getUserRetDirNotEmpty = lambda: worker.QMessageBox.StandardButton.Cancel

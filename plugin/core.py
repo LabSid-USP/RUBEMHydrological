@@ -55,17 +55,24 @@ class RUBEMHydrological:
         self.iface = iface
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
-        # initialize locale
+        # Root-level catalogs: full QGIS locale, then the two-letter fallback.
         locale_value = QSettings().value("locale/userLocale") or ""
-        locale = str(locale_value).replace("-", "_")[:2]
-        locale_path = os.path.join(
-            self.plugin_dir, "i18n", f"RUBEMHydrological_{locale}.qm"
-        )
-
-        if os.path.exists(locale_path):
+        locale_full = str(locale_value).replace("-", "_").split(".")[0]
+        i18n_dir = os.path.join(os.path.dirname(self.plugin_dir), "i18n")
+        locale_candidates = []
+        if locale_full:
+            locale_candidates.append(locale_full)
+            language = locale_full.split("_", 1)[0]
+            if language and language != locale_full:
+                locale_candidates.append(language)
+        for locale in locale_candidates:
+            locale_path = os.path.join(i18n_dir, f"RUBEMHydrological_{locale}.qm")
+            if not os.path.exists(locale_path):
+                continue
             self.translator = QTranslator()
-            self.translator.load(locale_path)
-            QCoreApplication.installTranslator(self.translator)
+            if self.translator.load(locale_path):
+                QCoreApplication.installTranslator(self.translator)
+            break
 
         # Declare instance attributes
         self.actions = []
