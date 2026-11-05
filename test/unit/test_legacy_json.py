@@ -212,6 +212,36 @@ def test_series_file_path_still_updates_directory_and_prefix() -> None:
 
 
 @pytest.mark.unit
+def test_get_first_map_series_accepts_directory_without_trailing_slash(
+    tmp_path,
+) -> None:
+    """``data/landuse`` must search inside the directory, not ``data/landuse*.0*``."""
+    from plugin.utils.series import getFirstFileNameMapSeries
+
+    series_dir = tmp_path / "landuse"
+    series_dir.mkdir()
+    sample = series_dir / "use00000.001"
+    sample.write_text("x", encoding="utf-8")
+    found = getFirstFileNameMapSeries(str(series_dir))
+    assert found == str(sample)
+
+
+@pytest.mark.unit
+def test_series_field_text_keeps_directory_when_no_maps(tmp_path) -> None:
+    """An empty series directory must not become ``.`` in the line edit."""
+    from plugin.dialog._project import _series_field_text
+
+    series_dir = tmp_path / "prec"
+    series_dir.mkdir()
+    holder = type(
+        "Holder",
+        (),
+        {"projectFilePath": str(tmp_path / "basin.json")},
+    )()
+    assert _series_field_text(holder, "prec") == "prec"
+
+
+@pytest.mark.unit
 def test_conflicting_aliases_are_rejected() -> None:
     """The plugin must not pick one of two values the model itself rejects."""
     from plugin.validation.legacy_json import config_from_legacy_document

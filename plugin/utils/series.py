@@ -21,17 +21,15 @@ def splitDirFilePrefix(filePath):
 
 
 def getFirstFileNameMapSeries(path):
-    """[summary].
+    """Return the first PCRaster map-series file under ``path``.
 
-    :param path: [description]
-    :type path: [type]
-
-    :return: [description]
-    :rtype: [type]
+    ``path`` may omit a trailing separator. Joining with the ``*.0*``
+    pattern avoids treating ``data/landuse`` as the file prefix
+    ``data/landuse*.0*``.
     """
-    pattern = "*.0*"
-    fileList = glob(f"{path}{pattern}")
-    if fileList:
-        return os.path.normpath(fileList[0])
-    else:
+    if not path:
         return ""
+    file_list = sorted(glob(os.path.join(path, "*.0*")))
+    if file_list:
+        return os.path.normpath(file_list[0])
+    return ""

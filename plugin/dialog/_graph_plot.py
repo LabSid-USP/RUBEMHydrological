@@ -17,19 +17,23 @@ except ImportError as _exc:
 
 try:
     from ._mappings import timeSeriesDict
-except ImportError as _exc:
-    if _exc.name is None or not _exc.name.endswith("_mappings"):
-        raise
+    from ._project import resolve_project_path
+except ImportError:
     from _mappings import timeSeriesDict
+    from _project import resolve_project_path
 
 
 # TODO: Add docstring information and comments
 def plotWrapper(self, index: QModelIndex):
     if index.flags() & Qt.ItemFlag.ItemIsSelectable:
         key = os.path.splitext(index.data())[0]
+        plot_meta = timeSeriesDict.get(key)
+        if plot_meta is None:
+            return
+        output = resolve_project_path(self, self.config.get("DIRECTORIES", "output"))
         plotTimeSeriesData(
-            os.path.join(self.config.get("DIRECTORIES", "output"), index.data()),
-            timeSeriesDict.get(key).get("plot"),
+            os.path.join(output, index.data()),
+            plot_meta.get("plot"),
             self.config.get("SIM_TIME", "start"),
             self.config.get("SIM_TIME", "end"),
         )

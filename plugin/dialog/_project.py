@@ -49,6 +49,22 @@ def resolve_project_path(self, path: str) -> str:
     return os.path.normpath(os.path.join(os.path.dirname(project), path))
 
 
+def _series_field_text(self, directory_value: str) -> str:
+    """Text for a map-series line edit from a stored directory value.
+
+    Resolves relative directories against the project file. When the directory
+    exists, show the first series map if one is present; otherwise keep the
+    stored directory string (never ``os.path.normpath("")`` → ``.``).
+    """
+    if not directory_value:
+        return ""
+    resolved = resolve_project_path(self, directory_value)
+    if os.path.isdir(resolved):
+        first = getFirstFileNameMapSeries(resolved)
+        return first if first else directory_value
+    return directory_value
+
+
 def _spin_text(self, spin, section, option):
     """Keep a stored decimal when the widget only repeats its own rounding."""
     shown = spin.value()
@@ -801,18 +817,14 @@ def updateGUIFromConfig(self):
 
     # Land Use tab
     # Land Use Series
-    if os.path.isdir(self.config.get("DIRECTORIES", "landuse")):
-        tmpPath = getFirstFileNameMapSeries(self.config.get("DIRECTORIES", "landuse"))
-        self.lineEdt_LandUseSeries.setText(os.path.normpath(tmpPath))
-    else:
-        self.lineEdt_LandUseSeries.setText(self.config.get("DIRECTORIES", "landuse"))
+    self.lineEdt_LandUseSeries.setText(
+        _series_field_text(self, self.config.get("DIRECTORIES", "landuse"))
+    )
 
     # NDVI
-    if os.path.isdir(self.config.get("DIRECTORIES", "ndvi")):
-        tmpPath = getFirstFileNameMapSeries(self.config.get("DIRECTORIES", "ndvi"))
-        self.lineEdt_NDVISeries.setText(tmpPath)
-    else:
-        self.lineEdt_NDVISeries.setText(self.config.get("DIRECTORIES", "ndvi"))
+    self.lineEdt_NDVISeries.setText(
+        _series_field_text(self, self.config.get("DIRECTORIES", "ndvi"))
+    )
 
     self.lineEdt_NDVIMax.setText(self.config.get("RASTERS", "ndvi_max"))
     self.lineEdt_NDVIMin.setText(self.config.get("RASTERS", "ndvi_min"))
@@ -843,23 +855,15 @@ def updateGUIFromConfig(self):
     )
 
     # Climate tab
-    if os.path.isdir(self.config.get("DIRECTORIES", "prec")):
-        tmpPath = getFirstFileNameMapSeries(self.config.get("DIRECTORIES", "prec"))
-        self.lineEdt_Precipitation.setText(tmpPath)
-    else:
-        self.lineEdt_Precipitation.setText(self.config.get("DIRECTORIES", "prec"))
-
-    if os.path.isdir(self.config.get("DIRECTORIES", "etp")):
-        tmpPath = getFirstFileNameMapSeries(self.config.get("DIRECTORIES", "etp"))
-        self.lineEdt_EvapoTranspiration.setText(tmpPath)
-    else:
-        self.lineEdt_EvapoTranspiration.setText(self.config.get("DIRECTORIES", "etp"))
-
-    if os.path.isdir(self.config.get("DIRECTORIES", "kp")):
-        tmpPath = getFirstFileNameMapSeries(self.config.get("DIRECTORIES", "kp"))
-        self.lineEdt_PanCoefficientKp.setText(tmpPath)
-    else:
-        self.lineEdt_PanCoefficientKp.setText(self.config.get("DIRECTORIES", "kp"))
+    self.lineEdt_Precipitation.setText(
+        _series_field_text(self, self.config.get("DIRECTORIES", "prec"))
+    )
+    self.lineEdt_EvapoTranspiration.setText(
+        _series_field_text(self, self.config.get("DIRECTORIES", "etp"))
+    )
+    self.lineEdt_PanCoefficientKp.setText(
+        _series_field_text(self, self.config.get("DIRECTORIES", "kp"))
+    )
 
     self.lineEdt_RainyDays.setText(self.config.get("TABLES", "rainydays"))
 
