@@ -363,6 +363,10 @@ def saveProject(self, filePath=None, caption=None, after=None):
         write is deferred, or the write fails.
     :rtype: bool
     """
+    # Line edits only mark the project dirty via textChanged. Pull widget
+    # values into ``self.config`` before any write so Save cannot discard
+    # typed paths while clearing the modified flag.
+    self.updateConfigFromGUI()
 
     # TODO: docstring
     def setupFileDialog():

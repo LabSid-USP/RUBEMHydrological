@@ -318,6 +318,29 @@ def test_save_project_returns_true_only_after_json_and_finish() -> None:
 
 
 @pytest.mark.unit
+def test_save_project_collects_gui_before_writing_json() -> None:
+    """Save must pull widget values into config before any disk write."""
+    dialog = _dialog()
+    order: list[str] = []
+    dialog.updateConfigFromGUI = lambda: order.append("gui")
+
+    def write_json(_config, path):
+        order.append("write")
+
+    with tempfile.TemporaryDirectory() as directory:
+        destination = Path(directory) / "basin.json"
+        with (
+            patch.object(project, "write_legacy_json", write_json),
+            patch.object(
+                project.QgsProject, "instance", return_value=_qgis_project(dirty=False)
+            ),
+        ):
+            assert project.saveProject(dialog, filePath=str(destination)) is True
+
+    assert order == ["gui", "write"]
+
+
+@pytest.mark.unit
 def test_save_dialog_path_is_not_replaced_by_unsuffixed_name() -> None:
     """The file dialog's path does not overwrite the suffixed project path."""
     dialog = _dialog()
