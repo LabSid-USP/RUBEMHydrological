@@ -1020,4 +1020,44 @@ Resulting maps of Total Runoff [mm] in table format for all simulation period fo
      - Float <\*>
      - Float <\*>
      - `...`
-     - Float <\*>    
+     - Float <\*>
+
+
+Accumulated Total Runoff table
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Resulting values of Accumulated Total Runoff (ARN) [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in table format for all simulation period for each sampling station present in :ref:`stations map <Stations (samples) raster>`. When station time series generation is enabled together with ARN, the series file is ``tss_arn.csv``.
+
+- Filetype: Comma-Separated Values (CSV) :file:`*.csv`
+- Unit: :raw-html:`m<sup>3</sup>s<sup>-1</sup>`
+- Dimensions:
+
+  - Rows = number of time steps;
+  - Columns = number of sampling stations from the station map.
+
+.. list-table:: Basic file structure:
+   :header-rows: 1
+
+   * - Time Step
+     - Station #1
+     - Station #2
+     - `...`
+     - Station #N
+
+   * - 1
+     - Float <\*>
+     - Float <\*>
+     - `...`
+     - Float <\*>
+
+   * - `...`
+     - `...`
+     - `...`
+     - `...`
+     - `...`
+
+   * - N
+     - Float <\*>
+     - Float <\*>
+     - `...`
+     - Float <\*>
