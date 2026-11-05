@@ -110,7 +110,20 @@ def _apply_series(self, text, directory_key, prefix_key):
         self.config.set("FILENAME_PREFIXES", prefix_key, stored)
         return
 
-    tmp_path, tmp_prefix = splitDirFilePrefix(text)
+    # Prefer the project-resolved file so a bare ``rain00000.001`` that
+    # validation found under the project stores that directory, not ``/``.
+    split_source = resolved if os.path.isfile(resolved) else text
+    tmp_path, tmp_prefix = splitDirFilePrefix(split_source)
+    if tmp_path in ("/", "./"):
+        stored_dir = self.config.get("DIRECTORIES", directory_key, fallback="")
+        if stored_dir:
+            tmp_path = (
+                stored_dir
+                if stored_dir.endswith(("/", "\\"))
+                else f"{stored_dir.rstrip('/\\')}/"
+            )
+        elif tmp_path == "/":
+            tmp_path = "./"
     if tmp_prefix == "" and stored:
         tmp_prefix = stored
     self.config.set("DIRECTORIES", directory_key, tmp_path)

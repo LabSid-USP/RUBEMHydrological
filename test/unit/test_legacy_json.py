@@ -5,6 +5,7 @@ from __future__ import annotations
 import configparser
 import json
 import logging
+import os
 from pathlib import Path
 
 import pytest
@@ -208,6 +209,31 @@ def test_series_file_path_still_updates_directory_and_prefix() -> None:
     holder = type("Holder", (), {"config": parser, "projectFilePath": ""})()
     _apply_series(holder, "data/prec/rain00000.001", "prec", "prec_prefix")
     assert holder.config.get("DIRECTORIES", "prec") == "data/prec/"
+    assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "rain"
+
+
+@pytest.mark.unit
+def test_bare_series_filename_does_not_become_filesystem_root(tmp_path) -> None:
+    """A project-relative ``rain00000.001`` must not store DIRECTORIES as ``/``."""
+    from plugin.dialog._project import _apply_series
+    from plugin.utils.series import splitDirFilePrefix
+
+    assert splitDirFilePrefix("rain00000.001") == ("./", "rain")
+
+    series = tmp_path / "rain00000.001"
+    series.write_text("x", encoding="utf-8")
+    parser = _project()
+    parser.set("DIRECTORIES", "prec", "data/prec/")
+    parser.set("FILENAME_PREFIXES", "prec_prefix", "rain")
+    holder = type(
+        "Holder",
+        (),
+        {"config": parser, "projectFilePath": str(tmp_path / "basin.json")},
+    )()
+    _apply_series(holder, "rain00000.001", "prec", "prec_prefix")
+    stored_dir = holder.config.get("DIRECTORIES", "prec")
+    assert stored_dir != "/"
+    assert not os.path.isabs(stored_dir) or stored_dir.startswith(str(tmp_path))
     assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "rain"
 
 

@@ -5,7 +5,9 @@ from glob import glob
 def splitDirFilePrefix(filePath):
     """Split directory path and file prefix from file path.
 
-    Adds trailing separator to directory path (OS-agnostic).
+    Adds trailing separator to directory path (OS-agnostic). A bare
+    filename such as ``rain00000.001`` yields ``./``, never ``/``, so
+    Save cannot rewrite the series directory to the filesystem root.
 
     :param filePath: File path.
     :filePath type: String
@@ -15,6 +17,8 @@ def splitDirFilePrefix(filePath):
     """
     # Split directory path from file name with extension
     directoryPath, fileName = os.path.split(filePath)
+    if not directoryPath:
+        directoryPath = "."
     # Split extension from file name
     filePrefix, _ = os.path.splitext(fileName)
     return f"{directoryPath}/", "".join(filter(str.isalpha, filePrefix))
