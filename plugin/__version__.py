@@ -9,4 +9,3 @@ __version__ = "2.0.0"
 __release__ = __version__
 __qgis_minimum_version__ = "4.0"
 __python_minimum_version__ = "3.13.16"
-

@@ -8,6 +8,7 @@ try:
 except ImportError:
     from _project import _spin_text
 
+
 # Land Use tab
 # Land Use Series
 def setLandUseSeriesFilePath(self):

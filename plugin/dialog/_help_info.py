@@ -14,5 +14,5 @@ def helpHandler(self):
 # TODO: Add docstring information and comments
 def aboutHandler(self):
     helpAboutPath = os.path.join(Path(__file__).resolve().parents[2], "doc/about.html")
-    with open(helpAboutPath, "r") as aboutContent:
+    with open(helpAboutPath) as aboutContent:
         QMessageBox.about(self, "About RUBEM Hydrological", aboutContent.read())

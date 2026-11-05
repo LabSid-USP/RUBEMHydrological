@@ -1,4 +1,3 @@
-# coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
 # Copyright (C) 2021-2024 LabSid PHA EPUSP
 

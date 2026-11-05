@@ -275,7 +275,18 @@ def _draft_from_normalized(
 # so the plugin rejects them here instead.
 _BOOL_KEYS: dict[str, tuple[str, ...]] = {
     "CONSTANTS": ("lai_max_from_table",),
-    "GENERATE_FILE": ("itp", "bfw", "srn", "eta", "lfw", "rec", "smc", "rnf", "arn", "tss"),
+    "GENERATE_FILE": (
+        "itp",
+        "bfw",
+        "srn",
+        "eta",
+        "lfw",
+        "rec",
+        "smc",
+        "rnf",
+        "arn",
+        "tss",
+    ),
     "RASTER_FILE_FORMAT": ("map_raster_series", "tiff_raster_series"),
 }
 _TRUE_TOKENS = {"yes", "true", "t", "1"}
@@ -312,6 +323,8 @@ def _reject_unknown_bool_tokens(draft: dict[str, object]) -> None:
             if isinstance(value, str):
                 token = value.strip().lower()
                 if token in _TRUE_TOKENS or token in _FALSE_TOKENS:
+                    # Submodule converters do not strip; normalize before validate.
+                    body[key] = token
                     continue
             raise ValueError(
                 f"{section}.{key} must be a boolean "

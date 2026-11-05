@@ -1,5 +1,6 @@
 import os
 
+
 # TODO: docstring
 def updateWindowTitle(self, projectTitle=None):
     if not projectTitle:
@@ -22,13 +23,19 @@ def initialGuiState(self):
 def closeEvent(self, event):
     """Ignore close while a model worker thread is running.
 
-    The worker is not killed. Otherwise this still calls
+    The worker is not killed. Also ignore while a deferred Pydantic install
+    is in progress, so New/Close cannot replace ``self.config`` before the
+    retry writes the snapshot. Otherwise this still calls
     ``newProject(supressed=True)`` and accepts the close only when that
     leaves no project file.
 
     :param event: Dialog close event.
     :type event: QCloseEvent
     """
+    if getattr(self, "_pydantic_installing", False):
+        event.ignore()
+        return
+
     worker = getattr(self, "worker", None)
     thread = getattr(worker, "thread", None) if worker is not None else None
     is_running = getattr(thread, "isRunning", None)

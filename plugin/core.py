@@ -1,4 +1,3 @@
-# coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
 # Copyright (C) 2021-2024 LabSid PHA EPUSP
 
@@ -32,9 +31,9 @@ try:
 except ImportError as _exc:
     # Only fall back to the bare name when the relative import itself is
     # unavailable. A failure inside the dialog (e.g. a missing third-party
-    # module) must keep its own message instead of surfacing as a missing
-    # dialog module.
-    if _exc.name is not None and not (
+    # module), including ImportError with name is None, must keep its own
+    # message instead of surfacing as a missing dialog module.
+    if _exc.name is None or not (
         _exc.name == "dialog" or _exc.name.endswith(".dialog")
     ):
         raise
@@ -60,7 +59,7 @@ class RUBEMHydrological:
         locale_value = QSettings().value("locale/userLocale") or ""
         locale = str(locale_value).replace("-", "_")[:2]
         locale_path = os.path.join(
-            self.plugin_dir, "i18n", "RUBEMHydrological_{}.qm".format(locale)
+            self.plugin_dir, "i18n", f"RUBEMHydrological_{locale}.qm"
         )
 
         if os.path.exists(locale_path):
@@ -170,14 +169,16 @@ class RUBEMHydrological:
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         # Register Qt resources before any QIcon is created from a
-        # ":/..." path. The dialog registers the same file again before
-        # setupUi as a secondary registration.
+        # ":/..." path. Track how many successful registers this plugin
+        # made so unload can drain the Qt refcount (the dialog may also
+        # register once if the icon path is still missing).
         resource_path = getattr(self, "_resources_path", None) or os.path.join(
             self.plugin_dir, "gui", "generated", "resources.rcc"
         )
         self._resources_path = resource_path
+        self._resources_register_count = getattr(self, "_resources_register_count", 0)
         if QResource.registerResource(resource_path):
-            self._resources_registered = True
+            self._resources_register_count += 1
         icon_path = ":/imgBase/images/icon.png"
         self.add_action(
             icon_path,
@@ -194,12 +195,17 @@ class RUBEMHydrological:
         for action in self.actions:
             self.iface.removePluginMenu(self.tr("&RUBEM Hydrological"), action)
             self.iface.removeToolBarIcon(action)
-        if getattr(self, "_resources_registered", False):
-            QResource.unregisterResource(
-                getattr(self, "_resources_path", None)
-                or os.path.join(self.plugin_dir, "gui", "generated", "resources.rcc")
-            )
-            self._resources_registered = False
+        resource_path = getattr(self, "_resources_path", None) or os.path.join(
+            self.plugin_dir, "gui", "generated", "resources.rcc"
+        )
+        # Drain every register this process still holds for our .rcc.
+        remaining = getattr(self, "_resources_register_count", 0)
+        while remaining > 0 and QResource.unregisterResource(resource_path):
+            remaining -= 1
+        # Also clear a leftover dialog registration, if any.
+        while QResource.unregisterResource(resource_path):
+            pass
+        self._resources_register_count = 0
 
     def run(self):
         """Run method that performs all the real work."""

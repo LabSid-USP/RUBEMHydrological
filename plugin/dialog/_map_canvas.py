@@ -2,13 +2,13 @@ import os
 
 from qgis.core import (
     Qgis,
+    QgsCoordinateReferenceSystem,
+    QgsLayerTreeLayer,
     QgsProject,
     QgsRasterLayer,
-    QgsLayerTreeLayer,
-    QgsCoordinateReferenceSystem,
 )
+from qgis.PyQt.QtCore import QModelIndex, Qt
 
-from qgis.PyQt.QtCore import Qt, QModelIndex
 
 # TODO: Add docstring information and comments
 def canvasHandler(self, index: QModelIndex):

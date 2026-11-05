@@ -3,6 +3,7 @@ try:
 except ImportError:
     from utils.series import splitDirFilePrefix
 
+
 # Climate tab
 def setPrecipitationSeriesFilePath(self):
     """Define the project's Precipitation folder file.

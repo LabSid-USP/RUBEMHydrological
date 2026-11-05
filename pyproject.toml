@@ -58,7 +58,19 @@ build-backend = "poetry.core.masonry.api"
 line-length = 88
 target-version = "py313"
 extend-include = ["*.pyw"]
-extend-exclude = ["external/rubem-model", "plugin/gui/generated"]
+extend-exclude = [
+    "external/rubem-model",
+    "plugin/gui/generated",
+    # Unwired v2 scaffolding is not on the QGIS load path yet.
+    "plugin/models",
+    "plugin/services",
+    "plugin/controllers",
+    "plugin/views",
+    "plugin/workers",
+    "plugin/core_refactored.py",
+    "plugin/exceptions.py",
+    "plugin/logging.py",
+]
 
 [tool.ruff.lint]
 select = [
@@ -80,6 +92,10 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]  # unused imports in __init__.py
 "test_*.py" = ["ARG"]     # allow unused arguments in tests
+# Live dialog modules use Designer-era ``import *`` and Qt slot signatures.
+"plugin/dialog/*.py" = ["F403", "F405", "ARG001", "SIM102", "B007"]
+"plugin/validation/legacy_json.py" = ["SIM105"]
+"plugin/utils/raster.py" = ["F841"]
 
 # Black configuration
 [tool.black]
@@ -97,12 +113,22 @@ extend-exclude = '''
   | dist
   | plugin/gui/generated
   | external/rubem-model
+  | plugin/models
+  | plugin/services
+  | plugin/controllers
+  | plugin/views
+  | plugin/workers
+  | plugin/core_refactored.py
+  | plugin/exceptions.py
+  | plugin/logging.py
 )/
 '''
 
 # MyPy configuration
 [tool.mypy]
 python_version = "3.13"
+explicit_package_bases = true
+mypy_path = "."
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
@@ -115,6 +141,18 @@ warn_unused_ignores = true
 warn_no_return = true
 follow_imports = "normal"
 ignore_missing_imports = true
+exclude = [
+    "plugin/models/",
+    "plugin/services/",
+    "plugin/controllers/",
+    "plugin/views/",
+    "plugin/workers/",
+    "plugin/core_refactored\\.py",
+    "plugin/exceptions\\.py",
+    "plugin/logging\\.py",
+    "external/",
+    "plugin/gui/generated/",
+]
 
 [[tool.mypy.overrides]]
 module = "qgis.*"

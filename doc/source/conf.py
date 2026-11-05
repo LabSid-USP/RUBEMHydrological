@@ -68,7 +68,9 @@ extensions = [
 
 email_automode = True
 
-mathjax_path = "https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+mathjax_path = (
+    "https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+)
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]

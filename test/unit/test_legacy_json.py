@@ -228,6 +228,19 @@ def test_known_bool_tokens_are_accepted_on_load() -> None:
 
 
 @pytest.mark.unit
+def test_padded_bool_tokens_are_normalized_on_load() -> None:
+    """Whitespace around a known token must not become a silent false."""
+    from plugin.validation.legacy_json import config_from_legacy_document
+
+    document, _diagnostics = legacy_json_document(_project())
+    document["GENERATE_FILE"]["arn"] = " YES "
+    document["RASTER_FILE_FORMAT"]["map_raster_series"] = " false "
+    loaded = config_from_legacy_document(document)
+    assert loaded.getboolean("GENERATE_FILE", "arn") is True
+    assert loaded.getboolean("RASTER_FILE_FORMAT", "map_raster_series") is False
+
+
+@pytest.mark.unit
 def test_missing_arn_defaults_to_false_on_load() -> None:
     """Files written before ``arn`` existed open with arn disabled."""
     from plugin.validation.legacy_json import config_from_legacy_document

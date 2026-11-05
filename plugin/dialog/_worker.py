@@ -74,10 +74,14 @@ def handleFinished(self, exit_code):
             level=Qgis.Success,
         )
     else:
-        self.textBrowser_log.append(dedent("""\n
+        self.textBrowser_log.append(
+            dedent(
+                """\n
             # RUBEM execution finished with errors!
             # Check the log for more details.
-            # If you need help, visit http://rubem-hydrological.rtfd.io/"""))
+            # If you need help, visit http://rubem-hydrological.rtfd.io/"""
+            )
+        )
         self.progressBar.setStyleSheet(
             "QProgressBar::chunk " "{" "background-color: red;" "}"
         )

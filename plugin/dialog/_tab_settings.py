@@ -2,6 +2,7 @@ import os
 
 from qgis.PyQt.QtWidgets import QMessageBox
 
+
 # Settings tab
 # Project Folder
 def setInputDirectoryPath(self, userInputDir=None):

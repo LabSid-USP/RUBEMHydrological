@@ -44,9 +44,21 @@ def ensure_submodule_on_path(root: Path | None = None) -> Path:
             f"The RUBEM submodule is not available at {path}. "
             "Initialize it with 'git submodule update --init external/rubem-model'."
         )
-    entry = str(path)
-    if entry not in sys.path:
-        sys.path.append(entry)
+    entry = str(path.resolve())
+    # Prefer the pinned checkout over any earlier ``rubem`` on ``sys.path``.
+    while entry in sys.path:
+        sys.path.remove(entry)
+    sys.path.insert(0, entry)
+
+    loaded = sys.modules.get("rubem")
+    if loaded is not None:
+        loaded_file = getattr(loaded, "__file__", None)
+        if loaded_file is not None:
+            loaded_root = Path(loaded_file).resolve().parents[1]
+            if loaded_root != path.resolve():
+                for name in list(sys.modules):
+                    if name == "rubem" or name.startswith("rubem."):
+                        del sys.modules[name]
     return path
 
 
@@ -224,9 +236,17 @@ def resolve_host_python(
     if is_windows:
         exact = f"Python{major}{minor}"
         for base in (executable.parent.parent, executable.parent):
-            add(base / "apps" / exact / "python.exe")
-            for candidate in sorted((base / "apps").glob("Python*/python.exe")):
-                add(candidate)
+            apps = base / "apps"
+            add(apps / exact / "python.exe")
+            # Only same major.minor: a mismatched Python3xx would create a
+            # venv whose site-packages path does not match this process.
+            for candidate in sorted(apps.glob("Python*/python.exe")):
+                folder = candidate.parent.name
+                if folder.lower() == exact.lower():
+                    continue
+                digits = "".join(ch for ch in folder if ch.isdigit())
+                if digits == f"{major}{minor}":
+                    add(candidate)
     else:
         add(executable.parent / "bin" / "python3")
         add(executable.parent / "bin" / "python")
@@ -246,11 +266,20 @@ def configure_spawn_executable() -> None:
     CPython documents ``multiprocessing.set_executable`` for programs embedded
     in another executable. On Windows, QGIS has reported ``sys.executable`` as
     the QGIS program rather than Python. This switches to the interpreter
-    found by :func:`resolve_host_python`; when none is found, the spawn
-    executable is left unchanged.
+    found by :func:`resolve_host_python`. When the host is not Python and no
+    candidate exists, raise instead of leaving ``qgis-bin`` as the spawn
+    executable.
     """
     executable = resolve_host_python()
-    if executable is not None and executable != Path(sys.executable):
+    host = Path(sys.executable) if sys.executable else None
+    if executable is None:
+        if host is None or not _looks_like_python(host):
+            raise RuntimeError(
+                "Could not find a Python interpreter for the isolated RUBEM "
+                f"process: sys.executable is {sys.executable!r}."
+            )
+        return
+    if host is None or executable != host:
         multiprocessing.set_executable(str(executable))
 
 

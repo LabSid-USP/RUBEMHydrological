@@ -687,10 +687,10 @@ Resulting maps of Soil Moisture Content (SMC) [mm] in raster format for all simu
 Total Runoff raster series
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Resulting maps of Total Runoff [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in raster format for all simulation period for each pixel of :ref:`stations map <Stations (samples) raster>`.
+Resulting maps of Total Runoff [mm] in raster format for all simulation period for each pixel of :ref:`stations map <Stations (samples) raster>`.
 
 - Filetype: PCRaster map format (:file:`rnf00000.001`- :file:`rnf99999.999` raster map series).
-- Unit: :raw-html:`m<sup>3</sup>s<sup>-1</sup>`
+- Unit: mm
 - Dimensions: 
 
   - Rows = :ref:`clone rows <Mask of Catchment (Clone) raster>`;
@@ -973,10 +973,10 @@ Resulting maps of Soil Moisture Content (SMC) [mm] in table format for all simul
 Total Runoff table
 ^^^^^^^^^^^^^^^^^^^
 
-Resulting maps of Total Runoff [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in table format for all simulation period for each sampling station present in :ref:`stations map <Stations (samples) raster>`.
+Resulting maps of Total Runoff [mm] in table format for all simulation period for each sampling station present in :ref:`stations map <Stations (samples) raster>`.
 
 - Filetype: Comma-Separated Values (CSV) :file:`*.csv`
-- Unit: :raw-html:`m<sup>3</sup>s<sup>-1</sup>`
+- Unit: mm
 - Dimensions: 
 
   - Rows = number of time steps;

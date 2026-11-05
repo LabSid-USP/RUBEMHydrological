@@ -1,6 +1,6 @@
 import os
 
-from qgis.PyQt.QtCore import Qt, QModelIndex
+from qgis.PyQt.QtCore import QModelIndex, Qt
 
 try:
     from ..report.plotter import plotTimeSeriesData
@@ -9,7 +9,7 @@ except ImportError as _exc:
     # unavailable (no parent package, or the local module is missing).
     # An ImportError for a third-party name (e.g. matplotlib) must keep
     # its own message instead of surfacing as a missing report module.
-    if _exc.name is not None and not (
+    if _exc.name is None or not (
         _exc.name == "report" or _exc.name.endswith("report.plotter")
     ):
         raise
@@ -18,9 +18,10 @@ except ImportError as _exc:
 try:
     from ._mappings import timeSeriesDict
 except ImportError as _exc:
-    if _exc.name is not None and not _exc.name.endswith("_mappings"):
+    if _exc.name is None or not _exc.name.endswith("_mappings"):
         raise
     from _mappings import timeSeriesDict
+
 
 # TODO: Add docstring information and comments
 def plotWrapper(self, index: QModelIndex):

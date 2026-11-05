@@ -1,4 +1,3 @@
-# coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
 # Copyright (C) 2021-2024 LabSid PHA EPUSP
 
@@ -42,7 +41,7 @@ def classFactory(iface):
         # itself is unavailable. A failure inside the plugin (e.g. a
         # missing third-party module) must keep its own message instead
         # of surfacing as a missing plugin.core module.
-        if exc.name is not None and not (
+        if exc.name is None or not (
             exc.name == "plugin"
             or exc.name == "plugin.core"
             or exc.name.endswith(".plugin.core")

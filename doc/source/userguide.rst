@@ -71,7 +71,10 @@ Model General Settings
 
 - **Digital Elevation Map (DEM)**: Mandatory path to Digital Elevation Map (DEM) file [masl] in :file:`*.map` format. This map contains topographic ground elevation in meters. Must be a valid file path to a :file:`*.map` raster file;
 
-- **Digital Elevation Map (DEM)**: Mandatory path to Digital Elevation Map (DEM) file [masl] in TIF format. This map contains topographic ground elevation in meters. Must be a valid file path to a TIF raster file;
+- **Digital Elevation Map (DEM) georeference (TIF)**: Optional path to a GeoTIFF
+  whose coordinate reference system is written to GeoTIFF outputs. Leave empty to
+  skip it. When a path is provided, it must point to an existing TIF raster that
+  matches the DEM geometry;
 
 - **Mask of Catchment (Clone)**: Mandatory path to Mask of Catchment (Clone) file in :file:`*.map` format. This map defines the basin area to simulate in the model. Must be a valid file path to a :file:`*.map` (PCRaster boolean format) raster file;
 

@@ -56,6 +56,8 @@ def ensure_pydantic(*, install: bool = False) -> None:
     :raises RuntimeError: The install was requested and pip failed.
     """
     if _cached_pydantic_status() == "ok":
+        if install:
+            _ensure_isolated_extras()
         return
     if _cached_pydantic_status() == "incompatible":
         raise PydanticUnavailable(
@@ -69,6 +71,8 @@ def ensure_pydantic(*, install: bool = False) -> None:
     if found and pydantic_version_is_supported(found):
         import pydantic  # noqa: F401
 
+        if install:
+            _ensure_isolated_extras()
         return
     if not install:
         raise PydanticUnavailable(
@@ -90,6 +94,37 @@ def ensure_pydantic(*, install: bool = False) -> None:
         raise PydanticUnavailable(
             f"Installed {PYDANTIC_REQUIREMENT}, but imported "
             f"{pydantic.__version__}. Restart QGIS and open the project again."
+        )
+
+
+def _pure_python_modules_missing() -> list[str]:
+    """Return import names still missing after activating the isolated env."""
+    import importlib.util
+
+    missing: list[str] = []
+    for module_name in ("humanize", "dateutil"):
+        try:
+            found = importlib.util.find_spec(module_name) is not None
+        except (ImportError, ValueError):
+            found = False
+        if not found:
+            missing.append(module_name)
+    return missing
+
+
+def _ensure_isolated_extras() -> None:
+    """Install humanize/dateutil when Pydantic is already present but they are not."""
+    _activate_existing_environment()
+    if not _pure_python_modules_missing():
+        return
+    _install_pydantic()
+    _activate_existing_environment()
+    still_missing = _pure_python_modules_missing()
+    if still_missing:
+        raise RuntimeError(
+            "Installed "
+            + ", ".join(ISOLATED_REQUIREMENTS)
+            + f" but still missing: {', '.join(still_missing)}"
         )
 
 

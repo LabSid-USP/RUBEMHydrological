@@ -77,13 +77,35 @@ def iter_plugin_files(root: Path):
 def build_plugin() -> None:
     """Write ``dist/rubem_hydrological.zip``."""
     root = Path(__file__).resolve().parent.parent
+    members = list(iter_plugin_files(root))
+    has_appsettings = any(
+        path.name == "appsettings.json"
+        and "rubem-model" in path.parts
+        and path.parent.name == "rubem"
+        for path in members
+    )
+    has_api = any(
+        path.name == "api.py"
+        and "rubem-model" in path.parts
+        and path.parent.name == "rubem"
+        for path in members
+    )
+    if not has_appsettings or not has_api:
+        missing = []
+        if not has_appsettings:
+            missing.append("external/rubem-model/rubem/appsettings.json")
+        if not has_api:
+            missing.append("external/rubem-model/rubem/api.py")
+        raise SystemExit(
+            "Plugin zip is missing required submodule files: " + ", ".join(missing)
+        )
     dist = root / "dist"
     dist.mkdir(exist_ok=True)
     zip_path = dist / f"{ARCHIVE_ROOT}.zip"
     if zip_path.exists():
         zip_path.unlink()
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as archive:
-        for path in iter_plugin_files(root):
+        for path in members:
             archive.write(path, archive_member(root, path))
     print(f"Package created: {zip_path}")
 

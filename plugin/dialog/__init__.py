@@ -1,4 +1,3 @@
-# coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
 # Copyright (C) 2021-2024 LabSid PHA EPUSP
 
@@ -23,18 +22,18 @@ import configparser
 import os
 
 from qgis.gui import QgsMessageBar
-from qgis.PyQt.QtCore import QResource, Qt
+from qgis.PyQt.QtCore import QFile, QResource, Qt
 from qgis.PyQt.QtGui import QStandardItemModel
 from qgis.PyQt.QtWidgets import QDialog, QSizePolicy
 
 try:
     from ..gui.generated.core_ui import Ui_RUBEMHydrological
-    from ..validation.validators import *
     from ..validation.schemas import defaultConfigSchema
+    from ..validation.validators import *
 except ImportError:
     from gui.generated.core_ui import Ui_RUBEMHydrological
-    from validation.validators import *
     from validation.schemas import defaultConfigSchema
+    from validation.validators import *
 
 
 class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
@@ -59,8 +58,13 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
                 os.path.dirname(__file__), "..", "gui", "generated", "resources.rcc"
             )
         )
-        if not QResource.registerResource(resource):
-            raise RuntimeError(f"Could not register Qt resources: {resource}")
+        # initGui already registers this .rcc before the toolbar icon.
+        # Register again only when the binary path is still invisible, so
+        # unload does not need an unbounded refcount drain for every open.
+        if not QFile(":/imgBase/images/icon.png").exists():
+            if not QResource.registerResource(resource):
+                raise RuntimeError(f"Could not register Qt resources: {resource}")
+            self._dialog_registered_resources = resource
         self.setupUi(self)
         self.iface = iface
 
@@ -102,28 +106,31 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.setupUserInputValidators()
 
     from ._file_dir_dialogs import getDirectoryPath, getFilePath
-    from ._form_validation import setupUserInputValidators, hasFilledAllFields
+    from ._form_validation import hasFilledAllFields, setupUserInputValidators
+    from ._graph_plot import plotTimeSeriesData, plotWrapper
+    from ._help_info import aboutHandler, helpHandler
+    from ._map_canvas import canvasHandler
     from ._message_boxes import (
         getUserRetDirNotEmpty,
         getUserRetQGISCurProj,
         getUserRetSaveCurProj,
     )
     from ._project import (
+        loadConfigFromFile,
         newProject,
+        openProject,
         saveAsProject,
         saveProject,
-        openProject,
-        showConfig,
         setProjectModified,
+        showConfig,
         updateConfigFromGUI,
         updateGUIFromConfig,
-        loadConfigFromFile,
     )
     from ._tab_climate import (
-        setRainyDaysSeriesFilePath,
-        setPrecipitationSeriesFilePath,
         setEvapotranspirationSeriesFilePath,
         setKpSeriesFilePath,
+        setPrecipitationSeriesFilePath,
+        setRainyDaysSeriesFilePath,
     )
     from ._tab_landuse import (
         setAiFilePath,
@@ -153,18 +160,17 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         setSlopeRelatedWeightFactor,
         setSoilRelatedWeightFactor,
     )
-    from ._tab_soil import (
-        setBaseFlowLimit,
-        setDensityFilePath,
-        setFieldCapacityFilePath,
-        setHydraulicConductivityFilePath,
-        setInitialBaseFlow,
-        setInitialSoilMoisture,
-        setInitialTus,
-        setRootZoneThicknessFilePath,
-        setSaturationFilePath,
-        setSoilMapFilePath,
-        setWiltingPointFilePath,
+    from ._tab_results import populateMapSeriesTree, populateTimeSeriesTree
+    from ._tab_run import (
+        setAccumulatedRunoffArnGenerateFile,
+        setEvapotranspirationGenerateFile,
+        setInterceptionEbGenerateFile,
+        setInterceptionGenerateFile,
+        setLateralFLowGenerateFile,
+        setRechargeGenerateFile,
+        setRunoffEsdGenerateFile,
+        setRunoffVazaoGenerateFile,
+        setSoilMoistureGenerateFile,
     )
     from ._tab_settings import (
         setCloneFilePath,
@@ -178,26 +184,25 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         setSampleFilePath,
         setStartSimulationPeriod,
     )
-    from ._tab_run import (
-        setEvapotranspirationGenerateFile,
-        setInterceptionEbGenerateFile,
-        setInterceptionGenerateFile,
-        setLateralFLowGenerateFile,
-        setRechargeGenerateFile,
-        setRunoffEsdGenerateFile,
-        setRunoffVazaoGenerateFile,
-        setSoilMoistureGenerateFile,
+    from ._tab_soil import (
+        setBaseFlowLimit,
+        setDensityFilePath,
+        setFieldCapacityFilePath,
+        setHydraulicConductivityFilePath,
+        setInitialBaseFlow,
+        setInitialSoilMoisture,
+        setInitialTus,
+        setRootZoneThicknessFilePath,
+        setSaturationFilePath,
+        setSoilMapFilePath,
+        setWiltingPointFilePath,
     )
-    from ._tab_results import populateMapSeriesTree, populateTimeSeriesTree
+    from ._window import closeEvent, initialGuiState, updateWindowTitle
     from ._worker import (
-        setRunState,
+        explainCancel,
+        handleFinished,
         reportExecutionLog,
         reportProgress,
         runLongTask,
-        explainCancel,
-        handleFinished,
+        setRunState,
     )
-    from ._graph_plot import plotTimeSeriesData, plotWrapper
-    from ._map_canvas import canvasHandler
-    from ._help_info import aboutHandler, helpHandler
-    from ._window import initialGuiState, updateWindowTitle, closeEvent

@@ -1,7 +1,7 @@
+import configparser
 import os
 
 from qgis.core import QgsProject
-
 from qgis.PyQt.QtCore import QDate, QThread, pyqtSignal
 from qgis.PyQt.QtWidgets import QFileDialog, QMessageBox
 
@@ -11,15 +11,42 @@ except ImportError:
     from dependencies import PydanticUnavailable, ensure_pydantic
 
 try:
+    from ..utils.series import getFirstFileNameMapSeries, splitDirFilePrefix
     from ..validation.legacy_json import read_legacy_json, write_legacy_json
     from ..validation.schemas import defaultConfigSchema
-    from ..utils.series import getFirstFileNameMapSeries, splitDirFilePrefix
 except ImportError:
+    from utils.series import getFirstFileNameMapSeries, splitDirFilePrefix
     from validation.legacy_json import read_legacy_json, write_legacy_json
     from validation.schemas import defaultConfigSchema
-    from utils.series import getFirstFileNameMapSeries, splitDirFilePrefix
 
 _PROJECT_FILTER = "RUBEM project (*.json)"
+
+
+def _snapshot_config(config):
+    """Copy section values so a deferred write cannot see later GUI edits."""
+    snapshot = configparser.ConfigParser()
+    snapshot.read_dict(
+        {section: dict(config.items(section)) for section in config.sections()}
+    )
+    return snapshot
+
+
+def resolve_project_path(self, path: str) -> str:
+    """Resolve a project-relative path against the open project file directory.
+
+    Absolute paths and paths that already exist relative to the process CWD
+    are returned unchanged. Otherwise, when a project file is open, a
+    sibling path under that directory is returned if it exists.
+    """
+    if not path:
+        return path
+    if os.path.isabs(path) or os.path.exists(path):
+        return path
+    project = getattr(self, "projectFilePath", None) or ""
+    if not project:
+        return path
+    candidate = os.path.normpath(os.path.join(os.path.dirname(project), path))
+    return candidate if os.path.exists(candidate) else path
 
 
 def _spin_text(self, spin, section, option):
@@ -103,20 +130,23 @@ def _write_project(self, selected_file_path, after=None):
     :rtype: bool or None
     """
 
-    def write():
+    def write(config):
         try:
-            write_legacy_json(self.config, selected_file_path)
+            write_legacy_json(config, selected_file_path)
         except (ValueError, OSError) as exc:
             self.textBrowser_log.append(str(exc))
             return False
         return True
 
     try:
-        return write()
+        return write(self.config)
     except PydanticUnavailable as exc:
+        # Capture values now. New/Open/Close or GUI edits must not change
+        # what the deferred retry writes over the user's project file.
+        snapshot = _snapshot_config(self.config)
 
         def retry():
-            if write() and after is not None:
+            if write(snapshot) and after is not None:
                 after()
 
         return _prompt_pydantic_install(self, exc, retry)
@@ -149,6 +179,11 @@ def newProject(self, supressed=False):
     :return: [description]
     :rtype: [type]
     """
+    if getattr(self, "_pydantic_installing", False):
+        self.textBrowser_log.append(
+            "Wait for the dependency installation to finish before creating a new project."
+        )
+        return None
 
     # TODO: docstring
     def setupNewProject():
@@ -181,7 +216,8 @@ def newProject(self, supressed=False):
         response = self.getUserRetSaveCurProj()
         # Save project before creating a new one
         if response == QMessageBox.StandardButton.Save:
-            self.saveProject()
+            if not self.saveProject(after=setupNewProject):
+                return None
             setupNewProject()
         # Don't save project before creating a new one
         elif response == QMessageBox.StandardButton.Discard:
@@ -204,6 +240,11 @@ def openProject(self):
     :return: [description].
     :rtype: [type]
     """
+    if getattr(self, "_pydantic_installing", False):
+        self.textBrowser_log.append(
+            "Wait for the dependency installation to finish before opening a project."
+        )
+        return None
 
     # TODO: docstring
     def setupOpenedProject():
@@ -238,7 +279,9 @@ def openProject(self):
                 self.pushButton_SaveProject.setEnabled(True)
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
-                output = self.config.get("DIRECTORIES", "output")
+                output = resolve_project_path(
+                    self, self.config.get("DIRECTORIES", "output")
+                )
                 if os.path.exists(output) and os.listdir(output):
                     self.tab_Results.setEnabled(True)
                     self.populateMapSeriesTree()
@@ -261,7 +304,8 @@ def openProject(self):
         response = self.getUserRetSaveCurProj()
         # Save project before opening a project file
         if response == QMessageBox.StandardButton.Save:
-            self.saveProject()
+            if not self.saveProject(after=setupOpenedProject):
+                return None
             setupOpenedProject()
         # Don't save project before opening a project file
         elif response == QMessageBox.StandardButton.Discard:

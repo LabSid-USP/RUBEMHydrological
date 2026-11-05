@@ -222,12 +222,68 @@ def test_dialog_class_imports_explain_cancel() -> None:
             names = [alias.name for alias in node.names]
             assert "explainCancel" in names
             assert "runLongTask" in names
-            assert names.index("explainCancel") == names.index("runLongTask") + 1
             found = True
     assert found
     assert "self.projectFilePath = retFilePath" not in (
         ROOT / "plugin" / "dialog" / "_project.py"
     ).read_text(encoding="utf-8")
+
+
+@pytest.mark.unit
+def test_dialog_class_imports_accumulated_runoff_arn_slot() -> None:
+    """ARN generate-file slot is bound so setupUi can connect the checkbox."""
+    source = (ROOT / "plugin" / "dialog" / "__init__.py").read_text(encoding="utf-8")
+    tree = ast.parse(source)
+    found = False
+    for node in ast.walk(tree):
+        if (
+            isinstance(node, ast.ImportFrom)
+            and node.module == "_tab_run"
+            and node.level == 1
+        ):
+            names = [alias.name for alias in node.names]
+            assert "setAccumulatedRunoffArnGenerateFile" in names
+            assert "setRunoffVazaoGenerateFile" in names
+            found = True
+    assert found
+    tab_run = (ROOT / "plugin" / "dialog" / "_tab_run.py").read_text(encoding="utf-8")
+    assert "def setAccumulatedRunoffArnGenerateFile(self):" in tab_run
+
+
+@pytest.mark.unit
+def test_dialog_class_binds_every_core_ui_slot() -> None:
+    """Every ``connect(RUBEMHydrological.X)`` name must exist on the dialog class."""
+    import re
+
+    ui = (ROOT / "plugin" / "gui" / "generated" / "core_ui.py").read_text(
+        encoding="utf-8"
+    )
+    slots = sorted(set(re.findall(r"connect\(RUBEMHydrological\.(\w+)\)", ui)))
+    assert slots, "core_ui.py must connect at least one dialog slot"
+
+    source = (ROOT / "plugin" / "dialog" / "__init__.py").read_text(encoding="utf-8")
+    tree = ast.parse(source)
+    class_body = None
+    for node in tree.body:
+        if isinstance(node, ast.ClassDef) and node.name == "RUBEMHydrologicalDialog":
+            class_body = node
+            break
+    assert class_body is not None
+
+    bound: set[str] = set()
+    for node in class_body.body:
+        if isinstance(node, ast.FunctionDef):
+            bound.add(node.name)
+        elif isinstance(node, ast.ImportFrom):
+            for alias in node.names:
+                bound.add(alias.asname or alias.name)
+
+    missing = [name for name in slots if name not in bound]
+    assert (
+        not missing
+    ), "setupUi connects slots missing from RUBEMHydrologicalDialog: " + ", ".join(
+        missing
+    )
 
 
 @pytest.mark.unit
@@ -322,6 +378,51 @@ def test_deferred_save_returns_false_and_continues_from_retry() -> None:
     dialog = _dialog()
     with tempfile.TemporaryDirectory() as directory:
         _deferred_save(dialog, Path(directory) / "basin.json")
+
+
+@pytest.mark.unit
+def test_deferred_save_writes_config_snapshot_not_live_parser() -> None:
+    """Retry must write the values captured before a deferred install."""
+    dialog = _dialog()
+    dialog.config["DIRECTORIES"] = {"output": "/real/out"}
+    written: list[str] = []
+    retries: list = []
+    attempts = {"n": 0}
+
+    def write_json(config, path):
+        attempts["n"] += 1
+        if attempts["n"] == 1:
+            raise project.PydanticUnavailable("install pydantic")
+        written.append(config.get("DIRECTORIES", "output"))
+
+    def prompt(_self, _exc, retry):
+        retries.append(retry)
+        return None
+
+    with tempfile.TemporaryDirectory() as directory:
+        destination = Path(directory) / "basin.json"
+        qgis_project = _qgis_project(dirty=False)
+        with (
+            patch.object(project, "write_legacy_json", write_json),
+            patch.object(project, "_prompt_pydantic_install", prompt),
+            patch.object(project.QgsProject, "instance", return_value=qgis_project),
+        ):
+            saved = project.saveProject(dialog, filePath=str(destination))
+            assert saved is False
+            dialog.config.set("DIRECTORIES", "output", "")
+            retries[0]()
+
+    assert written == ["/real/out"]
+
+
+@pytest.mark.unit
+def test_new_and_open_blocked_while_pydantic_installing() -> None:
+    """New/Open must not replace config while a deferred install is running."""
+    dialog = _dialog()
+    dialog._pydantic_installing = True
+    dialog.hasCurrentProject = True
+    assert project.newProject(dialog) is None
+    assert project.openProject(dialog) is None
 
 
 def _deferred_save(dialog, destination: Path) -> None:

@@ -1,6 +1,7 @@
 import os
 from glob import glob
 
+
 def splitDirFilePrefix(filePath):
     """Split directory path and file prefix from file path.
 
@@ -17,6 +18,7 @@ def splitDirFilePrefix(filePath):
     # Split extension from file name
     filePrefix, _ = os.path.splitext(fileName)
     return f"{directoryPath}/", "".join(filter(str.isalpha, filePrefix))
+
 
 def getFirstFileNameMapSeries(path):
     """[summary].

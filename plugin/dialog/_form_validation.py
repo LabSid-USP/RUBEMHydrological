@@ -9,9 +9,16 @@ except ImportError:
     from validation.validators import *
 
 try:
-    from ._project import _spin_text
+    from ._project import _spin_text, resolve_project_path
 except ImportError:
-    from _project import _spin_text
+    from _project import _spin_text, resolve_project_path
+
+
+def _path_exists_for_project(self, path: str) -> bool:
+    """Return whether ``path`` exists, resolving relative to the project file."""
+    if not path:
+        return False
+    return os.path.exists(resolve_project_path(self, path))
 
 
 # TODO: Add docstring information and comments
@@ -27,14 +34,14 @@ def hasFilledAllFields(self):
         if key == "input":
             continue
         lineEdit, _ = element
-        if not lineEdit.text() or not os.path.exists(lineEdit.text()):
+        if not lineEdit.text() or not _path_exists_for_project(self, lineEdit.text()):
             lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
             emptyFields.append(key)
 
     # for lineEdit in self.findChildren(QLineEdit):
     for key, element in self.uiFilePathDict.items():
         lineEdit, _, _ = element
-        if not lineEdit.text() or not os.path.exists(lineEdit.text()):
+        if not lineEdit.text() or not _path_exists_for_project(self, lineEdit.text()):
             lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
             emptyFields.append(key)
 
@@ -103,15 +110,12 @@ def hasFilledAllFields(self):
     else:
         self.groupBox_WeightFactors.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
-    if (
+    return (
         not emptyFields
         and checkedBoxes
         and hasValidDateRange
         and hasAreaFractionAddUpTo1
-    ):
-        return True
-    else:
-        return False
+    )
 
 
 # TODO: Add docstring information and comments

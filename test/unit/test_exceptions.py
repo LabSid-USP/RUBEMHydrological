@@ -74,9 +74,7 @@ class TestSpecificExceptions:
 
     def test_configuration_error(self) -> None:
         """Test ConfigurationError exception."""
-        exc = ConfigurationError(
-            "Invalid config", details={"parameter": "start_date"}
-        )
+        exc = ConfigurationError("Invalid config", details={"parameter": "start_date"})
         assert "Invalid config" in str(exc)
         assert exc.details["parameter"] == "start_date"
 
@@ -88,9 +86,7 @@ class TestSpecificExceptions:
 
     def test_file_operation_error(self) -> None:
         """Test FileOperationError exception."""
-        exc = FileOperationError(
-            "File not found", details={"path": "/test/file.txt"}
-        )
+        exc = FileOperationError("File not found", details={"path": "/test/file.txt"})
         assert "File not found" in str(exc)
         assert exc.details["path"] == "/test/file.txt"
 

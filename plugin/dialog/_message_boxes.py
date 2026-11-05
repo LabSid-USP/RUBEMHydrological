@@ -1,5 +1,6 @@
 from qgis.PyQt.QtWidgets import QMessageBox
 
+
 # TODO: docstring
 def getUserRetSaveCurProj(self):
     """[summary].

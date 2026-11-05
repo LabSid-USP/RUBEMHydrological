@@ -10,6 +10,7 @@ from plugin.engine import (
     PCRASTER_TOOLS_ID,
     assert_pcraster_tools,
     assert_ready,
+    configure_spawn_executable,
     ensure_submodule_on_path,
     pcraster_tools_message,
     resolve_host_python,
@@ -149,6 +150,27 @@ def test_resolve_host_python_windows_osgeo_exact_version_first(
 
 
 @pytest.mark.unit
+def test_resolve_host_python_windows_skips_mismatched_python_apps(
+    tmp_path: Path,
+) -> None:
+    """A Python310 apps folder must not be chosen for a 3.13 host."""
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    for folder in ("Python310", "Python312"):
+        app = tmp_path / "apps" / folder
+        app.mkdir(parents=True)
+        (app / "python.exe").touch()
+    found = resolve_host_python(
+        executable=bin_dir / "qgis-bin.exe",
+        base_executable="",
+        prefixes=[],
+        platform="win32",
+        version_info=(3, 13),
+    )
+    assert found is None
+
+
+@pytest.mark.unit
 def test_resolve_host_python_posix_sibling_and_none(tmp_path: Path) -> None:
     """A python3 sibling is used on POSIX; no candidate means None."""
     bin_dir = tmp_path / "MacOS"
@@ -174,6 +196,25 @@ def test_resolve_host_python_posix_sibling_and_none(tmp_path: Path) -> None:
         )
         is None
     )
+
+
+@pytest.mark.unit
+def test_configure_spawn_executable_raises_when_host_is_not_python(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """Spawn must not keep qgis-bin when no host Python can be resolved."""
+    from plugin import engine as engine_mod
+
+    empty = tmp_path / "empty"
+    empty.mkdir()
+    monkeypatch.setattr(engine_mod.sys, "executable", str(empty / "qgis-bin"))
+    monkeypatch.setattr(
+        engine_mod,
+        "resolve_host_python",
+        lambda **_kwargs: None,
+    )
+    with pytest.raises(RuntimeError, match="Python interpreter"):
+        configure_spawn_executable()
 
 
 @pytest.mark.unit

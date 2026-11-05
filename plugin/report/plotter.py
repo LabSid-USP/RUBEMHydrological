@@ -1,4 +1,3 @@
-# coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
 # Copyright (C) 2021-2024 LabSid PHA EPUSP
 
@@ -22,6 +21,7 @@
 import datetime
 
 font = {"weight": "normal", "size": 16}
+
 
 # TODO: Add docstring information and comments
 def plotTimeSeriesData(sourceFile, plotDict, startDate, endDate):
@@ -60,7 +60,9 @@ def plotTimeSeriesData(sourceFile, plotDict, startDate, endDate):
 
     ax.xaxis.set_tick_params(which="major", size=10, width=2, direction="in", top="on")
     ax.xaxis.set_tick_params(which="minor", size=7, width=2, direction="in", top="on")
-    ax.yaxis.set_tick_params(which="major", size=10, width=2, direction="in", right="on")
+    ax.yaxis.set_tick_params(
+        which="major", size=10, width=2, direction="in", right="on"
+    )
     ax.yaxis.set_tick_params(which="minor", size=7, width=2, direction="in", right="on")
     plt.xticks(rotation=45)
     plt.grid(True, which="both")

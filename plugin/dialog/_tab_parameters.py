@@ -3,6 +3,7 @@ try:
 except ImportError:
     from _project import _spin_text
 
+
 # Parameters tab
 # Model Parameters
 def setExponentCh(self):

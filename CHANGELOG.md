@@ -140,9 +140,13 @@ The plugin interface remains largely the same. However:
 If you've extended or modified the plugin:
 
 1. **Type Hints**: Add type hints to your code for better compatibility
-2. **Imports**: Use the new exception classes instead of generic exceptions
-3. **Logging**: Use `plugin.logging.get_logger(__name__)` instead of `print()` or direct logging
-4. **Configuration**: Consider using `RUBEMConfig` Pydantic models instead of raw ConfigParser
+2. **Imports**: Prefer the live dialog helpers; the v2 ``plugin.exceptions`` /
+   ``plugin.logging`` layer is scaffolding and is not what QGIS loads
+3. **Logging**: Keep using ``QgsMessageLog`` / dialog log widgets on the live path
+4. **Configuration**: The live project file is still the legacy JSON document,
+   validated by the submodule's ``ModelConfigurationFile``. ``plugin.models.RUBEMConfig``
+   is unwired scaffolding with different field names and stubs — do not use it as
+   the project document or as a migration target yet
 5. **Testing**: Write pytest tests instead of unittest
 6. **Code Style**: Run `black` and `ruff` on your code
 7. **Type Checking**: Run `mypy` to catch type errors
@@ -152,7 +156,8 @@ If you've extended or modified the plugin:
 - Minimum QGIS version is 4.0
 - Minimum Python version increased from 3.9 to 3.13
 - Some internal APIs changed (see refactored modules)
-- Configuration schema structure changed (backwards compatible loader provided)
+- Project files are the legacy JSON RUBEM reads (not INI/TOML); older JSON without
+  ``GENERATE_FILE.arn`` still opens because the plugin applies defaults on load
 
 [2.0.0]: https://github.com/LabSid-USP/RUBEMHydrological/compare/v1.12.3...v2.0.0
 [1.12.3]: https://github.com/LabSid-USP/RUBEMHydrological/releases/tag/v1.12.3
