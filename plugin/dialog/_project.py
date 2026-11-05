@@ -135,7 +135,7 @@ def _apply_series(self, text, directory_key, prefix_key):
     keep_relative = not os.path.isabs(text) and bool(os.path.dirname(text))
     split_source = resolved if os.path.isfile(resolved) and not keep_relative else text
     tmp_path, tmp_prefix = splitDirFilePrefix(split_source)
-    if tmp_path in ("/", "./"):
+    if tmp_path in ("/", "./") or tmp_path.strip("/\\") == "":
         stored_dir = self.config.get("DIRECTORIES", directory_key, fallback="")
         if stored_dir:
             tmp_path = (
@@ -143,7 +143,7 @@ def _apply_series(self, text, directory_key, prefix_key):
                 if stored_dir.endswith(("/", "\\"))
                 else f"{stored_dir.rstrip('/\\')}/"
             )
-        elif tmp_path == "/":
+        else:
             tmp_path = "./"
     if tmp_prefix == "" and stored:
         tmp_prefix = stored

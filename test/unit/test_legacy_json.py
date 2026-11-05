@@ -213,10 +213,11 @@ def test_series_file_path_still_updates_directory_and_prefix() -> None:
 
 @pytest.mark.unit
 def test_split_dir_file_prefix_root_file_is_not_double_slash() -> None:
-    """``/rain00000.001`` must not yield ``//``, which bypasses the Save guard."""
+    """Root-like dirs (``/``, ``//``) must become ``./``, never ``///``."""
     from plugin.utils.series import splitDirFilePrefix
 
     assert splitDirFilePrefix("/rain00000.001") == ("./", "rain")
+    assert splitDirFilePrefix("//rain00000.001") == ("./", "rain")
     assert splitDirFilePrefix("rain00000.001") == ("./", "rain")
 
 
