@@ -290,8 +290,8 @@ def test_bare_series_filename_does_not_become_filesystem_root(tmp_path) -> None:
     )()
     _apply_series(holder, "rain00000.001", "prec", "prec_prefix")
     stored_dir = holder.config.get("DIRECTORIES", "prec")
-    assert stored_dir != "/"
-    assert not os.path.isabs(stored_dir) or stored_dir.startswith(str(tmp_path))
+    assert stored_dir == "data/prec/"
+    assert not os.path.isabs(stored_dir)
     assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "rain"
 
 

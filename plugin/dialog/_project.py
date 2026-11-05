@@ -128,12 +128,17 @@ def _apply_series(self, text, directory_key, prefix_key):
         self.config.set("FILENAME_PREFIXES", prefix_key, stored)
         return
 
-    # Prefer the project-resolved file so a bare ``rain00000.001`` that
-    # validation found under the project stores that directory, not ``/``.
-    # Keep a relative ``data/prec/rain00000.001`` relative so Open+Save does
-    # not rewrite DIRECTORIES to an absolute path.
+    # Prefer the typed path when it is still relative so Open+Save stays
+    # portable: ``data/prec/rain…`` keeps ``data/prec/``, and a bare
+    # ``rain00000.001`` splits to ``./`` then recovers the stored relative
+    # dir (never the absolute project-resolved parent).
     keep_relative = not os.path.isabs(text) and bool(os.path.dirname(text))
-    split_source = resolved if os.path.isfile(resolved) and not keep_relative else text
+    bare_relative = not os.path.isabs(text) and not os.path.dirname(text)
+    split_source = (
+        resolved
+        if os.path.isfile(resolved) and not keep_relative and not bare_relative
+        else text
+    )
     tmp_path, tmp_prefix = splitDirFilePrefix(split_source)
     if tmp_path in ("/", "./") or tmp_path.strip("/\\") == "":
         stored_dir = self.config.get("DIRECTORIES", directory_key, fallback="")
