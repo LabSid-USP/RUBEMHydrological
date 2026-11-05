@@ -197,7 +197,7 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         setSoilMapFilePath,
         setWiltingPointFilePath,
     )
-    from ._window import closeEvent, initialGuiState, updateWindowTitle
+    from ._window import closeEvent, initialGuiState, reject, updateWindowTitle
     from ._worker import (
         explainCancel,
         handleFinished,

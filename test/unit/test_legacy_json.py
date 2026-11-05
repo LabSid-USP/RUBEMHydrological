@@ -227,18 +227,39 @@ def test_get_first_map_series_accepts_directory_without_trailing_slash(
 
 
 @pytest.mark.unit
+def test_get_first_map_series_honors_stored_prefix(tmp_path) -> None:
+    """A stored prefix must win over another map that sorts first."""
+    from plugin.utils.series import getFirstFileNameMapSeries
+
+    series_dir = tmp_path / "prec"
+    series_dir.mkdir()
+    (series_dir / "other00000.001").write_text("o", encoding="utf-8")
+    rain = series_dir / "rain00000.001"
+    rain.write_text("r", encoding="utf-8")
+    assert getFirstFileNameMapSeries(str(series_dir), prefix="rain") == str(rain)
+
+
+@pytest.mark.unit
 def test_series_field_text_keeps_directory_when_no_maps(tmp_path) -> None:
     """An empty series directory must not become ``.`` in the line edit."""
+    import configparser
+
     from plugin.dialog._project import _series_field_text
 
     series_dir = tmp_path / "prec"
     series_dir.mkdir()
+    parser = configparser.ConfigParser()
+    parser.add_section("FILENAME_PREFIXES")
+    parser.set("FILENAME_PREFIXES", "prec_prefix", "rain")
     holder = type(
         "Holder",
         (),
-        {"projectFilePath": str(tmp_path / "basin.json")},
+        {
+            "config": parser,
+            "projectFilePath": str(tmp_path / "basin.json"),
+        },
     )()
-    assert _series_field_text(holder, "prec") == "prec"
+    assert _series_field_text(holder, "prec", "prec_prefix") == "prec"
 
 
 @pytest.mark.unit

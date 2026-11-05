@@ -816,6 +816,40 @@ def test_close_event_keeps_new_project_when_the_worker_is_idle() -> None:
 
 
 @pytest.mark.unit
+def test_reject_shares_close_guards_for_escape() -> None:
+    """Escape must not dismiss the dialog while a model thread is running."""
+    dialog = _dialog()
+    dialog.projectFilePath = "/tmp/basin.json"
+    dialog.worker = SimpleNamespace(
+        thread=SimpleNamespace(isRunning=lambda: True),
+    )
+    dialog.newProject = MagicMock()
+    with patch.object(window.QDialog, "reject") as qdialog_reject:
+        window.reject(dialog)
+    qdialog_reject.assert_not_called()
+    dialog.newProject.assert_not_called()
+
+
+@pytest.mark.unit
+def test_dialog_class_binds_reject_for_escape() -> None:
+    """``reject`` must be on the dialog class so Escape uses the guards."""
+    source = (ROOT / "plugin" / "dialog" / "__init__.py").read_text(encoding="utf-8")
+    tree = ast.parse(source)
+    found = False
+    for node in ast.walk(tree):
+        if (
+            isinstance(node, ast.ImportFrom)
+            and node.module == "_window"
+            and node.level == 1
+        ):
+            names = [alias.name for alias in node.names]
+            assert "reject" in names
+            assert "closeEvent" in names
+            found = True
+    assert found
+
+
+@pytest.mark.unit
 def test_explain_cancel_appends_once_per_run() -> None:
     """Cancel explains the isolated process once until the next run."""
     dialog = _dialog()

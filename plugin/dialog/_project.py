@@ -49,18 +49,23 @@ def resolve_project_path(self, path: str) -> str:
     return os.path.normpath(os.path.join(os.path.dirname(project), path))
 
 
-def _series_field_text(self, directory_value: str) -> str:
+def _series_field_text(self, directory_value: str, prefix_key: str = "") -> str:
     """Text for a map-series line edit from a stored directory value.
 
     Resolves relative directories against the project file. When the directory
-    exists, show the first series map if one is present; otherwise keep the
-    stored directory string (never ``os.path.normpath("")`` → ``.``).
+    exists, prefer a map whose alphabetic prefix matches the stored
+    ``FILENAME_PREFIXES`` entry so Save cannot replace that prefix with
+    another series that happens to sort first. If no matching map exists,
+    keep the stored directory string (never ``os.path.normpath("")`` → ``.``).
     """
     if not directory_value:
         return ""
     resolved = resolve_project_path(self, directory_value)
     if os.path.isdir(resolved):
-        first = getFirstFileNameMapSeries(resolved)
+        prefix = ""
+        if prefix_key:
+            prefix = self.config.get("FILENAME_PREFIXES", prefix_key, fallback="")
+        first = getFirstFileNameMapSeries(resolved, prefix=prefix)
         return first if first else directory_value
     return directory_value
 
@@ -818,12 +823,14 @@ def updateGUIFromConfig(self):
     # Land Use tab
     # Land Use Series
     self.lineEdt_LandUseSeries.setText(
-        _series_field_text(self, self.config.get("DIRECTORIES", "landuse"))
+        _series_field_text(
+            self, self.config.get("DIRECTORIES", "landuse"), "landuse_prefix"
+        )
     )
 
     # NDVI
     self.lineEdt_NDVISeries.setText(
-        _series_field_text(self, self.config.get("DIRECTORIES", "ndvi"))
+        _series_field_text(self, self.config.get("DIRECTORIES", "ndvi"), "ndvi_prefix")
     )
 
     self.lineEdt_NDVIMax.setText(self.config.get("RASTERS", "ndvi_max"))
@@ -856,13 +863,13 @@ def updateGUIFromConfig(self):
 
     # Climate tab
     self.lineEdt_Precipitation.setText(
-        _series_field_text(self, self.config.get("DIRECTORIES", "prec"))
+        _series_field_text(self, self.config.get("DIRECTORIES", "prec"), "prec_prefix")
     )
     self.lineEdt_EvapoTranspiration.setText(
-        _series_field_text(self, self.config.get("DIRECTORIES", "etp"))
+        _series_field_text(self, self.config.get("DIRECTORIES", "etp"), "etp_prefix")
     )
     self.lineEdt_PanCoefficientKp.setText(
-        _series_field_text(self, self.config.get("DIRECTORIES", "kp"))
+        _series_field_text(self, self.config.get("DIRECTORIES", "kp"), "kp_prefix")
     )
 
     self.lineEdt_RainyDays.setText(self.config.get("TABLES", "rainydays"))

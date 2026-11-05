@@ -9,13 +9,17 @@ from qgis.core import (
 )
 from qgis.PyQt.QtCore import QModelIndex, Qt
 
+try:
+    from ._project import resolve_project_path
+except ImportError:
+    from _project import resolve_project_path
+
 
 # TODO: Add docstring information and comments
 def canvasHandler(self, index: QModelIndex):
     if index.flags() & Qt.ItemFlag.ItemIsSelectable:
-        rasterPath = os.path.join(
-            self.config.get("DIRECTORIES", "output"), index.data()
-        )
+        output = resolve_project_path(self, self.config.get("DIRECTORIES", "output"))
+        rasterPath = os.path.join(output, index.data())
         legend = index.data()
         rlayer = QgsRasterLayer(rasterPath, legend)
         rlayer.setCrs(QgsCoordinateReferenceSystem("EPSG:4326"))
@@ -40,11 +44,9 @@ def canvasHandler(self, index: QModelIndex):
 # TODO: Add docstring information and comments
 #! Obsolete and/or used for testing method only
 def displayPoint(self, pointTool):
+    output = resolve_project_path(self, self.config.get("DIRECTORIES", "output"))
     value = self.getValue(
-        os.path.join(
-            self.config.get("DIRECTORIES", "output"),
-            self.iface.activeLayer().name(),
-        ),
+        os.path.join(output, self.iface.activeLayer().name()),
         pointTool[0],
         pointTool[1],
     )
