@@ -76,6 +76,7 @@ def test_archive_uses_one_root_and_keeps_runtime_files() -> None:
     assert f"{ARCHIVE_ROOT}/i18n/RUBEMHydrological_pt_BR.qm" in names
     assert f"{ARCHIVE_ROOT}/LICENSE" in names
     assert f"{ARCHIVE_ROOT}/LICENSE.md" not in names
+    assert f"{ARCHIVE_ROOT}/doc/about.html" in names
     assert all(name.startswith(f"{ARCHIVE_ROOT}/") for name in names)
 
 

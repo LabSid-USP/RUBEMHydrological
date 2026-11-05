@@ -25,6 +25,7 @@ INCLUDE_SUFFIXES = {
     ".qm",
     ".txt",
     ".md",
+    ".html",
 }
 EXCLUDE_DIRS = {
     "__pycache__",
@@ -67,6 +68,10 @@ def iter_plugin_files(root: Path):
         if path.is_file():
             yield path
             break
+    # About dialog reads doc/about.html relative to the installed plugin root.
+    about = root / "doc" / "about.html"
+    if about.is_file():
+        yield about
     i18n = root / "i18n"
     if i18n.is_dir():
         for path in i18n.rglob("*"):

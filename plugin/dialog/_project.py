@@ -256,6 +256,9 @@ def newProject(self, supressed=False):
                 return None
 
         self.textBrowser_log.clear()
+        # Fresh parser: read_dict only overlays keys and would keep optional
+        # fields (ldd, alignment, …) loaded from a previous Open.
+        self.config = configparser.ConfigParser()
         self.config.read_dict(defaultConfigSchema)
         self.updateGUIFromConfig()
         self.projectFilePath = None

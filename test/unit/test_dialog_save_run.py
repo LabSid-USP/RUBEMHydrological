@@ -448,6 +448,29 @@ def test_new_and_open_blocked_while_pydantic_installing() -> None:
     assert project.openProject(dialog) is None
 
 
+@pytest.mark.unit
+def test_new_project_drops_optional_keys_from_previous_open() -> None:
+    """New must not keep ldd/alignment (etc.) loaded by a prior Open."""
+    from plugin.validation.schemas import defaultConfigSchema
+
+    dialog = _dialog()
+    dialog.saveAsProject = MagicMock()
+    dialog.config.read_dict(defaultConfigSchema)
+    dialog.config.set("RASTERS", "ldd", "old/basin.ldd")
+    dialog.config.set("SIM_TIME", "alignment", "01/01/2000")
+    dialog.config.set("TABLES", "lai_max", "tables/lai.csv")
+    dialog.hasCurrentProject = False
+
+    qgis_project = _qgis_project(dirty=False)
+    with patch.object(project.QgsProject, "instance", return_value=qgis_project):
+        project.newProject(dialog)
+
+    assert not dialog.config.has_option("RASTERS", "ldd")
+    assert not dialog.config.has_option("SIM_TIME", "alignment")
+    assert not dialog.config.has_option("TABLES", "lai_max")
+    dialog.saveAsProject.assert_called_once_with(isNewProject=True)
+
+
 def _deferred_save(dialog, destination: Path) -> None:
     continued: list[str] = []
     retries: list = []
