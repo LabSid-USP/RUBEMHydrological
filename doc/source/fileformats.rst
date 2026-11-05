@@ -697,6 +697,19 @@ Resulting maps of Total Runoff [mm] in raster format for all simulation period f
   - Columns = :ref:`clone columns<Mask of Catchment (Clone) raster>`;
   - Cell Size = :ref:`clone cell size<Mask of Catchment (Clone) raster>`.
 
+Accumulated Total Runoff raster series
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Resulting maps of Accumulated Total Runoff (ARN) [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in raster format for all simulation period for each pixel of :ref:`stations map <Stations (samples) raster>`.
+
+- Filetype: PCRaster map format (:file:`arn00000.001`- :file:`arn99999.999` raster map series).
+- Unit: :raw-html:`m<sup>3</sup>s<sup>-1</sup>`
+- Dimensions:
+
+  - Rows = :ref:`clone rows <Mask of Catchment (Clone) raster>`;
+  - Columns = :ref:`clone columns<Mask of Catchment (Clone) raster>`;
+  - Cell Size = :ref:`clone cell size<Mask of Catchment (Clone) raster>`.
+
 Total Interception table
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
