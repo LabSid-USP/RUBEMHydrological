@@ -110,9 +110,9 @@ def _apply_series(self, text, directory_key, prefix_key):
     resolved = resolve_project_path(self, text)
     basename = os.path.basename(text.rstrip("/\\"))
     _, extension = os.path.splitext(basename)
-    # Map-series picks look like ``rain00000.001``. A non-existent path with
-    # a dotted final segment (``data/prec.v2``) is still a directory value.
-    looks_like_map = bool(re.fullmatch(r"[A-Za-z]+\d{5}\.\d+", basename))
+    # Map-series picks look like ``rain00000.001`` / ``kp000000.001``.
+    # A non-existent dotted path (``data/prec.v2``) is still a directory value.
+    looks_like_map = bool(re.fullmatch(r"[A-Za-z]+\d+\.\d+", basename))
     directory_only = (
         text.endswith(("/", "\\"))
         or os.path.isdir(resolved)
@@ -130,7 +130,10 @@ def _apply_series(self, text, directory_key, prefix_key):
 
     # Prefer the project-resolved file so a bare ``rain00000.001`` that
     # validation found under the project stores that directory, not ``/``.
-    split_source = resolved if os.path.isfile(resolved) else text
+    # Keep a relative ``data/prec/rain00000.001`` relative so Open+Save does
+    # not rewrite DIRECTORIES to an absolute path.
+    keep_relative = not os.path.isabs(text) and bool(os.path.dirname(text))
+    split_source = resolved if os.path.isfile(resolved) and not keep_relative else text
     tmp_path, tmp_prefix = splitDirFilePrefix(split_source)
     if tmp_path in ("/", "./"):
         stored_dir = self.config.get("DIRECTORIES", directory_key, fallback="")

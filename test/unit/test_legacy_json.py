@@ -239,14 +239,18 @@ def test_series_field_text_keeps_relative_directory_portable(tmp_path) -> None:
     """Open+Save must not rewrite a relative series dir to an absolute map path."""
     import configparser
 
-    from plugin.dialog._project import _series_field_text
+    from plugin.dialog._project import _apply_series, _series_field_text
 
     series_dir = tmp_path / "data" / "prec"
     series_dir.mkdir(parents=True)
     (series_dir / "rain00000.001").write_text("x", encoding="utf-8")
     parser = configparser.ConfigParser()
-    parser.add_section("FILENAME_PREFIXES")
-    parser.set("FILENAME_PREFIXES", "prec_prefix", "rain")
+    parser.read_dict(
+        {
+            "DIRECTORIES": {"prec": "data/prec"},
+            "FILENAME_PREFIXES": {"prec_prefix": "rain"},
+        }
+    )
     holder = type(
         "Holder",
         (),
@@ -258,6 +262,11 @@ def test_series_field_text_keeps_relative_directory_portable(tmp_path) -> None:
     shown = _series_field_text(holder, "data/prec", "prec_prefix")
     assert shown == os.path.join("data/prec", "rain00000.001")
     assert not os.path.isabs(shown)
+    _apply_series(holder, shown, "prec", "prec_prefix")
+    stored_dir = holder.config.get("DIRECTORIES", "prec")
+    assert stored_dir in ("data/prec/", "data/prec")
+    assert not os.path.isabs(stored_dir)
+    assert holder.config.get("FILENAME_PREFIXES", "prec_prefix") == "rain"
 
 
 @pytest.mark.unit
