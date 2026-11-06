@@ -780,6 +780,33 @@ def test_open_deferred_read_clears_qgis_only_after_retry() -> None:
 
 
 @pytest.mark.unit
+def test_deferred_read_retry_logs_validation_errors_without_raising() -> None:
+    """A post-install read failure must not escape the Qt signal slot."""
+    dialog = _dialog()
+    retries: list = []
+    attempts = {"n": 0}
+
+    def read_json(_path):
+        attempts["n"] += 1
+        if attempts["n"] == 1:
+            raise project.PydanticUnavailable("install pydantic")
+        raise ValueError("Conflicting values for DIRECTORIES.kp")
+
+    def prompt(_self, _exc, retry):
+        retries.append(retry)
+        return None
+
+    with (
+        patch.object(project, "read_legacy_json", read_json),
+        patch.object(project, "_prompt_pydantic_install", prompt),
+    ):
+        assert project._read_project(dialog, "/tmp/basin.json") is None
+        retries[0]()
+
+    assert any("Conflicting values" in line for line in dialog.textBrowser_log.lines)
+
+
+@pytest.mark.unit
 def test_close_event_ignores_a_running_worker_without_killing_it() -> None:
     """A running model thread blocks close and is not killed."""
     dialog = _dialog()

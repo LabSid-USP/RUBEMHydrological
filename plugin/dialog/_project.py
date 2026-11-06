@@ -27,7 +27,10 @@ def _snapshot_config(config):
     """Copy section values so a deferred write cannot see later GUI edits."""
     snapshot = configparser.ConfigParser()
     snapshot.read_dict(
-        {section: dict(config.items(section)) for section in config.sections()}
+        {
+            section: dict(config.items(section, raw=True))
+            for section in config.sections()
+        }
     )
     return snapshot
 
@@ -191,7 +194,11 @@ def _prompt_pydantic_install(self, exc, retry):
     def finished_ok():
         self._pydantic_installing = False
         self.textBrowser_log.append("Pydantic is available.")
-        retry()
+        # Qt signal slots must not raise: an uncaught error can abort QGIS.
+        try:
+            retry()
+        except Exception as retry_exc:
+            self.textBrowser_log.append(str(retry_exc))
 
     def finished_badly(message):
         self._pydantic_installing = False
@@ -229,8 +236,11 @@ def _write_project(self, selected_file_path, after=None):
         snapshot = _snapshot_config(self.config)
 
         def retry():
-            if write(snapshot) and after is not None:
-                after()
+            try:
+                if write(snapshot) and after is not None:
+                    after()
+            except Exception as retry_exc:
+                self.textBrowser_log.append(str(retry_exc))
 
         return _prompt_pydantic_install(self, exc, retry)
 
@@ -246,9 +256,12 @@ def _read_project(self, config_file_path, after=None):
     except PydanticUnavailable as exc:
 
         def retry():
-            loaded = read()
-            if loaded is not None and after is not None:
-                after(loaded)
+            try:
+                loaded = read()
+                if loaded is not None and after is not None:
+                    after(loaded)
+            except Exception as retry_exc:
+                self.textBrowser_log.append(str(retry_exc))
 
         return _prompt_pydantic_install(self, exc, retry)
 
