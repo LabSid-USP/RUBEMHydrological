@@ -1,16 +1,17 @@
 # This file contains metadata for your plugin.
 
-# This file should be included when you package your plugin.# Mandatory items:
+# This file should be included when you package your plugin.
+# Mandatory items:
 
 [general]
 name=RUBEM Hydrological
-qgisMinimumVersion=3.0
-description=Distributed hydrological model for water balance
-version=1.12.3
+qgisMinimumVersion=4.0
+description=Distributed hydrological model for water balance with LULC change support
+version=2.0.0
 author=LabSid-PHA-EPUSP
 email=rubem.hydrological@labsid.eng.br
 
-about=This plugin uses Rainfall rUnoff Balance Enhanced Model to calculate monthly water balance (runoff, aquifer recharge, canopy interception and Base flow) with capabilities to consider changes in LULC over the time.
+about=This plugin uses Rainfall rUnoff Balance Enhanced Model (RUBEM) to calculate monthly water balance including runoff, aquifer recharge, canopy interception and baseflow with capabilities to consider changes in Land Use and Land Cover (LULC) over time. The plugin provides a comprehensive GUI for model configuration, execution, and results visualization. Runtime requires PCRaster and GDAL (osgeo) from the QGIS/OSGeo environment (conda, OSGeo4W, or system packages — not pip), plus pydantic (>=2.11), humanize (>=4) and python-dateutil (>=2); when those pure-Python packages are missing the plugin prompts before installing them into an isolated environment.
 
 tracker=https://github.com/LabSid-USP/RUBEMHydrological/issues
 repository=https://github.com/LabSid-USP/RUBEMHydrological
@@ -18,29 +19,31 @@ repository=https://github.com/LabSid-USP/RUBEMHydrological
 
 # Recommended items:
 
-hasProcessingProvider=no
-# Uncomment the following line and add your changelog:
-# changelog=
+hasProcessingProvider=False
+changelog=
+    2.0.0 - QGIS 4 and the JSON document RUBEM reads
+        * Project files are legacy JSON with no version field
+        * Python 3.13.16, the interpreter shipped with QGIS 4.2
+    1.12.3 - Previous stable release
 
 # Tags are comma separated with spaces allowed
-tags=hydrological model,remote sensing,grid,hydrology,pcraster,water,catchment
+tags=hydrological model,remote sensing,grid,hydrology,pcraster,water,catchment,water balance,runoff,LULC
 
 homepage=https://github.com/LabSid-USP/RUBEMHydrological/#readme
-category=Plugins
-icon=images\icon.png
+icon=images/icon.png
+
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
 
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
-# Check the documentation for more information.
-# plugin_dependencies=
+plugin_dependencies=
 
-Category of the plugin: Raster, Vector, Database or Web
-# category=
+# Category of the plugin: Raster, Vector, Database or Web
+category=Raster
 
 # If the plugin can run on QGIS Server.
 server=False

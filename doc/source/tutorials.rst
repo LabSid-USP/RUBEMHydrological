@@ -12,7 +12,7 @@ For this example, we will set up the RUBEM model for ten years: 2000 to 2009. Fo
 Create a new project
 `````````````````````
 
-Click ``New`` and save your new project in the downloaded dataset directory. Name the project :file:`Iguazu.ini` or another appropriate filename. Then, in the section ``Project Directories`` select the dataset directory as ``input directory`` and a preference folder directory as ``output directory``
+Click ``New`` and save your new project in the downloaded dataset directory. Name the project :file:`Iguazu.json` or another appropriate filename. The file is the JSON document RUBEM reads. Then, in the section ``Project Directories`` select the dataset directory as ``input directory`` and a preference folder directory as ``output directory``. The input directory is an editor aid and is not stored in that JSON file.
  
 .. _initial-settings:
 
@@ -122,7 +122,7 @@ The figure below represents an overview of the Report options tab. Within this s
 
 In the example below  it can be seen that ``Recharge``, ``Total Runoff`` and ``Total Interception`` are checked to be reported. If ``Export Results to stations locations`` in the Settings tab was checked, time-series for the selected variables will be generated.
 
-Select the variables of interest and click on the ``RUN`` button. If all information and files are correct a success message will appear.
+Select the variables of interest and click the dialog footer ``Run`` button. If all information and files are correct a success message will appear. ``Close`` dismisses the dialog when idle; it does not stop a running isolated model process.
 
 The figure below shows an overview of the ``Run`` tab at this point.
 

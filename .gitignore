@@ -1,4 +1,6 @@
-rubem
+# Nothing in the plugin reads a binary from this directory. The model source
+# is the external/rubem-model submodule.
+/rubem/
 
 # Qt for Python
 .qt_for_python

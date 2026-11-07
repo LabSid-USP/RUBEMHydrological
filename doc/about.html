@@ -1,5 +1,5 @@
 <h1><strong>RUBEM</strong> Hydrological</h1>
-<h3>Version 1.12.3-beta.3</h3>
+<h3>Version 2.0.0</h3>
 
 <p><a href="https://rubem-hydrological.readthedocs.io/en/latest/changelog.html">Release
                 notes</a> &middot; <a href="https://rubem-hydrological.readthedocs.io/en/latest/license.html">Licenses
@@ -9,7 +9,13 @@
                 r<strong>U</strong>noff <strong>B</strong>alance <strong>E</strong>nhanced
                 <strong>M</strong>odel</a>&nbsp;(RUBEM) to calculate monthly water balance (runoff, aquifer recharge,
         canopy
-        interception and Base flow) with capabilities to consider changes in LULC over the time.</p>
+        interception and baseflow) with capabilities to consider changes in LULC over the time.</p>
+
+<p><strong>Runtime dependencies.</strong> Model runs need PCRaster and GDAL (<code>osgeo</code>) from the
+        QGIS/OSGeo environment (conda, OSGeo4W, or system packages — not pip). Configuration save/open also needs
+        <code>pydantic</code> (&gt;=2.11), <code>humanize</code> (&gt;=4) and <code>python-dateutil</code> (&gt;=2);
+        when those pure-Python packages are missing the plugin prompts before installing them into an isolated
+        environment.</p>
 
 <p><a href="https://rubem-hydrological.readthedocs.io/">Explore the Docs</a> &middot; <a
                 href="https://www.youtube.com/playlist?list=PL3Wazcs1VbKlM6N4Q8A8Pry7Aoug9v-Fl">View Demo</a> &middot;
@@ -45,4 +51,4 @@
 <p>LabSid/PHA/USP thanks the support of the Fundo Patrimonial Amigos da Poli in the development of the QGIS plugin for
         the distributed hydrological model RUBEM.</p>
 
-<p>&copy; 2021-2024 <a href="https://labsid.poli.usp.br/contato/">LabSid</a></p>
+<p>&copy; 2021-2026 <a href="https://labsid.poli.usp.br/contato/">LabSid</a></p>

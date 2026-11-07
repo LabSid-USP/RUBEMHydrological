@@ -1,7 +1,9 @@
 Installation
 ============
 
-The plugin requires the user to have the latest version of QGIS 3 installed. The user can download the latest version of RUBEM Hydrological from `GitHub <https://github.com/LabSid-USP/RUBEMHydrological/releases>`__ or directly from the Official QGIS Plugin repository.
+The plugin requires the user to have QGIS 4 installed (we recommend the latest QGIS 4.2 release). Model runs also need **PCRaster** and **GDAL** (``osgeo``) from the QGIS/OSGeo environment (conda, OSGeo4W, or system packages — not pip). Saving or opening a project needs ``pydantic`` (>=2.11), ``humanize`` (>=4) and ``python-dateutil`` (>=2); when those pure-Python packages are missing the plugin prompts before installing them into an isolated environment.
+
+The user can download the latest version of RUBEM Hydrological from `GitHub <https://github.com/LabSid-USP/RUBEMHydrological/releases>`__ or directly from the Official QGIS Plugin repository.
 
 .. caution::
    
@@ -39,5 +41,5 @@ To install the plugin, you use **QGIS Plugin Manager**.
 Locating and starting the plugin in the QGIS GUI
 ------------------------------------------------
 
-The plugin can be started from the submenu
-of the *Plugins* menu (``Plugins-> RUBEM Hydrological -> RUBEM Hydrological``).
+The plugin can be started from the *Raster* menu
+(``Raster -> RUBEM Hydrological -> RUBEM Hydrological``), matching ``category=Raster`` in ``metadata.txt``.

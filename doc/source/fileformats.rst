@@ -687,11 +687,24 @@ Resulting maps of Soil Moisture Content (SMC) [mm] in raster format for all simu
 Total Runoff raster series
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Resulting maps of Total Runoff [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in raster format for all simulation period for each pixel of :ref:`stations map <Stations (samples) raster>`.
+Resulting maps of Total Runoff [mm] in raster format for all simulation period for each pixel of :ref:`stations map <Stations (samples) raster>`.
 
 - Filetype: PCRaster map format (:file:`rnf00000.001`- :file:`rnf99999.999` raster map series).
-- Unit: :raw-html:`m<sup>3</sup>s<sup>-1</sup>`
+- Unit: mm
 - Dimensions: 
+
+  - Rows = :ref:`clone rows <Mask of Catchment (Clone) raster>`;
+  - Columns = :ref:`clone columns<Mask of Catchment (Clone) raster>`;
+  - Cell Size = :ref:`clone cell size<Mask of Catchment (Clone) raster>`.
+
+Accumulated Total Runoff raster series
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Resulting maps of Accumulated Total Runoff (ARN) [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in raster format for all simulation period for each pixel of :ref:`stations map <Stations (samples) raster>`.
+
+- Filetype: PCRaster map format (:file:`arn00000.001`- :file:`arn99999.999` raster map series).
+- Unit: :raw-html:`m<sup>3</sup>s<sup>-1</sup>`
+- Dimensions:
 
   - Rows = :ref:`clone rows <Mask of Catchment (Clone) raster>`;
   - Columns = :ref:`clone columns<Mask of Catchment (Clone) raster>`;
@@ -973,10 +986,10 @@ Resulting maps of Soil Moisture Content (SMC) [mm] in table format for all simul
 Total Runoff table
 ^^^^^^^^^^^^^^^^^^^
 
-Resulting maps of Total Runoff [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in table format for all simulation period for each sampling station present in :ref:`stations map <Stations (samples) raster>`.
+Resulting maps of Total Runoff [mm] in table format for all simulation period for each sampling station present in :ref:`stations map <Stations (samples) raster>`.
 
 - Filetype: Comma-Separated Values (CSV) :file:`*.csv`
-- Unit: :raw-html:`m<sup>3</sup>s<sup>-1</sup>`
+- Unit: mm
 - Dimensions: 
 
   - Rows = number of time steps;
@@ -1007,4 +1020,44 @@ Resulting maps of Total Runoff [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in tabl
      - Float <\*>
      - Float <\*>
      - `...`
-     - Float <\*>    
+     - Float <\*>
+
+
+Accumulated Total Runoff table
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Resulting values of Accumulated Total Runoff (ARN) [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] in table format for all simulation period for each sampling station present in :ref:`stations map <Stations (samples) raster>`. When station time series generation is enabled together with ARN, the series file is ``tss_arn.csv``.
+
+- Filetype: Comma-Separated Values (CSV) :file:`*.csv`
+- Unit: :raw-html:`m<sup>3</sup>s<sup>-1</sup>`
+- Dimensions:
+
+  - Rows = number of time steps;
+  - Columns = number of sampling stations from the station map.
+
+.. list-table:: Basic file structure:
+   :header-rows: 1
+
+   * - Time Step
+     - Station #1
+     - Station #2
+     - `...`
+     - Station #N
+
+   * - 1
+     - Float <\*>
+     - Float <\*>
+     - `...`
+     - Float <\*>
+
+   * - `...`
+     - `...`
+     - `...`
+     - `...`
+     - `...`
+
+   * - N
+     - Float <\*>
+     - Float <\*>
+     - `...`
+     - Float <\*>

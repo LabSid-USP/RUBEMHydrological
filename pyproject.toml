@@ -1,23 +1,216 @@
 [tool.poetry]
 name = "RUBEM Hydrological"
-version = "1.12.3"
+version = "2.0.0"
 description = "Rainfall rUnoff Balance Enhanced Model (RUBEM) distributed hydrological model QGIS plugin to calculate monthly flows with changes in land use over time."
 authors = ["LabSid PHA EPUSP <rubem.hydrological@labsid.eng.br>"]
-license = "GPL v3"
+license = "GPL-3.0-or-later"
 readme = "README.md"
 homepage = "http://labsid.eng.br/software.aspx?id=17"
-repository = "https://github.com/LabSid-USP/RUBEMHyrological"
+repository = "https://github.com/LabSid-USP/RUBEMHydrological"
 documentation = "https://rubem-hydrological.readthedocs.io/en/latest"
-keywords = ["remote sensing", "hydrology", "water", "hydrological model"]
+keywords = ["qgis", "plugin", "remote sensing", "hydrology", "water", "hydrological model", "rubem"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: GIS",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+package-mode = false
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/LabSid-USP/RUBEMHyrological/issues"
+"Bug Tracker" = "https://github.com/LabSid-USP/RUBEMHydrological/issues"
+"Changelog" = "https://github.com/LabSid-USP/RUBEMHydrological/blob/main/CHANGELOG.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.13.16,<3.14"
+pydantic = ">=2.11,<3"
+tomli = {version = "^2.0", python = "<3.11"}
+tomli-w = "^1.1"
+typing-extensions = "^4.12"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3"
+pydantic-settings = "^2.6"
+pytest-cov = "^6.0"
+pytest-qt = "^4.4"
+pytest-mock = "^3.14"
+mypy = "^1.13"
+ruff = "^0.8"
+black = "^24.10"
+pre-commit = "^4.0"
+commitizen = "^3.29"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^8.1"
+sphinx-rtd-theme = "^3.0"
+sphinxcontrib-email = "^0.3"
+sphinxcontrib-youtube = "^1.4"
+sphinx-autodoc-typehints = "^2.5"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.9.0"]
 build-backend = "poetry.core.masonry.api"
+
+# Ruff configuration
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+extend-include = ["*.pyw"]
+extend-exclude = [
+    "external/rubem-model",
+    "plugin/gui/generated",
+    # Unwired v2 scaffolding is not on the QGIS load path yet.
+    "plugin/models",
+    "plugin/services",
+    "plugin/controllers",
+    "plugin/views",
+    "plugin/workers",
+    "plugin/core_refactored.py",
+    "plugin/exceptions.py",
+    "plugin/logging.py",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "ARG", # flake8-unused-arguments
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (handled by black)
+    "B008",  # do not perform function calls in argument defaults
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]  # unused imports in __init__.py
+"test_*.py" = ["ARG"]     # allow unused arguments in tests
+# Live dialog modules use Designer-era ``import *`` and Qt slot signatures.
+"plugin/dialog/*.py" = ["F403", "F405", "ARG001", "SIM102", "B007"]
+"plugin/validation/legacy_json.py" = ["SIM105"]
+"plugin/utils/raster.py" = ["F841"]
+
+# Black configuration
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+    \.git
+  | \.mypy_cache
+  | \.pytest_cache
+  | \.ruff_cache
+  |     \.venv
+  | build
+  | dist
+  | plugin/gui/generated
+  | external/rubem-model
+  | plugin/models
+  | plugin/services
+  | plugin/controllers
+  | plugin/views
+  | plugin/workers
+  | plugin/core_refactored.py
+  | plugin/exceptions.py
+  | plugin/logging.py
+)/
+'''
+
+# MyPy configuration
+[tool.mypy]
+python_version = "3.13"
+explicit_package_bases = true
+mypy_path = "."
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+follow_imports = "normal"
+ignore_missing_imports = true
+exclude = [
+    "plugin/models/",
+    "plugin/services/",
+    "plugin/controllers/",
+    "plugin/views/",
+    "plugin/workers/",
+    "plugin/core_refactored\\.py",
+    "plugin/exceptions\\.py",
+    "plugin/logging\\.py",
+    "external/",
+    "plugin/gui/generated/",
+]
+
+[[tool.mypy.overrides]]
+module = "qgis.*"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = "PyQt5.*"
+ignore_missing_imports = true
+
+# Pytest configuration
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["test"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = [
+    "-v",
+    "--strict-markers",
+    "--strict-config",
+    "--cov=plugin",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+markers = [
+    "unit: Unit tests that don't require QGIS",
+    "integration: Integration tests requiring QGIS environment",
+    "slow: Slow running tests",
+]
+
+# Coverage configuration
+[tool.coverage.run]
+source = ["plugin"]
+omit = [
+    "*/test/*",
+    "*/gui/generated/*",
+    "*/__pycache__/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if TYPE_CHECKING:",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "@abstractmethod",
+]
+
+# Commitizen configuration
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "2.0.0"
+tag_format = "v$version"
+version_files = [
+    "pyproject.toml:version",
+    "plugin/__version__.py:__version__",
+    "metadata.txt:version",
+]
+update_changelog_on_bump = true

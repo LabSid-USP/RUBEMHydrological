@@ -1,0 +1,122 @@
+# RUBEM Hydrological Model Configuration
+# This is an example configuration file in TOML format
+# For documentation, visit: https://rubem-hydrological.readthedocs.io
+
+# =============================================================================
+# Simulation Time Period
+# =============================================================================
+[sim_time]
+start = "2020-01-01"  # Start date (YYYY-MM-DD format)
+end = "2020-12-31"    # End date (YYYY-MM-DD format)
+
+# =============================================================================
+# Directory Paths
+# All paths should be absolute
+# =============================================================================
+[directories]
+input = "/path/to/input/data"      # Input data directory
+output = "/path/to/output/results" # Output results directory
+project = "/path/to/project"       # Optional: Project files directory
+
+# =============================================================================
+# Filename Prefixes
+# These prefixes are used to identify input files
+# =============================================================================
+[filename_prefixes]
+dem = "dem"           # Digital Elevation Model
+clone = "clone"       # Clone map
+ndvi = "ndvi"         # NDVI time series
+landuse = "lulc"      # Land use/land cover maps
+soil = "soil"         # Soil type map
+samples = "samples"   # Optional: Sample locations
+
+# =============================================================================
+# Raster Input Files
+# =============================================================================
+[raster_files]
+dem = "/path/to/dem.tif"                    # Digital Elevation Model
+clone = "/path/to/clone.map"                # Clone map (PCRaster format)
+ndvi_dir = "/path/to/ndvi/"                 # Directory with NDVI time series
+landuse_dir = "/path/to/landuse/"           # Directory with land use maps
+soil = "/path/to/soil.tif"                  # Soil type raster
+
+# =============================================================================
+# Table Input Files (CSV format)
+# =============================================================================
+[table_files]
+climate = "/path/to/climate_data.csv"       # Climate data table
+landuse = "/path/to/landuse_params.csv"     # Land use parameters
+soil = "/path/to/soil_params.csv"           # Soil parameters
+
+# =============================================================================
+# Calibration Parameters
+# These parameters control the hydrological processes
+# =============================================================================
+[calibration]
+
+# Interception parameters
+alpha = 0.5                  # Interception parameter (0.0 - 1.0)
+
+# Runoff parameters
+beta = 1.5                   # Runoff coefficient (>= 0.0)
+
+# Baseflow parameters
+lambda_factor = 0.3          # Baseflow recession coefficient (0.0 - 1.0)
+
+# Evapotranspiration parameters
+kc = 1.0                     # Crop coefficient (>= 0.0)
+
+# Soil parameters
+field_capacity = 0.35        # Soil field capacity (0.0 - 1.0)
+wilting_point = 0.15         # Soil wilting point (0.0 - 1.0)
+                            # Note: wilting_point must be < field_capacity
+
+# =============================================================================
+# Output Options
+# Control which output files are generated
+# =============================================================================
+[output_options]
+generate_timeseries = true   # Generate time series output files
+generate_maps = true         # Generate raster map outputs
+generate_stats = true        # Generate statistical summaries
+
+# =============================================================================
+# Raster Output Format Configuration
+# =============================================================================
+[raster_format]
+format = "geotiff"          # Output format: "geotiff", "pcraster", or "hdf5"
+compression = true          # Enable compression to save disk space
+compression_level = 6       # Compression level (1-9, higher = smaller files)
+
+# =============================================================================
+# Advanced Options (Optional)
+# =============================================================================
+# Uncomment and modify these sections as needed
+
+# [processing]
+# parallel = true            # Enable parallel processing
+# num_cores = 4              # Number of CPU cores to use
+# chunk_size = 1000          # Processing chunk size
+
+# [validation]
+# strict = true              # Enable strict validation
+# check_crs = true          # Verify CRS consistency
+# check_extent = true       # Verify raster extents match
+
+# [logging]
+# level = "INFO"            # Log level: DEBUG, INFO, WARNING, ERROR
+# file = "rubem.log"        # Log file path
+# console = true            # Also log to console
+
+# =============================================================================
+# Notes:
+# 
+# 1. All paths should use forward slashes (/) even on Windows
+# 2. Dates must be in YYYY-MM-DD format
+# 3. Parameter values must be within valid ranges (see comments)
+# 4. Climate, land use, and soil tables must match the expected format
+# 5. NDVI and land use directories should contain monthly raster files
+# 
+# For detailed documentation and examples:
+# https://rubem-hydrological.readthedocs.io
+# =============================================================================

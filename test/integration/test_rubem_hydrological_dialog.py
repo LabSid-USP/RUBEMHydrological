@@ -28,27 +28,27 @@ class RUBEMHydrologicalDialogTest(unittest.TestCase):
 
     def setUp(self):
         """Runs before each test."""
-        self.app = QApplication([])
+        self.app = QApplication.instance() or QApplication([])
         self.dialog = RUBEMHydrologicalDialog(None)
 
     def tearDown(self):
         """Runs after each test."""
         self.dialog = None
 
-    def test_dialog_ok(self):
-        """Test we can click OK."""
+    def test_dialog_has_button_box_with_close(self):
+        """HIG footer exposes Close (RejectRole), not Ok."""
+        close = self.dialog.button_box.button(QDialogButtonBox.StandardButton.Close)
+        self.assertIsNotNone(close)
+        ok = self.dialog.button_box.button(QDialogButtonBox.StandardButton.Ok)
+        self.assertIsNone(ok)
+        self.assertFalse(self.dialog.btn_Run.isEnabled())
 
-        button = self.dialog.button_box.button(QDialogButtonBox.Ok)
+    def test_dialog_close_rejects_when_idle(self):
+        """Close routes through reject when no project/run is active."""
+        button = self.dialog.button_box.button(QDialogButtonBox.StandardButton.Close)
         button.click()
         result = self.dialog.result()
-        self.assertEqual(result, QDialog.Accepted)
-
-    def test_dialog_cancel(self):
-        """Test we can click cancel."""
-        button = self.dialog.button_box.button(QDialogButtonBox.Cancel)
-        button.click()
-        result = self.dialog.result()
-        self.assertEqual(result, QDialog.Rejected)
+        self.assertEqual(result, QDialog.DialogCode.Rejected)
 
 
 if __name__ == "__main__":

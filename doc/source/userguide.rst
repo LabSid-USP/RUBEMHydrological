@@ -36,9 +36,9 @@ The Project buttons provides access and exit points for project files:
 
 - **Open**: Open a project from a file;
 
-- **Save**: Save a project in .ini and .qgs file formats;
+- **Save**: Save a project as the JSON file RUBEM reads, plus a ``.qgs`` file;
 
-- **Save As...**: Save a project in .ini and .qgs file formats in another location and/or with another filename.
+- **Save As...**: Save that JSON project and its ``.qgs`` file in another location and/or with another filename.
 
 Help
 ^^^^
@@ -62,7 +62,7 @@ Settings tab
 Project Directories
 ^^^^^^^^^^^^^^^^^^^
 
-- **Data Input Directory**: Mandatory path to database folder. Must be a valid path to an existing directory;
+- **Data Input Directory**: Editor-only. This folder is used by the dialog to pick input files and is not stored in the project JSON file, which records each input file and series instead. The field can be left empty;
 
 - **Data Output Directory**: Mandatory path to output folder. Must be a valid path to an existing empty directory.
 
@@ -71,7 +71,10 @@ Model General Settings
 
 - **Digital Elevation Map (DEM)**: Mandatory path to Digital Elevation Map (DEM) file [masl] in :file:`*.map` format. This map contains topographic ground elevation in meters. Must be a valid file path to a :file:`*.map` raster file;
 
-- **Digital Elevation Map (DEM)**: Mandatory path to Digital Elevation Map (DEM) file [masl] in TIF format. This map contains topographic ground elevation in meters. Must be a valid file path to a TIF raster file;
+- **Digital Elevation Map (DEM) georeference (TIF)**: Optional path to a GeoTIFF
+  whose coordinate reference system is written to GeoTIFF outputs. Leave empty to
+  skip it. When a path is provided, it must point to an existing TIF raster that
+  matches the DEM geometry;
 
 - **Mask of Catchment (Clone)**: Mandatory path to Mask of Catchment (Clone) file in :file:`*.map` format. This map defines the basin area to simulate in the model. Must be a valid file path to a :file:`*.map` (PCRaster boolean format) raster file;
 
@@ -324,6 +327,8 @@ Weight Factors
 Run tab
 -------
 
+The Run tab holds the generate-file checkboxes and the execution log. **Run**, **Close** and **Help** live on the dialog footer (always visible): **Run** starts the model, **Close** dismisses the dialog when no run or dependency install is in progress (it does not stop an isolated model process), and **Help** opens the documentation. A progress bar sits beside those buttons during a run.
+
 .. image:: _static/screenshots/6-run2.png
    :align: center
    :width: 450
@@ -354,7 +359,9 @@ Generate Files
 
 - **Soil Moisture Content**: Optional boolean value. If enabled, this option allows the generation of Soil Moisture Content (SMC) [mm] result maps in raster format for each of the time steps included in the simulation period.
 
-- **Total Runoff**: Optional boolean value. If enabled, this option allows the generation of Total Runoff [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] result maps in raster format for each of the time steps included in the simulation period.
+- **Total Runoff**: Optional boolean value. If enabled, this option allows the generation of Total Runoff (RNF) [mm] result maps in raster format for each of the time steps included in the simulation period.
+
+- **Accumulated Total Runoff**: Optional boolean value. If enabled, this option allows the generation of Accumulated Total Runoff (ARN) [:raw-html:`m<sup>3</sup>s<sup>-1</sup>`] result maps in raster format for each of the time steps included in the simulation period. When station time series generation is enabled, the accumulated total runoff time series is also written as ``tss_arn``.
 
 Results tab
 -----------

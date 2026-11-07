@@ -1,0 +1,49 @@
+{
+  "sim_time": {
+    "start": "2020-01-01",
+    "end": "2020-12-31"
+  },
+  "directories": {
+    "input": "/path/to/input/data",
+    "output": "/path/to/output/results",
+    "project": "/path/to/project"
+  },
+  "filename_prefixes": {
+    "dem": "dem",
+    "clone": "clone",
+    "ndvi": "ndvi",
+    "landuse": "lulc",
+    "soil": "soil",
+    "samples": "samples"
+  },
+  "raster_files": {
+    "dem": "/path/to/dem.tif",
+    "clone": "/path/to/clone.map",
+    "ndvi_dir": "/path/to/ndvi/",
+    "landuse_dir": "/path/to/landuse/",
+    "soil": "/path/to/soil.tif"
+  },
+  "table_files": {
+    "climate": "/path/to/climate_data.csv",
+    "landuse": "/path/to/landuse_params.csv",
+    "soil": "/path/to/soil_params.csv"
+  },
+  "calibration": {
+    "alpha": 0.5,
+    "beta": 1.5,
+    "lambda_factor": 0.3,
+    "kc": 1.0,
+    "field_capacity": 0.35,
+    "wilting_point": 0.15
+  },
+  "output_options": {
+    "generate_timeseries": true,
+    "generate_maps": true,
+    "generate_stats": true
+  },
+  "raster_format": {
+    "format": "geotiff",
+    "compression": true,
+    "compression_level": 6
+  }
+}

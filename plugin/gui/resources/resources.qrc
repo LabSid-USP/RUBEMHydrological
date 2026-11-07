@@ -1,17 +1,17 @@
 <RCC>
   <qresource prefix="imgBase">
-    <file>images/banner.png</file>
-    <file>images/icon.png</file>
-    <file>images/adp.png</file>
-    <file>images/labsid.png</file>
-    <file>images/epusp.png</file>
+    <file alias="images/banner.png">../../../images/banner.png</file>
+    <file alias="images/icon.png">../../../images/icon.png</file>
+    <file alias="images/adp.png">../../../images/adp.png</file>
+    <file alias="images/labsid.png">../../../images/labsid.png</file>
+    <file alias="images/epusp.png">../../../images/epusp.png</file>
   </qresource>
   <qresource prefix="iconMenu">
-    <file>images/qgis-default-theme/pluginNew.svg</file>
-    <file>images/qgis-default-theme/mActionFileNew.svg</file>
-    <file>images/qgis-default-theme/mActionFileOpen.svg</file>
-    <file>images/qgis-default-theme/mActionFileSave.svg</file>
-    <file>images/qgis-default-theme/mActionFileSaveAs.svg</file>
-    <file>images/qgis-default-theme/mActionHelpContents.svg</file>
+    <file alias="images/qgis-default-theme/pluginNew.svg">../../../images/qgis-default-theme/pluginNew.svg</file>
+    <file alias="images/qgis-default-theme/mActionFileNew.svg">../../../images/qgis-default-theme/mActionFileNew.svg</file>
+    <file alias="images/qgis-default-theme/mActionFileOpen.svg">../../../images/qgis-default-theme/mActionFileOpen.svg</file>
+    <file alias="images/qgis-default-theme/mActionFileSave.svg">../../../images/qgis-default-theme/mActionFileSave.svg</file>
+    <file alias="images/qgis-default-theme/mActionFileSaveAs.svg">../../../images/qgis-default-theme/mActionFileSaveAs.svg</file>
+    <file alias="images/qgis-default-theme/mActionHelpContents.svg">../../../images/qgis-default-theme/mActionHelpContents.svg</file>
   </qresource>
 </RCC>

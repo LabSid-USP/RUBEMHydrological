@@ -1,10 +1,13 @@
 import os
 from glob import glob
 
+
 def splitDirFilePrefix(filePath):
     """Split directory path and file prefix from file path.
 
-    Adds trailing separator to directory path (OS-agnostic).
+    Adds trailing separator to directory path (OS-agnostic). A bare
+    filename such as ``rain00000.001`` yields ``./``, never ``/``, so
+    Save cannot rewrite the series directory to the filesystem root.
 
     :param filePath: File path.
     :filePath type: String
@@ -14,22 +17,39 @@ def splitDirFilePrefix(filePath):
     """
     # Split directory path from file name with extension
     directoryPath, fileName = os.path.split(filePath)
+    # Bare names, ``/rain…``, and POSIX ``//rain…`` (split keeps ``//``) all
+    # become ``./`` so Save cannot rewrite DIRECTORIES to a root-like path.
+    if not directoryPath or directoryPath.strip("/\\") == "":
+        directoryPath = "."
     # Split extension from file name
     filePrefix, _ = os.path.splitext(fileName)
     return f"{directoryPath}/", "".join(filter(str.isalpha, filePrefix))
 
-def getFirstFileNameMapSeries(path):
-    """[summary].
 
-    :param path: [description]
-    :type path: [type]
+def series_file_prefix(file_name: str) -> str:
+    """Alphabetic map-series prefix, matching :func:`splitDirFilePrefix`."""
+    file_prefix, _ = os.path.splitext(os.path.basename(file_name))
+    return "".join(filter(str.isalpha, file_prefix))
 
-    :return: [description]
-    :rtype: [type]
+
+def getFirstFileNameMapSeries(path, prefix: str = ""):
+    """Return the first PCRaster map-series file under ``path``.
+
+    ``path`` may omit a trailing separator. Joining with the ``*.0*``
+    pattern avoids treating ``data/landuse`` as the file prefix
+    ``data/landuse*.0*``. When ``prefix`` is set, only maps whose
+    alphabetic prefix matches are considered, so loading the GUI cannot
+    replace a stored series prefix with another map that sorts first.
     """
-    pattern = "*.0*"
-    fileList = glob(f"{path}{pattern}")
-    if fileList:
-        return os.path.normpath(fileList[0])
-    else:
+    if not path:
         return ""
+    file_list = sorted(glob(os.path.join(path, "*.0*")))
+    if prefix:
+        file_list = [
+            candidate
+            for candidate in file_list
+            if series_file_prefix(candidate) == prefix
+        ]
+    if file_list:
+        return os.path.normpath(file_list[0])
+    return ""

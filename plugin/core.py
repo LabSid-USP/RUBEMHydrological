@@ -1,4 +1,3 @@
-# coding=utf-8
 # RUBEM Hydrological is a QGIS plugin that assists in setup the RUBEM model:
 # Copyright (C) 2021-2024 LabSid PHA EPUSP
 
@@ -24,24 +23,21 @@ Contains all the information about the actions of the plugin and the main code.
 
 import os
 
-try:
-    from qgis.PyQt.QtCore import QCoreApplication, QSettings, Qt, QTranslator
-    from qgis.PyQt.QtGui import QIcon
-    from qgis.PyQt.QtWidgets import QAction
-except ImportError:
-    from PyQt5.QtCore import QCoreApplication, QSettings, Qt, QTranslator
-    from PyQt5.QtGui import QIcon, QGuiApplication
-    from PyQt5.QtWidgets import QAction
+from qgis.PyQt.QtCore import QCoreApplication, QResource, QSettings, Qt, QTranslator
+from qgis.PyQt.QtGui import QAction, QIcon
 
 try:
     from .dialog import RUBEMHydrologicalDialog
-except ImportError:
+except ImportError as _exc:
+    # Only fall back to the bare name when the relative import itself is
+    # unavailable. A failure inside the dialog (e.g. a missing third-party
+    # module), including ImportError with name is None, must keep its own
+    # message instead of surfacing as a missing dialog module.
+    if _exc.name is None or not (
+        _exc.name == "dialog" or _exc.name.endswith(".dialog")
+    ):
+        raise
     from dialog import RUBEMHydrologicalDialog
-
-
-# QGuiApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-QCoreApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
-QCoreApplication.setAttribute(Qt.AA_UseHighDpiPixmaps, True)
 
 
 class RUBEMHydrological:
@@ -59,19 +55,33 @@ class RUBEMHydrological:
         self.iface = iface
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
-        # initialize locale
-        locale = QSettings().value("locale/userLocale")[0:2]
-        locale_path = os.path.join(
-            self.plugin_dir, "i18n", "RUBEMHydrological_{}.qm".format(locale)
-        )
-
-        if os.path.exists(locale_path):
-            self.translator = QTranslator()
-            self.translator.load(locale_path)
-            QCoreApplication.installTranslator(self.translator)
+        # Root-level catalogs: full QGIS locale, then the two-letter fallback.
+        locale_value = QSettings().value("locale/userLocale") or ""
+        locale_full = str(locale_value).replace("-", "_").split(".")[0]
+        i18n_dir = os.path.join(os.path.dirname(self.plugin_dir), "i18n")
+        locale_candidates = []
+        if locale_full:
+            locale_candidates.append(locale_full)
+            language = locale_full.split("_", 1)[0]
+            if language and language != locale_full:
+                locale_candidates.append(language)
+        self.translator = None
+        for locale in locale_candidates:
+            locale_path = os.path.join(i18n_dir, f"RUBEMHydrological_{locale}.qm")
+            if not os.path.exists(locale_path):
+                continue
+            translator = QTranslator()
+            if translator.load(locale_path):
+                self.translator = translator
+                QCoreApplication.installTranslator(self.translator)
+                break
 
         # Declare instance attributes
         self.actions = []
+        self._resources_registered = False
+        self._resources_path = os.path.join(
+            self.plugin_dir, "gui", "generated", "resources.rcc"
+        )
         self.menu = self.tr("&RUBEM Hydrological")
 
         # Check if plugin was started the first time in current QGIS session
@@ -159,7 +169,9 @@ class RUBEMHydrological:
             self.iface.addToolBarIcon(action)
 
         if add_to_menu:
-            self.iface.addPluginToMenu(self.menu, action)
+            # metadata.txt category=Raster — match the Raster menu for
+            # plugins.qgis.org placement recommendations.
+            self.iface.addPluginToRasterMenu(self.menu, action)
 
         self.actions.append(action)
 
@@ -167,6 +179,17 @@ class RUBEMHydrological:
 
     def initGui(self):
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        # Register Qt resources before any QIcon is created from a
+        # ":/..." path. Track how many successful registers this plugin
+        # made so unload can drain the Qt refcount (the dialog may also
+        # register once if the icon path is still missing).
+        resource_path = getattr(self, "_resources_path", None) or os.path.join(
+            self.plugin_dir, "gui", "generated", "resources.rcc"
+        )
+        self._resources_path = resource_path
+        self._resources_register_count = getattr(self, "_resources_register_count", 0)
+        if QResource.registerResource(resource_path):
+            self._resources_register_count += 1
         icon_path = ":/imgBase/images/icon.png"
         self.add_action(
             icon_path,
@@ -181,8 +204,19 @@ class RUBEMHydrological:
     def unload(self):
         """Remove the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginMenu(self.tr("&RUBEM Hydrological"), action)
+            self.iface.removePluginRasterMenu(self.tr("&RUBEM Hydrological"), action)
             self.iface.removeToolBarIcon(action)
+        resource_path = getattr(self, "_resources_path", None) or os.path.join(
+            self.plugin_dir, "gui", "generated", "resources.rcc"
+        )
+        # Drain every register this process still holds for our .rcc.
+        remaining = getattr(self, "_resources_register_count", 0)
+        while remaining > 0 and QResource.unregisterResource(resource_path):
+            remaining -= 1
+        # Also clear a leftover dialog registration, if any.
+        while QResource.unregisterResource(resource_path):
+            pass
+        self._resources_register_count = 0
 
     def run(self):
         """Run method that performs all the real work."""
@@ -195,17 +229,17 @@ class RUBEMHydrological:
 
         # configure top window tile
         self.dlg.setWindowFlags(
-            Qt.WindowSystemMenuHint
-            | Qt.WindowTitleHint
-            | Qt.WindowContextHelpButtonHint
-            | Qt.WindowCloseButtonHint
+            Qt.WindowType.WindowSystemMenuHint
+            | Qt.WindowType.WindowTitleHint
+            | Qt.WindowType.WindowContextHelpButtonHint
+            | Qt.WindowType.WindowCloseButtonHint
         )
 
         # show the dialog
         self.dlg.show()
         self.dlg.adjustSize()
         # Run the dialog event loop
-        result = self.dlg.exec_()
+        result = self.dlg.exec()
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and

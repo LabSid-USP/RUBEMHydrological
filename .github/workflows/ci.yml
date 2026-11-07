@@ -1,0 +1,126 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, development ]
+  pull_request:
+    branches: [ main, development ]
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint and Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: latest
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root --with dev
+
+      - name: Install project
+        run: poetry install --no-interaction
+
+      - name: Run Ruff on the live plugin path
+        # Scope excludes unwired v2 scaffolding and legacy integration noise.
+        # Full-tree lint remains a follow-up; main never gated on these tools.
+        run: >
+          poetry run ruff check
+          plugin/dialog plugin/validation plugin/engine.py plugin/dependencies.py
+          plugin/core.py plugin/report plugin/utils scripts/build_plugin.py __init__.py
+
+      - name: Run Black on the live plugin path
+        run: >
+          poetry run black --check
+          plugin/dialog plugin/validation plugin/engine.py plugin/dependencies.py
+          plugin/core.py plugin/report plugin/utils scripts/build_plugin.py __init__.py
+          test/unit
+
+      - name: Run MyPy on the project/engine surface
+        # explicit_package_bases avoids dual-name errors when the checkout
+        # folder also looks like a package because of the root __init__.py.
+        # Relative-import fallbacks trigger no-redef; disable that code here.
+        run: >
+          poetry run mypy
+          plugin/engine.py plugin/dependencies.py plugin/validation/legacy_json.py
+          --ignore-missing-imports --explicit-package-bases
+          --disable-error-code=no-redef
+          --disable-error-code=no-any-return
+          --disable-error-code=arg-type
+          --disable-error-code=assignment
+
+  test-unit:
+    name: Unit Tests (QGIS)
+    runs-on: ubuntu-latest
+    container:
+      image: qgis/qgis:4.2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install test dependencies beside the QGIS Python
+        run: |
+          # Image Python is PEP 668 managed; keep qgis via --system-site-packages.
+          python3 -m venv --system-site-packages .venv-ci
+          .venv-ci/bin/pip install pytest 'pydantic>=2.11,<3' 'humanize>=4' 'python-dateutil>=2' matplotlib pandas
+
+      - name: Run unit tests inside QGIS
+        run: |
+          .venv-ci/bin/python -m pytest test/unit -m unit -o addopts= -p no:cacheprovider
+        env:
+          QT_QPA_PLATFORM: offscreen
+          # Keep the image paths that expose ``qgis``; only prepending the repo
+          # would hide /usr/share/qgis/python from the QGIS 4.2 container.
+          PYTHONPATH: ${{ github.workspace }}:/usr/share/qgis/python:/usr/share/qgis/python/plugins
+
+  docs:
+    name: Build Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: latest
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --with docs
+
+      - name: Build documentation
+        run: |
+          cd doc
+          poetry run python -m sphinx -b html source build/html -W
+
+      - name: Upload documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: doc/build/html/

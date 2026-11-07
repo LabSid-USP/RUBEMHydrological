@@ -1,7 +1,4 @@
-try:
-    from qgis.PyQt.QtWidgets import QFileDialog
-except ImportError:
-    from PyQt5.QtWidgets import QFileDialog
+from qgis.PyQt.QtWidgets import QFileDialog
 
 
 def getDirectoryPath(self, caption):

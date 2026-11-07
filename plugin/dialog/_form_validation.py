@@ -1,3 +1,4 @@
+import math
 import os
 
 from qgis.core import Qgis
@@ -6,6 +7,19 @@ try:
     from ..validation.validators import *
 except ImportError:
     from validation.validators import *
+
+try:
+    from ._project import _spin_text, resolve_project_path
+except ImportError:
+    from _project import _spin_text, resolve_project_path
+
+
+def _path_exists_for_project(self, path: str) -> bool:
+    """Return whether ``path`` exists, resolving relative to the project file."""
+    if not path:
+        return False
+    return os.path.exists(resolve_project_path(self, path))
+
 
 # TODO: Add docstring information and comments
 def hasFilledAllFields(self):
@@ -16,21 +30,30 @@ def hasFilledAllFields(self):
     """
     emptyFields = []
     for key, element in self.uiDirPathDict.items():
+        # The model JSON has no input directory. The widget is optional.
+        if key == "input":
+            continue
         lineEdit, _ = element
-        if not lineEdit.text() or not os.path.exists(lineEdit.text()):
+        if not lineEdit.text() or not _path_exists_for_project(self, lineEdit.text()):
             lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
             emptyFields.append(key)
 
     # for lineEdit in self.findChildren(QLineEdit):
     for key, element in self.uiFilePathDict.items():
         lineEdit, _, _ = element
-        if not lineEdit.text() or not os.path.exists(lineEdit.text()):
+        if not lineEdit.text() or not _path_exists_for_project(self, lineEdit.text()):
             lineEdit.setStyleSheet(INVALID_LINEEDIT_STYLESHEET)
             emptyFields.append(key)
 
     if "samples" in emptyFields and not self.config.getboolean("GENERATE_FILE", "tss"):
         emptyFields.remove("samples")
         self.lineEdt_Sample.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
+
+    # The georeference raster is optional in the model. An empty field is
+    # valid; a non-empty field pointing nowhere still is not.
+    if "demtif" in emptyFields and not self.lineEdt_DemTif.text().strip():
+        emptyFields.remove("demtif")
+        self.lineEdt_DemTif.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
     if emptyFields:
         self.bar.pushMessage(
@@ -65,12 +88,18 @@ def hasFilledAllFields(self):
         self.groupBox_SimulationPeriod.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
     hasAreaFractionAddUpTo1 = True
-    if (
-        not self.doubleSpinBox_ManningRelatedWeightFactor.value()
-        + self.doubleSpinBox_SoilRelatedWeightFactor.value()
-        + self.doubleSpinBox_SlopeRelatedWeightFactor.value()
-        == 1
+    weight_sum = 0.0
+    for spin, option in (
+        (self.doubleSpinBox_ManningRelatedWeightFactor, "w_1"),
+        (self.doubleSpinBox_SoilRelatedWeightFactor, "w_2"),
+        (self.doubleSpinBox_SlopeRelatedWeightFactor, "w_3"),
     ):
+        # Sum the values that will be saved, not the widget's rounded 3-decimal display.
+        try:
+            weight_sum += float(_spin_text(self, spin, "CALIBRATION", option))
+        except (TypeError, ValueError):
+            weight_sum += spin.value()
+    if not math.isclose(weight_sum, 1.0, abs_tol=1e-6):
         hasAreaFractionAddUpTo1 = False
         self.groupBox_WeightFactors.setStyleSheet(INVALID_LABEL_STYLESHEET)
         self.bar.pushMessage(
@@ -81,15 +110,12 @@ def hasFilledAllFields(self):
     else:
         self.groupBox_WeightFactors.setStyleSheet(ACCEPTABLE_LABEL_STYLESHEET)
 
-    if (
+    return (
         not emptyFields
         and checkedBoxes
         and hasValidDateRange
         and hasAreaFractionAddUpTo1
-    ):
-        return True
-    else:
-        return False
+    )
 
 
 # TODO: Add docstring information and comments
@@ -189,6 +215,7 @@ def setupUserInputValidators(self):
         "Lf": self.checkBox_LateralFlowLf,
         "sfrun": self.checkBox_RunoffEsd,
         "runoff": self.checkBox_RunoffVazao,
+        "arn": self.checkBox_AccumulatedRunoffArn,
     }
 
     # self.uiSpinBoxDict = {

@@ -2,27 +2,22 @@ import os
 from glob import glob
 
 try:
-    from qgis.PyQt.QtCore import Qt, QModelIndex
-except ImportError:
-    from PyQt5.QtCore import Qt, QModelIndex
-
-try:
     from ..report.item import StandardItem
     from ._mappings import mapSeriesDictFileNames, timeSeriesDictFileNames
+    from ._project import resolve_project_path
 except ImportError:
-    from report.item import StandardItem
     from _mappings import mapSeriesDictFileNames, timeSeriesDictFileNames
+    from _project import resolve_project_path
+    from report.item import StandardItem
 
 
 # TODO: Add docstring information and comments
 def populateMapSeriesTree(self):
     self.mapSeriesTreeModel.clear()
     mapSeriesRootNode = self.mapSeriesTreeModel.invisibleRootItem()
+    output = resolve_project_path(self, self.config.get("DIRECTORIES", "output"))
     for key, fileName in mapSeriesDictFileNames.items():
-        tmpOutMapFileList = glob(
-            os.path.join(self.config.get("DIRECTORIES", "output") + fileName)
-            + "*.[0-9]*"
-        )
+        tmpOutMapFileList = glob(os.path.join(output, fileName) + "*.[0-9]*")
         if tmpOutMapFileList:
             tmpOutMapSeries = StandardItem(key)
             tmpOutMapSeries.setSelectable(False)
@@ -37,10 +32,9 @@ def populateMapSeriesTree(self):
 def populateTimeSeriesTree(self):
     self.timeSeriesTreeModel.clear()
     timeSeriesRootNode = self.timeSeriesTreeModel.invisibleRootItem()
+    output = resolve_project_path(self, self.config.get("DIRECTORIES", "output"))
     for key, fileName in timeSeriesDictFileNames.items():
-        tmpTimeSeriesFile = (
-            os.path.join(self.config.get("DIRECTORIES", "output") + fileName) + ".csv"
-        )
+        tmpTimeSeriesFile = os.path.join(output, fileName) + ".csv"
         if os.path.exists(tmpTimeSeriesFile):
             tmpOutTimeSeries = StandardItem(key)
             tmpOutTimeSeries.setSelectable(False)
