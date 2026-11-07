@@ -89,9 +89,12 @@ def handleFinished(self, exit_code):
             # If you need help, visit http://rubem-hydrological.rtfd.io/"""
             )
         )
-        self.progressBar.setStyleSheet(
-            "QProgressBar::chunk " "{" "background-color: red;" "}"
-        )
+        if getattr(self, "bar", None) is not None:
+            self.bar.pushMessage(
+                "RUBEM execution finished with errors.",
+                level=Qgis.Critical,
+                duration=8,
+            )
         QgsMessageLog.logMessage(
             "RUBEM execution finished with errors.",
             "RUBEM Hydrological",
@@ -99,22 +102,8 @@ def handleFinished(self, exit_code):
         )
 
 
-def explainCancel(self):
-    """Tell the user, on the GUI thread, that this run is not cancellable.
-
-    The explanation is appended at most once for the current run.
-    """
-    if getattr(self, "_cancel_noted", False):
-        return
-    self._cancel_noted = True
-    self.textBrowser_log.append(
-        "\n# This run cannot be cancelled. RUBEM finishes in its own process."
-    )
-
-
 def runLongTask(self):
     """Start the submodule run and leave the progress bar indeterminate."""
-    self._cancel_noted = False
     self.progressBar.setStyleSheet("")
     self.progressBar.setRange(0, 0)
     self.worker = RUBEMModelWorker(self.projectFilePath)
@@ -123,8 +112,5 @@ def runLongTask(self):
     self.worker.runFinished.connect(self.handleFinished)
     self.worker.runFinished.connect(lambda: self.btn_Run.setEnabled(True))
     self.worker.thread.finished.connect(self.worker.deleteLater)
-    if not getattr(self, "_cancel_explained", False):
-        self.btn_Cancel.clicked.connect(self.explainCancel)
-        self._cancel_explained = True
     self.btn_Run.setEnabled(False)
     self.worker.run()

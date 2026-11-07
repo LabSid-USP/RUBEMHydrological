@@ -122,7 +122,7 @@ The figure below represents an overview of the Report options tab. Within this s
 
 In the example below  it can be seen that ``Recharge``, ``Total Runoff`` and ``Total Interception`` are checked to be reported. If ``Export Results to stations locations`` in the Settings tab was checked, time-series for the selected variables will be generated.
 
-Select the variables of interest and click on the ``RUN`` button. If all information and files are correct a success message will appear.
+Select the variables of interest and click the dialog footer ``Run`` button. If all information and files are correct a success message will appear. ``Close`` dismisses the dialog when idle; it does not stop a running isolated model process.
 
 The figure below shows an overview of the ``Run`` tab at this point.
 

@@ -208,8 +208,8 @@ def _loaded_config(output: str) -> configparser.ConfigParser:
 
 
 @pytest.mark.unit
-def test_dialog_class_imports_explain_cancel() -> None:
-    """``explainCancel`` is bound on the dialog next to ``runLongTask``."""
+def test_dialog_class_does_not_import_explain_cancel() -> None:
+    """Fake Cancel was retired; Close uses ``reject`` / ``_may_leave_dialog``."""
     source = (ROOT / "plugin" / "dialog" / "__init__.py").read_text(encoding="utf-8")
     tree = ast.parse(source)
     found = False
@@ -220,10 +220,12 @@ def test_dialog_class_imports_explain_cancel() -> None:
             and node.level == 1
         ):
             names = [alias.name for alias in node.names]
-            assert "explainCancel" in names
+            assert "explainCancel" not in names
             assert "runLongTask" in names
             found = True
     assert found
+    worker_src = (ROOT / "plugin" / "dialog" / "_worker.py").read_text(encoding="utf-8")
+    assert "def explainCancel" not in worker_src
     assert "self.projectFilePath = retFilePath" not in (
         ROOT / "plugin" / "dialog" / "_project.py"
     ).read_text(encoding="utf-8")
@@ -248,6 +250,24 @@ def test_dialog_class_imports_accumulated_runoff_arn_slot() -> None:
     assert found
     tab_run = (ROOT / "plugin" / "dialog" / "_tab_run.py").read_text(encoding="utf-8")
     assert "def setAccumulatedRunoffArnGenerateFile(self):" in tab_run
+
+
+@pytest.mark.unit
+def test_core_ui_uses_dialog_button_box_without_legacy_run_cancel() -> None:
+    """Generated UI exposes ``button_box``; Run is created in ``_chrome``."""
+    ui = (ROOT / "plugin" / "gui" / "generated" / "core_ui.py").read_text(
+        encoding="utf-8"
+    )
+    assert "self.button_box" in ui
+    assert "QDialogButtonBox" in ui
+    assert "self.btn_Run" not in ui
+    assert "self.btn_Cancel" not in ui
+    chrome = (ROOT / "plugin" / "dialog" / "_chrome.py").read_text(encoding="utf-8")
+    assert "btn_Run = dialog.button_box.addButton" in chrome
+    window = (ROOT / "plugin" / "dialog" / "_window.py").read_text(encoding="utf-8")
+    assert "btn_Run.setEnabled(False)" in window
+    project = (ROOT / "plugin" / "dialog" / "_project.py").read_text(encoding="utf-8")
+    assert project.count("btn_Run.setEnabled(True)") >= 2
 
 
 @pytest.mark.unit
@@ -900,13 +920,12 @@ def test_dialog_class_binds_reject_for_escape() -> None:
 
 
 @pytest.mark.unit
-def test_explain_cancel_appends_once_per_run() -> None:
-    """Cancel explains the isolated process once until the next run."""
+def test_run_long_task_disables_run_without_fake_cancel() -> None:
+    """A run disables ``btn_Run`` and no longer wires a no-op Cancel handler."""
     dialog = _dialog()
     dialog.projectFilePath = "/tmp/basin.json"
     dialog.reportExecutionLog = MagicMock()
     dialog.handleFinished = MagicMock()
-    dialog.explainCancel = lambda: worker.explainCancel(dialog)
 
     class _Signal:
         def connect(self, *_args, **_kwargs):
@@ -926,17 +945,11 @@ def test_explain_cancel_appends_once_per_run() -> None:
         def run(self):
             return None
 
-    message = "\n# This run cannot be cancelled. RUBEM finishes in its own process."
     with patch.object(worker, "RUBEMModelWorker", _Worker):
         worker.runLongTask(dialog)
-        worker.explainCancel(dialog)
-        worker.explainCancel(dialog)
-        assert dialog.textBrowser_log.lines == [message]
-        worker.runLongTask(dialog)
-        worker.explainCancel(dialog)
-        worker.explainCancel(dialog)
 
-    assert dialog.textBrowser_log.lines == [message, message]
+    dialog.btn_Run.setEnabled.assert_called_with(False)
+    dialog.btn_Cancel.clicked.connect.assert_not_called()
 
 
 if __name__ == "__main__":

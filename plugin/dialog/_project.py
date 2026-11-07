@@ -307,6 +307,8 @@ def newProject(self, supressed=False):
         self.pushButton_SaveProject.setEnabled(True)
         self.pushButton_SaveAsProject.setEnabled(True)
         self.tabWidget.setEnabled(True)
+        if getattr(self, "btn_Run", None) is not None:
+            self.btn_Run.setEnabled(True)
         self.hasProjectBeenModified = False
 
     # Check if there is already a current project and it has been
@@ -378,6 +380,8 @@ def openProject(self):
                 self.pushButton_SaveProject.setEnabled(True)
                 self.pushButton_SaveAsProject.setEnabled(True)
                 self.tabWidget.setEnabled(True)
+                if getattr(self, "btn_Run", None) is not None:
+                    self.btn_Run.setEnabled(True)
                 output = resolve_project_path(
                     self, self.config.get("DIRECTORIES", "output")
                 )

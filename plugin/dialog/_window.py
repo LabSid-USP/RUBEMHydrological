@@ -20,6 +20,11 @@ def initialGuiState(self):
     self.tabWidget.setDisabled(True)
     self.tabWidget.setCurrentIndex(0)
     self.tab_Results.setDisabled(True)
+    # Run lives on the dialog-level button box, outside tabWidget, so the
+    # tab disable no longer gates it — disable explicitly until a project
+    # is open or created.
+    if getattr(self, "btn_Run", None) is not None:
+        self.btn_Run.setEnabled(False)
 
 
 def _may_leave_dialog(self) -> bool:
@@ -42,7 +47,7 @@ def _may_leave_dialog(self) -> bool:
     if callable(is_running) and is_running():
         self.textBrowser_log.append(
             "The model is still running. Closing is disabled until it finishes; "
-            "Cancel does not stop the isolated process."
+            "Close does not stop the isolated process."
         )
         return False
 

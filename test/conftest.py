@@ -44,8 +44,8 @@ def mock_qgis_interface() -> MagicMock:
     iface.mapCanvas.return_value = MagicMock()
     iface.addToolBarIcon = MagicMock()
     iface.removeToolBarIcon = MagicMock()
-    iface.addPluginToMenu = MagicMock()
-    iface.removePluginMenu = MagicMock()
+    iface.addPluginToRasterMenu = MagicMock()
+    iface.removePluginRasterMenu = MagicMock()
     return iface
 
 

@@ -49,13 +49,13 @@ class RUBEMModelWorker(QObject):
             self._thread.quit()
 
     def kill(self):
-        """Report that an isolated run cannot be cancelled from this button.
+        """Report that an isolated run cannot be stopped from the dialog.
 
         ``Model.run_isolated`` owns the subprocess. Terminating this thread
         would leave that process running without a parent to observe it.
         """
         self.errorUpdated.emit(
-            "This run uses RUBEM's isolated process. The cancel button does not stop it."
+            "This run uses RUBEM's isolated process. Closing the dialog does not stop it."
         )
 
     @property

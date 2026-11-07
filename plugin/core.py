@@ -169,7 +169,9 @@ class RUBEMHydrological:
             self.iface.addToolBarIcon(action)
 
         if add_to_menu:
-            self.iface.addPluginToMenu(self.menu, action)
+            # metadata.txt category=Raster — match the Raster menu for
+            # plugins.qgis.org placement recommendations.
+            self.iface.addPluginToRasterMenu(self.menu, action)
 
         self.actions.append(action)
 
@@ -202,7 +204,7 @@ class RUBEMHydrological:
     def unload(self):
         """Remove the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginMenu(self.tr("&RUBEM Hydrological"), action)
+            self.iface.removePluginRasterMenu(self.tr("&RUBEM Hydrological"), action)
             self.iface.removeToolBarIcon(action)
         resource_path = getattr(self, "_resources_path", None) or os.path.join(
             self.plugin_dir, "gui", "generated", "resources.rcc"

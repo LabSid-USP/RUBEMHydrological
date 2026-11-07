@@ -72,9 +72,12 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.bar.setSizePolicy(
             QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
         )
-        self.layout().addWidget(
-            self.bar,
+        # Index 1 sits under the project toolbar and above the tab widget;
+        # the dialog footer (progress + button_box) stays last in the layout.
+        self.layout().insertWidget(
             1,
+            self.bar,
+            0,
             Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignJustify,
         )
 
@@ -86,6 +89,11 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
         self.config = configparser.ConfigParser()
         self.config.read_dict(defaultConfigSchema)
 
+        # Chrome needs setRunState / helpHandler, which are bound on the class
+        # body below; instance construction runs after that body finishes.
+        from ._chrome import setup_hig_chrome
+
+        setup_hig_chrome(self)
         self.initialGuiState()
 
         self.hasCurrentProject = False
@@ -199,7 +207,6 @@ class RUBEMHydrologicalDialog(QDialog, Ui_RUBEMHydrological):
     )
     from ._window import closeEvent, initialGuiState, reject, updateWindowTitle
     from ._worker import (
-        explainCancel,
         handleFinished,
         reportExecutionLog,
         reportProgress,

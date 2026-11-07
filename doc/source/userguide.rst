@@ -327,6 +327,8 @@ Weight Factors
 Run tab
 -------
 
+The Run tab holds the generate-file checkboxes and the execution log. **Run**, **Close** and **Help** live on the dialog footer (always visible): **Run** starts the model, **Close** dismisses the dialog when no run or dependency install is in progress (it does not stop an isolated model process), and **Help** opens the documentation. A progress bar sits beside those buttons during a run.
+
 .. image:: _static/screenshots/6-run2.png
    :align: center
    :width: 450

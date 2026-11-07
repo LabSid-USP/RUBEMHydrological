@@ -36,6 +36,18 @@ EXCLUDE_DIRS = {
     "test",
     "tests",
 }
+# Unwired v2 scaffolding (see AGENTS.md) — omit from the published zip until
+# classFactory loads it.
+EXCLUDE_PLUGIN_TOP_LEVEL = {
+    "controllers",
+    "services",
+    "views",
+    "workers",
+    "models",
+    "core_refactored.py",
+    "exceptions.py",
+    "logging.py",
+}
 
 
 def archive_member(root: Path, path: Path) -> str:
@@ -53,12 +65,23 @@ def iter_plugin_files(root: Path):
     """Yield files the installed plugin needs at runtime."""
     plugin_dir = root / "plugin"
     for dirpath, dirnames, filenames in os.walk(plugin_dir):
-        dirnames[:] = [name for name in dirnames if name not in EXCLUDE_DIRS]
+        rel = Path(dirpath).relative_to(plugin_dir)
+        if rel == Path("."):
+            dirnames[:] = [
+                name
+                for name in dirnames
+                if name not in EXCLUDE_DIRS and name not in EXCLUDE_PLUGIN_TOP_LEVEL
+            ]
+            filenames = [
+                name for name in filenames if name not in EXCLUDE_PLUGIN_TOP_LEVEL
+            ]
+        else:
+            dirnames[:] = [name for name in dirnames if name not in EXCLUDE_DIRS]
         for name in filenames:
             path = Path(dirpath) / name
             if path.suffix.lower() in INCLUDE_SUFFIXES:
                 yield path
-    for name in ("metadata.txt", "__init__.py", "CHANGELOG.md"):
+    for name in ("metadata.txt", "__init__.py", "CHANGELOG.md", "README.md"):
         path = root / name
         if path.is_file():
             yield path

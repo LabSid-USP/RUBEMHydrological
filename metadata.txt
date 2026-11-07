@@ -11,7 +11,7 @@ version=2.0.0
 author=LabSid-PHA-EPUSP
 email=rubem.hydrological@labsid.eng.br
 
-about=This plugin uses Rainfall rUnoff Balance Enhanced Model (RUBEM) to calculate monthly water balance including runoff, aquifer recharge, canopy interception and baseflow with capabilities to consider changes in Land Use and Land Cover (LULC) over time. The plugin provides a comprehensive GUI for model configuration, execution, and results visualization.
+about=This plugin uses Rainfall rUnoff Balance Enhanced Model (RUBEM) to calculate monthly water balance including runoff, aquifer recharge, canopy interception and baseflow with capabilities to consider changes in Land Use and Land Cover (LULC) over time. The plugin provides a comprehensive GUI for model configuration, execution, and results visualization. Runtime requires PCRaster and GDAL (osgeo) from the QGIS/OSGeo environment (conda, OSGeo4W, or system packages — not pip), plus pydantic (>=2.11), humanize (>=4) and python-dateutil (>=2); when those pure-Python packages are missing the plugin prompts before installing them into an isolated environment.
 
 tracker=https://github.com/LabSid-USP/RUBEMHydrological/issues
 repository=https://github.com/LabSid-USP/RUBEMHydrological
@@ -19,7 +19,7 @@ repository=https://github.com/LabSid-USP/RUBEMHydrological
 
 # Recommended items:
 
-hasProcessingProvider=no
+hasProcessingProvider=False
 changelog=
     2.0.0 - QGIS 4 and the JSON document RUBEM reads
         * Project files are legacy JSON with no version field
