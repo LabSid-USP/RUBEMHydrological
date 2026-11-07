@@ -9,13 +9,22 @@ Two generations of code coexist: the v1 dialog path, which is what QGIS actually
 Every test module imports `qgis` (through `test/__init__.py`), so tests need an interpreter where `qgis` is importable: QGIS's own Python, or a venv created with `--system-site-packages` on top of it. Run pytest as `python -m pytest` from the repo root, which puts the root on `sys.path` so `import plugin` resolves; bare `pytest` fails at collection.
 
 ```bash
-# Unit tests (pytest, marked `unit`). --no-cov skips the htmlcov/ + coverage.xml that pyproject addopts generate
-python -m pytest test/unit -m unit --no-cov
-python -m pytest test/unit/test_exceptions.py::TestRUBEMException --no-cov   # single class or test
+# Unit tests (pytest, marked `unit`). Disable GUI plugins so fakes stay fast.
+# Needs QGIS importable (QGIS Python or venv --system-site-packages). Prefer
+# `python -m pytest` from the repo root so `import plugin` resolves.
+QT_QPA_PLATFORM=offscreen PYTEST_QT_API=pyqt6 \
+  python -m pytest test/unit -m unit \
+  -p no:pytest_qgis -p no:pytestqt --no-cov
 
-# Integration tests: legacy unittest classes with no pytest markers, so `pytest -m integration` (as in ci.yml) selects none
-QT_QPA_PLATFORM=offscreen python -m unittest discover -s test/integration -p 'test*.py'
-QT_QPA_PLATFORM=offscreen python -m unittest test.integration.test_init      # single module
+# Integration / GUI (pytest-qgis + pytest-qt). Separate process from unit.
+QT_QPA_PLATFORM=offscreen PYTEST_QT_API=pyqt6 \
+  python -m pytest test/integration -m integration --no-cov
+
+# Combined coverage (optional local):
+# python -m coverage erase
+# …unit with --cov=plugin --cov=scripts…
+# …integration with --cov-append…
+# python -m coverage report
 
 # Lint / format / types (mirrors .github/workflows/ci.yml)
 ruff check .
@@ -34,9 +43,9 @@ rcc --binary plugin/gui/resources/resources.qrc -o plugin/gui/generated/resource
 ```
 
 - Never edit `plugin/gui/generated/` by hand. Ruff and Black exclude that directory in `pyproject.toml`.
-- The integration tests are legacy plugin-template tests and several fail on current setups (for example `test_rubem_hydrological_dialog.py` expects a `button_box` widget the dialog does not define). Compare against the base branch before treating a failure as a regression.
-- Known CI gap: the `test-unit` job installs only Poetry dependencies, without QGIS, while `test/__init__.py` imports `qgis`. The QGIS job uses `qgis/qgis:4.2`, checks out submodules, and runs `pytest test/unit -m unit`.
-- Python tooling is configured in `pyproject.toml` (ruff, black, mypy, pytest). Mark every new unit test `@pytest.mark.unit`, or `-m unit` (as in ci.yml) skips it; `--strict-markers` rejects markers not registered there.
+- CI runs two QGIS 4.2 jobs: `test-unit` (no pytest-qgis/qt plugins) and `test-gui` (integration markers). Both use `qgis/qgis:4.2` with a `--system-site-packages` venv.
+- Mark every new unit test `@pytest.mark.unit` and every GUI/integration test `@pytest.mark.integration` (or `pytestmark`); `--strict-markers` rejects unknown markers.
+- **Out of scope for plugin CI (by design):** wiring v2 into `classFactory`; real QGIS-desktop click e2e / screenshot baselines; installing native PCRaster in the GUI job; running the `external/rubem-model` hydrological/golden suite; production pip installs during tests (always mock/monkeypatch).
 
 ## Workflow
 

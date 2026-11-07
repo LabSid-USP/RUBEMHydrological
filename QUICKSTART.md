@@ -30,7 +30,9 @@ poetry install --with dev,docs
 poetry run pre-commit install
 
 # 4. Run tests
-poetry run pytest test/unit -m unit -v
+# Needs a QGIS-importable interpreter (see AGENTS.md). Example with system QGIS:
+QT_QPA_PLATFORM=offscreen PYTEST_QT_API=pyqt6 \
+  python -m pytest test/unit -m unit -p no:pytest_qgis -p no:pytestqt -v
 
 # 5. Check code quality
 poetry run ruff check .
@@ -97,11 +99,13 @@ poetry run ruff check --fix .
 # Type check
 poetry run mypy plugin/
 
-# Run all unit tests
-poetry run pytest test/unit -v
+# Unit tests (fakes; disable GUI plugins)
+QT_QPA_PLATFORM=offscreen PYTEST_QT_API=pyqt6 \
+  python -m pytest test/unit -m unit -p no:pytest_qgis -p no:pytestqt -v
 
-# Run with coverage
-poetry run pytest --cov --cov-report=html
+# Integration / dialog GUI tests
+QT_QPA_PLATFORM=offscreen PYTEST_QT_API=pyqt6 \
+  python -m pytest test/integration -m integration -v
 
 # Build documentation
 cd doc && poetry run python -m sphinx -b html source build/html
@@ -136,7 +140,10 @@ git commit -m "fix: format code"
 ```bash
 # Run tests inside QGIS Python environment
 # Or use the Docker container with QGIS
-docker run -v $(pwd):/plugin qgis/qgis:release-3_44 pytest /plugin/test/integration
+docker run --rm -v "$PWD":/work -w /work -e QT_QPA_PLATFORM=offscreen \
+  -e PYTEST_QT_API=pyqt6 -e PYTHONPATH=/work:/usr/share/qgis/python \
+  qgis/qgis:4.2 bash -lc \
+  'python3 -m venv --system-site-packages /tmp/v && /tmp/v/bin/pip install "pytest>=8.3,<9" "pytest-qt>=4.5,<5" "pytest-qgis==5.0.2" "pydantic>=2.11,<3" humanize "python-dateutil>=2" && /tmp/v/bin/python -m pytest test/integration -m integration'
 ```
 
 ## 🎯 What's New in v2.0

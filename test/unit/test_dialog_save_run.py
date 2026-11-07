@@ -128,23 +128,40 @@ def _ensure_qgis_importable() -> None:
 
 
 def _load_dialog_modules():
-    """Import the dialog helpers without executing ``plugin/dialog/__init__.py``."""
+    """Import the dialog helpers without executing ``plugin/dialog/__init__.py``.
+
+    The stub ``plugin.dialog`` package is recorded so ``teardown_module`` can
+    drop it and avoid contaminating a later GUI/integration collection in the
+    same interpreter (unit and GUI jobs still run in separate processes).
+    """
     if str(ROOT) not in sys.path:
         sys.path.insert(0, str(ROOT))
     _ensure_qgis_importable()
+    created_stub = False
     if "plugin.dialog" not in sys.modules:
         package = types.ModuleType("plugin.dialog")
         package.__path__ = [str(ROOT / "plugin" / "dialog")]
         package.__package__ = "plugin.dialog"
+        package.__file__ = str(ROOT / "plugin" / "dialog" / "__init__.py")
         sys.modules["plugin.dialog"] = package
+        created_stub = True
     import plugin.dialog._project as project
     import plugin.dialog._window as window
     import plugin.dialog._worker as worker
 
-    return project, window, worker
+    return project, window, worker, created_stub
 
 
-project, window, worker = _load_dialog_modules()
+project, window, worker, _DIALOG_STUB_CREATED = _load_dialog_modules()
+
+
+def teardown_module(_module=None) -> None:
+    """Remove the stub dialog package inserted for helper-module imports."""
+    if not _DIALOG_STUB_CREATED:
+        return
+    for name in list(sys.modules):
+        if name == "plugin.dialog" or name.startswith("plugin.dialog."):
+            del sys.modules[name]
 
 
 class _Log:

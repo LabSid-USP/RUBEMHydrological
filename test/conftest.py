@@ -1,179 +1,75 @@
 """Pytest configuration and fixtures for RUBEM Hydrological tests.
 
-This module provides common fixtures and configuration for all tests.
+Unit tests fake QGIS and must run with ``-p no:pytest_qgis -p no:pytestqt``.
+Integration/GUI tests use pytest-qgis + pytest-qt against a real offscreen
+QGIS application.
 """
 
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any
 from unittest.mock import MagicMock
 
 import pytest
 
+ROOT = Path(__file__).resolve().parents[1]
+RESOURCES_RCC = ROOT / "plugin" / "gui" / "generated" / "resources.rcc"
+
 
 @pytest.fixture
 def plugin_dir() -> Path:
-    """Fixture providing the plugin directory path.
-
-    Returns:
-        Path to the plugin directory.
-    """
-    return Path(__file__).parent.parent / "plugin"
+    """Path to the live ``plugin/`` package."""
+    return ROOT / "plugin"
 
 
 @pytest.fixture
 def test_data_dir() -> Path:
-    """Fixture providing the test data directory path.
-
-    Returns:
-        Path to the test fixtures directory.
-    """
+    """Path to ``test/fixtures``."""
     return Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture
-def mock_qgis_interface() -> MagicMock:
-    """Fixture providing a mocked QGIS interface.
-
-    Returns:
-        Mock object simulating QgisInterface.
-    """
+def mock_qgis_iface() -> MagicMock:
+    """Minimal iface stub for constructing ``RUBEMHydrologicalDialog``."""
     iface = MagicMock()
-    iface.mainWindow.return_value = MagicMock()
+    iface.mainWindow.return_value = None
     iface.mapCanvas.return_value = MagicMock()
     iface.addToolBarIcon = MagicMock()
     iface.removeToolBarIcon = MagicMock()
     iface.addPluginToRasterMenu = MagicMock()
     iface.removePluginRasterMenu = MagicMock()
+    iface.newProject = MagicMock()
+    iface.messageBar.return_value = MagicMock()
     return iface
 
 
+# Keep the historical name used by older docs/examples.
 @pytest.fixture
-def sample_config_dict() -> dict[str, Any]:
-    """Fixture providing a sample configuration dictionary.
-
-    Returns:
-        Dictionary with sample configuration data.
-    """
-    return {
-        "sim_time": {
-            "start": "2020-01-01",
-            "end": "2020-12-31",
-        },
-        "directories": {
-            "input": "/path/to/input",
-            "output": "/path/to/output",
-        },
-        "filename_prefixes": {
-            "dem": "dem",
-            "clone": "clone",
-            "ndvi": "ndvi",
-            "landuse": "lulc",
-            "soil": "soil",
-        },
-        "raster_files": {
-            "dem": "/path/to/dem.tif",
-            "clone": "/path/to/clone.map",
-            "ndvi_dir": "/path/to/ndvi/",
-            "landuse_dir": "/path/to/lulc/",
-            "soil": "/path/to/soil.tif",
-        },
-        "table_files": {
-            "climate": "/path/to/climate.csv",
-            "landuse": "/path/to/landuse_params.csv",
-            "soil": "/path/to/soil_params.csv",
-        },
-        "calibration": {
-            "alpha": 0.5,
-            "beta": 1.5,
-            "lambda_factor": 0.3,
-            "kc": 1.0,
-            "field_capacity": 0.35,
-            "wilting_point": 0.15,
-        },
-        "output_options": {
-            "generate_timeseries": True,
-            "generate_maps": True,
-            "generate_stats": True,
-        },
-        "raster_format": {
-            "format": "geotiff",
-            "compression": True,
-            "compression_level": 6,
-        },
-    }
+def mock_qgis_interface(mock_qgis_iface: MagicMock) -> MagicMock:
+    """Alias of :func:`mock_qgis_iface`."""
+    return mock_qgis_iface
 
 
 @pytest.fixture
-def sample_ini_config(tmp_path: Path) -> Path:
-    """Fixture creating a sample INI configuration file.
+def registered_resources() -> str:
+    """Register the plugin ``.rcc`` once per test that needs ``:/...`` icons."""
+    from qgis.PyQt.QtCore import QResource
 
-    Args:
-        tmp_path: Temporary directory path provided by pytest.
-
-    Returns:
-        Path to the created configuration file.
-    """
-    config_content = """[SIM_TIME]
-start = 2020-01-01
-end = 2020-12-31
-
-[DIRECTORIES]
-input = /path/to/input
-output = /path/to/output
-
-[FILENAME_PREFIXES]
-dem = dem
-clone = clone
-ndvi = ndvi
-landuse = lulc
-soil = soil
-
-[RASTERS]
-dem = /path/to/dem.tif
-clone = /path/to/clone.map
-ndvi_dir = /path/to/ndvi/
-landuse_dir = /path/to/lulc/
-soil = /path/to/soil.tif
-
-[TABLES]
-climate = /path/to/climate.csv
-landuse = /path/to/landuse_params.csv
-soil = /path/to/soil_params.csv
-
-[CALIBRATION]
-alpha = 0.5
-beta = 1.5
-lambda_factor = 0.3
-kc = 1.0
-field_capacity = 0.35
-wilting_point = 0.15
-
-[GENERATE_FILE]
-generate_timeseries = True
-generate_maps = True
-generate_stats = True
-
-[RASTER_FILE_FORMAT]
-format = geotiff
-compression = True
-compression_level = 6
-"""
-
-    config_file = tmp_path / "test_config.ini"
-    config_file.write_text(config_content)
-    return config_file
+    path = str(RESOURCES_RCC)
+    if not QResource.registerResource(path):
+        pytest.fail(f"Could not register Qt resources: {path}")
+    try:
+        yield path
+    finally:
+        QResource.unregisterResource(path)
 
 
-def pytest_configure(config: Any) -> None:
-    """Configure pytest with custom markers.
+@pytest.fixture
+def dialog(qgis_iface, registered_resources, qtbot):
+    """Real ``RUBEMHydrologicalDialog`` owned by pytest-qgis + qtbot."""
+    from plugin.dialog import RUBEMHydrologicalDialog
 
-    Args:
-        config: Pytest configuration object.
-    """
-    config.addinivalue_line("markers", "unit: Unit tests that don't require QGIS")
-    config.addinivalue_line(
-        "markers", "integration: Integration tests requiring QGIS environment"
-    )
-    config.addinivalue_line("markers", "slow: Slow running tests")
+    assert registered_resources  # ensure .rcc fixture ran
+    dlg = RUBEMHydrologicalDialog(qgis_iface)
+    qtbot.addWidget(dlg)
+    return dlg

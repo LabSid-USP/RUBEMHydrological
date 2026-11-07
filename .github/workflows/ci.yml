@@ -7,6 +7,10 @@ on:
     branches: [ main, development ]
   workflow_dispatch:
 
+env:
+  QT_QPA_PLATFORM: offscreen
+  PYTEST_QT_API: pyqt6
+
 jobs:
   lint:
     name: Lint and Type Check
@@ -47,13 +51,14 @@ jobs:
           poetry run ruff check
           plugin/dialog plugin/validation plugin/engine.py plugin/dependencies.py
           plugin/core.py plugin/report plugin/utils scripts/build_plugin.py __init__.py
+          test
 
       - name: Run Black on the live plugin path
         run: >
           poetry run black --check
           plugin/dialog plugin/validation plugin/engine.py plugin/dependencies.py
           plugin/core.py plugin/report plugin/utils scripts/build_plugin.py __init__.py
-          test/unit
+          test
 
       - name: Run MyPy on the project/engine surface
         # explicit_package_bases avoids dual-name errors when the checkout
@@ -82,16 +87,82 @@ jobs:
         run: |
           # Image Python is PEP 668 managed; keep qgis via --system-site-packages.
           python3 -m venv --system-site-packages .venv-ci
-          .venv-ci/bin/pip install pytest 'pydantic>=2.11,<3' 'humanize>=4' 'python-dateutil>=2' matplotlib pandas
+          .venv-ci/bin/pip install \
+            'pytest>=8.3,<9' \
+            'pytest-cov>=6,<7' \
+            'pydantic>=2.11,<3' \
+            'humanize>=4' \
+            'python-dateutil>=2' \
+            matplotlib pandas numpy
+
+      - name: Log runtime versions
+        run: |
+          .venv-ci/bin/python - <<'PY'
+          import sys
+          print("python", sys.version)
+          import qgis
+          print("qgis", getattr(qgis, "__file__", qgis))
+          PY
 
       - name: Run unit tests inside QGIS
         run: |
-          .venv-ci/bin/python -m pytest test/unit -m unit -o addopts= -p no:cacheprovider
+          .venv-ci/bin/python -m pytest test/unit -m unit \
+            -p no:cacheprovider -p no:pytest_qgis -p no:pytestqt \
+            --cov=plugin --cov=scripts \
+            --cov-report=term-missing --cov-report=xml
         env:
           QT_QPA_PLATFORM: offscreen
-          # Keep the image paths that expose ``qgis``; only prepending the repo
-          # would hide /usr/share/qgis/python from the QGIS 4.2 container.
+          PYTEST_QT_API: pyqt6
           PYTHONPATH: ${{ github.workspace }}:/usr/share/qgis/python:/usr/share/qgis/python/plugins
+
+      - name: Upload unit coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-unit
+          path: coverage.xml
+          if-no-files-found: ignore
+
+  test-gui:
+    name: GUI / Integration Tests (QGIS)
+    runs-on: ubuntu-latest
+    container:
+      image: qgis/qgis:4.2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Install GUI test dependencies beside the QGIS Python
+        run: |
+          python3 -m venv --system-site-packages .venv-ci
+          .venv-ci/bin/pip install \
+            'pytest>=8.3,<9' \
+            'pytest-cov>=6,<7' \
+            'pytest-qt>=4.5,<5' \
+            'pytest-qgis==5.0.2' \
+            'pydantic>=2.11,<3' \
+            'humanize>=4' \
+            'python-dateutil>=2' \
+            matplotlib pandas numpy
+
+      - name: Run integration tests inside QGIS
+        run: |
+          .venv-ci/bin/python -m pytest test/integration -m integration \
+            -p no:cacheprovider \
+            --cov=plugin --cov=scripts --cov-report=term-missing --cov-report=xml
+        env:
+          QT_QPA_PLATFORM: offscreen
+          PYTEST_QT_API: pyqt6
+          PYTHONPATH: ${{ github.workspace }}:/usr/share/qgis/python:/usr/share/qgis/python/plugins
+
+      - name: Upload GUI coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-gui
+          path: coverage.xml
+          if-no-files-found: ignore
 
   docs:
     name: Build Documentation
