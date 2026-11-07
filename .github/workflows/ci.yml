@@ -3,8 +3,9 @@ name: CI
 on:
   push:
     branches: [ main, development ]
+  # All PR bases (including stacked refactor/* / test/* branches). Restricting
+  # to main/development left stacked PRs with zero checks.
   pull_request:
-    branches: [ main, development ]
   workflow_dispatch:
 
 env:
