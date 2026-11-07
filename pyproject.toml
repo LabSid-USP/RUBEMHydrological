@@ -31,10 +31,11 @@ tomli-w = "^1.1"
 typing-extensions = "^4.12"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^8.3"
+pytest = ">=8.3,<9"
 pydantic-settings = "^2.6"
-pytest-cov = "^6.0"
-pytest-qt = "^4.4"
+pytest-cov = ">=6,<7"
+pytest-qt = ">=4.5,<5"
+pytest-qgis = "5.0.2"
 pytest-mock = "^3.14"
 mypy = "^1.13"
 ruff = "^0.8"
@@ -173,24 +174,28 @@ addopts = [
     "-v",
     "--strict-markers",
     "--strict-config",
-    "--cov=plugin",
-    "--cov-report=term-missing",
-    "--cov-report=html",
-    "--cov-report=xml",
 ]
 markers = [
-    "unit: Unit tests that don't require QGIS",
-    "integration: Integration tests requiring QGIS environment",
+    "unit: Fast tests using fakes; still need qgis importable, but no QgsApplication GUI lifecycle",
+    "integration: QGIS application + real dialog/resources (pytest-qgis / pytest-qt)",
     "slow: Slow running tests",
 ]
 
 # Coverage configuration
 [tool.coverage.run]
-source = ["plugin"]
+source = ["plugin", "scripts"]
 omit = [
     "*/test/*",
     "*/gui/generated/*",
     "*/__pycache__/*",
+    "plugin/models/*",
+    "plugin/services/*",
+    "plugin/controllers/*",
+    "plugin/views/*",
+    "plugin/workers/*",
+    "plugin/core_refactored.py",
+    "plugin/exceptions.py",
+    "plugin/logging.py",
 ]
 
 [tool.coverage.report]

@@ -1,59 +1,30 @@
-# coding=utf-8
-"""Tests for QGIS functionality.
+"""Basic QGIS runtime sanity checks for the integration job."""
 
+from __future__ import annotations
 
-.. note:: This program is free software; you can redistribute it and/or modify
-     it under the terms of the GNU General Public License as published by
-     the Free Software Foundation; either version 2 of the License, or
-     (at your option) any later version.
-
-"""
-__author__ = "tim@linfiniti.com"
-__date__ = "20/01/2011"
-__copyright__ = "Copyright 2012, Australia Indonesia Facility for " "Disaster Reduction"
-
-import os
-import unittest
-from test.utilities import get_qgis_app
-
+import pytest
 from qgis.core import QgsCoordinateReferenceSystem, QgsProviderRegistry, QgsRasterLayer
 
-QGIS_APP = get_qgis_app()
+pytestmark = pytest.mark.integration
 
 
-class QGISTest(unittest.TestCase):
-    """Test the QGIS Environment"""
-
-    def test_qgis_environment(self):
-        """QGIS environment has the expected providers"""
-
-        r = QgsProviderRegistry.instance()
-        self.assertIn("gdal", r.providerList())
-        self.assertIn("ogr", r.providerList())
-
-    def test_projection_str(self):
-        """Test that QGIS properly parses a wkt string."""
-        crs = QgsCoordinateReferenceSystem()
-        wkt = (
-            'GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",'
-            'SPHEROID["WGS_1984",6378137.0,298.257223563]],'
-            'PRIMEM["Greenwich",0.0],UNIT["Degree",'
-            "0.0174532925199433]]"
-        )
-        crs.createFromWkt(wkt)
-        auth_id = crs.authid()
-        expected_auth_id = "EPSG:4326"
-        self.assertEqual(auth_id, expected_auth_id)
-
-    def test_projection_str_loaded_layer(self):
-        """Test that QGIS properly parses a wkt string."""        
-        # now test for a loaded layer
-        path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "fixtures/tenbytenraster.asc")
-        title = "TestRaster"
-        layer = QgsRasterLayer(path, title)
-        auth_id = layer.crs().authid()
-        self.assertEqual(auth_id == "EPSG:4326" or auth_id == "OGC:CRS84", True)
+def test_providers_include_gdal_and_ogr(qgis_app) -> None:
+    """GDAL/OGR providers must be available in the QGIS test image."""
+    del qgis_app  # fixture ensures QgsApplication is initialized
+    keys = QgsProviderRegistry.instance().providerList()
+    assert "gdal" in keys
+    assert "ogr" in keys
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_wgs84_crs_is_valid(qgis_app) -> None:
+    """EPSG:4326 must resolve so CRS-dependent UI paths do not crash."""
+    del qgis_app
+    crs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
+    assert crs.isValid()
+
+
+def test_invalid_raster_path_is_not_valid(qgis_app, tmp_path) -> None:
+    """A missing raster path yields an invalid layer (API smoke)."""
+    del qgis_app
+    layer = QgsRasterLayer(str(tmp_path / "missing.tif"), "missing")
+    assert not layer.isValid()

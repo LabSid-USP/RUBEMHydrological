@@ -260,7 +260,59 @@ def test_configure_spawn_executable_raises_when_host_is_not_python(
 
 
 @pytest.mark.unit
-def test_ready_check_requires_native_pcraster_not_the_processing_plugin() -> None:
-    """QGIS 4 cannot install PCRaster Tools 0.4.0, so the gate is the import."""
+def test_ready_check_requires_native_pcraster_not_the_processing_plugin(
+    monkeypatch,
+) -> None:
+    """QGIS 4 cannot install PCRaster Tools 0.4.0, so the gate is the import.
+
+    The missing native dep is simulated so a correctly provisioned host still
+    fails the assertion the same way CI does.
+    """
+    ensure_submodule_on_path()
+    import rubem._deps as deps
+
+    monkeypatch.setattr(deps, "missing_runtime_deps", lambda: ["pcraster"])
+    monkeypatch.setattr(
+        deps,
+        "runtime_deps_message",
+        lambda missing: f"missing {', '.join(missing)}",
+    )
     with pytest.raises(ImportError, match="pcraster"):
         assert_ready()
+
+
+@pytest.mark.unit
+def test_run_project_forwards_to_isolated_model(monkeypatch, tmp_path: Path) -> None:
+    """``run_project`` calls ``Model.from_file(...).run_isolated()`` after ready."""
+    import sys
+    import types
+
+    config = tmp_path / "basin.json"
+    config.write_text("{}", encoding="utf-8")
+    out_dir = str(tmp_path / "out")
+
+    class _Result:
+        output_directory = out_dir
+
+    class _Model:
+        @classmethod
+        def from_file(cls, path):
+            assert path == str(config)
+            return cls()
+
+        def run_isolated(self):
+            return _Result()
+
+    monkeypatch.setattr("plugin.engine.assert_ready", lambda: tmp_path)
+    monkeypatch.setattr("plugin.engine.configure_spawn_executable", lambda: None)
+    rubem_pkg = types.ModuleType("rubem")
+    rubem_api = types.ModuleType("rubem.api")
+    rubem_api.Model = _Model
+    monkeypatch.setitem(sys.modules, "rubem", rubem_pkg)
+    monkeypatch.setitem(sys.modules, "rubem.api", rubem_api)
+
+    from plugin.engine import run_project
+
+    message = run_project(str(config))
+    assert "RUBEM wrote" in message
+    assert out_dir in message

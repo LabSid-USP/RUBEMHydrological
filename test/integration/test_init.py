@@ -1,68 +1,32 @@
-# coding=utf-8
-"""Tests QGIS plugin init."""
+"""Validate metadata.txt against plugins.qgis.org required fields."""
 
-__author__ = "Tim Sutton <tim@linfiniti.com>"
-__revision__ = "$Format:%H$"
-__date__ = "17/10/2010"
-__license__ = "GPL"
-__copyright__ = "Copyright 2012, Australia Indonesia Facility for "
-__copyright__ += "Disaster Reduction"
+from __future__ import annotations
 
 import configparser
-import logging
-import os
-import unittest
+from pathlib import Path
 
-LOGGER = logging.getLogger("QGIS")
+import pytest
 
+pytestmark = pytest.mark.integration
 
-class TestInit(unittest.TestCase):
-    """Test that the plugin init is usable for QGIS.
-
-    Based heavily on the validator class by Alessandro
-    Passoti available here:
-
-    http://github.com/qgis/qgis-django/blob/master/qgis-app/
-             plugins/validator.py
-
-    """
-
-    def test_read_init(self):
-        """Test that the plugin __init__ will validate on plugins.qgis.org."""
-
-        # You should update this list according to the latest in
-        # https://github.com/qgis/qgis-django/blob/master/qgis-app/
-        #        plugins/validator.py
-
-        required_metadata = [
-            "name",
-            "description",
-            "version",
-            "qgisMinimumVersion",
-            "email",
-            "author",
-        ]
-
-        file_path = os.path.abspath(
-            os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "metadata.txt")
-        )
-        LOGGER.info(file_path)
-        metadata = []
-        parser = configparser.ConfigParser()
-        parser.optionxform = str
-        parser.read(file_path)
-        message = 'Cannot find a section named "general" in %s' % file_path
-        assert parser.has_section("general"), message
-        metadata.extend(parser.items("general"))
-
-        for expectation in required_metadata:
-            message = 'Cannot find metadata "%s" in metadata source (%s).' % (
-                expectation,
-                file_path,
-            )
-
-            self.assertIn(expectation, dict(metadata), message)
+ROOT = Path(__file__).resolve().parents[2]
+REQUIRED_METADATA = (
+    "name",
+    "description",
+    "version",
+    "qgisMinimumVersion",
+    "email",
+    "author",
+)
 
 
-if __name__ == "__main__":
-    unittest.main()
+def test_metadata_has_plugins_qgis_org_required_fields() -> None:
+    """plugins.qgis.org rejects uploads missing these general keys."""
+    path = ROOT / "metadata.txt"
+    parser = configparser.ConfigParser()
+    parser.optionxform = str
+    parser.read(path)
+    assert parser.has_section("general"), f"no [general] in {path}"
+    metadata = dict(parser.items("general"))
+    for key in REQUIRED_METADATA:
+        assert key in metadata, f'missing metadata "{key}" in {path}'

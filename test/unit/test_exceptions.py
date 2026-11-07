@@ -9,15 +9,15 @@ from __future__ import annotations
 import pytest
 
 from plugin.exceptions import (
-    RUBEMException,
     ConfigurationError,
-    ValidationError,
     FileOperationError,
-    RasterOperationError,
     ModelExecutionError,
     PluginInitializationError,
-    WorkerError,
+    RasterOperationError,
+    RUBEMException,
     UIError,
+    ValidationError,
+    WorkerError,
 )
 
 
